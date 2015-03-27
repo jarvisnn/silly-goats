@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9601A6C31AC5A32A00B44CF1 /* yellowStar.png in Resources */ = {isa = PBXBuildFile; fileRef = 9601A6C21AC5A32A00B44CF1 /* yellowStar.png */; };
+		9601A6C91AC5B34700B44CF1 /* greenStar.png in Resources */ = {isa = PBXBuildFile; fileRef = 9601A6C81AC5B34700B44CF1 /* greenStar.png */; };
+		9601A6CB1AC5BC0800B44CF1 /* blueStar.png in Resources */ = {isa = PBXBuildFile; fileRef = 9601A6CA1AC5BC0800B44CF1 /* blueStar.png */; };
+		9601A6CD1AC5BC2000B44CF1 /* yellowStar.png in Resources */ = {isa = PBXBuildFile; fileRef = 9601A6CC1AC5BC2000B44CF1 /* yellowStar.png */; };
 		9602289D1AC57378002CE21F /* redStar.png in Resources */ = {isa = PBXBuildFile; fileRef = 9602289A1AC57378002CE21F /* redStar.png */; };
-		9602289E1AC57378002CE21F /* greenStar.png in Resources */ = {isa = PBXBuildFile; fileRef = 9602289B1AC57378002CE21F /* greenStar.png */; };
 		9602289F1AC57378002CE21F /* purpleStar.png in Resources */ = {isa = PBXBuildFile; fileRef = 9602289C1AC57378002CE21F /* purpleStar.png */; };
 		960228A11AC59355002CE21F /* misc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960228A01AC59355002CE21F /* misc.swift */; };
 		9603D71A1AC3F7E3004D3C48 /* Bridge-new.png in Resources */ = {isa = PBXBuildFile; fileRef = 9603D7191AC3F7E3004D3C48 /* Bridge-new.png */; };
@@ -38,9 +39,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		9601A6C21AC5A32A00B44CF1 /* yellowStar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yellowStar.png; sourceTree = "<group>"; };
+		9601A6C81AC5B34700B44CF1 /* greenStar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greenStar.png; sourceTree = "<group>"; };
+		9601A6CA1AC5BC0800B44CF1 /* blueStar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueStar.png; sourceTree = "<group>"; };
+		9601A6CC1AC5BC2000B44CF1 /* yellowStar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yellowStar.png; sourceTree = "<group>"; };
 		9602289A1AC57378002CE21F /* redStar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redStar.png; sourceTree = "<group>"; };
-		9602289B1AC57378002CE21F /* greenStar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greenStar.png; sourceTree = "<group>"; };
 		9602289C1AC57378002CE21F /* purpleStar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = purpleStar.png; sourceTree = "<group>"; };
 		960228A01AC59355002CE21F /* misc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = misc.swift; sourceTree = "<group>"; };
 		9603D7191AC3F7E3004D3C48 /* Bridge-new.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Bridge-new.png"; sourceTree = "<group>"; };
@@ -114,9 +116,10 @@
 				96972B4D1AC2C77000FF2DC5 /* Main.storyboard */,
 				96972B501AC2C77000FF2DC5 /* Images.xcassets */,
 				9602289A1AC57378002CE21F /* redStar.png */,
-				9601A6C21AC5A32A00B44CF1 /* yellowStar.png */,
-				9602289B1AC57378002CE21F /* greenStar.png */,
 				9602289C1AC57378002CE21F /* purpleStar.png */,
+				9601A6CC1AC5BC2000B44CF1 /* yellowStar.png */,
+				9601A6CA1AC5BC0800B44CF1 /* blueStar.png */,
+				9601A6C81AC5B34700B44CF1 /* greenStar.png */,
 				96972B521AC2C77000FF2DC5 /* LaunchScreen.xib */,
 				96972B431AC2C77000FF2DC5 /* Supporting Files */,
 			);
@@ -229,14 +232,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				9602289F1AC57378002CE21F /* purpleStar.png in Resources */,
+				9601A6C91AC5B34700B44CF1 /* greenStar.png in Resources */,
 				9602289D1AC57378002CE21F /* redStar.png in Resources */,
+				9601A6CD1AC5BC2000B44CF1 /* yellowStar.png in Resources */,
 				96972B541AC2C77000FF2DC5 /* LaunchScreen.xib in Resources */,
-				9601A6C31AC5A32A00B44CF1 /* yellowStar.png in Resources */,
 				9603D71A1AC3F7E3004D3C48 /* Bridge-new.png in Resources */,
-				9602289E1AC57378002CE21F /* greenStar.png in Resources */,
 				96972B511AC2C77000FF2DC5 /* Images.xcassets in Resources */,
 				96972B481AC2C77000FF2DC5 /* GameScene.sks in Resources */,
 				96972B4F1AC2C77000FF2DC5 /* Main.storyboard in Resources */,
+				9601A6CB1AC5BC0800B44CF1 /* blueStar.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

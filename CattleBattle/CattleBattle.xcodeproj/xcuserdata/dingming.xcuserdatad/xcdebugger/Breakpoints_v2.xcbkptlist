@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CattleBattle/Animal.swift"
-            timestampString = "449157112.330473"
+            timestampString = "449171236.872401"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "25"
-            endingLineNumber = "25"
+            startingLineNumber = "39"
+            endingLineNumber = "39"
             landmarkName = "init(type:)"
             landmarkType = "5">
          </BreakpointContent>

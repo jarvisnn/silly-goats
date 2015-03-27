@@ -36,14 +36,12 @@ class GameViewController: UIViewController {
     
     @IBOutlet weak var LeftButtonView: UIView!
     
-    var tmpType = Animal.name.size2
-    
     var sheepScene : GameScene!
     var sheepView : UIView!
     @IBAction func rightLaunch(sender: UIButton) {
         
         if self.gameModel.rightSelectedCattleIndex != -1 {
-            tmpType = (self.sheepScene.rightReadyButton[self.gameModel.rightSelectedCattleIndex] as! LoadingCattleNode).currentType
+            var tmpType = (self.sheepScene.rightReadyButton[self.gameModel.rightSelectedCattleIndex] as! LoadingCattleNode).currentType
             var button = sender as UIButton
             if self.sheepScene != nil {
                 switch button.tag {
@@ -62,7 +60,7 @@ class GameViewController: UIViewController {
     
     @IBAction func leftLaunch(sender: UIButton) {
         if self.gameModel.leftSelectedCattleIndex != -1 {
-            tmpType = (self.sheepScene.leftReadyButton[self.gameModel.leftSelectedCattleIndex] as! LoadingCattleNode).currentType
+            var tmpType = (self.sheepScene.leftReadyButton[self.gameModel.leftSelectedCattleIndex] as! LoadingCattleNode).currentType
             var button = sender as UIButton
             if self.sheepScene != nil {
                 switch button.tag {
@@ -112,9 +110,16 @@ class GameViewController: UIViewController {
             scene.backgroundColor = UIColor.clearColor()
             skView.presentScene(scene)
             
-           
             
+            var image1 = UIImage(named: "yellowStar.png")!
             
+            println(image1.size.width)
+            println(image1.size.height)
+            
+            var image2 = UIImage(named: "redStar.png")!
+            
+            println(image2.size.width)
+            println(image2.size.height)
             
         }
     }
