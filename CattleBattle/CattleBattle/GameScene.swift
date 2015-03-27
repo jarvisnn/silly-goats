@@ -20,14 +20,6 @@ class GameScene: SKScene {
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
         
-        
-//        let myLabel = SKLabelNode(fontNamed:"Chalkduster")
-//        myLabel.text = "Hello, World!";
-//        myLabel.fontSize = 65;
-//        myLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame));
-//        
-//        self.addChild(myLabel)
-
         for i in 0...2 {
             var node = LoadingCattleNode.loadingCattle(CGPoint(x: 100 + i * 100, y : 650), animalIndex : 1)
             node.xScale = 0.03
@@ -45,6 +37,9 @@ class GameScene: SKScene {
             self.addChild(node)
             self.rightReadyButton.append(node)
         }
+        
+//        var tmpNode = self.leftReadyButton[1] as! LoadingCattleNode
+//        tmpNode.changeImage(Animal.name.size3)
         
 
     }
@@ -81,10 +76,8 @@ class GameScene: SKScene {
         /* Called before each frame is rendered */
     }
     
-    func addObject(location : CGPoint, direction : Int) {
-        let sprite = StarNode.star(location, direction: direction)
-        sprite.xScale = 0.03
-        sprite.yScale = 0.03
+    func addObject(location : CGPoint, direction : Int, type : Animal.name) {
+        let sprite = StarNode.getAnimal(location, direction: direction, type : type)
         self.addChild(sprite)
     }
     
@@ -116,6 +109,16 @@ class GameScene: SKScene {
     
     func setGameModel (model : GameModel) {
         self.gameModel = model
+    }
+    
+    func replaceReadyButton(side : GameModel.side, index: Int) {
+        if side == .left {
+            var tmpNode = self.leftReadyButton[index] as! LoadingCattleNode
+            tmpNode.generateRandomAnimal()
+        } else if side == .right {
+            var tmpNode = self.rightReadyButton[index] as! LoadingCattleNode
+            tmpNode.generateRandomAnimal()
+        }
     }
     
 }

@@ -9,14 +9,17 @@ import UIKit
 import SpriteKit
 
 class StarNode: SKSpriteNode {
-    class func star(location: CGPoint, direction : Int) -> StarNode {
-        let sprite = StarNode(imageNamed:"star.png")
+    
+    class func getAnimal(location: CGPoint, direction : Int, type : Animal.name) -> StarNode {
+        var animal = Animal(type : type)
+        var imageName = animal.getImageName()
+        let sprite = StarNode(imageNamed:imageName)
         
         sprite.xScale = 0.075
         sprite.yScale = 0.075
         sprite.position = location
         
-        var tex = SKTexture(imageNamed: "star.png")
+        var tex = SKTexture(imageNamed: imageName)
         
 //       sprite.physicsBody = SKPhysicsBody(texture: tex, size: sprite.size)
         var imageSize = CGSizeMake(sprite.size.width + (CGFloat)(2), sprite.size.height + (CGFloat)(2))

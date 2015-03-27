@@ -36,40 +36,45 @@ class GameViewController: UIViewController {
     
     @IBOutlet weak var LeftButtonView: UIView!
     
-
+    var tmpType = Animal.name.size2
     
     var sheepScene : GameScene!
     var sheepView : UIView!
     @IBAction func rightLaunch(sender: UIButton) {
+        
         if self.gameModel.rightSelectedCattleIndex != -1 {
+            tmpType = (self.sheepScene.rightReadyButton[self.gameModel.rightSelectedCattleIndex] as! LoadingCattleNode).currentType
             var button = sender as UIButton
             if self.sheepScene != nil {
                 switch button.tag {
-                case 1 : self.sheepScene.addObject(CGPoint(x: 840, y: 500), direction: -1)
-                case 2 : self.sheepScene.addObject(CGPoint(x: 840, y: 420), direction: -1)
-                case 3 : self.sheepScene.addObject(CGPoint(x: 840, y: 340), direction: -1)
-                case 4 : self.sheepScene.addObject(CGPoint(x: 840, y: 260), direction: -1)
-                case 5 : self.sheepScene.addObject(CGPoint(x: 840, y: 180), direction: -1)
+                case 1 : self.sheepScene.addObject(CGPoint(x: 840, y: 500), direction: -1, type: tmpType)
+                case 2 : self.sheepScene.addObject(CGPoint(x: 840, y: 420), direction: -1, type: tmpType)
+                case 3 : self.sheepScene.addObject(CGPoint(x: 840, y: 340), direction: -1, type: tmpType)
+                case 4 : self.sheepScene.addObject(CGPoint(x: 840, y: 260), direction: -1, type: tmpType)
+                case 5 : self.sheepScene.addObject(CGPoint(x: 840, y: 180), direction: -1, type: tmpType)
                 default : ()
                 }
             }
+            self.sheepScene.replaceReadyButton(.right, index: self.gameModel.rightSelectedCattleIndex)
             self.gameModel.clearRightReadyIndex()
         }
     }
     
     @IBAction func leftLaunch(sender: UIButton) {
         if self.gameModel.leftSelectedCattleIndex != -1 {
+            tmpType = (self.sheepScene.leftReadyButton[self.gameModel.leftSelectedCattleIndex] as! LoadingCattleNode).currentType
             var button = sender as UIButton
             if self.sheepScene != nil {
                 switch button.tag {
-                case 1 : self.sheepScene.addObject(CGPoint(x: 110, y: 500), direction: 1)
-                case 2 : self.sheepScene.addObject(CGPoint(x: 110, y: 420), direction: 1)
-                case 3 : self.sheepScene.addObject(CGPoint(x: 110, y: 340), direction: 1)
-                case 4 : self.sheepScene.addObject(CGPoint(x: 110, y: 260), direction: 1)
-                case 5 : self.sheepScene.addObject(CGPoint(x: 110, y: 180), direction: 1)
+                case 1 : self.sheepScene.addObject(CGPoint(x: 110, y: 500), direction: 1, type: tmpType)
+                case 2 : self.sheepScene.addObject(CGPoint(x: 110, y: 420), direction: 1, type: tmpType)
+                case 3 : self.sheepScene.addObject(CGPoint(x: 110, y: 340), direction: 1, type: tmpType)
+                case 4 : self.sheepScene.addObject(CGPoint(x: 110, y: 260), direction: 1, type: tmpType)
+                case 5 : self.sheepScene.addObject(CGPoint(x: 110, y: 180), direction: 1, type: tmpType)
                 default : ()
                 }
             }
+            self.sheepScene.replaceReadyButton(.left, index: self.gameModel.leftSelectedCattleIndex)
             self.gameModel.clearLeftReadyIndex()
         }
     }
