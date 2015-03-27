@@ -8,8 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		9603D71A1AC3F7E3004D3C48 /* Bridge-new.png in Resources */ = {isa = PBXBuildFile; fileRef = 9603D7191AC3F7E3004D3C48 /* Bridge-new.png */; };
+		9616925F1AC4621C0016523C /* GameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9616925E1AC4621C0016523C /* GameModel.swift */; };
 		96265A4C1AC3DEC60009809F /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = 96265A4B1AC3DEC60009809F /* star.png */; };
 		96265A4E1AC3DF080009809F /* SpriteNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96265A4D1AC3DF080009809F /* SpriteNode.swift */; };
+		9660B9FF1AC44F4A00A053A2 /* LoadingCattleNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9660B9FE1AC44F4A00A053A2 /* LoadingCattleNode.swift */; };
+		967F6D891AC55C1B00B50207 /* Animal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F6D881AC55C1B00B50207 /* Animal.swift */; };
 		96972B461AC2C77000FF2DC5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96972B451AC2C77000FF2DC5 /* AppDelegate.swift */; };
 		96972B481AC2C77000FF2DC5 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 96972B471AC2C77000FF2DC5 /* GameScene.sks */; };
 		96972B4A1AC2C77000FF2DC5 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96972B491AC2C77000FF2DC5 /* GameScene.swift */; };
@@ -32,8 +35,11 @@
 
 /* Begin PBXFileReference section */
 		9603D7191AC3F7E3004D3C48 /* Bridge-new.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Bridge-new.png"; sourceTree = "<group>"; };
+		9616925E1AC4621C0016523C /* GameModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameModel.swift; sourceTree = "<group>"; };
 		96265A4B1AC3DEC60009809F /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
 		96265A4D1AC3DF080009809F /* SpriteNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpriteNode.swift; sourceTree = "<group>"; };
+		9660B9FE1AC44F4A00A053A2 /* LoadingCattleNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingCattleNode.swift; sourceTree = "<group>"; };
+		967F6D881AC55C1B00B50207 /* Animal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animal.swift; sourceTree = "<group>"; };
 		96972B401AC2C77000FF2DC5 /* CattleBattle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CattleBattle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96972B441AC2C77000FF2DC5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		96972B451AC2C77000FF2DC5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -92,6 +98,9 @@
 				96972B491AC2C77000FF2DC5 /* GameScene.swift */,
 				96972B4B1AC2C77000FF2DC5 /* GameViewController.swift */,
 				96265A4D1AC3DF080009809F /* SpriteNode.swift */,
+				9616925E1AC4621C0016523C /* GameModel.swift */,
+				9660B9FE1AC44F4A00A053A2 /* LoadingCattleNode.swift */,
+				967F6D881AC55C1B00B50207 /* Animal.swift */,
 				9603D7191AC3F7E3004D3C48 /* Bridge-new.png */,
 				96972B4D1AC2C77000FF2DC5 /* Main.storyboard */,
 				96972B501AC2C77000FF2DC5 /* Images.xcassets */,
@@ -234,6 +243,9 @@
 				96972B4A1AC2C77000FF2DC5 /* GameScene.swift in Sources */,
 				96972B4C1AC2C77000FF2DC5 /* GameViewController.swift in Sources */,
 				96972B461AC2C77000FF2DC5 /* AppDelegate.swift in Sources */,
+				967F6D891AC55C1B00B50207 /* Animal.swift in Sources */,
+				9660B9FF1AC44F4A00A053A2 /* LoadingCattleNode.swift in Sources */,
+				9616925F1AC4621C0016523C /* GameModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -26,6 +26,8 @@ extension SKNode {
 }
 
 class GameViewController: UIViewController {
+    
+    let gameModel = GameModel()
 
     @IBOutlet var RGR: UIRotationGestureRecognizer!
     
@@ -33,53 +35,46 @@ class GameViewController: UIViewController {
     @IBOutlet weak var RightButtonView: UIView!
     
     @IBOutlet weak var LeftButtonView: UIView!
+    
+
+    
     var sheepScene : GameScene!
     var sheepView : UIView!
     @IBAction func rightLaunch(sender: UIButton) {
-        print ("dad")
-        var button = sender as UIButton
-        if self.sheepScene != nil {
-            switch button.tag {
-            case 1 : self.sheepScene.addObject(CGPoint(x: 840, y: 500), direction: -1)
-            case 2 : self.sheepScene.addObject(CGPoint(x: 840, y: 420), direction: -1)
-            case 3 : self.sheepScene.addObject(CGPoint(x: 840, y: 340), direction: -1)
-            case 4 : self.sheepScene.addObject(CGPoint(x: 840, y: 260), direction: -1)
-            case 5 : self.sheepScene.addObject(CGPoint(x: 840, y: 180), direction: -1)
-            default : print("NO LOL")
+        if self.gameModel.rightSelectedCattleIndex != -1 {
+            var button = sender as UIButton
+            if self.sheepScene != nil {
+                switch button.tag {
+                case 1 : self.sheepScene.addObject(CGPoint(x: 840, y: 500), direction: -1)
+                case 2 : self.sheepScene.addObject(CGPoint(x: 840, y: 420), direction: -1)
+                case 3 : self.sheepScene.addObject(CGPoint(x: 840, y: 340), direction: -1)
+                case 4 : self.sheepScene.addObject(CGPoint(x: 840, y: 260), direction: -1)
+                case 5 : self.sheepScene.addObject(CGPoint(x: 840, y: 180), direction: -1)
+                default : ()
+                }
             }
-//            self.sheepScene.addObject(button.center, direction: -1)
-            print(button.center)
+            self.gameModel.clearRightReadyIndex()
         }
     }
     
     @IBAction func leftLaunch(sender: UIButton) {
-        var button = sender as UIButton
-        if self.sheepScene != nil {
-            switch button.tag {
-            case 1 : self.sheepScene.addObject(CGPoint(x: 110, y: 500), direction: 1)
-            case 2 : self.sheepScene.addObject(CGPoint(x: 110, y: 420), direction: 1)
-            case 3 : self.sheepScene.addObject(CGPoint(x: 110, y: 340), direction: 1)
-            case 4 : self.sheepScene.addObject(CGPoint(x: 110, y: 260), direction: 1)
-            case 5 : self.sheepScene.addObject(CGPoint(x: 110, y: 180), direction: -1)
-            default : print("NO LOL")
+        if self.gameModel.leftSelectedCattleIndex != -1 {
+            var button = sender as UIButton
+            if self.sheepScene != nil {
+                switch button.tag {
+                case 1 : self.sheepScene.addObject(CGPoint(x: 110, y: 500), direction: 1)
+                case 2 : self.sheepScene.addObject(CGPoint(x: 110, y: 420), direction: 1)
+                case 3 : self.sheepScene.addObject(CGPoint(x: 110, y: 340), direction: 1)
+                case 4 : self.sheepScene.addObject(CGPoint(x: 110, y: 260), direction: 1)
+                case 5 : self.sheepScene.addObject(CGPoint(x: 110, y: 180), direction: 1)
+                default : ()
+                }
             }
+            self.gameModel.clearLeftReadyIndex()
         }
     }
     
-    
-    
-    var lastRotation = CGFloat(0.0)
-    @IBAction func rotated(sender: UIRotationGestureRecognizer) {
-        if(sender.state == UIGestureRecognizerState.Ended) {
-            lastRotation = 0.0;
-            return
-        }
-        
-        var rotation = 0.0 - (sender.rotation - lastRotation)
-        var trans = CGAffineTransformMakeRotation(rotation)
-        
-        
-    }
+
     
     
     override func viewDidLoad() {
@@ -90,6 +85,7 @@ class GameViewController: UIViewController {
 
         if let scene = GameScene.unarchiveFromFile("GameScene") as? GameScene {
             // Configure the view.
+            scene.setGameModel(gameModel)
             let skView = self.sheepView as! SKView
             skView.showsFPS = true
             skView.showsNodeCount = true

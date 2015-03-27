@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>67CF7963-8DC2-424E-980A-941F5B867384</string>
+	<key>IDESourceControlProjectName</key>
+	<string>CattleBattle</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>35B676531CA5E6E94582889F7AD48597474298AC</key>
+		<string>https://bitbucket.org/cs3217/2015-final-group09.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>CattleBattle/CattleBattle.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>35B676531CA5E6E94582889F7AD48597474298AC</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://bitbucket.org/cs3217/2015-final-group09.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>35B676531CA5E6E94582889F7AD48597474298AC</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>35B676531CA5E6E94582889F7AD48597474298AC</string>
+			<key>IDESourceControlWCCName</key>
+			<string>2015-final-group09</string>
+		</dict>
+	</array>
+</dict>
+</plist>
