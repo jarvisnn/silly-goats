@@ -22,9 +22,6 @@ class LoadingCattleNode: SKSpriteNode {
     class func loadingCattle(location: CGPoint, animalIndex : Int) -> LoadingCattleNode {
         let sprite = LoadingCattleNode(imageNamed:"yellowStar.png")
         sprite.generateRandomAnimal()
-        
-        sprite.xScale = 0.075
-        sprite.yScale = 0.075
         sprite.position = location
         
        
@@ -55,6 +52,11 @@ class LoadingCattleNode: SKSpriteNode {
         
     }
     
+    func resize() {
+        self.xScale = Animal(type: self.currentType).getImageScale().0
+        self.yScale = Animal(type: self.currentType).getImageScale().1
+    }
+    
     func generateRandomAnimal() {
         var generatingType : Animal.name
         var rand = Double(Float(arc4random()) / Float(UINT32_MAX))
@@ -69,6 +71,7 @@ class LoadingCattleNode: SKSpriteNode {
         }
         self.currentType = generatingType
         self.changeImage(generatingType)
+        self.resize()
     }
     
 }

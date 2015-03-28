@@ -18,13 +18,13 @@ class Animal {
     let ErrorName = ""
     
     let scale1x : CGFloat = 0.030
-    let scale1y : CGFloat = 0.040
+    let scale1y : CGFloat = 0.030
     let scale2x : CGFloat = 0.025
-    let scale2y : CGFloat = 0.040
+    let scale2y : CGFloat = 0.025
     let scale3x : CGFloat = 0.020
-    let scale3y : CGFloat = 0.040
+    let scale3y : CGFloat = 0.020
     let scale4x : CGFloat = 0.015
-    let scale4y : CGFloat = 0.040
+    let scale4y : CGFloat = 0.015
     
     let mass1 : CGFloat = 4
     let mass2 : CGFloat = 3

@@ -20,10 +20,10 @@ class GameScene: SKScene {
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
         
+        // Set up the left/right ready button
         for i in 0...2 {
             var node = LoadingCattleNode.loadingCattle(CGPoint(x: 100 + i * 100, y : 650), animalIndex : 1)
-            node.xScale = 0.03
-            node.yScale = 0.03
+
             node.name = READY_BUTTON_NAME
             self.addChild(node)
             self.leftReadyButton.append(node)
@@ -31,17 +31,11 @@ class GameScene: SKScene {
         
         for i in 0...2 {
             var node = LoadingCattleNode.loadingCattle(CGPoint(x: (Int)(self.frame.width) - 100 - i * 100, y : 650), animalIndex : 1)
-            node.xScale = 0.03
-            node.yScale = 0.03
+
             node.name = READY_BUTTON_NAME
             self.addChild(node)
             self.rightReadyButton.append(node)
         }
-        
-//        var tmpNode = self.leftReadyButton[1] as! LoadingCattleNode
-//        tmpNode.changeImage(Animal.name.size3)
-        
-
     }
     
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
@@ -54,26 +48,27 @@ class GameScene: SKScene {
                 self.receiveReadyButtonClick(node)
                 
             }
-            //node.removeFromParent()
             
-            
-//            touch.l
-        
-//            for touch: AnyObject in touches {
-//                let sprite = StarNode.star(touch.locationInNode(self), direction: dir)
-//                changeDirection()
-//                sprite.xScale = 0.03
-//                sprite.yScale = 0.03
-//                self.addChild(sprite)
-//            }
-           
           }
     }
     
    
    
     override func update(currentTime: CFTimeInterval) {
-        /* Called before each frame is rendered */
+        for i in self.children {
+            var node = i as! SKSpriteNode
+            if node.name != nil && node.name == "leftRunning" {
+                var runningNode = node as! StarNode
+                var animal = Animal(type: runningNode.animalType)
+                runningNode.physicsBody!.velocity.dx = -300 * animal.getImageMass() / 10
+            }
+            if node.name != nil && node.name == "rightRunning" {
+                var runningNode = node as! StarNode
+                var animal = Animal(type: runningNode.animalType)
+                runningNode.physicsBody!.velocity.dx = 300 * animal.getImageMass() / 10
+            }
+
+        }
     }
     
     func addObject(location : CGPoint, direction : Int, type : Animal.name) {
