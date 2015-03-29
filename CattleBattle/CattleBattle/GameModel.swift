@@ -12,7 +12,9 @@ class GameModel {
     let NUMBER_OF_READY_CATTLE = 3
     
     var LeftReadyList : [Bool] = []
+    var LeftIsLoading : [Bool] = []
     var rightReadyList : [Bool] = []
+    var RightIsLoading : [Bool] = []
     var leftSelectedCattleIndex = -1
     var rightSelectedCattleIndex = -1
     
@@ -23,7 +25,9 @@ class GameModel {
     init () {
         for i in 0...NUMBER_OF_READY_CATTLE-1  {
             LeftReadyList.append(true)
+            LeftIsLoading.append(false)
             rightReadyList.append(true)
+            LeftIsLoading.append(false)
         }
     }
     
@@ -44,8 +48,6 @@ class GameModel {
                 self.rightSelectedCattleIndex = index
             }
             
-            println (leftSelectedCattleIndex)
-            println (rightSelectedCattleIndex)
             return true
         }
         return false
@@ -57,7 +59,8 @@ class GameModel {
             return
         }
         self.setCattleStatus(side, index: index, status: false)
-        self.reloadCattle(side , index : index)
+        
+//        self.reloadCattle(side , index : index)
     }
     
     // to set the status of ready cattle

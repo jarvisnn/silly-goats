@@ -26,6 +26,7 @@
 		96972B511AC2C77000FF2DC5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96972B501AC2C77000FF2DC5 /* Images.xcassets */; };
 		96972B541AC2C77000FF2DC5 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96972B521AC2C77000FF2DC5 /* LaunchScreen.xib */; };
 		96972B601AC2C77000FF2DC5 /* CattleBattleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96972B5F1AC2C77000FF2DC5 /* CattleBattleTests.swift */; };
+		96B4937F1AC7E77A00F24D0B /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B4937E1AC7E77A00F24D0B /* Constant.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +63,7 @@
 		96972B591AC2C77000FF2DC5 /* CattleBattleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CattleBattleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		96972B5E1AC2C77000FF2DC5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		96972B5F1AC2C77000FF2DC5 /* CattleBattleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CattleBattleTests.swift; sourceTree = "<group>"; };
+		96B4937E1AC7E77A00F24D0B /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 				9616925E1AC4621C0016523C /* GameModel.swift */,
 				9660B9FE1AC44F4A00A053A2 /* LoadingCattleNode.swift */,
 				967F6D881AC55C1B00B50207 /* Animal.swift */,
+				96B4937E1AC7E77A00F24D0B /* Constant.swift */,
 				960228A01AC59355002CE21F /* misc.swift */,
 				9603D7191AC3F7E3004D3C48 /* Bridge-new.png */,
 				96972B4D1AC2C77000FF2DC5 /* Main.storyboard */,
@@ -261,6 +264,7 @@
 			files = (
 				96265A4E1AC3DF080009809F /* SpriteNode.swift in Sources */,
 				960228A11AC59355002CE21F /* misc.swift in Sources */,
+				96B4937F1AC7E77A00F24D0B /* Constant.swift in Sources */,
 				96972B4A1AC2C77000FF2DC5 /* GameScene.swift in Sources */,
 				96972B4C1AC2C77000FF2DC5 /* GameViewController.swift in Sources */,
 				96972B461AC2C77000FF2DC5 /* AppDelegate.swift in Sources */,

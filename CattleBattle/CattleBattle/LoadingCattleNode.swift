@@ -72,6 +72,17 @@ class LoadingCattleNode: SKSpriteNode {
         self.currentType = generatingType
         self.changeImage(generatingType)
         self.resize()
+        
     }
     
+    func fadeAnimation(gameModel : GameModel, side : GameModel.side, index : Int){
+        self.alpha = 0
+        var action1 = SKAction.fadeInWithDuration(3)
+        var action2 = SKAction.scaleBy(1.2, duration: 0.3)
+        var action3 = action2.reversedAction()
+        var actionList = SKAction.sequence([action1, action2 ,action3])
+        self.runAction(actionList, completion: { () -> Void in            
+            gameModel.reloadCattle(side, index: index)
+        })
+    }
 }

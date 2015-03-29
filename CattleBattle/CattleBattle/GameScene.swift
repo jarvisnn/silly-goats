@@ -11,7 +11,10 @@ import SpriteKit
 class GameScene: SKScene {
     
     var gameModel : GameModel = GameModel() // should be constant. not implemented due to non-nullable class GameModel
+    var leftPlayerScoreNode = SKLabelNode()
+    var rightPlayerScoreNode  = SKLabelNode()
     let READY_BUTTON_NAME = "READY_BUTTON"
+    let constant = Constant()
     
     var dir = 1
     var leftReadyButton :[SKNode] = []
@@ -36,6 +39,28 @@ class GameScene: SKScene {
             self.addChild(node)
             self.rightReadyButton.append(node)
         }
+        
+        let vsLabel = SKLabelNode(fontNamed:"Chalkduster")
+        vsLabel.text = "VS";
+        vsLabel.fontSize = 40;
+        vsLabel.position = CGPoint(x: 512, y : 650);
+        
+        self.addChild(vsLabel)
+        
+        leftPlayerScoreNode = SKLabelNode(fontNamed:"Chalkduster")
+        leftPlayerScoreNode.text = "000";
+        leftPlayerScoreNode.fontSize = 40;
+        leftPlayerScoreNode.position = CGPoint(x: 420, y : 650);
+        
+        self.addChild(leftPlayerScoreNode)
+        
+        rightPlayerScoreNode = SKLabelNode(fontNamed:"Chalkduster")
+        rightPlayerScoreNode.text = "999";
+        rightPlayerScoreNode.fontSize = 40;
+        rightPlayerScoreNode.position = CGPoint(x: 604, y : 650);
+        
+        self.addChild(rightPlayerScoreNode)
+
     }
     
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
@@ -55,19 +80,26 @@ class GameScene: SKScene {
    
    
     override func update(currentTime: CFTimeInterval) {
+
         for i in self.children {
-            var node = i as! SKSpriteNode
+            var node = i as! SKNode
+            
             if node.name != nil && node.name == "leftRunning" {
                 var runningNode = node as! StarNode
                 var animal = Animal(type: runningNode.animalType)
                 runningNode.physicsBody!.velocity.dx = -300 * animal.getImageMass() / 10
+                if node.position.x < constant.GAME_VIEW_LEFT_BOUNDARY || node.position.x > constant.GAME_VIEW_RIGHT_BOUNDARY {
+                    node.removeFromParent()
+                }
             }
             if node.name != nil && node.name == "rightRunning" {
                 var runningNode = node as! StarNode
                 var animal = Animal(type: runningNode.animalType)
                 runningNode.physicsBody!.velocity.dx = 300 * animal.getImageMass() / 10
+                if node.position.x < constant.GAME_VIEW_LEFT_BOUNDARY || node.position.x > constant.GAME_VIEW_RIGHT_BOUNDARY  {
+                    node.removeFromParent()
+                }
             }
-
         }
     }
     
@@ -96,8 +128,10 @@ class GameScene: SKScene {
             println("ERROR: No ready button is clicked")
             return false
         }
-        
-        self.gameModel.setReady(side, index: index)
+
+        if self.gameModel.isCattleReady(side, index: index) {
+            self.gameModel.setReady(side, index: index)
+        }
         
         return true
     }
@@ -110,9 +144,11 @@ class GameScene: SKScene {
         if side == .left {
             var tmpNode = self.leftReadyButton[index] as! LoadingCattleNode
             tmpNode.generateRandomAnimal()
+            tmpNode.fadeAnimation(self.gameModel, side: side, index: index)
         } else if side == .right {
             var tmpNode = self.rightReadyButton[index] as! LoadingCattleNode
             tmpNode.generateRandomAnimal()
+            tmpNode.fadeAnimation(self.gameModel, side: side, index: index)
         }
     }
     

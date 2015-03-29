@@ -24,10 +24,6 @@
                                         <rect key="frame" x="0.0" y="161" width="848" height="109"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Bridge-new.png" id="uF0-8p-tqY">
-                                        <rect key="frame" x="0.0" y="62" width="856" height="109"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Bridge-new.png" id="gMg-We-XOy">
                                         <rect key="frame" x="0.0" y="461" width="848" height="109"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -36,10 +32,14 @@
                                         <rect key="frame" x="-3" y="261" width="855" height="109"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Bridge-new.png" id="uF0-8p-tqY">
+                                        <rect key="frame" x="0.0" y="62" width="856" height="109"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    </imageView>
                                 </subviews>
                             </view>
                             <view contentMode="scaleToFill" id="SGZ-qV-des" userLabel="RightLaunchButtonView">
-                                <rect key="frame" x="820" y="186" width="122" height="528"/>
+                                <rect key="frame" x="908" y="175" width="122" height="528"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="c3p-Ad-2Od">
@@ -96,7 +96,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" id="N00-IE-5dJ" userLabel="LeftLaunchButtonView">
-                                <rect key="frame" x="54" y="193" width="110" height="528"/>
+                                <rect key="frame" x="-8" y="193" width="110" height="528"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="cvA-zy-Zh7">
@@ -164,14 +164,14 @@
                     <connections>
                         <outlet property="LeftButtonView" destination="N00-IE-5dJ" id="h4T-52-w6Y"/>
                         <outlet property="RGR" destination="if9-i8-gWc" id="tZS-M0-ay4"/>
-                        <outlet property="RightButtonView" destination="SGZ-qV-des" id="pfa-2U-bb0"/>
+                        <outlet property="RightButtonView" destination="SGZ-qV-des" id="cWA-XG-Cec"/>
                         <outlet property="trackView" destination="0Pp-oS-Kp2" id="BOP-6y-pR1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
                 <rotationGestureRecognizer id="if9-i8-gWc"/>
             </objects>
-            <point key="canvasLocation" x="692" y="606"/>
+            <point key="canvasLocation" x="679" y="784"/>
         </scene>
     </scenes>
     <resources>

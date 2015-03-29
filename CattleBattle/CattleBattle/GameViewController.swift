@@ -9,6 +9,7 @@
 import UIKit
 import SpriteKit
 
+
 extension SKNode {
     class func unarchiveFromFile(file : String) -> SKNode? {
         if let path = NSBundle.mainBundle().pathForResource(file, ofType: "sks") {
@@ -28,6 +29,7 @@ extension SKNode {
 class GameViewController: UIViewController {
     
     let gameModel = GameModel()
+    let constant = Constant()
 
     @IBOutlet var RGR: UIRotationGestureRecognizer!
     
@@ -43,18 +45,15 @@ class GameViewController: UIViewController {
         if self.gameModel.rightSelectedCattleIndex != -1 {
             var tmpType = (self.sheepScene.rightReadyButton[self.gameModel.rightSelectedCattleIndex] as! LoadingCattleNode).currentType
             var button = sender as UIButton
-            if self.sheepScene != nil {
-                switch button.tag {
-                case 1 : self.sheepScene.addObject(CGPoint(x: 840, y: 500), direction: -1, type: tmpType)
-                case 2 : self.sheepScene.addObject(CGPoint(x: 840, y: 420), direction: -1, type: tmpType)
-                case 3 : self.sheepScene.addObject(CGPoint(x: 840, y: 340), direction: -1, type: tmpType)
-                case 4 : self.sheepScene.addObject(CGPoint(x: 840, y: 260), direction: -1, type: tmpType)
-                case 5 : self.sheepScene.addObject(CGPoint(x: 840, y: 180), direction: -1, type: tmpType)
-                default : ()
-                }
+            if self.sheepScene != nil && self.gameModel.isCattleReady(.right, index: gameModel.rightSelectedCattleIndex) {
+                var tmp : CGFloat = (CGFloat)(button.tag) - 1
+                var y = (CGFloat)(constant.LAUNCH_Y_TOP - constant.LAUNCH_Y_GAP * tmp)
+                self.sheepScene.addObject(CGPoint(x: constant.RIGHT_LAUNCH_X , y: y), direction: -1, type: tmpType)
+                gameModel.launchCattle(.right, index: self.gameModel.rightSelectedCattleIndex)
+                self.sheepScene.replaceReadyButton(.right, index: self.gameModel.rightSelectedCattleIndex)
+                self.gameModel.clearRightReadyIndex()
             }
-            self.sheepScene.replaceReadyButton(.right, index: self.gameModel.rightSelectedCattleIndex)
-            self.gameModel.clearRightReadyIndex()
+            
         }
     }
     
@@ -62,18 +61,16 @@ class GameViewController: UIViewController {
         if self.gameModel.leftSelectedCattleIndex != -1 {
             var tmpType = (self.sheepScene.leftReadyButton[self.gameModel.leftSelectedCattleIndex] as! LoadingCattleNode).currentType
             var button = sender as UIButton
-            if self.sheepScene != nil {
-                switch button.tag {
-                case 1 : self.sheepScene.addObject(CGPoint(x: 110, y: 500), direction: 1, type: tmpType)
-                case 2 : self.sheepScene.addObject(CGPoint(x: 110, y: 420), direction: 1, type: tmpType)
-                case 3 : self.sheepScene.addObject(CGPoint(x: 110, y: 340), direction: 1, type: tmpType)
-                case 4 : self.sheepScene.addObject(CGPoint(x: 110, y: 260), direction: 1, type: tmpType)
-                case 5 : self.sheepScene.addObject(CGPoint(x: 110, y: 180), direction: 1, type: tmpType)
-                default : ()
-                }
+            if self.sheepScene != nil && self.gameModel.isCattleReady(.left, index: gameModel.leftSelectedCattleIndex) {
+                var tmp : CGFloat = (CGFloat)(button.tag) - 1
+                var y = (CGFloat)(constant.LAUNCH_Y_TOP - constant.LAUNCH_Y_GAP * tmp)
+                self.sheepScene.addObject(CGPoint(x: constant.LEFT_LAUNCH_X , y: y), direction: 1, type: tmpType)
+                gameModel.launchCattle(.left, index: self.gameModel.leftSelectedCattleIndex)
+                self.sheepScene.replaceReadyButton(.left, index: self.gameModel.leftSelectedCattleIndex)
+                self.gameModel.clearLeftReadyIndex()
+            
             }
-            self.sheepScene.replaceReadyButton(.left, index: self.gameModel.leftSelectedCattleIndex)
-            self.gameModel.clearLeftReadyIndex()
+            
         }
     }
     
@@ -111,15 +108,6 @@ class GameViewController: UIViewController {
             skView.presentScene(scene)
             
             
-            var image1 = UIImage(named: "yellowStar.png")!
-            
-            println(image1.size.width)
-            println(image1.size.height)
-            
-            var image2 = UIImage(named: "redStar.png")!
-            
-            println(image2.size.width)
-            println(image2.size.height)
             
         }
     }
@@ -127,6 +115,7 @@ class GameViewController: UIViewController {
     func initView() {
         self.RightButtonView.backgroundColor = UIColor.clearColor()
         self.LeftButtonView.backgroundColor = UIColor.clearColor()
+              
     }
 
     override func shouldAutorotate() -> Bool {

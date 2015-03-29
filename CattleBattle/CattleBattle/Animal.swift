@@ -26,9 +26,9 @@ class Animal {
     let scale4x : CGFloat = 0.015
     let scale4y : CGFloat = 0.015
     
-    let mass1 : CGFloat = 4
-    let mass2 : CGFloat = 3
-    let mass3 : CGFloat = 2
+    let mass1 : CGFloat = 7
+    let mass2 : CGFloat = 5
+    let mass3 : CGFloat = 3
     let mass4 : CGFloat = 1
     enum name {
         case size1, size2, size3, size4, empty
