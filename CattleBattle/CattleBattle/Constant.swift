@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 struct Constant {
 
     // Constant used for launching animals (GameViewController)

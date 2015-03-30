@@ -115,14 +115,9 @@
 				967F6D881AC55C1B00B50207 /* Animal.swift */,
 				96B4937E1AC7E77A00F24D0B /* Constant.swift */,
 				960228A01AC59355002CE21F /* misc.swift */,
-				9603D7191AC3F7E3004D3C48 /* Bridge-new.png */,
 				96972B4D1AC2C77000FF2DC5 /* Main.storyboard */,
 				96972B501AC2C77000FF2DC5 /* Images.xcassets */,
-				9602289A1AC57378002CE21F /* redStar.png */,
-				9602289C1AC57378002CE21F /* purpleStar.png */,
-				9601A6CC1AC5BC2000B44CF1 /* yellowStar.png */,
-				9601A6CA1AC5BC0800B44CF1 /* blueStar.png */,
-				9601A6C81AC5B34700B44CF1 /* greenStar.png */,
+				C34E580A1AC98E96000E282B /* Images */,
 				96972B521AC2C77000FF2DC5 /* LaunchScreen.xib */,
 				96972B431AC2C77000FF2DC5 /* Supporting Files */,
 			);
@@ -152,6 +147,19 @@
 				96972B5E1AC2C77000FF2DC5 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C34E580A1AC98E96000E282B /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				9603D7191AC3F7E3004D3C48 /* Bridge-new.png */,
+				9602289A1AC57378002CE21F /* redStar.png */,
+				9602289C1AC57378002CE21F /* purpleStar.png */,
+				9601A6CC1AC5BC2000B44CF1 /* yellowStar.png */,
+				9601A6CA1AC5BC0800B44CF1 /* blueStar.png */,
+				9601A6C81AC5B34700B44CF1 /* greenStar.png */,
+			);
+			path = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
