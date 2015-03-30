@@ -63,10 +63,10 @@ class GameScene: SKScene {
 
     }
     
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
         /* Called when a touch begins */
        
-        for touch in (touches as! Set<UITouch>) {
+        for touch in touches {
             var node = self.nodeAtPoint(touch.locationInNode(self))
            
             if node.name != nil && node.name! == READY_BUTTON_NAME {
@@ -82,10 +82,10 @@ class GameScene: SKScene {
     override func update(currentTime: CFTimeInterval) {
 
         for i in self.children {
-            var node = i as! SKNode
+            var node = i as SKNode
             
             if node.name != nil && node.name == "leftRunning" {
-                var runningNode = node as! StarNode
+                var runningNode = node as StarNode
                 var animal = Animal(type: runningNode.animalType)
                 runningNode.physicsBody!.velocity.dx = -300 * animal.getImageMass() / 10
                 if node.position.x < constant.GAME_VIEW_LEFT_BOUNDARY || node.position.x > constant.GAME_VIEW_RIGHT_BOUNDARY {
@@ -93,7 +93,7 @@ class GameScene: SKScene {
                 }
             }
             if node.name != nil && node.name == "rightRunning" {
-                var runningNode = node as! StarNode
+                var runningNode = node as StarNode
                 var animal = Animal(type: runningNode.animalType)
                 runningNode.physicsBody!.velocity.dx = 300 * animal.getImageMass() / 10
                 if node.position.x < constant.GAME_VIEW_LEFT_BOUNDARY || node.position.x > constant.GAME_VIEW_RIGHT_BOUNDARY  {
@@ -142,11 +142,11 @@ class GameScene: SKScene {
     
     func replaceReadyButton(side : GameModel.side, index: Int) {
         if side == .left {
-            var tmpNode = self.leftReadyButton[index] as! LoadingCattleNode
+            var tmpNode = self.leftReadyButton[index] as LoadingCattleNode
             tmpNode.generateRandomAnimal()
             tmpNode.fadeAnimation(self.gameModel, side: side, index: index)
         } else if side == .right {
-            var tmpNode = self.rightReadyButton[index] as! LoadingCattleNode
+            var tmpNode = self.rightReadyButton[index] as LoadingCattleNode
             tmpNode.generateRandomAnimal()
             tmpNode.fadeAnimation(self.gameModel, side: side, index: index)
         }

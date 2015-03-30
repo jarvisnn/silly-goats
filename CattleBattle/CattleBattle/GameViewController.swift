@@ -17,7 +17,7 @@ extension SKNode {
             var archiver = NSKeyedUnarchiver(forReadingWithData: sceneData)
             
             archiver.setClass(self.classForKeyedUnarchiver(), forClassName: "SKScene")
-            let scene = archiver.decodeObjectForKey(NSKeyedArchiveRootObjectKey) as! GameScene
+            let scene = archiver.decodeObjectForKey(NSKeyedArchiveRootObjectKey) as GameScene
             archiver.finishDecoding()
             return scene
         } else {
@@ -43,7 +43,7 @@ class GameViewController: UIViewController {
     @IBAction func rightLaunch(sender: UIButton) {
         
         if self.gameModel.rightSelectedCattleIndex != -1 {
-            var tmpType = (self.sheepScene.rightReadyButton[self.gameModel.rightSelectedCattleIndex] as! LoadingCattleNode).currentType
+            var tmpType = (self.sheepScene.rightReadyButton[self.gameModel.rightSelectedCattleIndex] as LoadingCattleNode).currentType
             var button = sender as UIButton
             if self.sheepScene != nil && self.gameModel.isCattleReady(.right, index: gameModel.rightSelectedCattleIndex) {
                 var tmp : CGFloat = (CGFloat)(button.tag) - 1
@@ -59,7 +59,7 @@ class GameViewController: UIViewController {
     
     @IBAction func leftLaunch(sender: UIButton) {
         if self.gameModel.leftSelectedCattleIndex != -1 {
-            var tmpType = (self.sheepScene.leftReadyButton[self.gameModel.leftSelectedCattleIndex] as! LoadingCattleNode).currentType
+            var tmpType = (self.sheepScene.leftReadyButton[self.gameModel.leftSelectedCattleIndex] as LoadingCattleNode).currentType
             var button = sender as UIButton
             if self.sheepScene != nil && self.gameModel.isCattleReady(.left, index: gameModel.leftSelectedCattleIndex) {
                 var tmp : CGFloat = (CGFloat)(button.tag) - 1
@@ -86,7 +86,7 @@ class GameViewController: UIViewController {
         if let scene = GameScene.unarchiveFromFile("GameScene") as? GameScene {
             // Configure the view.
             scene.setGameModel(gameModel)
-            let skView = self.sheepView as! SKView
+            let skView = self.sheepView as SKView
             skView.showsFPS = true
             skView.showsNodeCount = true
             self.sheepScene = scene
