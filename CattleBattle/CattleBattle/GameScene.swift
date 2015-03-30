@@ -14,7 +14,6 @@ class GameScene: SKScene {
     var leftPlayerScoreNode = SKLabelNode()
     var rightPlayerScoreNode  = SKLabelNode()
     let READY_BUTTON_NAME = "READY_BUTTON"
-    let constant = Constant()
     
     var dir = 1
     var leftReadyButton :[SKNode] = []
@@ -88,7 +87,7 @@ class GameScene: SKScene {
                 var runningNode = node as StarNode
                 var animal = Animal(type: runningNode.animalType)
                 runningNode.physicsBody!.velocity.dx = -300 * animal.getImageMass() / 10
-                if node.position.x < constant.GAME_VIEW_LEFT_BOUNDARY || node.position.x > constant.GAME_VIEW_RIGHT_BOUNDARY {
+                if node.position.x < Constant.GAME_VIEW_LEFT_BOUNDARY || node.position.x > Constant.GAME_VIEW_RIGHT_BOUNDARY {
                     node.removeFromParent()
                 }
             }
@@ -96,7 +95,7 @@ class GameScene: SKScene {
                 var runningNode = node as StarNode
                 var animal = Animal(type: runningNode.animalType)
                 runningNode.physicsBody!.velocity.dx = 300 * animal.getImageMass() / 10
-                if node.position.x < constant.GAME_VIEW_LEFT_BOUNDARY || node.position.x > constant.GAME_VIEW_RIGHT_BOUNDARY  {
+                if node.position.x < Constant.GAME_VIEW_LEFT_BOUNDARY || node.position.x > Constant.GAME_VIEW_RIGHT_BOUNDARY  {
                     node.removeFromParent()
                 }
             }
