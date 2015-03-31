@@ -10,6 +10,9 @@ import UIKit
 
 class Animal {
     
+    enum AnimalType {
+        
+    }
     
     let RedStarName = "redStar.png"
     let GreenStarName = "greenStar.png"
