@@ -10,15 +10,30 @@ import UIKit
 
 class Animal {
     
-    enum AnimalType {
-        
+    enum Size: String {
+        case TINY = "1"
+        case SMALL = "2"
+        case MEDIUM = "3"
+        case LARGE = "4"
+        case HUGE = "5"
     }
     
-    let RedStarName = "redStar.png"
-    let GreenStarName = "greenStar.png"
-    let PurpleStarName = "purpleStar.png"
-    let YellowStarName = "blueStar.png"
-    let ErrorName = ""
+    enum Color: String {
+        case WHITE = "white"
+        case BLACK = "black"
+    }
+    
+    var color: Color
+    var size: Size
+    
+    func getImageName() -> String {
+        return "goat-" + color.rawValue + "-" + size.rawValue + ".png"
+    }
+    
+    init(color: Color, size: Size) {
+        self.color = color
+        self.size = size
+    }
     
     let scale1x : CGFloat = 0.030
     let scale1y : CGFloat = 0.030
@@ -33,49 +48,12 @@ class Animal {
     let mass2 : CGFloat = 5
     let mass3 : CGFloat = 3
     let mass4 : CGFloat = 1
-    enum name {
-        case size1, size2, size3, size4, empty
-    }
-    
-    var animalType : name
-    
-    init(type : name) {
-        self.animalType = type
-        
-    }
-    
-
-    
-    
-    func getImageName () -> String {
-        switch self.animalType {
-        case .size1: return YellowStarName
-        case .size2: return RedStarName
-        case .size3: return PurpleStarName
-        case .size4: return GreenStarName
-        default: return ErrorName
-        }
-    }
-    
     func getImageScale () -> (CGFloat, CGFloat) {
-        switch self.animalType {
-        case .size1: return (scale1x, scale1y)
-        case .size2: return (scale2x, scale2y)
-        case .size3: return (scale3x, scale3y)
-        case .size4: return (scale4x, scale4y)
-        default: return (-1, -1)
-        }
+        return (scale1x, scale1y)
     }
     
     func getImageMass () -> CGFloat {
-        switch self.animalType {
-        case .size1: return mass1
-        case .size2: return mass2
-        case .size3: return mass3
-        case .size4: return mass4
-        default: return -1
-        }
+        return mass1
     }
-    
     
 }

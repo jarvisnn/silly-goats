@@ -16,7 +16,7 @@ class LoadingCattleNode: SKSpriteNode {
     let prob_size3 = 0.25
     let prob_size4 = 0.25
     
-    var currentType : Animal.name = .empty
+    var currentType : Animal.Size = .TINY
     
     
     class func loadingCattle(location: CGPoint, animalIndex : Int) -> LoadingCattleNode {
@@ -46,28 +46,28 @@ class LoadingCattleNode: SKSpriteNode {
         return sprite
     }
     
-    func changeImage(type : Animal.name) {
-        var tex = SKTexture(imageNamed: Animal.getImageName(Animal(type: type))())
+    func changeImage(size : Animal.Size) {
+        var tex = SKTexture(imageNamed: Animal.getImageName(Animal(color: .WHITE, size: size))())
         self.texture = tex
         
     }
     
     func resize() {
-        self.xScale = Animal(type: self.currentType).getImageScale().0
-        self.yScale = Animal(type: self.currentType).getImageScale().1
+        self.xScale = Animal(color: .WHITE, size: self.currentType).getImageScale().0
+        self.yScale = Animal(color: .WHITE, size: self.currentType).getImageScale().1
     }
     
     func generateRandomAnimal() {
-        var generatingType : Animal.name
+        var generatingType : Animal.Size
         var rand = Double(Float(arc4random()) / Float(UINT32_MAX))
         if rand < prob_size1 {
-            generatingType = .size1
+            generatingType = .TINY
         } else if rand < prob_size1 + prob_size2 {
-            generatingType = .size2
+            generatingType = .SMALL
         } else if rand < prob_size1 + prob_size2 + prob_size3 {
-            generatingType = .size3
+            generatingType = .MEDIUM
         } else {
-            generatingType = .size4
+            generatingType = .LARGE
         }
         self.currentType = generatingType
         self.changeImage(generatingType)

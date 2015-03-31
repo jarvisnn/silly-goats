@@ -10,13 +10,13 @@ import SpriteKit
 
 class StarNode: SKSpriteNode {
     
-    var animalType : Animal.name = .empty
+    var animalSize: Animal.Size = Animal.Size.TINY
     
-    class func getAnimal(location: CGPoint, direction : Int, type : Animal.name) -> StarNode {
-        var animal = Animal(type : type)
+    class func getAnimal(location: CGPoint, direction: Int, size: Animal.Size) -> StarNode {
+        var animal = Animal(color: Animal.Color.WHITE, size: size)
         var imageName = animal.getImageName()
         let sprite = StarNode(imageNamed:imageName)
-        sprite.animalType = type
+        sprite.animalSize = size
         
         
         sprite.xScale = animal.getImageScale().0
