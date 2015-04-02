@@ -47,7 +47,7 @@ class LoadingCattleNode: SKSpriteNode {
     }
     
     func changeImage(size : Animal.Size) {
-        var tex = SKTexture(imageNamed: Animal.getImageName(Animal(color: .WHITE, size: size))())
+        var tex = Animal(color: .WHITE, size: size).getTexture()
         self.texture = tex
         
     }

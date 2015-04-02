@@ -14,8 +14,7 @@ class StarNode: SKSpriteNode {
     
     class func getAnimal(location: CGPoint, direction: Int, size: Animal.Size) -> StarNode {
         var animal = Animal(color: Animal.Color.WHITE, size: size)
-        var imageName = animal.getImageName()
-        let sprite = StarNode(imageNamed:imageName)
+        let sprite = StarNode(texture: animal.getTexture())
         sprite.animalSize = size
         
         
@@ -32,7 +31,7 @@ class StarNode: SKSpriteNode {
             sprite.name = "leftRunning"
         }
        
-        var tex = SKTexture(imageNamed: imageName)
+        var tex = animal.getTexture()
         
 //       sprite.physicsBody = SKPhysicsBody(texture: tex, size: sprite.size)
         var imageSize = CGSizeMake(sprite.size.width + (CGFloat)(3), sprite.size.height + (CGFloat)(3))

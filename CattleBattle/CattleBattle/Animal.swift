@@ -68,12 +68,6 @@ class Animal {
         return "goat-" + color.rawValue + "-" + size.rawValue + ".png"
     }
     
-    /*To be removed----------------------------------------------------*/
-    func getImageName() -> String {
-        return Animal.getImageName(color, size)
-    }
-    /*-----------------------------------------------------------------*/
-    
     init(color: Color, size: Size) {
         self.color = color
         self.size = size
@@ -82,17 +76,9 @@ class Animal {
     
     let scale1x : CGFloat = 0.030
     let scale1y : CGFloat = 0.030
-    let scale2x : CGFloat = 0.025
-    let scale2y : CGFloat = 0.025
-    let scale3x : CGFloat = 0.020
-    let scale3y : CGFloat = 0.020
-    let scale4x : CGFloat = 0.015
-    let scale4y : CGFloat = 0.015
-    
+
     let mass1 : CGFloat = 7
-    let mass2 : CGFloat = 5
-    let mass3 : CGFloat = 3
-    let mass4 : CGFloat = 1
+
     func getImageScale () -> (CGFloat, CGFloat) {
         return (scale1x, scale1y)
     }
