@@ -35,8 +35,6 @@ class GameViewController: UIViewController {
     
     let gameModel = GameModel()
 
-    @IBOutlet var RGR: UIRotationGestureRecognizer!
-    
     @IBOutlet weak var trackView: UIView!
     @IBOutlet weak var RightButtonView: UIView!
     

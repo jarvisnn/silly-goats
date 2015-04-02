@@ -155,23 +155,18 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="if9-i8-gWc" appends="YES" id="Go3-g5-9O5"/>
-                        </connections>
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="LeftButtonView" destination="N00-IE-5dJ" id="h4T-52-w6Y"/>
-                        <outlet property="RGR" destination="if9-i8-gWc" id="tZS-M0-ay4"/>
                         <outlet property="RightButtonView" destination="SGZ-qV-des" id="cWA-XG-Cec"/>
                         <outlet property="trackView" destination="0Pp-oS-Kp2" id="BOP-6y-pR1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
-                <rotationGestureRecognizer id="if9-i8-gWc"/>
             </objects>
-            <point key="canvasLocation" x="679" y="784"/>
+            <point key="canvasLocation" x="1023" y="1014"/>
         </scene>
     </scenes>
     <resources>
