@@ -10,6 +10,9 @@ import SpriteKit
 
 class GameScene: SKScene {
     
+    private let GAME_VIEW_RIGHT_BOUNDARY : CGFloat = 1024
+    private let GAME_VIEW_LEFT_BOUNDARY : CGFloat = 0
+    
     var gameModel : GameModel = GameModel() // should be constant. not implemented due to non-nullable class GameModel
     var leftPlayerScoreNode = SKLabelNode()
     var rightPlayerScoreNode  = SKLabelNode()
@@ -87,7 +90,7 @@ class GameScene: SKScene {
                 var runningNode = node as StarNode
                 var animal = Animal(color: Animal.Color.WHITE, size: runningNode.animalSize)
                 runningNode.physicsBody!.velocity.dx = -300 * animal.getImageMass() / 10
-                if node.position.x < Constant.GAME_VIEW_LEFT_BOUNDARY || node.position.x > Constant.GAME_VIEW_RIGHT_BOUNDARY {
+                if node.position.x < GAME_VIEW_LEFT_BOUNDARY || node.position.x > GAME_VIEW_RIGHT_BOUNDARY {
                     node.removeFromParent()
                 }
             }
@@ -95,7 +98,7 @@ class GameScene: SKScene {
                 var runningNode = node as StarNode
                 var animal = Animal(color: Animal.Color.WHITE, size: runningNode.animalSize)
                 runningNode.physicsBody!.velocity.dx = 300 * animal.getImageMass() / 10
-                if node.position.x < Constant.GAME_VIEW_LEFT_BOUNDARY || node.position.x > Constant.GAME_VIEW_RIGHT_BOUNDARY  {
+                if node.position.x < GAME_VIEW_LEFT_BOUNDARY || node.position.x > GAME_VIEW_RIGHT_BOUNDARY  {
                     node.removeFromParent()
                 }
             }

@@ -19,7 +19,6 @@
 		96972B511AC2C77000FF2DC5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96972B501AC2C77000FF2DC5 /* Images.xcassets */; };
 		96972B541AC2C77000FF2DC5 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96972B521AC2C77000FF2DC5 /* LaunchScreen.xib */; };
 		96972B601AC2C77000FF2DC5 /* CattleBattleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96972B5F1AC2C77000FF2DC5 /* CattleBattleTests.swift */; };
-		96B4937F1AC7E77A00F24D0B /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B4937E1AC7E77A00F24D0B /* Constant.swift */; };
 		C35441471ACD7E3C00BA7369 /* button-black-1.png in Resources */ = {isa = PBXBuildFile; fileRef = C354413C1ACD7E3C00BA7369 /* button-black-1.png */; };
 		C35441481ACD7E3C00BA7369 /* button-black-2.png in Resources */ = {isa = PBXBuildFile; fileRef = C354413D1ACD7E3C00BA7369 /* button-black-2.png */; };
 		C35441491ACD7E3C00BA7369 /* button-black-3.png in Resources */ = {isa = PBXBuildFile; fileRef = C354413E1ACD7E3C00BA7369 /* button-black-3.png */; };
@@ -73,7 +72,6 @@
 		96972B591AC2C77000FF2DC5 /* CattleBattleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CattleBattleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		96972B5E1AC2C77000FF2DC5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		96972B5F1AC2C77000FF2DC5 /* CattleBattleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CattleBattleTests.swift; sourceTree = "<group>"; };
-		96B4937E1AC7E77A00F24D0B /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		C354413C1ACD7E3C00BA7369 /* button-black-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-black-1.png"; sourceTree = "<group>"; };
 		C354413D1ACD7E3C00BA7369 /* button-black-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-black-2.png"; sourceTree = "<group>"; };
 		C354413E1ACD7E3C00BA7369 /* button-black-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-black-3.png"; sourceTree = "<group>"; };
@@ -142,12 +140,11 @@
 				96972B471AC2C77000FF2DC5 /* GameScene.sks */,
 				96972B491AC2C77000FF2DC5 /* GameScene.swift */,
 				96972B4B1AC2C77000FF2DC5 /* GameViewController.swift */,
-				96265A4D1AC3DF080009809F /* StarNode.swift */,
 				C35441511ACD7EAE00BA7369 /* AnimalNode.swift */,
 				9616925E1AC4621C0016523C /* GameModel.swift */,
 				9660B9FE1AC44F4A00A053A2 /* LoadingCattleNode.swift */,
 				967F6D881AC55C1B00B50207 /* Animal.swift */,
-				96B4937E1AC7E77A00F24D0B /* Constant.swift */,
+				C35441531ACDB14700BA7369 /* TemporaryCode */,
 				96972B4D1AC2C77000FF2DC5 /* Main.storyboard */,
 				96972B501AC2C77000FF2DC5 /* Images.xcassets */,
 				96972B451AC2C77000FF2DC5 /* AppDelegate.swift */,
@@ -224,6 +221,14 @@
 				C35441461ACD7E3C00BA7369 /* button-white-5.png */,
 			);
 			path = White;
+			sourceTree = "<group>";
+		};
+		C35441531ACDB14700BA7369 /* TemporaryCode */ = {
+			isa = PBXGroup;
+			children = (
+				96265A4D1AC3DF080009809F /* StarNode.swift */,
+			);
+			name = TemporaryCode;
 			sourceTree = "<group>";
 		};
 		C3AE5D3A1ACAE83600E8E8F2 /* Goat */ = {
@@ -395,7 +400,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				96265A4E1AC3DF080009809F /* StarNode.swift in Sources */,
-				96B4937F1AC7E77A00F24D0B /* Constant.swift in Sources */,
 				96972B4A1AC2C77000FF2DC5 /* GameScene.swift in Sources */,
 				96972B4C1AC2C77000FF2DC5 /* GameViewController.swift in Sources */,
 				96972B461AC2C77000FF2DC5 /* AppDelegate.swift in Sources */,

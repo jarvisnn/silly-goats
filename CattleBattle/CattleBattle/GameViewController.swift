@@ -27,6 +27,11 @@ extension SKNode {
 }
 
 class GameViewController: UIViewController {
+
+    private let RIGHT_LAUNCH_X : CGFloat = 1024
+    private let LEFT_LAUNCH_X : CGFloat = 0
+    private let LAUNCH_Y_TOP : CGFloat = 500
+    private let LAUNCH_Y_GAP : CGFloat = 80
     
     let gameModel = GameModel()
 
@@ -46,8 +51,8 @@ class GameViewController: UIViewController {
             var button = sender as UIButton
             if self.sheepScene != nil && self.gameModel.isCattleReady(.right, index: gameModel.rightSelectedCattleIndex) {
                 var tmp : CGFloat = (CGFloat)(button.tag) - 1
-                var y = (CGFloat)(Constant.LAUNCH_Y_TOP - Constant.LAUNCH_Y_GAP * tmp)
-                self.sheepScene.addObject(CGPoint(x: Constant.RIGHT_LAUNCH_X , y: y), direction: -1, size: tmpType)
+                var y = (CGFloat)(LAUNCH_Y_TOP - LAUNCH_Y_GAP * tmp)
+                self.sheepScene.addObject(CGPoint(x: RIGHT_LAUNCH_X , y: y), direction: -1, size: tmpType)
                 gameModel.launchCattle(.right, index: self.gameModel.rightSelectedCattleIndex)
                 self.sheepScene.replaceReadyButton(.right, index: self.gameModel.rightSelectedCattleIndex)
                 self.gameModel.clearRightReadyIndex()
@@ -62,8 +67,8 @@ class GameViewController: UIViewController {
             var button = sender as UIButton
             if self.sheepScene != nil && self.gameModel.isCattleReady(.left, index: gameModel.leftSelectedCattleIndex) {
                 var tmp : CGFloat = (CGFloat)(button.tag) - 1
-                var y = (CGFloat)(Constant.LAUNCH_Y_TOP - Constant.LAUNCH_Y_GAP * tmp)
-                self.sheepScene.addObject(CGPoint(x: Constant.LEFT_LAUNCH_X , y: y), direction: 1, size: tmpType)
+                var y = (CGFloat)(LAUNCH_Y_TOP - LAUNCH_Y_GAP * tmp)
+                self.sheepScene.addObject(CGPoint(x: LEFT_LAUNCH_X , y: y), direction: 1, size: tmpType)
                 gameModel.launchCattle(.left, index: self.gameModel.leftSelectedCattleIndex)
                 self.sheepScene.replaceReadyButton(.left, index: self.gameModel.leftSelectedCattleIndex)
                 self.gameModel.clearLeftReadyIndex()
