@@ -12,8 +12,12 @@ class StarNode: SKSpriteNode {
     
     var animalSize: Animal.Size = Animal.Size.TINY
     
-    class func getAnimal(location: CGPoint, direction: Int, size: Animal.Size) -> StarNode {
-        var animal = Animal(color: Animal.Color.WHITE, size: size)
+    class func getAnimal(location: CGPoint, direction: Int, size: Animal.Size, side : GameModel.side) -> StarNode {
+        var color = Animal.Color.WHITE
+        if side == .left {
+            color = .BLACK
+        }
+        var animal = Animal(color: color, size: size)
         let sprite = StarNode(texture: animal.getTexture())
         sprite.animalSize = size
         

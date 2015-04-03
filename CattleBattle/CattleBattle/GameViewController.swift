@@ -50,7 +50,7 @@ class GameViewController: UIViewController {
             if self.sheepScene != nil && self.gameModel.isCattleReady(.right, index: gameModel.rightSelectedCattleIndex) {
                 var tmp : CGFloat = (CGFloat)(button.tag) - 1
                 var y = (CGFloat)(LAUNCH_Y_TOP - LAUNCH_Y_GAP * tmp)
-                self.sheepScene.addObject(CGPoint(x: RIGHT_LAUNCH_X , y: y), direction: -1, size: tmpType)
+                self.sheepScene.addObject(CGPoint(x: RIGHT_LAUNCH_X , y: y), direction: -1, size: tmpType, side : .right)
                 gameModel.launchCattle(.right, index: self.gameModel.rightSelectedCattleIndex)
                 self.sheepScene.replaceReadyButton(.right, index: self.gameModel.rightSelectedCattleIndex)
                 self.gameModel.clearRightReadyIndex()
@@ -66,7 +66,7 @@ class GameViewController: UIViewController {
             if self.sheepScene != nil && self.gameModel.isCattleReady(.left, index: gameModel.leftSelectedCattleIndex) {
                 var tmp : CGFloat = (CGFloat)(button.tag) - 1
                 var y = (CGFloat)(LAUNCH_Y_TOP - LAUNCH_Y_GAP * tmp)
-                self.sheepScene.addObject(CGPoint(x: LEFT_LAUNCH_X , y: y), direction: 1, size: tmpType)
+                self.sheepScene.addObject(CGPoint(x: LEFT_LAUNCH_X , y: y), direction: 1, size: tmpType, side : .left)
                 gameModel.launchCattle(.left, index: self.gameModel.leftSelectedCattleIndex)
                 self.sheepScene.replaceReadyButton(.left, index: self.gameModel.leftSelectedCattleIndex)
                 self.gameModel.clearLeftReadyIndex()

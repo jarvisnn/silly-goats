@@ -105,8 +105,8 @@ class GameScene: SKScene {
         }
     }
     
-    func addObject(location : CGPoint, direction : Int, size : Animal.Size) {
-        let sprite = StarNode.getAnimal(location, direction: direction, size : size)
+    func addObject(location : CGPoint, direction : Int, size : Animal.Size, side : GameModel.side) {
+        let sprite = StarNode.getAnimal(location, direction: direction, size : size, side : side)
         self.addChild(sprite)
     }
     
