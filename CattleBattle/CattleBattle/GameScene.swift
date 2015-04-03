@@ -27,7 +27,7 @@ class GameScene: SKScene {
         
         // Set up the left/right ready button
         for i in 0...2 {
-            var node = LoadingCattleNode.loadingCattle(CGPoint(x: 100 + i * 100, y : 650), animalIndex : 1)
+            var node = LoadingCattleNode.loadingCattle(CGPoint(x: 100 + i * 100, y : 650), animalIndex : 1, side : .left)
 
             node.name = READY_BUTTON_NAME
             self.addChild(node)
@@ -35,7 +35,7 @@ class GameScene: SKScene {
         }
         
         for i in 0...2 {
-            var node = LoadingCattleNode.loadingCattle(CGPoint(x: (Int)(self.frame.width) - 100 - i * 100, y : 650), animalIndex : 1)
+            var node = LoadingCattleNode.loadingCattle(CGPoint(x: (Int)(self.frame.width) - 100 - i * 100, y : 650), animalIndex : 1, side : .right)
 
             node.name = READY_BUTTON_NAME
             self.addChild(node)
@@ -145,11 +145,11 @@ class GameScene: SKScene {
     func replaceReadyButton(side : GameModel.side, index: Int) {
         if side == .left {
             var tmpNode = self.leftReadyButton[index] as LoadingCattleNode
-            tmpNode.generateRandomAnimal()
+            tmpNode.generateRandomAnimal(side)
             tmpNode.fadeAnimation(self.gameModel, side: side, index: index)
         } else if side == .right {
             var tmpNode = self.rightReadyButton[index] as LoadingCattleNode
-            tmpNode.generateRandomAnimal()
+            tmpNode.generateRandomAnimal(side)
             tmpNode.fadeAnimation(self.gameModel, side: side, index: index)
         }
     }

@@ -19,9 +19,9 @@ class LoadingCattleNode: SKSpriteNode {
     var currentType : Animal.Size = .TINY
     
     
-    class func loadingCattle(location: CGPoint, animalIndex : Int) -> LoadingCattleNode {
+    class func loadingCattle(location: CGPoint, animalIndex : Int, side : GameModel.side) -> LoadingCattleNode {
         let sprite = LoadingCattleNode(imageNamed:"yellowStar.png")
-        sprite.generateRandomAnimal()
+        sprite.generateRandomAnimal(side)
         sprite.position = location
         
        
@@ -46,8 +46,12 @@ class LoadingCattleNode: SKSpriteNode {
         return sprite
     }
     
-    func changeImage(size : Animal.Size) {
-        var tex = Animal(color: .WHITE, size: size, status : .BUTTON).getTexture()
+    func changeImage(size : Animal.Size, side : GameModel.side) {
+        var color = Animal.Color.WHITE
+        if side == .left {
+            color = .BLACK
+        }
+        var tex = Animal(color: color, size: size, status : .BUTTON).getTexture()
         self.texture = tex
         
     }
@@ -57,7 +61,7 @@ class LoadingCattleNode: SKSpriteNode {
         self.yScale = Animal(color: .WHITE, size: self.currentType).getImageScale().1
     }
     
-    func generateRandomAnimal() {
+    func generateRandomAnimal(side : GameModel.side) {
         var generatingType : Animal.Size
         var rand = Double(Float(arc4random()) / Float(UINT32_MAX))
         if rand < prob_size1 {
@@ -70,7 +74,7 @@ class LoadingCattleNode: SKSpriteNode {
             generatingType = .LARGE
         }
         self.currentType = generatingType
-        self.changeImage(generatingType)
+        self.changeImage(generatingType, side: side)
         self.resize()
         
     }
