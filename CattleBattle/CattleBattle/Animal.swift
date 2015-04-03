@@ -43,7 +43,7 @@ class Animal {
         }
         internal static var buttonTextures = Color.allColors.map() { (color) -> [SKTexture] in
             return Size.allSizes.map() { (size) -> SKTexture in
-                return SKTexture(imageNamed: Animal.getImageName(color, size))
+                return SKTexture(imageNamed: Animal.getButtonImageName(color, size))
             }
         }
     }
@@ -58,8 +58,10 @@ class Animal {
     
     func getTexture() -> SKTexture {
         if status == .BUTTON {
+            print ("button reach")
             return Constants.buttonTextures[find(Color.allColors, color)!][find(Size.allSizes, size)!]
         } else {
+            print ("other reach")
             return Constants.goatTextures[find(Color.allColors, color)!][find(Size.allSizes, size)!]
         }
     }
@@ -68,10 +70,19 @@ class Animal {
         return "goat-" + color.rawValue + "-" + size.rawValue + ".png"
     }
     
+    class func getButtonImageName(color: Color, _ size: Size) -> String {
+        return "button-" + color.rawValue + "-" + size.rawValue + ".png"
+    }
+    
     init(color: Color, size: Size) {
         self.color = color
         self.size = size
         self.status = .DEPLOYED
+    }
+    init(color: Color, size: Size, status : Animal.Status) {
+        self.color = color
+        self.size = size
+        self.status = status
     }
     
     let scale1x : CGFloat = 0.030
