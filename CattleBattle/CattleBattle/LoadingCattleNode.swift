@@ -56,9 +56,9 @@ class LoadingCattleNode: SKSpriteNode {
         
     }
     
-    func resize() {
-        self.xScale = Animal(color: .WHITE, size: self.currentType).getImageScale().0
-        self.yScale = Animal(color: .WHITE, size: self.currentType).getImageScale().1
+    func resize() {   
+        self.xScale = 0.5
+        self.yScale = 0.5
     }
     
     func generateRandomAnimal(side : GameModel.side) {

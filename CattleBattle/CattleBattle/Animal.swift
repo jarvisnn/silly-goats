@@ -73,7 +73,7 @@ class Animal {
     }
     
     class func getButtonImageName(color: Color, _ size: Size) -> String {
-        return "button-" + color.rawValue + "-" + size.rawValue + ".png"
+        return "goat-button-" + color.rawValue + "-" + size.rawValue + ".png"
     }
     
     init(color: Color, size: Size) {
