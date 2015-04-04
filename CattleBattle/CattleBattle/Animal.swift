@@ -62,10 +62,8 @@ class Animal {
     
     func getTexture() -> SKTexture {
         if status == .BUTTON {
-            print ("button reach")
             return Constants.buttonTextures[find(Color.allColors, color)!][find(Size.allSizes, size)!]
         } else {
-            print ("other reach")
             return Constants.goatTextures[find(Color.allColors, color)!][find(Size.allSizes, size)!]
         }
     }

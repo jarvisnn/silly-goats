@@ -35,54 +35,15 @@ class GameViewController: UIViewController {
     
     let gameModel = GameModel()
 
-    @IBOutlet weak var trackView: UIView!
-    @IBOutlet weak var RightButtonView: UIView!
-    
-    @IBOutlet weak var LeftButtonView: UIView!
-    
+   
     var sheepScene : GameScene!
     var sheepView : UIView!
-    @IBAction func rightLaunch(sender: UIButton) {
-        
-        if self.gameModel.rightSelectedCattleIndex != -1 {
-            var tmpType = (self.sheepScene.rightReadyButton[self.gameModel.rightSelectedCattleIndex] as LoadingCattleNode).currentType
-            var button = sender as UIButton
-            if self.sheepScene != nil && self.gameModel.isCattleReady(.right, index: gameModel.rightSelectedCattleIndex) {
-                var tmp : CGFloat = (CGFloat)(button.tag) - 1
-                var y = (CGFloat)(LAUNCH_Y_TOP - LAUNCH_Y_GAP * tmp)
-                self.sheepScene.addObject(CGPoint(x: RIGHT_LAUNCH_X , y: y), direction: -1, size: tmpType, side : .right)
-                gameModel.launchCattle(.right, index: self.gameModel.rightSelectedCattleIndex)
-                self.sheepScene.replaceReadyButton(.right, index: self.gameModel.rightSelectedCattleIndex)
-                self.gameModel.clearRightReadyIndex()
-            }
-            
-        }
-    }
-    
-    @IBAction func leftLaunch(sender: UIButton) {
-        if self.gameModel.leftSelectedCattleIndex != -1 {
-            var tmpType = (self.sheepScene.leftReadyButton[self.gameModel.leftSelectedCattleIndex] as LoadingCattleNode).currentType
-            var button = sender as UIButton
-            if self.sheepScene != nil && self.gameModel.isCattleReady(.left, index: gameModel.leftSelectedCattleIndex) {
-                var tmp : CGFloat = (CGFloat)(button.tag) - 1
-                var y = (CGFloat)(LAUNCH_Y_TOP - LAUNCH_Y_GAP * tmp)
-                self.sheepScene.addObject(CGPoint(x: LEFT_LAUNCH_X , y: y), direction: 1, size: tmpType, side : .left)
-                gameModel.launchCattle(.left, index: self.gameModel.leftSelectedCattleIndex)
-                self.sheepScene.replaceReadyButton(.left, index: self.gameModel.leftSelectedCattleIndex)
-                self.gameModel.clearLeftReadyIndex()
-            
-            }
-            
-        }
-    }
-    
 
     
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        self.initView()
         self.sheepView = SKView(frame: CGRectMake(0, 0, self.view!.frame.width, self.view!.frame.height))
 
         if let scene = GameScene.unarchiveFromFile("GameScene") as? GameScene {
@@ -100,25 +61,18 @@ class GameViewController: UIViewController {
             scene.scaleMode = .AspectFill
 
             self.view!.addSubview(skView)
-            self.view!.addSubview(trackView)
+
+        
             self.view!.bringSubviewToFront(skView)
-            self.view!.bringSubviewToFront(RightButtonView)
-            self.view!.bringSubviewToFront(LeftButtonView)
             
             skView.allowsTransparency = true
             scene.backgroundColor = UIColor.clearColor()
             skView.presentScene(scene)
             
-            
-            
+           
         }
     }
     
-    func initView() {
-        self.RightButtonView.backgroundColor = UIColor.clearColor()
-        self.LeftButtonView.backgroundColor = UIColor.clearColor()
-              
-    }
 
     override func shouldAutorotate() -> Bool {
         return true

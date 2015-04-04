@@ -22,6 +22,12 @@ class GameScene: SKScene {
     var leftReadyButton :[SKNode] = []
     var rightReadyButton : [SKNode] = []
     
+    private let RIGHT_LAUNCH_X : CGFloat = 1024
+    private let LEFT_LAUNCH_X : CGFloat = 0
+    private let LAUNCH_Y_TOP : CGFloat = 520
+    private let LAUNCH_Y_GAP : CGFloat = 100
+    
+    
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
         
@@ -62,6 +68,21 @@ class GameScene: SKScene {
         rightPlayerScoreNode.position = CGPoint(x: 604, y : 650);
         
         self.addChild(rightPlayerScoreNode)
+        
+
+        for i in 1...5 {
+            var tmpNode = LaunchButtonNode.launchButton(.left, index: i)
+            var y = (CGFloat)(LAUNCH_Y_TOP - LAUNCH_Y_GAP * (CGFloat)(i-1))
+            tmpNode.position = CGPointMake(60, y)
+            self.addChild(tmpNode)
+        }
+        
+        for i in 1...5 {
+            var tmpNode = LaunchButtonNode.launchButton(.right, index: i)
+            var y = (CGFloat)(LAUNCH_Y_TOP - LAUNCH_Y_GAP * (CGFloat)(i-1))
+            tmpNode.position = CGPointMake(self.frame.width-60, y)
+            self.addChild(tmpNode)
+        }
 
     }
     
@@ -72,8 +93,40 @@ class GameScene: SKScene {
             var node = self.nodeAtPoint(touch.locationInNode(self))
            
             if node.name != nil && node.name! == READY_BUTTON_NAME {
+                print ("click")
                 self.receiveReadyButtonClick(node)
                 
+            }
+            if node.name != nil && node.name! == "arrow" {
+                var arrow = node as LaunchButtonNode
+                if arrow.side == .left {
+                    if self.gameModel.leftSelectedCattleIndex != -1 {
+                        var tmpType = (self.leftReadyButton[self.gameModel.leftSelectedCattleIndex] as LoadingCattleNode).currentType
+                        if self.gameModel.isCattleReady(.left, index: gameModel.leftSelectedCattleIndex) {
+                            var tmp : CGFloat = (CGFloat)(arrow.index) - 1
+                            var y = (CGFloat)(LAUNCH_Y_TOP - LAUNCH_Y_GAP * tmp)
+                            self.addObject(CGPoint(x: LEFT_LAUNCH_X , y: y), direction: 1, size: tmpType, side : .left)
+                            gameModel.launchCattle(.left, index: self.gameModel.leftSelectedCattleIndex)
+                            self.replaceReadyButton(.left, index: self.gameModel.leftSelectedCattleIndex)
+                            self.gameModel.clearLeftReadyIndex()
+                            
+                        }
+                        
+                    }
+                } else if arrow.side == .right {
+                    if self.gameModel.rightSelectedCattleIndex != -1 {
+                        var tmpType = (self.rightReadyButton[self.gameModel.rightSelectedCattleIndex] as LoadingCattleNode).currentType
+                        if self.gameModel.isCattleReady(.right, index: gameModel.rightSelectedCattleIndex) {
+                            var tmp : CGFloat = (CGFloat)(arrow.index) - 1
+                            var y = (CGFloat)(LAUNCH_Y_TOP - LAUNCH_Y_GAP * tmp)
+                            self.addObject(CGPoint(x: RIGHT_LAUNCH_X , y: y), direction: -1, size: tmpType, side : .right)
+                            gameModel.launchCattle(.right, index: self.gameModel.rightSelectedCattleIndex)
+                            self.replaceReadyButton(.right, index: self.gameModel.rightSelectedCattleIndex)
+                            self.gameModel.clearRightReadyIndex()
+                        }
+                        
+                    }
+                }
             }
             
           }
@@ -101,6 +154,10 @@ class GameScene: SKScene {
                 if node.position.x < GAME_VIEW_LEFT_BOUNDARY || node.position.x > GAME_VIEW_RIGHT_BOUNDARY  {
                     node.removeFromParent()
                 }
+            }
+            if node.name != nil && node.name == "arrow" {
+                var arrow = node as LaunchButtonNode
+                arrow.animateArrow()
             }
         }
     }
