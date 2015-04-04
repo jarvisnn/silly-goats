@@ -21,6 +21,7 @@ class GameScene: SKScene {
     var dir = 1
     var leftReadyButton :[SKNode] = []
     var rightReadyButton : [SKNode] = []
+    var numOfFrameUpdated : Int = 0
     
     private let RIGHT_LAUNCH_X : CGFloat = 1024
     private let LEFT_LAUNCH_X : CGFloat = 0
@@ -84,6 +85,7 @@ class GameScene: SKScene {
             self.addChild(tmpNode)
         }
 
+        self.numOfFrameUpdated = 0
     }
     
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
@@ -135,7 +137,7 @@ class GameScene: SKScene {
    
    
     override func update(currentTime: CFTimeInterval) {
-
+        numOfFrameUpdated += 1
         for i in self.children {
             var node = i as SKNode
             
@@ -157,7 +159,10 @@ class GameScene: SKScene {
             }
             if node.name != nil && node.name == "arrow" {
                 var arrow = node as LaunchButtonNode
-                arrow.animateArrow()
+                if numOfFrameUpdated % 10 == 0 {
+                    
+                    arrow.animateArrow()
+                }
             }
         }
     }

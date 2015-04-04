@@ -38,32 +38,19 @@ class LaunchButtonNode : SKSpriteNode {
     
     func initStatus(tex : SKTexture, side : GameModel.side, index : Int) {
         originTex = tex
-        if self.side == .left {
-            currentX = originTex.size().width * 0.8
-        } else {
-            currentX = 0
-        }
+        currentX = 0
         self.side = side
         self.index = index
     }
     
     func animateArrow() {
-        if self.side == .left {
-            if currentX > 0 {
-                currentX -= 10
-            } else {
-                currentX = originTex.size().width * 0.8
-            }
-            var rect = CGRectMake(currentX / originTex.size().width, 0, 0.2, 1)
-            self.texture = SKTexture(rect: rect, inTexture: originTex)
-        } else if self.side == .right {
-            if currentX < originTex.size().width * 0.8 {
-                currentX += 10
-            } else {
-                currentX = 0
-            }
-            var rect = CGRectMake(currentX / originTex.size().width, 0, 0.2, 1)
-            self.texture = SKTexture(rect: rect, inTexture: originTex)
+        if currentX < originTex.size().width * 0.8 {
+            currentX += originTex.size().width*0.2
+        } else {
+            currentX = 0
         }
+        var rect = CGRectMake(currentX / originTex.size().width, 0, 0.2, 1)
+        self.texture = SKTexture(rect: rect, inTexture: originTex)
+    
     }
 }
