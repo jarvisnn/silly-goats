@@ -25,7 +25,7 @@ class GameScene: SKScene {
     
     private let RIGHT_LAUNCH_X : CGFloat = 1024
     private let LEFT_LAUNCH_X : CGFloat = 0
-    private let LAUNCH_Y_TOP : CGFloat = 570
+    private let LAUNCH_Y_TOP : CGFloat = 550
     private let LAUNCH_Y_GAP : CGFloat = 100
     
     
@@ -34,7 +34,7 @@ class GameScene: SKScene {
         
         // Set up the left/right ready button
         for i in 0...2 {
-            var node = LoadingCattleNode.loadingCattle(CGPoint(x: 100 + i * 100, y : 650), animalIndex : 1, side : .left)
+            var node = LoadingCattleNode.loadingCattle(CGPoint(x: 50 + i * 80, y : 725), animalIndex : 1, side : .left)
 
             node.name = READY_BUTTON_NAME
             self.addChild(node)
@@ -42,7 +42,7 @@ class GameScene: SKScene {
         }
         
         for i in 0...2 {
-            var node = LoadingCattleNode.loadingCattle(CGPoint(x: (Int)(self.frame.width) - 100 - i * 100, y : 650), animalIndex : 1, side : .right)
+            var node = LoadingCattleNode.loadingCattle(CGPoint(x: (Int)(self.frame.width) - 50 - i * 80, y : 725), animalIndex : 1, side : .right)
 
             node.name = READY_BUTTON_NAME
             self.addChild(node)
