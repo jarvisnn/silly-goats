@@ -60,6 +60,7 @@
 		C3D7EB011AD069D800A61851 /* category-right.png in Resources */ = {isa = PBXBuildFile; fileRef = C3D7EAFD1AD069D800A61851 /* category-right.png */; };
 		C3D7EB021AD069D800A61851 /* topbar.png in Resources */ = {isa = PBXBuildFile; fileRef = C3D7EAFE1AD069D800A61851 /* topbar.png */; };
 		C3D7EB031AD069D800A61851 /* topbar2.png in Resources */ = {isa = PBXBuildFile; fileRef = C3D7EAFF1AD069D800A61851 /* topbar2.png */; };
+		C3D7EB051AD0704400A61851 /* river.gif in Resources */ = {isa = PBXBuildFile; fileRef = C3D7EB041AD0704400A61851 /* river.gif */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -130,6 +131,7 @@
 		C3D7EAFD1AD069D800A61851 /* category-right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "category-right.png"; sourceTree = "<group>"; };
 		C3D7EAFE1AD069D800A61851 /* topbar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = topbar.png; sourceTree = "<group>"; };
 		C3D7EAFF1AD069D800A61851 /* topbar2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = topbar2.png; sourceTree = "<group>"; };
+		C3D7EB041AD0704400A61851 /* river.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = river.gif; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -235,6 +237,7 @@
 		C3AE5D511ACB081B00E8E8F2 /* Background */ = {
 			isa = PBXGroup;
 			children = (
+				C3D7EB041AD0704400A61851 /* river.gif */,
 				C3D7EAFC1AD069D800A61851 /* category-left.png */,
 				C3D7EAFD1AD069D800A61851 /* category-right.png */,
 				C3D7EAFE1AD069D800A61851 /* topbar.png */,
@@ -463,6 +466,7 @@
 				C3D7EADF1ACFEE9200A61851 /* goat-button-white-3.png in Resources */,
 				C354415A1ACDC0AC00BA7369 /* bank-left.png in Resources */,
 				96972B481AC2C77000FF2DC5 /* GameScene.sks in Resources */,
+				C3D7EB051AD0704400A61851 /* river.gif in Resources */,
 				C3D7EAD11ACFEE9200A61851 /* goat-bumping-black-4.png in Resources */,
 				C3D7EADD1ACFEE9200A61851 /* goat-button-white-1.png in Resources */,
 				C3D7EAD21ACFEE9200A61851 /* goat-bumping-black-5.png in Resources */,

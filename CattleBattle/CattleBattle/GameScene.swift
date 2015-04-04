@@ -59,14 +59,14 @@ class GameScene: SKScene {
         leftPlayerScoreNode = SKLabelNode(fontNamed:"Chalkduster")
         leftPlayerScoreNode.text = "000";
         leftPlayerScoreNode.fontSize = 40;
-        leftPlayerScoreNode.position = CGPoint(x: 420, y : 650);
+        leftPlayerScoreNode.position = CGPoint(x: 420, y : 710);
         
         self.addChild(leftPlayerScoreNode)
         
         rightPlayerScoreNode = SKLabelNode(fontNamed:"Chalkduster")
         rightPlayerScoreNode.text = "999";
         rightPlayerScoreNode.fontSize = 40;
-        rightPlayerScoreNode.position = CGPoint(x: 604, y : 650);
+        rightPlayerScoreNode.position = CGPoint(x: 604, y : 710);
         
         self.addChild(rightPlayerScoreNode)
         
