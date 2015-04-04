@@ -17,7 +17,7 @@ class StarNode: SKSpriteNode {
         if side == .left {
             color = .BLACK
         }
-        var animal = Animal(color: color, size: size)
+        var animal = Animal(color: color, size: size, status: .DEPLOYED)
         let sprite = StarNode(texture: animal.getTexture())
         sprite.animalSize = size
         
