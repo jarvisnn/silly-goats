@@ -28,7 +28,7 @@ class Animal {
     }
     
     enum Status: String {
-        case DEPLOYED = "goat"
+        case DEPLOYED = "deployed"
         case ENGAGED = "engaged"
         case BUTTON = "button"
 
@@ -36,6 +36,9 @@ class Animal {
     }
     
     struct Constants {
+        internal static let GOAT_KEYWORD = "goat"
+        internal static let IMAGE_EXT = ".png"
+        
         internal static var goatTextures = Color.allColors.map() { (color) -> [SKTexture] in
             return Size.allSizes.map() { (size) -> SKTexture in
                 return SKTexture(imageNamed: Animal.getImageName(color, size))
@@ -53,7 +56,8 @@ class Animal {
     internal var status: Status
     
     func getImageFileName() -> String {
-        return status.rawValue + "-" + color.rawValue + "-" + size.rawValue + ".png"
+        var fileName = join("-", [Constants.GOAT_KEYWORD, status.rawValue, color.rawValue, size.rawValue])
+        return  fileName + ".png"
     }
     
     func getTexture() -> SKTexture {
