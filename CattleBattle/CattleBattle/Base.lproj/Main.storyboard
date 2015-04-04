@@ -21,27 +21,35 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bridge.png" id="HnD-6i-9cU">
-                                <rect key="frame" x="84" y="600" width="855" height="109"/>
+                                <rect key="frame" x="84" y="550" width="855" height="109"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bridge.png" id="gMg-We-XOy">
-                                <rect key="frame" x="88" y="500" width="848" height="109"/>
+                                <rect key="frame" x="88" y="450" width="848" height="109"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bridge.png" id="aeJ-Ng-NjP">
-                                <rect key="frame" x="84" y="400" width="855" height="109"/>
+                                <rect key="frame" x="84" y="350" width="855" height="109"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bridge.png" id="4l7-er-pSO">
-                                <rect key="frame" x="88" y="300" width="848" height="109"/>
+                                <rect key="frame" x="88" y="250" width="848" height="109"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bridge.png" id="uF0-8p-tqY">
-                                <rect key="frame" x="80" y="200" width="856" height="109"/>
+                                <rect key="frame" x="80" y="150" width="856" height="109"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="topbar2.png" id="Lk3-hz-RYQ">
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="107"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="category-left.png" id="RUZ-EN-iF4">
+                                <rect key="frame" x="0.0" y="691" width="350" height="80"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="category-right.png" id="Aec-M9-hCG">
+                                <rect key="frame" x="674" y="688" width="350" height="80"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
@@ -60,6 +68,8 @@
         <image name="bank-left.png" width="250" height="800"/>
         <image name="bank-right.png" width="250" height="800"/>
         <image name="bridge.png" width="1024" height="284"/>
+        <image name="category-left.png" width="665" height="181"/>
+        <image name="category-right.png" width="665" height="181"/>
         <image name="topbar2.png" width="1026" height="107"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

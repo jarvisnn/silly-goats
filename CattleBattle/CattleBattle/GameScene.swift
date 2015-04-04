@@ -25,7 +25,7 @@ class GameScene: SKScene {
     
     private let RIGHT_LAUNCH_X : CGFloat = 1024
     private let LEFT_LAUNCH_X : CGFloat = 0
-    private let LAUNCH_Y_TOP : CGFloat = 520
+    private let LAUNCH_Y_TOP : CGFloat = 570
     private let LAUNCH_Y_GAP : CGFloat = 100
     
     
