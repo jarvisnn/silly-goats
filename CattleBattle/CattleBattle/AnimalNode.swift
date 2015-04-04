@@ -25,16 +25,15 @@ class AnimalNode: SKSpriteNode {
         if side == .left {
             color = .BLACK
         }
+        
         var animal = Animal(color: color, size: size, status: .DEPLOYED)
+        
         let sprite = AnimalNode(texture: animal.getTexture())
         sprite.animalSize = size
         
         
         sprite.xScale = animal.getImageScale().0
         sprite.yScale = animal.getImageScale().1
-        
-        //        sprite.xScale = 0.03
-        //        sprite.yScale = 0.03
         
         sprite.position = location
         if direction == 1 {
@@ -43,7 +42,7 @@ class AnimalNode: SKSpriteNode {
             sprite.name = "leftRunning"
         }
         
-        var tex = animal.getTexture()
+       // var tex = animal.getTexture()
         
         //       sprite.physicsBody = SKPhysicsBody(texture: tex, size: sprite.size)
         var imageSize = CGSizeMake(sprite.size.width + (CGFloat)(3), sprite.size.height + (CGFloat)(3))
@@ -69,6 +68,15 @@ class AnimalNode: SKSpriteNode {
             
             physics.velocity.dx = (CGFloat)(direction) * 300 * animal.getImageMass()/10
         }
+
+        var goatRunningFrames = animal.getDeployedTexture()
+        //add running action
+        sprite.runAction(SKAction.repeatActionForever(
+            SKAction.animateWithTextures(goatRunningFrames,
+                timePerFrame: 0.2,
+                resize: false,
+                restore: true)),
+            withKey:"runningGoat")
         
         return sprite
     }

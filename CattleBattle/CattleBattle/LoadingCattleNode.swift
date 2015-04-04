@@ -11,16 +11,17 @@ import SpriteKit
 
 class LoadingCattleNode: SKSpriteNode {
     
-    let prob_size1 = 0.25
-    let prob_size2 = 0.25
-    let prob_size3 = 0.25
-    let prob_size4 = 0.25
+    let prob_size1 = 0.2
+    let prob_size2 = 0.2
+    let prob_size3 = 0.2
+    let prob_size4 = 0.2
+    let prob_size5 = 0.2
     
     var currentType : Animal.Size = .TINY
     
     
     class func loadingCattle(location: CGPoint, animalIndex : Int, side : GameModel.side) -> LoadingCattleNode {
-        let sprite = LoadingCattleNode(imageNamed:"yellowStar.png")
+        let sprite = LoadingCattleNode(imageNamed:"goat-button-black-1.png")
         sprite.generateRandomAnimal(side)
         sprite.position = location
         
@@ -62,17 +63,21 @@ class LoadingCattleNode: SKSpriteNode {
     }
     
     func generateRandomAnimal(side : GameModel.side) {
+        
         var generatingType : Animal.Size
         var rand = Double(Float(arc4random()) / Float(UINT32_MAX))
-        if rand < prob_size1 {
+        if rand < 0.2 {
             generatingType = .TINY
-        } else if rand < prob_size1 + prob_size2 {
+        } else if rand < 0.4 {
             generatingType = .SMALL
-        } else if rand < prob_size1 + prob_size2 + prob_size3 {
+        } else if rand < 0.6 {
             generatingType = .MEDIUM
-        } else {
+        } else if rand < 0.8 {
             generatingType = .LARGE
+        } else {
+            generatingType = .HUGE
         }
+        
         self.currentType = generatingType
         self.changeImage(generatingType, side: side)
         self.resize()
