@@ -12,6 +12,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="river.gif" id="pD0-pr-y28">
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bank-left.png" id="1KX-de-9ah">
                                 <rect key="frame" x="0.0" y="0.0" width="162" height="768"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -70,6 +74,7 @@
         <image name="bridge.png" width="1024" height="284"/>
         <image name="category-left.png" width="665" height="181"/>
         <image name="category-right.png" width="665" height="181"/>
+        <image name="river.gif" width="1024" height="768"/>
         <image name="topbar2.png" width="1026" height="107"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
