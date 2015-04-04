@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		9616925F1AC4621C0016523C /* GameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9616925E1AC4621C0016523C /* GameModel.swift */; };
-		96265A4E1AC3DF080009809F /* StarNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96265A4D1AC3DF080009809F /* StarNode.swift */; };
 		9660B9FF1AC44F4A00A053A2 /* LoadingCattleNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9660B9FE1AC44F4A00A053A2 /* LoadingCattleNode.swift */; };
 		967F6D891AC55C1B00B50207 /* Animal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F6D881AC55C1B00B50207 /* Animal.swift */; };
 		96972B461AC2C77000FF2DC5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96972B451AC2C77000FF2DC5 /* AppDelegate.swift */; };
@@ -74,7 +73,6 @@
 
 /* Begin PBXFileReference section */
 		9616925E1AC4621C0016523C /* GameModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameModel.swift; sourceTree = "<group>"; };
-		96265A4D1AC3DF080009809F /* StarNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarNode.swift; sourceTree = "<group>"; };
 		9660B9FE1AC44F4A00A053A2 /* LoadingCattleNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingCattleNode.swift; sourceTree = "<group>"; };
 		967F6D881AC55C1B00B50207 /* Animal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animal.swift; sourceTree = "<group>"; };
 		96972B401AC2C77000FF2DC5 /* CattleBattle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CattleBattle.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -227,7 +225,6 @@
 		C35441531ACDB14700BA7369 /* TemporaryCode */ = {
 			isa = PBXGroup;
 			children = (
-				96265A4D1AC3DF080009809F /* StarNode.swift */,
 			);
 			name = TemporaryCode;
 			sourceTree = "<group>";
@@ -498,7 +495,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96265A4E1AC3DF080009809F /* StarNode.swift in Sources */,
 				96972B4A1AC2C77000FF2DC5 /* GameScene.swift in Sources */,
 				96972B4C1AC2C77000FF2DC5 /* GameViewController.swift in Sources */,
 				96972B461AC2C77000FF2DC5 /* AppDelegate.swift in Sources */,

@@ -142,7 +142,7 @@ class GameScene: SKScene {
             var node = i as SKNode
             
             if node.name != nil && node.name == "leftRunning" {
-                var runningNode = node as StarNode
+                var runningNode = node as AnimalNode
                 var animal = Animal(color: Animal.Color.WHITE, size: runningNode.animalSize, status: .DEPLOYED)
                 runningNode.physicsBody!.velocity.dx = -300 * animal.getImageMass() / 10
                 if node.position.x < GAME_VIEW_LEFT_BOUNDARY || node.position.x > GAME_VIEW_RIGHT_BOUNDARY {
@@ -150,7 +150,7 @@ class GameScene: SKScene {
                 }
             }
             if node.name != nil && node.name == "rightRunning" {
-                var runningNode = node as StarNode
+                var runningNode = node as AnimalNode
                 var animal = Animal(color: Animal.Color.WHITE, size: runningNode.animalSize, status: .DEPLOYED)
                 runningNode.physicsBody!.velocity.dx = 300 * animal.getImageMass() / 10
                 if node.position.x < GAME_VIEW_LEFT_BOUNDARY || node.position.x > GAME_VIEW_RIGHT_BOUNDARY  {
@@ -168,7 +168,7 @@ class GameScene: SKScene {
     }
     
     func addObject(location : CGPoint, direction : Int, size : Animal.Size, side : GameModel.side) {
-        let sprite = StarNode.getAnimal(location, direction: direction, size : size, side : side)
+        let sprite = AnimalNode.getAnimal(location, direction: direction, size : size, side : side)
         self.addChild(sprite)
     }
     

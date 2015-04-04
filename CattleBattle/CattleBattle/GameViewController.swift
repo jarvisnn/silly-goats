@@ -61,8 +61,6 @@ class GameViewController: UIViewController {
             scene.scaleMode = .AspectFill
 
             self.view!.addSubview(skView)
-
-        
             self.view!.bringSubviewToFront(skView)
             
             skView.allowsTransparency = true

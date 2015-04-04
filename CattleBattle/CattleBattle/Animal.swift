@@ -81,8 +81,8 @@ class Animal {
         self.status = status
     }
     
-    let scale1x : CGFloat = 0.030
-    let scale1y : CGFloat = 0.030
+    let scale1x : CGFloat = 0.5
+    let scale1y : CGFloat = 0.5
     
     let mass1 : CGFloat = 7
     
