@@ -3,28 +3,12 @@
 //  CattleBattle
 //
 //  Created by Ding Ming on 25/3/15.
-//  Copyright (c) 2015 Ding Ming. All rights reserved.
+//  Copyright (c) 2015 Cattle Battle. All rights reserved.
 //
 
 import UIKit
 import SpriteKit
 
-
-extension SKNode {
-    class func unarchiveFromFile(file : String) -> SKNode? {
-        if let path = NSBundle.mainBundle().pathForResource(file, ofType: "sks") {
-            var sceneData = NSData(contentsOfFile: path, options: .DataReadingMappedIfSafe, error: nil)!
-            var archiver = NSKeyedUnarchiver(forReadingWithData: sceneData)
-            
-            archiver.setClass(self.classForKeyedUnarchiver(), forClassName: "SKScene")
-            let scene = archiver.decodeObjectForKey(NSKeyedArchiveRootObjectKey) as GameScene
-            archiver.finishDecoding()
-            return scene
-        } else {
-            return nil
-        }
-    }
-}
 
 class GameViewController: UIViewController {
 
@@ -67,18 +51,12 @@ class GameViewController: UIViewController {
             scene.backgroundColor = UIColor.clearColor()
             skView.presentScene(scene)
             
-           
         }
     }
     
 
     override func shouldAutorotate() -> Bool {
         return true
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Release any cached data, images, etc that aren't in use.
     }
 
 }

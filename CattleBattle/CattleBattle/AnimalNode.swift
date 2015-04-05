@@ -1,18 +1,11 @@
 //
-//  GoatNode.swift
+//  AnimalNode.swift
 //  CattleBattle
 //
 //  Created by Duong Dat on 4/2/15.
 //  Copyright (c) 2015 Cattle Battle. All rights reserved.
 //
 
-//
-//  SpriteNode.swift
-//  CattleBattle
-//
-//  Created by Ding Ming on 26/3/15.
-//  Copyright (c) 2015 Ding Ming. All rights reserved.
-//
 import UIKit
 import SpriteKit
 

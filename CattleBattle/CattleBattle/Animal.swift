@@ -3,7 +3,7 @@
 //  CattleBattle
 //
 //  Created by Ding Ming on 27/3/15.
-//  Copyright (c) 2015 Ding Ming. All rights deployed.
+//  Copyright (c) 2015 Cattle Battle. All rights deployed.
 //
 
 import SpriteKit
