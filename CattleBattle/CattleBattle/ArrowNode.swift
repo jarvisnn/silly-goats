@@ -25,6 +25,7 @@ class ArrowNode: SKSpriteNode {
         private static let ARROW_WIDTH: CGFloat = 120.0
         private static let ARROW_HEIGHT: CGFloat = 64.0
         private static let ANIMATION_TIME = 0.2
+        private static let ALPHA: CGFloat = 0.4
         
         internal static var arrowTextures = GameModel.Side.allSides.map() { (side) -> [SKTexture] in
             var spriteSheet = SKTexture(imageNamed: Constants.ARROW_IDENTIFIER + "-" + side.rawValue + Constants.IMAGE_EXT)
@@ -41,7 +42,7 @@ class ArrowNode: SKSpriteNode {
     }
     
     class func getTextures(side: GameModel.Side) -> [SKTexture] {
-        return Constants.arrowTextures[find(GameModel.Side.allSides, side)!]
+        return Constants.arrowTextures[side.index]
     }
     
     init(side: GameModel.Side, index: Int) {
@@ -49,7 +50,7 @@ class ArrowNode: SKSpriteNode {
 
         self.name = Constants.ARROW_IDENTIFIER
         self.size = CGSize(width: Constants.ARROW_WIDTH, height: Constants.ARROW_HEIGHT)
-        self.alpha = 0.8
+        self.alpha = Constants.ALPHA
 
         self.side = side
         self.index = index

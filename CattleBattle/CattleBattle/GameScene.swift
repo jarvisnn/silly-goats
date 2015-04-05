@@ -10,6 +10,11 @@ import SpriteKit
 
 class GameScene: SKScene {
     
+    struct Constants {
+        private static let NUMBER_OF_BRIDGES = 5
+        private static let NUMBER_OF_RESERVED = 3
+    }
+    
     private let GAME_VIEW_RIGHT_BOUNDARY : CGFloat = 2048
     private let GAME_VIEW_LEFT_BOUNDARY : CGFloat = -1024
     private let LABEL_FONT_NAME = "Chalkduster"
@@ -22,7 +27,6 @@ class GameScene: SKScene {
     var dir = 1
     var leftReadyButton: [SKNode] = []
     var rightReadyButton: [SKNode] = []
-    var numOfFrameUpdated: Int = 0
     
     private let RIGHT_LAUNCH_X : CGFloat = 1024
     private let LEFT_LAUNCH_X : CGFloat = 0
@@ -34,20 +38,21 @@ class GameScene: SKScene {
         /* Setup your scene here */
         
         // Set up the left/right ready button
-        for i in 0...2 {
-            var node = LoadingNode.loadingCattle(CGPoint(x: 50 + i * 80, y : 725), animalIndex : 1, side : .LEFT)
+        for i in 0..<Constants.NUMBER_OF_RESERVED {
+            for side in GameModel.Side.allSides {
+                var node: LoadingNode
+                if side == .LEFT {
+                    node = LoadingNode.loadingCattle(CGPoint(x: 50 + i * 80, y : 725), animalIndex : 1, side : .LEFT)
+                    self.leftReadyButton.append(node)
+                } else {
+                    node = LoadingNode.loadingCattle(CGPoint(x: (Int)(self.frame.width) - 50 - i * 80, y : 725), animalIndex : 1, side : .RIGHT)
+                    self.rightReadyButton.append(node)
+                }
+                node.name = READY_BUTTON_NAME
 
-            node.name = READY_BUTTON_NAME
-            self.addChild(node)
-            self.leftReadyButton.append(node)
-        }
-        
-        for i in 0...2 {
-            var node = LoadingNode.loadingCattle(CGPoint(x: (Int)(self.frame.width) - 50 - i * 80, y : 725), animalIndex : 1, side : .RIGHT)
+                self.addChild(node)
+            }
 
-            node.name = READY_BUTTON_NAME
-            self.addChild(node)
-            self.rightReadyButton.append(node)
         }
         
         let vsLabel = SKLabelNode(fontNamed: LABEL_FONT_NAME)
@@ -72,21 +77,18 @@ class GameScene: SKScene {
         self.addChild(rightPlayerScoreNode)
         
 
-        for i in 1...5 {
-            var tmpNode = ArrowNode(side: .LEFT, index: i)
-            var y = (CGFloat)(LAUNCH_Y_TOP - LAUNCH_Y_GAP * (CGFloat)(i-1))
-            tmpNode.position = CGPointMake(60, y)
-            self.addChild(tmpNode)
+        for i in 0..<Constants.NUMBER_OF_BRIDGES {
+            var y = (CGFloat)(LAUNCH_Y_TOP - LAUNCH_Y_GAP * CGFloat(i))
+            for side in GameModel.Side.allSides {
+                var tmpNode = ArrowNode(side: side, index: i)
+                if side == .LEFT {
+                    tmpNode.position = CGPointMake(60, y)
+                } else {
+                    tmpNode.position = CGPointMake(self.frame.width - 60, y)
+                }
+                self.addChild(tmpNode)
+            }
         }
-        
-        for i in 1...5 {
-            var tmpNode = ArrowNode(side: .RIGHT, index: i)
-            var y = (CGFloat)(LAUNCH_Y_TOP - LAUNCH_Y_GAP * (CGFloat)(i-1))
-            tmpNode.position = CGPointMake(self.frame.width - 60, y)
-            self.addChild(tmpNode)
-        }
-
-        self.numOfFrameUpdated = 0
     }
     
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
@@ -106,7 +108,7 @@ class GameScene: SKScene {
                     if self.gameModel.leftSelectedCattleIndex != -1 {
                         var tmpType = (self.leftReadyButton[self.gameModel.leftSelectedCattleIndex] as LoadingNode).currentType
                         if self.gameModel.isCattleReady(.LEFT, index: gameModel.leftSelectedCattleIndex) {
-                            var tmp : CGFloat = (CGFloat)(arrow.index) - 1
+                            var tmp : CGFloat = (CGFloat)(arrow.index)
                             var y = (CGFloat)(LAUNCH_Y_TOP - LAUNCH_Y_GAP * tmp)
                             self.addObject(CGPoint(x: LEFT_LAUNCH_X , y: y), direction: 1, size: tmpType, side : .LEFT)
                             gameModel.launchCattle(.LEFT, index: self.gameModel.leftSelectedCattleIndex)
@@ -120,7 +122,7 @@ class GameScene: SKScene {
                     if self.gameModel.rightSelectedCattleIndex != -1 {
                         var tmpType = (self.rightReadyButton[self.gameModel.rightSelectedCattleIndex] as LoadingNode).currentType
                         if self.gameModel.isCattleReady(.RIGHT, index: gameModel.rightSelectedCattleIndex) {
-                            var tmp : CGFloat = (CGFloat)(arrow.index) - 1
+                            var tmp : CGFloat = (CGFloat)(arrow.index)
                             var y = (CGFloat)(LAUNCH_Y_TOP - LAUNCH_Y_GAP * tmp)
                             self.addObject(CGPoint(x: RIGHT_LAUNCH_X , y: y), direction: -1, size: tmpType, side : .RIGHT)
                             gameModel.launchCattle(.RIGHT, index: self.gameModel.rightSelectedCattleIndex)
@@ -138,7 +140,6 @@ class GameScene: SKScene {
    
    
     override func update(currentTime: CFTimeInterval) {
-        numOfFrameUpdated += 1
         for i in self.children {
             var node = i as SKNode
             

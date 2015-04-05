@@ -23,6 +23,9 @@ class GameModel {
         case RIGHT = "right"
         
         internal static var allSides = [LEFT, RIGHT]
+        var index: Int {
+            return self == .LEFT ? 0 : 1
+        }
     }
     
     init () {
