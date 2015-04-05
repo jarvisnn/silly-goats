@@ -72,14 +72,14 @@ class GameScene: SKScene {
         
 
         for i in 1...5 {
-            var tmpNode = LaunchButtonNode.launchButton(.left, index: i)
+            var tmpNode = ArrowNode.launchButton(.left, index: i)
             var y = (CGFloat)(LAUNCH_Y_TOP - LAUNCH_Y_GAP * (CGFloat)(i-1))
             tmpNode.position = CGPointMake(60, y)
             self.addChild(tmpNode)
         }
         
         for i in 1...5 {
-            var tmpNode = LaunchButtonNode.launchButton(.right, index: i)
+            var tmpNode = ArrowNode.launchButton(.right, index: i)
             var y = (CGFloat)(LAUNCH_Y_TOP - LAUNCH_Y_GAP * (CGFloat)(i-1))
             tmpNode.position = CGPointMake(self.frame.width-60, y)
             self.addChild(tmpNode)
@@ -100,7 +100,7 @@ class GameScene: SKScene {
                 
             }
             if node.name != nil && node.name! == "arrow" {
-                var arrow = node as LaunchButtonNode
+                var arrow = node as ArrowNode
                 if arrow.side == .left {
                     if self.gameModel.leftSelectedCattleIndex != -1 {
                         var tmpType = (self.leftReadyButton[self.gameModel.leftSelectedCattleIndex] as LoadingCattleNode).currentType
@@ -131,7 +131,7 @@ class GameScene: SKScene {
                 }
             }
             
-          }
+        }
     }
     
    
@@ -160,7 +160,7 @@ class GameScene: SKScene {
                 }
             }
             if node.name != nil && node.name == "arrow" {
-                var arrow = node as LaunchButtonNode
+                var arrow = node as ArrowNode
                 if numOfFrameUpdated % 10 == 0 {
                     
                     arrow.animateArrow()

@@ -9,15 +9,15 @@
 import UIKit
 import SpriteKit
 
-class LaunchButtonNode : SKSpriteNode {
+class ArrowNode : SKSpriteNode {
 
     var originTex : SKTexture = SKTexture()
     var currentX : CGFloat = 0
     var side : GameModel.side = .left
     var index : Int = 0
     
-    class func launchButton (side : GameModel.side, index : Int) -> LaunchButtonNode {
-        let node = LaunchButtonNode()
+    class func launchButton (side : GameModel.side, index : Int) -> ArrowNode {
+        let node = ArrowNode()
         var Tex = SKTexture(imageNamed: "arrow-right.png")
         if side == .right {
             Tex = SKTexture(imageNamed: "arrow-left.png")
