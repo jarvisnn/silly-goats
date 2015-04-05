@@ -22,7 +22,7 @@ class GameModel {
         case LEFT = "left"
         case RIGHT = "right"
         
-        internal static var allValues = [LEFT, RIGHT]
+        internal static var allSides = [LEFT, RIGHT]
     }
     
     init () {

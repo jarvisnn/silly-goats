@@ -73,16 +73,16 @@ class GameScene: SKScene {
         
 
         for i in 1...5 {
-            var tmpNode = ArrowNode.launchButton(.LEFT, index: i)
+            var tmpNode = ArrowNode(side: .LEFT, index: i)
             var y = (CGFloat)(LAUNCH_Y_TOP - LAUNCH_Y_GAP * (CGFloat)(i-1))
             tmpNode.position = CGPointMake(60, y)
             self.addChild(tmpNode)
         }
         
         for i in 1...5 {
-            var tmpNode = ArrowNode.launchButton(.RIGHT, index: i)
+            var tmpNode = ArrowNode(side: .RIGHT, index: i)
             var y = (CGFloat)(LAUNCH_Y_TOP - LAUNCH_Y_GAP * (CGFloat)(i-1))
-            tmpNode.position = CGPointMake(self.frame.width-60, y)
+            tmpNode.position = CGPointMake(self.frame.width - 60, y)
             self.addChild(tmpNode)
         }
 
@@ -158,13 +158,6 @@ class GameScene: SKScene {
                 
                 if node.position.x < GAME_VIEW_LEFT_BOUNDARY  || node.position.x > GAME_VIEW_RIGHT_BOUNDARY {
                     node.removeFromParent()
-                }
-            }
-            if node.name != nil && node.name == "arrow" {
-                var arrow = node as ArrowNode
-                if numOfFrameUpdated % 10 == 0 {
-                    
-                    arrow.animateArrow()
                 }
             }
         }

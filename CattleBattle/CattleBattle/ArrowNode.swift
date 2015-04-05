@@ -9,52 +9,55 @@
 import UIKit
 import SpriteKit
 
-class ArrowNode : SKSpriteNode {
+class ArrowNode: SKSpriteNode {
     
     internal var side: GameModel.Side = .LEFT
+    
     internal var originTex: SKTexture = SKTexture()
-    internal var currentX: CGFloat = 0
     internal var index: Int = 0
     
     struct Constants {
         private static let IMAGE_EXT = ".png"
         private static let ARROW_IDENTIFIER = "arrow"
+        private static let SPRITE_SHEET_LENGTH = 5
+        
+        internal static var arrowTextures = GameModel.Side.allSides.map() { (side) -> [SKTexture] in
+            var spriteSheet = SKTexture(imageNamed: Constants.ARROW_IDENTIFIER + "-" + side.rawValue + Constants.IMAGE_EXT)
+            
+            var x = 1.0 / CGFloat(SPRITE_SHEET_LENGTH)
+            var result = [SKTexture]()
+            
+            for i in 0..<SPRITE_SHEET_LENGTH {
+                var rect = CGRectMake(CGFloat(i) * x, 0, x, 1)
+                result.append(SKTexture(rect: rect, inTexture: spriteSheet))
+            }
+            return result
+        }
     }
     
-    
-    class func launchButton (side: GameModel.Side, index: Int) -> ArrowNode {
-
-        let node = ArrowNode()
-        var Tex = SKTexture(imageNamed: Constants.ARROW_IDENTIFIER + "-" + side.rawValue + Constants.IMAGE_EXT)
-        
-        node.initStatus(Tex, side: side, index: index)
-        node.size = CGSize(width: 120,height: 64)
-        
-        var rect = CGRectMake(node.currentX, 0, 0.2, 1)
-    
-        node.texture = SKTexture(rect: rect, inTexture : Tex)
-        node.name = Constants.ARROW_IDENTIFIER
-        node.alpha = 0.8
-
-        return node
+    class func getTextures(side: GameModel.Side) -> [SKTexture] {
+        return Constants.arrowTextures[find(GameModel.Side.allSides, side)!]
     }
     
+    override init(texture:SKTexture, color:SKColor, size:CGSize) {
+        super.init(texture:texture, color:color, size:size)
+    }
     
-    func initStatus(tex : SKTexture, side : GameModel.Side, index : Int) {
-        originTex = tex
-        currentX = 0
+    init(side: GameModel.Side, index: Int) {
+        super.init()
+        var repeatedAction = SKAction.animateWithTextures(ArrowNode.getTextures(side), timePerFrame: 0.2)
+        self.runAction(SKAction.repeatActionForever(repeatedAction))
+
+        self.size = CGSize(width: 120, height: 64)
         self.side = side
         self.index = index
+        
+        self.name = Constants.ARROW_IDENTIFIER
+        self.alpha = 0.8
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
     
-    func animateArrow() {
-        if currentX < originTex.size().width * 0.8 {
-            currentX += originTex.size().width*0.2
-        } else {
-            currentX = 0
-        }
-        var rect = CGRectMake(currentX / originTex.size().width, 0, 0.2, 1)
-        self.texture = SKTexture(rect: rect, inTexture: originTex)
-    
-    }
 }
