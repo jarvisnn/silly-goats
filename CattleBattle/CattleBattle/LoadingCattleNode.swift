@@ -1,5 +1,5 @@
 //
-//  LoadingCattleNode.swift
+//  LoadingNode.swift
 //  CattleBattle
 //
 //  Created by Ding Ming on 26/3/15.
@@ -9,7 +9,7 @@
 import UIKit
 import SpriteKit
 
-class LoadingCattleNode: SKSpriteNode {
+class LoadingNode: SKSpriteNode {
     
     let prob_size1 = 0.2
     let prob_size2 = 0.2
@@ -20,8 +20,8 @@ class LoadingCattleNode: SKSpriteNode {
     var currentType : Animal.Size = .TINY
     
     
-    class func loadingCattle(location: CGPoint, animalIndex : Int, side : GameModel.side) -> LoadingCattleNode {
-        let sprite = LoadingCattleNode(imageNamed:"goat-button-black-1.png")
+    class func loadingCattle(location: CGPoint, animalIndex : Int, side : GameModel.side) -> LoadingNode {
+        let sprite = LoadingNode(imageNamed:"goat-button-black-1.png")
         sprite.generateRandomAnimal(side)
         sprite.position = location
         
