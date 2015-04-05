@@ -13,7 +13,7 @@ class AnimalNode: SKSpriteNode {
     
     internal var animal = Animal(color: .WHITE, size: .TINY, status: .DEPLOYED)
     
-    init(location: CGPoint, size: Animal.Size, side: GameModel.Side) {
+    init(size: Animal.Size, side: GameModel.Side) {
         super.init()
 
         var color: Animal.Color
@@ -28,7 +28,6 @@ class AnimalNode: SKSpriteNode {
         self.size = self.texture!.size()
         self.xScale = animal.getImageScale().0
         self.yScale = animal.getImageScale().1
-        self.position = location
         
         self.name = side.rawValue + "Running"
         

@@ -26,6 +26,7 @@ class Animal {
         
         internal static let allSizes = [TINY, SMALL, MEDIUM, LARGE, HUGE]
         internal static let probability = [1, 1, 1, 1, 1]
+        internal static let scale: [CGFloat] = [0.2, 0.35, 0.4, 0.45, 0.6]
     }
     
     enum Status: String {
@@ -113,24 +114,11 @@ class Animal {
         self.status = status
     }
     
-    //let scale1x : CGFloat = 0.5
-    //let scale1y : CGFloat = 0.5
-    
     let mass1 : CGFloat = 7
     
-    func getImageScale () -> (CGFloat, CGFloat) {
-        switch (size) {
-        case .TINY: return (0.2, 0.2)
-            
-        case .SMALL: return (0.35, 0.35)
-    
-        case .MEDIUM: return (0.4, 0.4)
-        
-        case .LARGE: return (0.45, 0.45)
-            
-        case .HUGE: return (0.6, 0.6)
-        }
-        //return (scale1x, scale1y)
+    func getImageScale() -> (CGFloat, CGFloat) {
+        var scale = Size.scale[find(Size.allSizes, size)!]
+        return (scale, scale)
     }
     
     func getImageMass () -> CGFloat {

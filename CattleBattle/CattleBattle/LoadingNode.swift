@@ -10,83 +10,57 @@ import UIKit
 import SpriteKit
 
 class LoadingNode: SKSpriteNode {
-    
-    var currentType : Animal.Size = .TINY
-    
-    
-    class func loadingCattle(location: CGPoint, animalIndex : Int, side : GameModel.Side) -> LoadingNode {
-        let sprite = LoadingNode(imageNamed:"goat-button-black-1.png")
-        sprite.generateRandomAnimal(side)
-        sprite.position = location
-        
-       
-        //       sprite.physicsBody = SKPhysicsBody(texture: tex, size: sprite.size)
-        var imageSize = CGSizeMake(sprite.size.width + (CGFloat)(2), sprite.size.height + (CGFloat)(2))
-//        sprite.physicsBody = SKPhysicsBody(rectangleOfSize:imageSize)
-//        if let physics = sprite.physicsBody {
-//            physics.affectedByGravity = true
-//            physics.allowsRotation = false
-//            physics.dynamic = true;
-//            physics.linearDamping = 1
-//            physics.angularDamping = 1
-//            
-//            //            physics.velocity.dx = 50
-//            
-//            var mvAction = SKAction.moveByX((CGFloat)(direction*30), y: 0, duration: 0.3)
-//            var mvforeverAction = SKAction.repeatActionForever(mvAction)
-//            sprite.runAction(mvforeverAction)
-//            
-//        }
-        
-        return sprite
+    struct Constants {
+        internal static var IDENTIFIER = "loadingButton"
+        internal static let SCALE: CGFloat = 0.35
     }
     
-    func changeImage(size : Animal.Size, side : GameModel.Side) {
-        var color = Animal.Color.WHITE
-        if side == .LEFT {
-            color = .BLACK
+    internal var index = 0
+    internal var animal: Animal = Animal(color: .WHITE, size: .TINY, status: .BUTTON) {
+        didSet {
+            self.texture = animal.getTexture()
+            self.resize()
         }
-        var tex = Animal(color: color, size: size, status : .BUTTON).getTexture()
-        self.texture = tex
-        
     }
     
-    func resize() {   
-        self.xScale = 0.5
-        self.yScale = 0.5
+    init(side: GameModel.Side, index: Int) {
+        super.init()
+        
+        self.index = index
+        self.name = Constants.IDENTIFIER
+        change()
     }
     
-    func generateRandomAnimal(side : GameModel.Side) {
-        
-        var generatingType : Animal.Size
-        var rand = Double(Float(arc4random()) / Float(UINT32_MAX))
-
-        if rand < 0.2 {
-            generatingType = .TINY
-        } else if rand < 0.4 {
-            generatingType = .SMALL
-        } else if rand < 0.6 {
-            generatingType = .MEDIUM
-        } else if rand < 0.8 {
-            generatingType = .LARGE
-        } else {
-            generatingType = .HUGE
-        }
-        
-        self.currentType = generatingType
-        self.changeImage(generatingType, side: side)
+    func resize() {
+        self.xScale = 1
+        self.yScale = 1
+        self.size = self.texture!.size()
+        self.xScale = Constants.SCALE
+        self.yScale = Constants.SCALE
+    }
+    
+    func change() {
+        self.animal.size = GameModel.generateRandomAnimal()
+        self.texture = animal.getTexture()
         self.resize()
-        
     }
     
-    func fadeAnimation(gameModel : GameModel, side : GameModel.Side, index : Int){
+    func fadeAnimation(side : GameModel.Side, index : Int){
         self.alpha = 0
         var action1 = SKAction.fadeInWithDuration(3)
         var action2 = SKAction.scaleBy(1.2, duration: 0.3)
         var action3 = action2.reversedAction()
         var actionList = SKAction.sequence([action1, action2 ,action3])
         self.runAction(actionList, completion: { () -> Void in            
-            gameModel.reloadCattle(side, index: index)
+            GameModel.setCattleStatus(side, index: index, status: true)
         })
+    }
+
+    override init(texture:SKTexture, color:SKColor, size:CGSize) {
+        super.init(texture:texture, color:color, size:size)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
 }
