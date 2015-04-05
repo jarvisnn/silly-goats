@@ -19,7 +19,12 @@ class ArrowNode: SKSpriteNode {
     struct Constants {
         private static let IMAGE_EXT = ".png"
         private static let ARROW_IDENTIFIER = "arrow"
+        
         private static let SPRITE_SHEET_LENGTH = 5
+        
+        private static let ARROW_WIDTH: CGFloat = 120.0
+        private static let ARROW_HEIGHT: CGFloat = 64.0
+        private static let ANIMATION_TIME = 0.2
         
         internal static var arrowTextures = GameModel.Side.allSides.map() { (side) -> [SKTexture] in
             var spriteSheet = SKTexture(imageNamed: Constants.ARROW_IDENTIFIER + "-" + side.rawValue + Constants.IMAGE_EXT)
@@ -39,25 +44,25 @@ class ArrowNode: SKSpriteNode {
         return Constants.arrowTextures[find(GameModel.Side.allSides, side)!]
     }
     
+    init(side: GameModel.Side, index: Int) {
+        super.init()
+
+        self.name = Constants.ARROW_IDENTIFIER
+        self.size = CGSize(width: Constants.ARROW_WIDTH, height: Constants.ARROW_HEIGHT)
+        self.alpha = 0.8
+
+        self.side = side
+        self.index = index
+        
+        var repeatedAction = SKAction.animateWithTextures(ArrowNode.getTextures(side), timePerFrame: Constants.ANIMATION_TIME)
+        self.runAction(SKAction.repeatActionForever(repeatedAction))
+    }
+
     override init(texture:SKTexture, color:SKColor, size:CGSize) {
         super.init(texture:texture, color:color, size:size)
     }
     
-    init(side: GameModel.Side, index: Int) {
-        super.init()
-        var repeatedAction = SKAction.animateWithTextures(ArrowNode.getTextures(side), timePerFrame: 0.2)
-        self.runAction(SKAction.repeatActionForever(repeatedAction))
-
-        self.size = CGSize(width: 120, height: 64)
-        self.side = side
-        self.index = index
-        
-        self.name = Constants.ARROW_IDENTIFIER
-        self.alpha = 0.8
-    }
-
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
 }
