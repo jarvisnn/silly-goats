@@ -28,6 +28,7 @@ class LoadingNode: SKSpriteNode {
         
         self.index = index
         self.name = Constants.IDENTIFIER
+        self.animal.color = (side == .LEFT) ? .WHITE : .BLACK
         change()
     }
     
