@@ -11,12 +11,6 @@ import SpriteKit
 
 class LoadingNode: SKSpriteNode {
     
-    let prob_size1 = 0.2
-    let prob_size2 = 0.2
-    let prob_size3 = 0.2
-    let prob_size4 = 0.2
-    let prob_size5 = 0.2
-    
     var currentType : Animal.Size = .TINY
     
     
@@ -66,6 +60,7 @@ class LoadingNode: SKSpriteNode {
         
         var generatingType : Animal.Size
         var rand = Double(Float(arc4random()) / Float(UINT32_MAX))
+
         if rand < 0.2 {
             generatingType = .TINY
         } else if rand < 0.4 {

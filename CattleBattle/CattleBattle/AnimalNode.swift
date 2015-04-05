@@ -11,38 +11,32 @@ import SpriteKit
 
 class AnimalNode: SKSpriteNode {
     
-    var animalSize: Animal.Size = Animal.Size.TINY
+    internal var animal = Animal(color: .WHITE, size: .TINY, status: .DEPLOYED)
     
-    class func getAnimal(location: CGPoint, direction: Int, size: Animal.Size, side : GameModel.Side) -> AnimalNode {
-        var color = Animal.Color.WHITE
+    init(location: CGPoint, size: Animal.Size, side: GameModel.Side) {
+        super.init()
+
+        var color: Animal.Color
         if side == .LEFT {
+            color = .WHITE
+        } else {
             color = .BLACK
         }
+        self.animal = Animal(color: color, size: size, status: .DEPLOYED)
+        self.texture = self.animal.getTexture()
         
-        var animal = Animal(color: color, size: size, status: .DEPLOYED)
+        self.size = self.texture!.size()
+        self.xScale = animal.getImageScale().0
+        self.yScale = animal.getImageScale().1
+        self.position = location
         
-        let sprite = AnimalNode(texture: animal.getTexture())
-        sprite.animalSize = size
+        self.name = side.rawValue + "Running"
+        
+        var imageSize = CGSizeMake(self.size.width + (CGFloat)(3), self.size.height + (CGFloat)(3))
         
         
-        sprite.xScale = animal.getImageScale().0
-        sprite.yScale = animal.getImageScale().1
-        
-        sprite.position = location
-        if direction == 1 {
-            sprite.name = "rightRunning"
-        } else {
-            sprite.name = "leftRunning"
-        }
-        
-       // var tex = animal.getTexture()
-        
-        //       sprite.physicsBody = SKPhysicsBody(texture: tex, size: sprite.size)
-        var imageSize = CGSizeMake(sprite.size.width + (CGFloat)(3), sprite.size.height + (CGFloat)(3))
-        
-        //        var imageSize = CGSizeMake((CGFloat)(200),(CGFloat)(200))
-        sprite.physicsBody = SKPhysicsBody(rectangleOfSize:imageSize)
-        if let physics = sprite.physicsBody {
+        self.physicsBody = SKPhysicsBody(rectangleOfSize: imageSize)
+        if let physics = self.physicsBody {
             physics.affectedByGravity = false
             physics.allowsRotation = false
             physics.dynamic = true
@@ -51,29 +45,22 @@ class AnimalNode: SKSpriteNode {
             physics.angularDamping = 0
             physics.restitution = 0
             physics.friction = 0
-            
-            //            physics.velocity.dx = 50
-            
-            //            time = NSTimeInterval(
-            //            var mvAction = SKAction.moveByX((CGFloat)(direction*30), y: 0, duration: (NSTimeInterval)(animal.getImageMass())/10)
-            //            var mvforeverAction = SKAction.repeatActionForever(mvAction)
-            //            sprite.runAction(mvforeverAction)
-            
-            physics.velocity.dx = (CGFloat)(direction) * 300 * animal.getImageMass()/10
+            if animal.color == .WHITE {
+                physics.velocity.dx = 300 * animal.getImageMass()/10
+            } else {
+                physics.velocity.dx = -300 * animal.getImageMass()/10
+            }
         }
-
-        var goatRunningFrames = animal.getDeployedTexture()
-        //add running action
-        sprite.runAction(SKAction.repeatActionForever(
-            SKAction.animateWithTextures(goatRunningFrames,
-                timePerFrame: 0.2,
-                resize: false,
-                restore: true)),
-            withKey:"runningGoat")
         
-        return sprite
+        var repeatedAction = SKAction.animateWithTextures(animal.getDeployedTexture(), timePerFrame: 0.2)
+        self.runAction(SKAction.repeatActionForever(repeatedAction))
     }
     
-    
-    
+    override init(texture: SKTexture!, color: UIColor!, size: CGSize) {
+        super.init(texture: texture, color: color, size: size)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
 }

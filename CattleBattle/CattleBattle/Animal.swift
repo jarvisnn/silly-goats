@@ -25,6 +25,7 @@ class Animal {
         case HUGE = "5"
         
         internal static let allSizes = [TINY, SMALL, MEDIUM, LARGE, HUGE]
+        internal static let probability = [1, 1, 1, 1, 1]
     }
     
     enum Status: String {

@@ -24,7 +24,6 @@ class GameScene: SKScene {
     var rightPlayerScoreNode  = SKLabelNode()
     let READY_BUTTON_NAME = "READY_BUTTON"
     
-    var dir = 1
     var leftReadyButton: [SKNode] = []
     var rightReadyButton: [SKNode] = []
     
@@ -98,10 +97,9 @@ class GameScene: SKScene {
             var node = self.nodeAtPoint(touch.locationInNode(self))
            
             if node.name != nil && node.name! == READY_BUTTON_NAME {
-                print ("click")
                 self.receiveReadyButtonClick(node)
-                
             }
+            
             if node.name != nil && node.name! == "arrow" {
                 var arrow = node as ArrowNode
                 if arrow.side == .LEFT {
@@ -110,7 +108,7 @@ class GameScene: SKScene {
                         if self.gameModel.isCattleReady(.LEFT, index: gameModel.leftSelectedCattleIndex) {
                             var tmp : CGFloat = (CGFloat)(arrow.index)
                             var y = (CGFloat)(LAUNCH_Y_TOP - LAUNCH_Y_GAP * tmp)
-                            self.addObject(CGPoint(x: LEFT_LAUNCH_X , y: y), direction: 1, size: tmpType, side : .LEFT)
+                            self.addObject(CGPoint(x: LEFT_LAUNCH_X , y: y), size: tmpType, side : .LEFT)
                             gameModel.launchCattle(.LEFT, index: self.gameModel.leftSelectedCattleIndex)
                             self.replaceReadyButton(.LEFT, index: self.gameModel.leftSelectedCattleIndex)
                             self.gameModel.clearLeftReadyIndex()
@@ -124,7 +122,7 @@ class GameScene: SKScene {
                         if self.gameModel.isCattleReady(.RIGHT, index: gameModel.rightSelectedCattleIndex) {
                             var tmp : CGFloat = (CGFloat)(arrow.index)
                             var y = (CGFloat)(LAUNCH_Y_TOP - LAUNCH_Y_GAP * tmp)
-                            self.addObject(CGPoint(x: RIGHT_LAUNCH_X , y: y), direction: -1, size: tmpType, side : .RIGHT)
+                            self.addObject(CGPoint(x: RIGHT_LAUNCH_X , y: y), size: tmpType, side : .RIGHT)
                             gameModel.launchCattle(.RIGHT, index: self.gameModel.rightSelectedCattleIndex)
                             self.replaceReadyButton(.RIGHT, index: self.gameModel.rightSelectedCattleIndex)
                             self.gameModel.clearRightReadyIndex()
@@ -144,19 +142,11 @@ class GameScene: SKScene {
             var node = i as SKNode
             
             if node.name != nil && node.name == "leftRunning" {
-                var runningNode = node as AnimalNode
-                var animal = Animal(color: Animal.Color.WHITE, size: runningNode.animalSize, status: .DEPLOYED)
-                runningNode.physicsBody!.velocity.dx = -300 * animal.getImageMass() / 10
-                
                 if node.position.x < GAME_VIEW_LEFT_BOUNDARY || node.position.x > GAME_VIEW_RIGHT_BOUNDARY {
                     node.removeFromParent()
                 }
             }
             if node.name != nil && node.name == "rightRunning" {
-                var runningNode = node as AnimalNode
-                var animal = Animal(color: Animal.Color.WHITE, size: runningNode.animalSize, status: .DEPLOYED)
-                runningNode.physicsBody!.velocity.dx = 300 * animal.getImageMass() / 10
-                
                 if node.position.x < GAME_VIEW_LEFT_BOUNDARY  || node.position.x > GAME_VIEW_RIGHT_BOUNDARY {
                     node.removeFromParent()
                 }
@@ -164,8 +154,8 @@ class GameScene: SKScene {
         }
     }
     
-    func addObject(location : CGPoint, direction : Int, size : Animal.Size, side : GameModel.Side) {
-        let sprite = AnimalNode.getAnimal(location, direction: direction, size : size, side : side)
+    func addObject(location: CGPoint, size: Animal.Size, side: GameModel.Side) {
+        var sprite = AnimalNode(location: location, size: size, side: side)
         self.addChild(sprite)
     }
     
@@ -197,7 +187,7 @@ class GameScene: SKScene {
         return true
     }
     
-    func setGameModel (model : GameModel) {
+    func setGameModel(model : GameModel) {
         self.gameModel = model
     }
     
