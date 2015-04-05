@@ -13,9 +13,9 @@ class AnimalNode: SKSpriteNode {
     
     var animalSize: Animal.Size = Animal.Size.TINY
     
-    class func getAnimal(location: CGPoint, direction: Int, size: Animal.Size, side : GameModel.side) -> AnimalNode {
+    class func getAnimal(location: CGPoint, direction: Int, size: Animal.Size, side : GameModel.Side) -> AnimalNode {
         var color = Animal.Color.WHITE
-        if side == .left {
+        if side == .LEFT {
             color = .BLACK
         }
         

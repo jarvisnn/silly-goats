@@ -11,40 +11,43 @@ class GameModel {
     
     let NUMBER_OF_READY_CATTLE = 3
     
-    var LeftReadyList : [Bool] = []
-    var LeftIsLoading : [Bool] = []
+    var leftReadyList : [Bool] = []
+    var leftIsLoading : [Bool] = []
     var rightReadyList : [Bool] = []
-    var RightIsLoading : [Bool] = []
+    var rightIsLoading : [Bool] = []
     var leftSelectedCattleIndex = -1
     var rightSelectedCattleIndex = -1
     
-    enum side {
-        case left, right
+    enum Side: String {
+        case LEFT = "left"
+        case RIGHT = "right"
+        
+        internal static var allValues = [LEFT, RIGHT]
     }
     
     init () {
         for i in 0...NUMBER_OF_READY_CATTLE-1  {
-            LeftReadyList.append(true)
-            LeftIsLoading.append(false)
+            leftReadyList.append(true)
+            leftIsLoading.append(false)
             rightReadyList.append(true)
-            LeftIsLoading.append(false)
+            leftIsLoading.append(false)
         }
     }
     
     // to check whether a certain cattle is ready for launch
-    func isCattleReady(side : GameModel.side, index : Int) -> Bool {
-        if side == .left {
-            return self.LeftReadyList[index]
+    func isCattleReady(side : GameModel.Side, index : Int) -> Bool {
+        if side == .LEFT {
+            return self.leftReadyList[index]
         } else {
             return self.rightReadyList[index]
         }
     }
     
-    func setReady(side : GameModel.side, index : Int) -> Bool {
+    func setReady(side : GameModel.Side, index : Int) -> Bool {
         if isCattleReady(side, index: index) {
-            if side == .left {
+            if side == .LEFT {
                 self.leftSelectedCattleIndex = index
-            } else if side == .right {
+            } else if side == .RIGHT {
                 self.rightSelectedCattleIndex = index
             }
             
@@ -54,7 +57,7 @@ class GameModel {
     }
     
     // to launch a cattle, reload next cattle
-    func launchCattle(side : GameModel.side, index : Int) {
+    func launchCattle(side : GameModel.Side, index : Int) {
         if isCattleReady(side, index: index) == false {
             return
         }
@@ -64,16 +67,16 @@ class GameModel {
     }
     
     // to set the status of ready cattle
-    func setCattleStatus(side : GameModel.side, index : Int, status : Bool ) {
-        if side == .left {
-            self.LeftReadyList[index] = status
+    func setCattleStatus(side : GameModel.Side, index : Int, status : Bool ) {
+        if side == .LEFT {
+            self.leftReadyList[index] = status
         } else {
             self.rightReadyList[index] = status
         }
     }
     
     // to reload cattle
-    func reloadCattle(side : GameModel.side, index : Int) {
+    func reloadCattle(side : GameModel.Side, index : Int) {
         self.setCattleStatus(side, index: index, status: true)
     }
     

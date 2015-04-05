@@ -20,7 +20,7 @@ class LoadingNode: SKSpriteNode {
     var currentType : Animal.Size = .TINY
     
     
-    class func loadingCattle(location: CGPoint, animalIndex : Int, side : GameModel.side) -> LoadingNode {
+    class func loadingCattle(location: CGPoint, animalIndex : Int, side : GameModel.Side) -> LoadingNode {
         let sprite = LoadingNode(imageNamed:"goat-button-black-1.png")
         sprite.generateRandomAnimal(side)
         sprite.position = location
@@ -47,9 +47,9 @@ class LoadingNode: SKSpriteNode {
         return sprite
     }
     
-    func changeImage(size : Animal.Size, side : GameModel.side) {
+    func changeImage(size : Animal.Size, side : GameModel.Side) {
         var color = Animal.Color.WHITE
-        if side == .left {
+        if side == .LEFT {
             color = .BLACK
         }
         var tex = Animal(color: color, size: size, status : .BUTTON).getTexture()
@@ -62,7 +62,7 @@ class LoadingNode: SKSpriteNode {
         self.yScale = 0.5
     }
     
-    func generateRandomAnimal(side : GameModel.side) {
+    func generateRandomAnimal(side : GameModel.Side) {
         
         var generatingType : Animal.Size
         var rand = Double(Float(arc4random()) / Float(UINT32_MAX))
@@ -84,7 +84,7 @@ class LoadingNode: SKSpriteNode {
         
     }
     
-    func fadeAnimation(gameModel : GameModel, side : GameModel.side, index : Int){
+    func fadeAnimation(gameModel : GameModel, side : GameModel.Side, index : Int){
         self.alpha = 0
         var action1 = SKAction.fadeInWithDuration(3)
         var action2 = SKAction.scaleBy(1.2, duration: 0.3)

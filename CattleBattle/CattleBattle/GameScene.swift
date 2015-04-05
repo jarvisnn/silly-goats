@@ -12,16 +12,17 @@ class GameScene: SKScene {
     
     private let GAME_VIEW_RIGHT_BOUNDARY : CGFloat = 2048
     private let GAME_VIEW_LEFT_BOUNDARY : CGFloat = -1024
+    private let LABEL_FONT_NAME = "Chalkduster"
     
-    var gameModel : GameModel = GameModel() // should be constant. not implemented due to non-nullable class GameModel
+    var gameModel: GameModel = GameModel() // should be constant. not implemented due to non-nullable class GameModel
     var leftPlayerScoreNode = SKLabelNode()
     var rightPlayerScoreNode  = SKLabelNode()
     let READY_BUTTON_NAME = "READY_BUTTON"
     
     var dir = 1
-    var leftReadyButton :[SKNode] = []
-    var rightReadyButton : [SKNode] = []
-    var numOfFrameUpdated : Int = 0
+    var leftReadyButton: [SKNode] = []
+    var rightReadyButton: [SKNode] = []
+    var numOfFrameUpdated: Int = 0
     
     private let RIGHT_LAUNCH_X : CGFloat = 1024
     private let LEFT_LAUNCH_X : CGFloat = 0
@@ -34,7 +35,7 @@ class GameScene: SKScene {
         
         // Set up the left/right ready button
         for i in 0...2 {
-            var node = LoadingNode.loadingCattle(CGPoint(x: 50 + i * 80, y : 725), animalIndex : 1, side : .left)
+            var node = LoadingNode.loadingCattle(CGPoint(x: 50 + i * 80, y : 725), animalIndex : 1, side : .LEFT)
 
             node.name = READY_BUTTON_NAME
             self.addChild(node)
@@ -42,29 +43,29 @@ class GameScene: SKScene {
         }
         
         for i in 0...2 {
-            var node = LoadingNode.loadingCattle(CGPoint(x: (Int)(self.frame.width) - 50 - i * 80, y : 725), animalIndex : 1, side : .right)
+            var node = LoadingNode.loadingCattle(CGPoint(x: (Int)(self.frame.width) - 50 - i * 80, y : 725), animalIndex : 1, side : .RIGHT)
 
             node.name = READY_BUTTON_NAME
             self.addChild(node)
             self.rightReadyButton.append(node)
         }
         
-        let vsLabel = SKLabelNode(fontNamed:"Chalkduster")
+        let vsLabel = SKLabelNode(fontNamed: LABEL_FONT_NAME)
         vsLabel.text = "VS";
         vsLabel.fontSize = 40;
         vsLabel.position = CGPoint(x: 512, y : 650);
         
         self.addChild(vsLabel)
         
-        leftPlayerScoreNode = SKLabelNode(fontNamed:"Chalkduster")
-        leftPlayerScoreNode.text = "000";
+        leftPlayerScoreNode = SKLabelNode(fontNamed: LABEL_FONT_NAME)
+        leftPlayerScoreNode.text = "000"; //should be changed
         leftPlayerScoreNode.fontSize = 40;
         leftPlayerScoreNode.position = CGPoint(x: 420, y : 710);
         
         self.addChild(leftPlayerScoreNode)
         
-        rightPlayerScoreNode = SKLabelNode(fontNamed:"Chalkduster")
-        rightPlayerScoreNode.text = "999";
+        rightPlayerScoreNode = SKLabelNode(fontNamed: LABEL_FONT_NAME)
+        rightPlayerScoreNode.text = "999"; //should be changed
         rightPlayerScoreNode.fontSize = 40;
         rightPlayerScoreNode.position = CGPoint(x: 604, y : 710);
         
@@ -72,14 +73,14 @@ class GameScene: SKScene {
         
 
         for i in 1...5 {
-            var tmpNode = ArrowNode.launchButton(.left, index: i)
+            var tmpNode = ArrowNode.launchButton(.LEFT, index: i)
             var y = (CGFloat)(LAUNCH_Y_TOP - LAUNCH_Y_GAP * (CGFloat)(i-1))
             tmpNode.position = CGPointMake(60, y)
             self.addChild(tmpNode)
         }
         
         for i in 1...5 {
-            var tmpNode = ArrowNode.launchButton(.right, index: i)
+            var tmpNode = ArrowNode.launchButton(.RIGHT, index: i)
             var y = (CGFloat)(LAUNCH_Y_TOP - LAUNCH_Y_GAP * (CGFloat)(i-1))
             tmpNode.position = CGPointMake(self.frame.width-60, y)
             self.addChild(tmpNode)
@@ -101,29 +102,29 @@ class GameScene: SKScene {
             }
             if node.name != nil && node.name! == "arrow" {
                 var arrow = node as ArrowNode
-                if arrow.side == .left {
+                if arrow.side == .LEFT {
                     if self.gameModel.leftSelectedCattleIndex != -1 {
                         var tmpType = (self.leftReadyButton[self.gameModel.leftSelectedCattleIndex] as LoadingNode).currentType
-                        if self.gameModel.isCattleReady(.left, index: gameModel.leftSelectedCattleIndex) {
+                        if self.gameModel.isCattleReady(.LEFT, index: gameModel.leftSelectedCattleIndex) {
                             var tmp : CGFloat = (CGFloat)(arrow.index) - 1
                             var y = (CGFloat)(LAUNCH_Y_TOP - LAUNCH_Y_GAP * tmp)
-                            self.addObject(CGPoint(x: LEFT_LAUNCH_X , y: y), direction: 1, size: tmpType, side : .left)
-                            gameModel.launchCattle(.left, index: self.gameModel.leftSelectedCattleIndex)
-                            self.replaceReadyButton(.left, index: self.gameModel.leftSelectedCattleIndex)
+                            self.addObject(CGPoint(x: LEFT_LAUNCH_X , y: y), direction: 1, size: tmpType, side : .LEFT)
+                            gameModel.launchCattle(.LEFT, index: self.gameModel.leftSelectedCattleIndex)
+                            self.replaceReadyButton(.LEFT, index: self.gameModel.leftSelectedCattleIndex)
                             self.gameModel.clearLeftReadyIndex()
                             
                         }
                         
                     }
-                } else if arrow.side == .right {
+                } else if arrow.side == .RIGHT {
                     if self.gameModel.rightSelectedCattleIndex != -1 {
                         var tmpType = (self.rightReadyButton[self.gameModel.rightSelectedCattleIndex] as LoadingNode).currentType
-                        if self.gameModel.isCattleReady(.right, index: gameModel.rightSelectedCattleIndex) {
+                        if self.gameModel.isCattleReady(.RIGHT, index: gameModel.rightSelectedCattleIndex) {
                             var tmp : CGFloat = (CGFloat)(arrow.index) - 1
                             var y = (CGFloat)(LAUNCH_Y_TOP - LAUNCH_Y_GAP * tmp)
-                            self.addObject(CGPoint(x: RIGHT_LAUNCH_X , y: y), direction: -1, size: tmpType, side : .right)
-                            gameModel.launchCattle(.right, index: self.gameModel.rightSelectedCattleIndex)
-                            self.replaceReadyButton(.right, index: self.gameModel.rightSelectedCattleIndex)
+                            self.addObject(CGPoint(x: RIGHT_LAUNCH_X , y: y), direction: -1, size: tmpType, side : .RIGHT)
+                            gameModel.launchCattle(.RIGHT, index: self.gameModel.rightSelectedCattleIndex)
+                            self.replaceReadyButton(.RIGHT, index: self.gameModel.rightSelectedCattleIndex)
                             self.gameModel.clearRightReadyIndex()
                         }
                         
@@ -169,7 +170,7 @@ class GameScene: SKScene {
         }
     }
     
-    func addObject(location : CGPoint, direction : Int, size : Animal.Size, side : GameModel.side) {
+    func addObject(location : CGPoint, direction : Int, size : Animal.Size, side : GameModel.Side) {
         let sprite = AnimalNode.getAnimal(location, direction: direction, size : size, side : side)
         self.addChild(sprite)
     }
@@ -180,14 +181,14 @@ class GameScene: SKScene {
     // return yes when animal is ready, no otherwise.
     func receiveReadyButtonClick(node : SKNode) -> Bool {
         // get the index of node
-        var side : GameModel.side = .left
+        var side : GameModel.Side = .LEFT
         var index : Int = -1
         for i in 0...2 {
             if self.leftReadyButton[i] == node {
                 index = i
             } else if self.rightReadyButton[i] == node {
                 index  = i
-                side = .right
+                side = .RIGHT
             }
         }
         if index == -1 {
@@ -206,12 +207,12 @@ class GameScene: SKScene {
         self.gameModel = model
     }
     
-    func replaceReadyButton(side : GameModel.side, index: Int) {
-        if side == .left {
+    func replaceReadyButton(side : GameModel.Side, index: Int) {
+        if side == .LEFT {
             var tmpNode = self.leftReadyButton[index] as LoadingNode
             tmpNode.generateRandomAnimal(side)
             tmpNode.fadeAnimation(self.gameModel, side: side, index: index)
-        } else if side == .right {
+        } else if side == .RIGHT {
             var tmpNode = self.rightReadyButton[index] as LoadingNode
             tmpNode.generateRandomAnimal(side)
             tmpNode.fadeAnimation(self.gameModel, side: side, index: index)

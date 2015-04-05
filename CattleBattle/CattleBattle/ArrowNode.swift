@@ -10,33 +10,37 @@ import UIKit
 import SpriteKit
 
 class ArrowNode : SKSpriteNode {
-
-    var originTex : SKTexture = SKTexture()
-    var currentX : CGFloat = 0
-    var side : GameModel.side = .left
-    var index : Int = 0
     
-    class func launchButton (side : GameModel.side, index : Int) -> ArrowNode {
+    internal var side: GameModel.Side = .LEFT
+    internal var originTex: SKTexture = SKTexture()
+    internal var currentX: CGFloat = 0
+    internal var index: Int = 0
+    
+    struct Constants {
+        private static let IMAGE_EXT = ".png"
+        private static let ARROW_IDENTIFIER = "arrow"
+    }
+    
+    
+    class func launchButton (side: GameModel.Side, index: Int) -> ArrowNode {
+
         let node = ArrowNode()
-        var Tex = SKTexture(imageNamed: "arrow-right.png")
-        if side == .right {
-            Tex = SKTexture(imageNamed: "arrow-left.png")
-        }
+        var Tex = SKTexture(imageNamed: Constants.ARROW_IDENTIFIER + "-" + side.rawValue + Constants.IMAGE_EXT)
         
         node.initStatus(Tex, side: side, index: index)
         node.size = CGSize(width: 120,height: 64)
         
-        var rect = CGRectMake(node.currentX ,0, 0.2, 1)
+        var rect = CGRectMake(node.currentX, 0, 0.2, 1)
     
         node.texture = SKTexture(rect: rect, inTexture : Tex)
-        node.name = "arrow"
+        node.name = Constants.ARROW_IDENTIFIER
         node.alpha = 0.8
 
         return node
     }
     
     
-    func initStatus(tex : SKTexture, side : GameModel.side, index : Int) {
+    func initStatus(tex : SKTexture, side : GameModel.Side, index : Int) {
         originTex = tex
         currentX = 0
         self.side = side
