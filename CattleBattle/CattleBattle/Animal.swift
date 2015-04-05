@@ -38,11 +38,13 @@ class Animal {
     struct Constants {
         internal static let GOAT_KEYWORD = "goat"
         internal static let IMAGE_EXT = ".png"
+
+        internal static let SPRITE_SHEET_ROWS = 2
+        internal static let SPRITE_SHEET_COLS = 5
         
         internal static var deployedTextures = Color.allColors.map() { (color) -> [[SKTexture]] in
             return Size.allSizes.map() { (size) -> [SKTexture] in
-                //return SKTexture(imageNamed: Animal(color: color, size: size, status: .DEPLOYED).getImageFileName())
-                return Constants.deployedTextureList(color, size: size)
+                return Constants.getTextureList(color: color, size: size, status: .DEPLOYED)
             }
         }
         internal static var buttonTextures = Color.allColors.map() { (color) -> [SKTexture] in
@@ -52,52 +54,27 @@ class Animal {
         }
         internal static var bumpingTextures = Color.allColors.map() { (color) -> [[SKTexture]] in
             return Size.allSizes.map() { (size) -> [SKTexture] in
-                //return SKTexture(imageNamed: Animal(color: color, size: size, status: .BUMPING).getImageFileName())
-                return Constants.bumpingTextureList(color, size: size)
+                return Constants.getTextureList(color: color, size: size, status: .BUMPING)
             }
         }
-        
-        
         
         //get the array of textures from a texture sheet for running animation
-        static func deployedTextureList(color: Color, size: Size) -> [SKTexture] {
-        
-            var textureSheet = SKTexture(imageNamed:  Animal(color: color, size: size, status: .DEPLOYED).getImageFileName())
-            textureSheet.filteringMode = SKTextureFilteringMode.Nearest
-            
-            var textureList = [SKTexture]()
-        
-            for var i = 0; i < 5; i++ {
-                for var j = 0; j < 2; j++ {
-        
-                    var rectFrame = CGRectMake(CGFloat(i) * 0.2, CGFloat(j) * 0.5, 0.2, 0.5)
-        
-                    textureList.append(SKTexture(rect: rectFrame, inTexture: textureSheet))
+        internal static func getTextureList(#color: Color, size: Size, status: Status) -> [SKTexture] {
+            var spriteSheet = SKTexture(imageNamed:  Animal(color: color, size: size, status: status).getImageFileName())
+            if status == .DEPLOYED {
+                spriteSheet.filteringMode = SKTextureFilteringMode.Nearest
+            }
+            var result = [SKTexture]()
+            var x = 1.0 / CGFloat(SPRITE_SHEET_COLS)
+            var y = 1.0 / CGFloat(SPRITE_SHEET_ROWS)
+            for i in 0..<SPRITE_SHEET_COLS {
+                for j in 0..<SPRITE_SHEET_ROWS {
+                    var rectFrame = CGRectMake(CGFloat(i) * x, CGFloat(j) * y, x, y)
+                    result.append(SKTexture(rect: rectFrame, inTexture: spriteSheet))
                 }
             }
-            
-            return textureList
+            return result
         }
-        
-        
-        //get the array of textures from a texture sheet for bumping animation
-        static func bumpingTextureList(color: Color, size: Size) -> [SKTexture] {
-            
-            var textureSheet = SKTexture(imageNamed:  Animal(color: color, size: size, status: .DEPLOYED).getImageFileName())
-            var textureList = [SKTexture]()
-            
-            for var i = 0; i < 5; i++ {
-                for var j = 0; j < 2; j++ {
-                    var rectFrame = CGRectMake(CGFloat(i) * 0.2, CGFloat(j) * 0.5 , 0.2, 0.5)
-                    textureList.append(SKTexture(rect: rectFrame, inTexture: textureSheet))
-        
-                }
-            }
-            
-            return textureList
-        }
-
-        
         
     }
     
