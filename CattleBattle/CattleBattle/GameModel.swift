@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Ding Ming. All rights reserved.
 //
 
+import UIKit
 
 class GameModel {
     
@@ -17,6 +18,8 @@ class GameModel {
     var RightIsLoading : [Bool] = []
     var leftSelectedCattleIndex = -1
     var rightSelectedCattleIndex = -1
+    var leftScore : Int
+    var rightScore : Int
     
     enum side {
         case left, right
@@ -28,7 +31,10 @@ class GameModel {
             LeftIsLoading.append(false)
             rightReadyList.append(true)
             LeftIsLoading.append(false)
+            
         }
+        leftScore = 0
+        rightScore = 0
     }
     
     // to check whether a certain cattle is ready for launch
@@ -83,5 +89,42 @@ class GameModel {
     
     func clearRightReadyIndex () {
         self.rightSelectedCattleIndex = -1
+    }
+    
+    // this function is to calculate incremental score for both players base on the input on each line
+    // the input is the x-axis value of the hitting point of both side
+    // if a line is on battle, leftX = rightX
+    // if a line is not on battle but both side have sheeps. leftX > 0 rightX > 0
+    // if a line is only with left sheep. leftX > 0, rightX = 0
+    // if a line is empty, leftX = rightX = 0
+    func calculateScore(leftX : CGFloat, rightX : CGFloat) {
+        let BridgeLeftEndX = 40
+        let BridgeRightEndX = 1600
+        let SegmentNumber = 5
+        let ScoreMultiplier = 2
+        let SegmentLength : CGFloat = (CGFloat)(BridgeRightEndX - BridgeLeftEndX) / (CGFloat)(SegmentNumber)
+        
+        if leftX == 0 && rightX == 0 {
+            return
+        }
+        if rightX > 0 {
+            var rightSegmentOccupied = 0
+            var tmp = rightX
+            while tmp > 0 {
+                tmp -= SegmentLength
+                rightSegmentOccupied += 1
+            }
+            rightScore += rightSegmentOccupied * ScoreMultiplier
+            return
+        }
+        if leftX > 0 {
+            var leftSegmentOccupied = 0
+            var tmp = leftX
+            while tmp > 0 {
+                tmp -= SegmentLength
+                leftSegmentOccupied += 1
+            }
+            leftScore += leftSegmentOccupied * ScoreMultiplier
+        }
     }
 }
