@@ -3,12 +3,13 @@
 //  CattleBattle
 //
 //  Created by Ding Ming on 26/3/15.
-//  Copyright (c) 2015 Ding Ming. All rights reserved.
+//  Copyright (c) 2015 Cattle Battle. All rights reserved.
 //
 
 import UIKit
 
 class GameModel {
+<<<<<<< HEAD
     
     let NUMBER_OF_READY_CATTLE = 3
     
@@ -32,63 +33,68 @@ class GameModel {
             rightReadyList.append(true)
             LeftIsLoading.append(false)
             
+=======
+    struct Constants {
+        internal static let NUMBER_OF_BRIDGES = 5
+        internal static let NUMBER_OF_RESERVED = 3
+        
+        internal static var readyList: [[Bool]] = Side.allSides.map { (_) -> [Bool] in
+            map(0..<NUMBER_OF_RESERVED, { (_) -> Bool in
+                return true
+            })
+        }
+        
+        internal static var selected = [0, 0]
+    }
+    
+    
+    enum Side: String {
+        case LEFT = "left"
+        case RIGHT = "right"
+        
+        internal static var allSides = [LEFT, RIGHT]
+        var index: Int {
+            return self == .LEFT ? 0 : 1
+>>>>>>> fe07db184a2d43ca386df9878fff7aa033ef7276
         }
         leftScore = 0
         rightScore = 0
     }
     
     // to check whether a certain cattle is ready for launch
-    func isCattleReady(side : GameModel.side, index : Int) -> Bool {
-        if side == .left {
-            return self.LeftReadyList[index]
-        } else {
-            return self.rightReadyList[index]
-        }
+    class func isCattleReady(side: GameModel.Side, index: Int) -> Bool {
+        return Constants.readyList[side.index][index]
     }
     
-    func setReady(side : GameModel.side, index : Int) -> Bool {
+    class func selectForSide(side: GameModel.Side, index: Int) -> Bool {
         if isCattleReady(side, index: index) {
-            if side == .left {
-                self.leftSelectedCattleIndex = index
-            } else if side == .right {
-                self.rightSelectedCattleIndex = index
-            }
-            
+            Constants.selected[side.index] = index
             return true
         }
         return false
     }
     
-    // to launch a cattle, reload next cattle
-    func launchCattle(side : GameModel.side, index : Int) {
-        if isCattleReady(side, index: index) == false {
-            return
-        }
-        self.setCattleStatus(side, index: index, status: false)
-        
-//        self.reloadCattle(side , index : index)
-    }
-    
     // to set the status of ready cattle
-    func setCattleStatus(side : GameModel.side, index : Int, status : Bool ) {
-        if side == .left {
-            self.LeftReadyList[index] = status
+    class func setCattleStatus(side : GameModel.Side, index : Int, status : Bool ) {
+        Constants.readyList[side.index][index] = status
+    }
+    
+    
+    class func generateRandomAnimal() -> Animal.Size {
+        var generatingType : Animal.Size
+        var rand = Double(Float(arc4random()) / Float(UINT32_MAX))
+        if rand < 0.2 {
+            generatingType = .TINY
+        } else if rand < 0.4 {
+            generatingType = .SMALL
+        } else if rand < 0.6 {
+            generatingType = .MEDIUM
+        } else if rand < 0.8 {
+            generatingType = .LARGE
         } else {
-            self.rightReadyList[index] = status
+            generatingType = .HUGE
         }
-    }
-    
-    // to reload cattle
-    func reloadCattle(side : GameModel.side, index : Int) {
-        self.setCattleStatus(side, index: index, status: true)
-    }
-    
-    func clearLeftReadyIndex() {
-        self.leftSelectedCattleIndex = -1
-    }
-    
-    func clearRightReadyIndex () {
-        self.rightSelectedCattleIndex = -1
+        return generatingType
     }
     
     // this function is to calculate incremental score for both players base on the input on each line

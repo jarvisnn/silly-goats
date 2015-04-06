@@ -3,7 +3,7 @@
 //  CattleBattle
 //
 //  Created by Ding Ming on 27/3/15.
-//  Copyright (c) 2015 Ding Ming. All rights deployed.
+//  Copyright (c) 2015 Cattle Battle. All rights deployed.
 //
 
 import SpriteKit
@@ -25,30 +25,59 @@ class Animal {
         case HUGE = "5"
         
         internal static let allSizes = [TINY, SMALL, MEDIUM, LARGE, HUGE]
+        internal static let probability = [1, 1, 1, 1, 1]
+        internal static let scale: [CGFloat] = [0.2, 0.35, 0.4, 0.45, 0.6]
     }
     
     enum Status: String {
         case DEPLOYED = "deployed"
-        case ENGAGED = "engaged"
+        case BUMPING = "bumping"
         case BUTTON = "button"
-
-        internal static let allStatuses = [DEPLOYED, ENGAGED, BUTTON]
+        
+        internal static let allStatuses = [DEPLOYED, BUMPING, BUTTON]
     }
     
     struct Constants {
         internal static let GOAT_KEYWORD = "goat"
         internal static let IMAGE_EXT = ".png"
+
+        internal static let SPRITE_SHEET_ROWS = 2
+        internal static let SPRITE_SHEET_COLS = 5
         
-        internal static var goatTextures = Color.allColors.map() { (color) -> [SKTexture] in
-            return Size.allSizes.map() { (size) -> SKTexture in
-                return SKTexture(imageNamed: Animal.getImageName(color, size))
+        internal static var deployedTextures = Color.allColors.map() { (color) -> [[SKTexture]] in
+            return Size.allSizes.map() { (size) -> [SKTexture] in
+                return Constants.getTextureList(color: color, size: size, status: .DEPLOYED)
             }
         }
         internal static var buttonTextures = Color.allColors.map() { (color) -> [SKTexture] in
             return Size.allSizes.map() { (size) -> SKTexture in
-                return SKTexture(imageNamed: Animal.getButtonImageName(color, size))
+                return SKTexture(imageNamed: Animal(color: color, size: size, status: .BUTTON).getImageFileName())
             }
         }
+        internal static var bumpingTextures = Color.allColors.map() { (color) -> [[SKTexture]] in
+            return Size.allSizes.map() { (size) -> [SKTexture] in
+                return Constants.getTextureList(color: color, size: size, status: .BUMPING)
+            }
+        }
+        
+        //get the array of textures from a texture sheet for running animation
+        internal static func getTextureList(#color: Color, size: Size, status: Status) -> [SKTexture] {
+            var spriteSheet = SKTexture(imageNamed:  Animal(color: color, size: size, status: status).getImageFileName())
+            if status == .DEPLOYED {
+                spriteSheet.filteringMode = SKTextureFilteringMode.Nearest
+            }
+            var result = [SKTexture]()
+            var x = 1.0 / CGFloat(SPRITE_SHEET_COLS)
+            var y = 1.0 / CGFloat(SPRITE_SHEET_ROWS)
+            for i in 0..<SPRITE_SHEET_COLS {
+                for j in 0..<SPRITE_SHEET_ROWS {
+                    var rectFrame = CGRectMake(CGFloat(i) * x, CGFloat(j) * y, x, y)
+                    result.append(SKTexture(rect: rectFrame, inTexture: spriteSheet))
+                }
+            }
+            return result
+        }
+        
     }
     
     internal var color: Color
@@ -63,37 +92,33 @@ class Animal {
     func getTexture() -> SKTexture {
         if status == .BUTTON {
             return Constants.buttonTextures[find(Color.allColors, color)!][find(Size.allSizes, size)!]
+        } else if status == .DEPLOYED {
+            return Constants.deployedTextures[find(Color.allColors, color)!][find(Size.allSizes, size)!][0]
         } else {
-            return Constants.goatTextures[find(Color.allColors, color)!][find(Size.allSizes, size)!]
+            return Constants.bumpingTextures[find(Color.allColors, color)!][find(Size.allSizes, size)!][0]
         }
     }
     
-    class func getImageName(color: Color, _ size: Size) -> String {
-        return "goat-" + color.rawValue + "-" + size.rawValue + ".png"
+    func getDeployedTexture() -> [SKTexture] {
+        return Constants.deployedTextures[find(Color.allColors, color)!][find(Size.allSizes, size)!]
     }
     
-    class func getButtonImageName(color: Color, _ size: Size) -> String {
-        return "goat-button-" + color.rawValue + "-" + size.rawValue + ".png"
+    func getBumpingTexture() -> [SKTexture] {
+        return Constants.bumpingTextures[find(Color.allColors, color)!][find(Size.allSizes, size)!]
     }
     
-    init(color: Color, size: Size) {
-        self.color = color
-        self.size = size
-        self.status = .DEPLOYED
-    }
-    init(color: Color, size: Size, status : Animal.Status) {
+    
+    init(color: Color, size: Size, status: Status) {
         self.color = color
         self.size = size
         self.status = status
     }
     
-    let scale1x : CGFloat = 0.030
-    let scale1y : CGFloat = 0.030
-
     let mass1 : CGFloat = 7
-
-    func getImageScale () -> (CGFloat, CGFloat) {
-        return (scale1x, scale1y)
+    
+    func getImageScale() -> (CGFloat, CGFloat) {
+        var scale = Size.scale[find(Size.allSizes, size)!]
+        return (scale, scale)
     }
     
     func getImageMass () -> CGFloat {
@@ -101,4 +126,3 @@ class Animal {
     }
     
 }
-
