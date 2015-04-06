@@ -9,7 +9,7 @@
 import UIKit
 
 class GameModel {
-<<<<<<< HEAD
+
     
     let NUMBER_OF_READY_CATTLE = 3
     
@@ -32,8 +32,11 @@ class GameModel {
             LeftIsLoading.append(false)
             rightReadyList.append(true)
             LeftIsLoading.append(false)
-            
-=======
+        }
+        leftScore = 0
+        rightScore = 0
+    }
+    
     struct Constants {
         internal static let NUMBER_OF_BRIDGES = 5
         internal static let NUMBER_OF_RESERVED = 3
@@ -55,10 +58,8 @@ class GameModel {
         internal static var allSides = [LEFT, RIGHT]
         var index: Int {
             return self == .LEFT ? 0 : 1
->>>>>>> fe07db184a2d43ca386df9878fff7aa033ef7276
         }
-        leftScore = 0
-        rightScore = 0
+
     }
     
     // to check whether a certain cattle is ready for launch
