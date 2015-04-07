@@ -42,7 +42,7 @@ class ArrowNode: SKSpriteNode {
         }
     }
     
-    class func getTextures(side: GameModel.Side) -> [SKTexture] {
+    internal class func getTextures(side: GameModel.Side) -> [SKTexture] {
         return Constants.arrowTextures[side.index]
     }
     

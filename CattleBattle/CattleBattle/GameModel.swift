@@ -63,11 +63,11 @@ class GameModel {
     }
     
     // to check whether a certain cattle is ready for launch
-    class func isCattleReady(side: GameModel.Side, index: Int) -> Bool {
+    internal class func isCattleReady(side: GameModel.Side, index: Int) -> Bool {
         return Constants.readyList[side.index][index]
     }
     
-    class func selectForSide(side: GameModel.Side, index: Int) -> Bool {
+    internal class func selectForSide(side: GameModel.Side, index: Int) -> Bool {
         if isCattleReady(side, index: index) {
             Constants.selected[side.index] = index
             return true
@@ -76,12 +76,12 @@ class GameModel {
     }
     
     // to set the status of ready cattle
-    class func setCattleStatus(side : GameModel.Side, index : Int, status : Bool ) {
+    internal class func setCattleStatus(side : GameModel.Side, index : Int, status : Bool ) {
         Constants.readyList[side.index][index] = status
     }
     
     
-    class func generateRandomAnimal() -> Animal.Size {
+    internal class func generateRandomAnimal() -> Animal.Size {
         var total = Animal.Size.probability.reduce(0, combine: +)
         var rand = Double(arc4random()) / Double(UINT32_MAX) * Double(total)
         for i in 0..<Animal.Size.allSizes.count {
@@ -101,7 +101,7 @@ class GameModel {
     // if a line is not on battle but both side have sheeps. leftX > 0 rightX > 0
     // if a line is only with left sheep. leftX > 0, rightX = 0
     // if a line is empty, leftX = rightX = 0
-    func calculateScore(leftX : CGFloat, rightX : CGFloat) {
+    internal func calculateScore(leftX : CGFloat, rightX : CGFloat) {
         let BridgeLeftEndX = 40
         let BridgeRightEndX = 1600
         let SegmentNumber = 5

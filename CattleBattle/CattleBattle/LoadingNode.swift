@@ -32,7 +32,7 @@ class LoadingNode: SKSpriteNode {
         change()
     }
     
-    func resize() {
+    internal func resize() {
         self.xScale = 1
         self.yScale = 1
         self.size = self.texture!.size()
@@ -40,13 +40,13 @@ class LoadingNode: SKSpriteNode {
         self.yScale = Constants.SCALE
     }
     
-    func change() {
+    internal func change() {
         self.animal.size = GameModel.generateRandomAnimal()
         self.texture = animal.getTexture()
         self.resize()
     }
     
-    func fadeAnimation(side : GameModel.Side, index : Int){
+    internal func fadeAnimation(side : GameModel.Side, index : Int){
         self.alpha = 0
         var action1 = SKAction.fadeInWithDuration(3)
         var action2 = SKAction.scaleBy(1.2, duration: 0.3)
