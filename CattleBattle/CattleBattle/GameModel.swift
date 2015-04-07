@@ -82,20 +82,17 @@ class GameModel {
     
     
     class func generateRandomAnimal() -> Animal.Size {
-        var generatingType : Animal.Size
-        var rand = Double(Float(arc4random()) / Float(UINT32_MAX))
-        if rand < 0.2 {
-            generatingType = .TINY
-        } else if rand < 0.4 {
-            generatingType = .SMALL
-        } else if rand < 0.6 {
-            generatingType = .MEDIUM
-        } else if rand < 0.8 {
-            generatingType = .LARGE
-        } else {
-            generatingType = .HUGE
+        var total = Animal.Size.probability.reduce(0, combine: +)
+        var rand = Double(arc4random()) / Double(UINT32_MAX) * Double(total)
+        for i in 0..<Animal.Size.allSizes.count {
+            var prob = Double(Animal.Size.probability[i])
+            if rand < prob {
+                return Animal.Size.allSizes[i]
+            } else {
+                rand -= prob
+            }
         }
-        return generatingType
+        return .TINY
     }
     
     // this function is to calculate incremental score for both players base on the input on each line
