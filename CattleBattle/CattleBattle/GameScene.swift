@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-class GameScene: SKScene {
+class GameScene: SKScene, SKPhysicsContactDelegate {
     
     struct Constants {
         private static var LAUNCH_X: [CGFloat]!
@@ -81,10 +81,44 @@ class GameScene: SKScene {
     
     override func didMoveToView(view: SKView) {
         Constants.LAUNCH_X = [self.frame.minX, self.frame.maxX]
-        
+        physicsWorld.contactDelegate = self
+        self.physicsWorld.gravity = CGVectorMake(0, 0)
+
         _setupLoadingButton()
         _setupLabel()
         _setupArrow()
+    }
+    
+    
+    
+    func goatDidCollisionWithAnother(goatA: AnimalNode, goatB: AnimalNode) {
+
+        if goatA.animal.status == .DEPLOYED {
+            goatA.animal.status == .BUMPING
+            
+            goatA.removeActionForKey("deployed")
+            var repeatedActionA = SKAction.animateWithTextures(goatA.animal.getBumpingTexture(), timePerFrame: 0.2)
+            goatA.runAction(SKAction.repeatActionForever(repeatedActionA), withKey: "bumping")
+        }
+        
+        if goatB.animal.status == .DEPLOYED {
+            goatB.animal.status == .BUMPING
+            goatB.removeActionForKey("deployed")
+            var repeatedActionB = SKAction.animateWithTextures(goatB.animal.getBumpingTexture(), timePerFrame: 0.2)
+            goatB.runAction(SKAction.repeatActionForever(repeatedActionB), withKey: "bumping")
+        }
+                
+    }
+    
+    func didBeginContact(contact: SKPhysicsContact) {
+        var firstBody: SKPhysicsBody = contact.bodyA
+        var secondBody: SKPhysicsBody = contact.bodyB
+        
+        //check if both are goats
+        if ((firstBody.categoryBitMask & AnimalNode.PhysicsCategory.Goat) != 0 && (secondBody.categoryBitMask & AnimalNode.PhysicsCategory.Goat) != 0) {
+           goatDidCollisionWithAnother(firstBody.node as AnimalNode, goatB: secondBody.node as AnimalNode)
+        }
+        
     }
     
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {

@@ -13,7 +13,14 @@ class AnimalNode: SKSpriteNode {
     
     internal var animal = Animal(color: .WHITE, size: .TINY, status: .DEPLOYED)
     
+    struct PhysicsCategory {
+        static let None : UInt32 = 0
+        static let All  : UInt32 = UInt32.max
+        static let Goat : UInt32 = 0b1 //1
+    }
+
     init(size: Animal.Size, side: GameModel.Side) {
+        
         super.init()
 
         var color: Animal.Color
@@ -44,6 +51,9 @@ class AnimalNode: SKSpriteNode {
             physics.angularDamping = 0
             physics.restitution = 0
             physics.friction = 0
+            physics.categoryBitMask = PhysicsCategory.Goat
+            physics.contactTestBitMask = PhysicsCategory.Goat
+            
             if animal.color == .WHITE {
                 physics.velocity.dx = 300 * animal.getImageMass()/10
             } else {
