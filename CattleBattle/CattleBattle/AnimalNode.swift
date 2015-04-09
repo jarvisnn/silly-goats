@@ -38,10 +38,10 @@ class AnimalNode: SKSpriteNode {
         
         self.name = side.rawValue + "Running"
         
-        var imageSize = CGSizeMake(self.size.width + (CGFloat)(3), self.size.height + (CGFloat)(3))
+        var bodySize = CGSizeMake(self.size.width - CGFloat(3), self.size.height / 2)
         
         
-        self.physicsBody = SKPhysicsBody(rectangleOfSize: imageSize)
+        self.physicsBody = SKPhysicsBody(rectangleOfSize: bodySize)
         if let physics = self.physicsBody {
             physics.affectedByGravity = false
             physics.allowsRotation = false
