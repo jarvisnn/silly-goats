@@ -19,7 +19,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     private let GAME_VIEW_RIGHT_BOUNDARY: CGFloat = 1100
-    private let GAME_VIEW_LEFT_BOUNDARY: CGFloat = -1100
+    private let GAME_VIEW_LEFT_BOUNDARY: CGFloat = -100
     
     var playerScoreNode: [SKLabelNode] = GameModel.Side.allSides.map({ (side) -> SKLabelNode in
         SKLabelNode()
@@ -47,7 +47,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private func _setupLabel() {
         for side in GameModel.Side.allSides {
             playerScoreNode[side.index] = SKLabelNode(fontNamed: Constants.LABEL_FONT)
-            playerScoreNode[side.index].text = "000"; //should be changed
+            playerScoreNode[side.index].text = "000";
             playerScoreNode[side.index].fontSize = 40;
             if side == .LEFT {
                 playerScoreNode[side.index].position = CGPoint(x: 420, y : 710);
@@ -124,20 +124,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-   
-   
     override func update(currentTime: CFTimeInterval) {
         for i in self.children {
             var node = i as SKNode
             
-            if node.name != nil && node.name == "leftRunning" {
+            if node.name != nil && (node.name == "leftRunning" || node.name == "rightRunning") {
+                let sideIndex = node.name == "leftRunning" ? 0 : 1
                 if node.position.x < GAME_VIEW_LEFT_BOUNDARY || node.position.x > GAME_VIEW_RIGHT_BOUNDARY {
+                    if (sideIndex == 0 && node.position.x > GAME_VIEW_RIGHT_BOUNDARY)
+                            || (sideIndex == 1 && node.position.x < GAME_VIEW_LEFT_BOUNDARY){
+                        let point = (node as AnimalNode).animal.getPoint()
+                        let newScore = playerScoreNode[sideIndex].text.toInt()!+point
+                        playerScoreNode[sideIndex].text = (newScore as NSNumber).stringValue
+                    }
                     node.removeFromParent()
-                }
-            }
-            if node.name != nil && node.name == "rightRunning" {
-                if node.position.x < GAME_VIEW_LEFT_BOUNDARY  || node.position.x > GAME_VIEW_RIGHT_BOUNDARY {
-                    node.removeFromParent()
+                } else {
+                    if node.name == "leftRunning" {
+                        (node as AnimalNode).physicsBody!.velocity.dx = AnimalNode.Constants.VELOCITY
+                    } else {
+                        (node as AnimalNode).physicsBody!.velocity.dx = -AnimalNode.Constants.VELOCITY
+                    }
                 }
             }
         }

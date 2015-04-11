@@ -10,6 +10,9 @@ import SpriteKit
 
 class Animal {
     
+    private let mass = [10, 20, 35, 50, 100]
+    private let point = [100, 70, 50, 30, 20]
+    
     enum Color: String {
         case WHITE = "white"
         case BLACK = "black"
@@ -27,7 +30,6 @@ class Animal {
         internal static let allSizes = [TINY, SMALL, MEDIUM, LARGE, HUGE]
         internal static let probability = [1, 1, 1, 1, 1]
         internal static let scale: [CGFloat] = [0.25, 0.35, 0.4, 0.5, 0.6]
-        internal static let energy = [100, 200, 350, 500, 700]
     }
     
     enum Status: String {
@@ -121,9 +123,12 @@ class Animal {
         return (scale, scale)
     }
     
-    internal func getEnergy () -> CGFloat {
-        return CGFloat(Size.energy[find(Size.allSizes, size)!])
+    internal func getMass () -> CGFloat {
+        return CGFloat(mass[find(Size.allSizes, size)!])
     }
     
+    internal func getPoint() -> Int {
+        return point[find(Size.allSizes, size)!]
+    }
 }
  

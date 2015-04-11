@@ -21,9 +21,10 @@ class AnimalNode: SKSpriteNode {
     
     struct Constants {
         internal static let VELOCITY = CGFloat(200)
-        internal static let FRAME_TIME_DEPLOYED = 0.1
-        internal static let FRAME_TIME_BUMPING = 0.15
+        internal static let FRAME_TIME_DEPLOYED = 0.05
+        internal static let FRAME_TIME_BUMPING = 0.07
         internal static let PHYSICS_BODY_WIDTH = CGFloat(30)
+        internal static let PHYSICS_BODY_HEIGHT = CGFloat(50)
     }
 
     init(size: Animal.Size, side: GameModel.Side) {
@@ -35,12 +36,12 @@ class AnimalNode: SKSpriteNode {
         
         self.name = side.rawValue + "Running"
         
-        var bodySize = CGSizeMake(Constants.PHYSICS_BODY_WIDTH, self.size.height / 2)
+        var bodySize = CGSizeMake(Constants.PHYSICS_BODY_WIDTH, Constants.PHYSICS_BODY_HEIGHT)
         var centerPoint: CGPoint
         if (side == .LEFT) {
-            centerPoint = CGPoint(x: self.size.width/2-bodySize.width/2, y: 0)
+            centerPoint = CGPoint(x: self.size.width/2-bodySize.width/2, y: -self.size.height/2+bodySize.height/2)
         } else {
-            centerPoint = CGPoint(x: -self.size.width/2+bodySize.width/2, y: 0)
+            centerPoint = CGPoint(x: -self.size.width/2+bodySize.width/2, y: -self.size.height/2+bodySize.height/2)
         }
         
         self.physicsBody = SKPhysicsBody(rectangleOfSize: bodySize, center: centerPoint)
@@ -51,15 +52,16 @@ class AnimalNode: SKSpriteNode {
             physics.velocity.dx = (animal.color == .WHITE) ? Constants.VELOCITY : -Constants.VELOCITY
             physics.velocity.dy = 0
             
-            physics.affectedByGravity = true
+            physics.affectedByGravity = false
             physics.allowsRotation = false
             physics.dynamic = true
             
             physics.restitution = 0
             physics.friction = 0
             
-            physics.mass = 0.1
+            physics.mass = animal.getMass()
         }
+        
         
         var repeatedAction = SKAction.animateWithTextures(animal.getDeployedTexture(), timePerFrame: Constants.FRAME_TIME_DEPLOYED)
         self.runAction(SKAction.repeatActionForever(repeatedAction))
