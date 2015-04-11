@@ -20,7 +20,6 @@ class AnimalNode: SKSpriteNode {
     }
 
     init(size: Animal.Size, side: GameModel.Side) {
-        
         super.init()
 
         var color: Animal.Color

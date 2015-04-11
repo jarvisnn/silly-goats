@@ -69,9 +69,9 @@ class Animal {
             var result = [SKTexture]()
             var x = 1.0 / CGFloat(SPRITE_SHEET_COLS)
             var y = 1.0 / CGFloat(SPRITE_SHEET_ROWS)
-            for i in 0..<SPRITE_SHEET_COLS {
-                for j in 0..<SPRITE_SHEET_ROWS {
-                    var rectFrame = CGRectMake(CGFloat(i) * x, CGFloat(j) * y, x, y)
+            for i in 0..<SPRITE_SHEET_ROWS {
+                 for j in 0..<SPRITE_SHEET_COLS {
+                    var rectFrame = CGRectMake(CGFloat(j) * x, CGFloat(i) * y, x, y)
                     result.append(SKTexture(rect: rectFrame, inTexture: spriteSheet))
                 }
             }
