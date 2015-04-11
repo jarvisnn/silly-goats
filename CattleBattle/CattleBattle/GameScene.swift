@@ -89,25 +89,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         _setupArrow()
     }
     
-    
-    
-    func goatDidCollisionWithAnother(goatA: AnimalNode, goatB: AnimalNode) {
-
-        if goatA.animal.status == .DEPLOYED {
-            goatA.animal.status == .BUMPING
-            
-            goatA.removeActionForKey("deployed")
-            var repeatedActionA = SKAction.animateWithTextures(goatA.animal.getBumpingTexture(), timePerFrame: 0.2)
-            goatA.runAction(SKAction.repeatActionForever(repeatedActionA), withKey: "bumping")
+    func goatDidCollisionWithAnother(goats: [AnimalNode]) {
+        for goat in goats {
+            println(goat.physicsBody!.velocity.dx)
+            if goat.animal.status == .DEPLOYED {
+                goat.updateAnimalStatus(.BUMPING)
+                var repeatedAction = SKAction.animateWithTextures(goat.animal.getBumpingTexture(), timePerFrame: 0.2)
+                goat.runAction(SKAction.repeatActionForever(repeatedAction))
+            }
         }
-        
-        if goatB.animal.status == .DEPLOYED {
-            goatB.animal.status == .BUMPING
-            goatB.removeActionForKey("deployed")
-            var repeatedActionB = SKAction.animateWithTextures(goatB.animal.getBumpingTexture(), timePerFrame: 0.2)
-            goatB.runAction(SKAction.repeatActionForever(repeatedActionB), withKey: "bumping")
-        }
-                
     }
     
     func didBeginContact(contact: SKPhysicsContact) {
@@ -116,7 +106,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         //check if both are goats
         if ((firstBody.categoryBitMask & AnimalNode.PhysicsCategory.Goat) != 0 && (secondBody.categoryBitMask & AnimalNode.PhysicsCategory.Goat) != 0) {
-           goatDidCollisionWithAnother(firstBody.node as AnimalNode, goatB: secondBody.node as AnimalNode)
+           goatDidCollisionWithAnother([firstBody.node as AnimalNode, secondBody.node as AnimalNode])
         }
         
     }
@@ -158,6 +148,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    private var zCount = CGFloat(0)
     private func _deploy(side: GameModel.Side, selectedButton: Int, selectedRow: Int) {
         GameModel.setCattleStatus(side, index: selectedButton, status: false)
         var currentSize = loadingButton[side.index][selectedButton].animal.size
@@ -166,6 +157,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         var sprite = AnimalNode(size: currentSize, side: side)
         sprite.position.x = Constants.LAUNCH_X[side.index]
         sprite.position.y = y + sprite.size.height / 2.0
+        sprite.zPosition = ++zCount
         self.addChild(sprite)
         
         var button = loadingButton[side.index][selectedButton]

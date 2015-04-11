@@ -18,50 +18,66 @@ class AnimalNode: SKSpriteNode {
         static let All  : UInt32 = UInt32.max
         static let Goat : UInt32 = 0b1 //1
     }
+    
+    struct Constants {
+        internal static let VELOCITY = CGFloat(200)
+        internal static let FRAME_TIME_DEPLOYED = 0.1
+        internal static let FRAME_TIME_BUMPING = 0.15
+        internal static let PHYSICS_BODY_WIDTH = CGFloat(30)
+    }
 
     init(size: Animal.Size, side: GameModel.Side) {
         super.init()
 
-        var color: Animal.Color
-        if side == .LEFT {
-            color = .WHITE
-        } else {
-            color = .BLACK
-        }
+        let color: Animal.Color = (side == .LEFT) ? .WHITE : .BLACK
         self.animal = Animal(color: color, size: size, status: .DEPLOYED)
-        self.texture = self.animal.getTexture()
-        
-        self.size = self.texture!.size()
-        self.xScale = animal.getImageScale().0
-        self.yScale = animal.getImageScale().1
+        updateAnimalStatus(.DEPLOYED)
         
         self.name = side.rawValue + "Running"
         
-        var bodySize = CGSizeMake(self.size.width - CGFloat(3), self.size.height / 2)
+        var bodySize = CGSizeMake(Constants.PHYSICS_BODY_WIDTH, self.size.height / 2)
+        var centerPoint: CGPoint
+        if (side == .LEFT) {
+            centerPoint = CGPoint(x: self.size.width/2-bodySize.width/2-5, y: 0)
+        } else {
+            centerPoint = CGPoint(x: -self.size.width/2+bodySize.width/2+5, y: 0)
+        }
         
-        
-        self.physicsBody = SKPhysicsBody(rectangleOfSize: bodySize)
+        self.physicsBody = SKPhysicsBody(rectangleOfSize: bodySize, center: centerPoint)
         if let physics = self.physicsBody {
+            physics.categoryBitMask = PhysicsCategory.Goat
+            physics.contactTestBitMask = PhysicsCategory.Goat
+            
+            physics.velocity.dx = (animal.color == .WHITE) ? Constants.VELOCITY : -Constants.VELOCITY
+            physics.velocity.dy = 0
+            
             physics.affectedByGravity = false
             physics.allowsRotation = false
             physics.dynamic = true
-            physics.mass = 0.1
+            
             physics.linearDamping = 0
             physics.angularDamping = 0
             physics.restitution = 0
             physics.friction = 0
-            physics.categoryBitMask = PhysicsCategory.Goat
-            physics.contactTestBitMask = PhysicsCategory.Goat
             
-            if animal.color == .WHITE {
-                physics.velocity.dx = 300 * animal.getImageMass()/10
-            } else {
-                physics.velocity.dx = -300 * animal.getImageMass()/10
-            }
+            physics.mass = 100
         }
         
-        var repeatedAction = SKAction.animateWithTextures(animal.getDeployedTexture(), timePerFrame: 0.2)
+        var repeatedAction = SKAction.animateWithTextures(animal.getDeployedTexture(), timePerFrame: Constants.FRAME_TIME_DEPLOYED)
         self.runAction(SKAction.repeatActionForever(repeatedAction))
+    }
+    
+    internal func updateAnimalStatus(status: Animal.Status) {
+        self.animal.status = status
+        self.texture = self.animal.getTexture()
+        
+        self.xScale = 1
+        self.yScale = 1
+        
+        self.size = self.texture!.size()
+
+        self.xScale = self.animal.getImageScale().0
+        self.yScale = self.animal.getImageScale().1
     }
     
     override init(texture: SKTexture!, color: UIColor!, size: CGSize) {

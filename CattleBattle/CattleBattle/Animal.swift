@@ -24,9 +24,11 @@ class Animal {
         case LARGE = "4"
         case HUGE = "5"
         
+        //scale for 2 type of goats: deploying - bumping
         internal static let allSizes = [TINY, SMALL, MEDIUM, LARGE, HUGE]
         internal static let probability = [1, 1, 1, 1, 1]
-        internal static let scale: [CGFloat] = [0.2, 0.35, 0.4, 0.45, 0.6]
+        internal static let scale: [[CGFloat]] = [[0.25, 0.35, 0.4, 0.5, 0.6], [0.3, 0.4, 0.45, 0.55, 0.65]]
+        internal static let energy = [100, 200, 350, 500, 700]
     }
     
     enum Status: String {
@@ -49,21 +51,23 @@ class Animal {
                 return Constants.getTextureList(color: color, size: size, status: .DEPLOYED)
             }
         }
-        internal static var buttonTextures = Color.allColors.map() { (color) -> [SKTexture] in
-            return Size.allSizes.map() { (size) -> SKTexture in
-                return SKTexture(imageNamed: Animal(color: color, size: size, status: .BUTTON)._getImageFileName())
-            }
-        }
+        
         internal static var bumpingTextures = Color.allColors.map() { (color) -> [[SKTexture]] in
             return Size.allSizes.map() { (size) -> [SKTexture] in
                 return Constants.getTextureList(color: color, size: size, status: .BUMPING)
             }
         }
         
+        internal static var buttonTextures = Color.allColors.map() { (color) -> [SKTexture] in
+            return Size.allSizes.map() { (size) -> SKTexture in
+                return SKTexture(imageNamed: Animal(color: color, size: size, status: .BUTTON)._getImageFileName())
+            }
+        }
+        
         //get the array of textures from a texture sheet for running animation
         internal static func getTextureList(#color: Color, size: Size, status: Status) -> [SKTexture] {
             var spriteSheet = SKTexture(imageNamed:  Animal(color: color, size: size, status: status)._getImageFileName())
-            if status == .DEPLOYED {
+            if status == .DEPLOYED || status == .BUMPING {
                 spriteSheet.filteringMode = SKTextureFilteringMode.Nearest
             }
             var result = [SKTexture]()
@@ -113,15 +117,13 @@ class Animal {
         self.status = status
     }
     
-    let mass1 : CGFloat = 7
-    
     internal func getImageScale() -> (CGFloat, CGFloat) {
-        var scale = Size.scale[find(Size.allSizes, size)!]
+        var scale = Size.scale[find(Status.allStatuses, status)!][find(Size.allSizes, size)!]
         return (scale, scale)
     }
     
-    internal func getImageMass () -> CGFloat {
-        return mass1
+    internal func getEnergy () -> CGFloat {
+        return CGFloat(Size.energy[find(Size.allSizes, size)!])
     }
     
 }
