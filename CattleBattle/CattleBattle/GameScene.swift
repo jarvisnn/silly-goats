@@ -18,8 +18,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         private static let INFINITE = 1000000000
     }
     
-    private let GAME_VIEW_RIGHT_BOUNDARY: CGFloat = 2048
-    private let GAME_VIEW_LEFT_BOUNDARY: CGFloat = -1024
+    private let GAME_VIEW_RIGHT_BOUNDARY: CGFloat = 1100
+    private let GAME_VIEW_LEFT_BOUNDARY: CGFloat = -1100
     
     var playerScoreNode: [SKLabelNode] = GameModel.Side.allSides.map({ (side) -> SKLabelNode in
         SKLabelNode()
@@ -45,13 +45,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     private func _setupLabel() {
-        let vsLabel = SKLabelNode(fontNamed: Constants.LABEL_FONT)
-        vsLabel.text = "VS";
-        vsLabel.fontSize = 40;
-        vsLabel.position = CGPoint(x: 512, y : 650);
-        
-        self.addChild(vsLabel)
-        
         for side in GameModel.Side.allSides {
             playerScoreNode[side.index] = SKLabelNode(fontNamed: Constants.LABEL_FONT)
             playerScoreNode[side.index].text = "000"; //should be changed
@@ -93,10 +86,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func goatDidCollisionWithAnother(goats: [AnimalNode]) {
         for goat in goats {
-            println(goat.physicsBody!.velocity.dx)
             if goat.animal.status == .DEPLOYED {
                 goat.updateAnimalStatus(.BUMPING)
-                var repeatedAction = SKAction.animateWithTextures(goat.animal.getBumpingTexture(), timePerFrame: 0.2)
+                var repeatedAction = SKAction.animateWithTextures(goat.animal.getBumpingTexture(),
+                    timePerFrame: AnimalNode.Constants.FRAME_TIME_BUMPING)
                 goat.runAction(SKAction.repeatActionForever(repeatedAction))
             }
         }

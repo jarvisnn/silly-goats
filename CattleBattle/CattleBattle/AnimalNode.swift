@@ -38,9 +38,9 @@ class AnimalNode: SKSpriteNode {
         var bodySize = CGSizeMake(Constants.PHYSICS_BODY_WIDTH, self.size.height / 2)
         var centerPoint: CGPoint
         if (side == .LEFT) {
-            centerPoint = CGPoint(x: self.size.width/2-bodySize.width/2-5, y: 0)
+            centerPoint = CGPoint(x: self.size.width/2-bodySize.width/2, y: 0)
         } else {
-            centerPoint = CGPoint(x: -self.size.width/2+bodySize.width/2+5, y: 0)
+            centerPoint = CGPoint(x: -self.size.width/2+bodySize.width/2, y: 0)
         }
         
         self.physicsBody = SKPhysicsBody(rectangleOfSize: bodySize, center: centerPoint)
@@ -51,16 +51,14 @@ class AnimalNode: SKSpriteNode {
             physics.velocity.dx = (animal.color == .WHITE) ? Constants.VELOCITY : -Constants.VELOCITY
             physics.velocity.dy = 0
             
-            physics.affectedByGravity = false
+            physics.affectedByGravity = true
             physics.allowsRotation = false
             physics.dynamic = true
             
-            physics.linearDamping = 0
-            physics.angularDamping = 0
             physics.restitution = 0
             physics.friction = 0
             
-            physics.mass = 1000
+            physics.mass = 0.1
         }
         
         var repeatedAction = SKAction.animateWithTextures(animal.getDeployedTexture(), timePerFrame: Constants.FRAME_TIME_DEPLOYED)
@@ -71,13 +69,15 @@ class AnimalNode: SKSpriteNode {
         self.animal.status = status
         self.texture = self.animal.getTexture()
         
+        let oldHeight = self.size.height
+        
         self.xScale = 1
         self.yScale = 1
         
         self.size = self.texture!.size()
 
-        self.xScale = self.animal.getImageScale().0
-        self.yScale = self.animal.getImageScale().1
+        self.xScale = oldHeight < 1 ? animal.getImageScale().0 : oldHeight/self.size.height
+        self.yScale = self.xScale
     }
     
     override init(texture: SKTexture!, color: UIColor!, size: CGSize) {

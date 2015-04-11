@@ -24,10 +24,9 @@ class Animal {
         case LARGE = "4"
         case HUGE = "5"
         
-        //scale for 2 type of goats: deploying - bumping
         internal static let allSizes = [TINY, SMALL, MEDIUM, LARGE, HUGE]
         internal static let probability = [1, 1, 1, 1, 1]
-        internal static let scale: [[CGFloat]] = [[0.25, 0.35, 0.4, 0.5, 0.6], [0.3, 0.4, 0.45, 0.55, 0.65]]
+        internal static let scale: [CGFloat] = [0.25, 0.35, 0.4, 0.5, 0.6]
         internal static let energy = [100, 200, 350, 500, 700]
     }
     
@@ -118,7 +117,7 @@ class Animal {
     }
     
     internal func getImageScale() -> (CGFloat, CGFloat) {
-        var scale = Size.scale[find(Status.allStatuses, status)!][find(Size.allSizes, size)!]
+        var scale = Size.scale[find(Size.allSizes, size)!]
         return (scale, scale)
     }
     
