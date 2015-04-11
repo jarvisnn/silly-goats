@@ -12,9 +12,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     struct Constants {
         private static var LAUNCH_X: [CGFloat]!
-        private static let LAUNCH_Y_TOP: CGFloat = 540
+        private static let LAUNCH_Y_TOP: CGFloat = 560
         private static let LAUNCH_Y_GAP: CGFloat = 100
         private static let LABEL_FONT = "Chalkduster"
+        private static let INFINITE = 1000000000
     }
     
     private let GAME_VIEW_RIGHT_BOUNDARY: CGFloat = 2048
@@ -70,10 +71,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             for side in GameModel.Side.allSides {
                 var tmpNode = ArrowNode(side: side, index: i)
                 if side == .LEFT {
-                    tmpNode.position = CGPointMake(60, y)
+                    tmpNode.position = CGPointMake(50, y)
                 } else {
-                    tmpNode.position = CGPointMake(self.frame.width - 60, y)
+                    tmpNode.position = CGPointMake(self.frame.width - 50, y)
                 }
+                tmpNode.zPosition = CGFloat(Constants.INFINITE)
                 self.addChild(tmpNode)
             }
         }

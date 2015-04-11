@@ -60,7 +60,7 @@ class AnimalNode: SKSpriteNode {
             physics.restitution = 0
             physics.friction = 0
             
-            physics.mass = 100
+            physics.mass = 1000
         }
         
         var repeatedAction = SKAction.animateWithTextures(animal.getDeployedTexture(), timePerFrame: Constants.FRAME_TIME_DEPLOYED)
