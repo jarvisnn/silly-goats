@@ -11,13 +11,8 @@ import UIKit
 import SpriteKit
 
 class PowerUpItemNode: SKSpriteNode {
-    struct PhysicsCategory {
-        static let None : UInt32 = 0
-        static let All  : UInt32 = UInt32.max
-        static let Category : UInt32 = 0b10 //2
-    }
-    
     struct Constants {
+        internal static let IDENTIFIER_STORED = "storedItem"
         internal static let IDENTIFIER = "powerUpItem"
         internal static let VELOCITY = CGFloat(200)
         internal static let FRAME_TIME_DEPLOYED = 0.05
@@ -31,15 +26,15 @@ class PowerUpItemNode: SKSpriteNode {
     init(type: PowerUpItem.PowerType) {
         super.init()
         
+        self.name = Constants.IDENTIFIER
         self.powerUpItem = PowerUpItem(type: type, status: .SELECTING)
         updateAnimalStatus(.SELECTING)
-
-        self.name = Constants.IDENTIFIER
         
         self.physicsBody = SKPhysicsBody(circleOfRadius: self.size.height / 2)
         if let physics = self.physicsBody {
-            physics.categoryBitMask = PhysicsCategory.Category
-            physics.contactTestBitMask = PhysicsCategory.Category
+            physics.categoryBitMask = GameScene.Constants.Item
+            physics.contactTestBitMask = GameScene.Constants.Category
+            physics.collisionBitMask = GameScene.Constants.Category
             
             physics.affectedByGravity = false
             physics.allowsRotation = false

@@ -44,14 +44,6 @@
                                 <rect key="frame" x="80" y="150" width="855" height="109"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="category-left.png" id="RUZ-EN-iF4">
-                                <rect key="frame" x="0.0" y="688" width="354" height="80"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="category-right.png" id="Aec-M9-hCG">
-                                <rect key="frame" x="674" y="688" width="350" height="80"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="topbar3.png" id="Lk3-hz-RYQ">
                                 <rect key="frame" x="-5" y="-31" width="1032" height="186"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -173,8 +165,6 @@
         <image name="bridge.png" width="1024" height="284"/>
         <image name="button-instruction.png" width="147" height="40"/>
         <image name="button-start-game.png" width="147" height="40"/>
-        <image name="category-left.png" width="665" height="181"/>
-        <image name="category-right.png" width="665" height="181"/>
         <image name="river.gif" width="1022" height="1892"/>
         <image name="topbar3.png" width="1026" height="127"/>
     </resources>

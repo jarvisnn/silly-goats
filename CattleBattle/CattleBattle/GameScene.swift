@@ -16,7 +16,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         private static let LAUNCH_Y_GAP: CGFloat = 100
         private static let LABEL_FONT = "Chalkduster"
         private static let INFINITE = 1000000000
-        private static let VELOCITY_COEFFICIENT = CGFloat(10)
+        private static let VELOCITY_COEFFICIENT = CGFloat(300)
+        
+        private static let ITEM_GAP = CGFloat(15)
+        
+        private static let Z_INDEX_CATEGORY = CGFloat(10)
+        private static let Z_INDEX_ITEM = CGFloat(9)
+        
+        internal static let None : UInt32 = 0
+        internal static let All  : UInt32 = UInt32.max
+        internal static let Goat : UInt32 = 0b1 //1
+        internal static let Item : UInt32 = 0b10 //2
+        internal static let Category : UInt32 = 0b11 //3
     }
     
     private let GAME_VIEW_RIGHT_BOUNDARY: CGFloat = 1100
@@ -25,8 +36,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var playerScoreNode: [SKLabelNode] = GameModel.Side.allSides.map({ (side) -> SKLabelNode in
         SKLabelNode()
     })
-    var loadingButton: [[LoadingNode]] = []
-    
+    private var loadingButton: [[LoadingNode]] = []
+    private var categoryBound: [CGFloat] = [Constants.ITEM_GAP, Constants.ITEM_GAP]
     
     private func _setupLoadingButton() {
         loadingButton = GameModel.Side.allSides.map { (side) -> [LoadingNode] in
@@ -50,11 +61,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             playerScoreNode[side.index] = SKLabelNode(fontNamed: Constants.LABEL_FONT)
             playerScoreNode[side.index].text = "000";
             playerScoreNode[side.index].fontSize = 40;
-            if side == .LEFT {
-                playerScoreNode[side.index].position = CGPoint(x: 420, y : 710);
-            } else {
-                playerScoreNode[side.index].position = CGPoint(x: 604, y : 710);
-            }
+            playerScoreNode[side.index].position = CGPoint(x: side == .LEFT ? 420 : 604, y : 710);
             self.addChild(playerScoreNode[side.index])
         }
     }
@@ -64,11 +71,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             var y = CGFloat(Constants.LAUNCH_Y_TOP - Constants.LAUNCH_Y_GAP * CGFloat(i))
             for side in GameModel.Side.allSides {
                 var tmpNode = ArrowNode(side: side, index: i)
-                if side == .LEFT {
-                    tmpNode.position = CGPointMake(50, y)
-                } else {
-                    tmpNode.position = CGPointMake(self.frame.width - 50, y)
-                }
+                tmpNode.position = CGPointMake(side == .LEFT ? 50 : frame.width-50, y)
                 tmpNode.zPosition = -CGFloat(Constants.INFINITE)
                 self.addChild(tmpNode)
             }
@@ -93,8 +96,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(item)
     }
     
+    private func _setupCategory() {
+        for side in GameModel.Side.allSides {
+            var node = CategoryNode(side: side)
+            if side == .LEFT {
+                node.position = CGPointMake(node.size.width/2, node.size.height/2)
+            } else {
+                node.position = CGPointMake(frame.width - node.size.width/2, node.size.height/2)
+            }
+            node.zPosition = Constants.Z_INDEX_CATEGORY
+            self.addChild(node)
+        }
+    }
+    
     override func didMoveToView(view: SKView) {
         Constants.LAUNCH_X = [self.frame.minX, self.frame.maxX]
+        
         physicsWorld.contactDelegate = self
         self.physicsWorld.gravity = CGVectorMake(0, 0)
 
@@ -102,9 +119,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         _setupLabel()
         _setupArrow()
         _setupItem()
+        _setupCategory()
     }
     
-    private func goatDidCollisionWithAnother(goats: [AnimalNode]) {
+    private func goatDidCollideWithAnother(goats: [AnimalNode]) {
         for goat in goats {
             if goat.animal.status == .DEPLOYED {
                 goat.updateAnimalStatus(.BUMPING)
@@ -115,13 +133,39 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    private func itemDidCollideWithCategory(item: PowerUpItemNode, category: CategoryNode) {
+        if categoryBound[category.side.index] + item.size.width >= category.size.width {
+            return
+        } else {
+            let xx = categoryBound[category.side.index] + item.size.width / 2
+            let x = category.side == .LEFT ? xx : frame.width - xx
+            let y = category.size.height / 2
+            
+            categoryBound[category.side.index] += item.size.width + Constants.ITEM_GAP
+            
+            item.name = PowerUpItemNode.Constants.IDENTIFIER_STORED
+            item.physicsBody!.contactTestBitMask = GameScene.Constants.None
+            item.physicsBody!.collisionBitMask = GameScene.Constants.None
+            item.physicsBody!.dynamic = false
+            
+            let moveAction = (SKAction.moveTo(CGPointMake(x, y), duration:0.5))
+            item.runAction(moveAction)
+        }
+    }
+    
     func didBeginContact(contact: SKPhysicsContact) {
         var firstBody: SKPhysicsBody = contact.bodyA
         var secondBody: SKPhysicsBody = contact.bodyB
         
         //check if both are goats
-        if ((firstBody.categoryBitMask & AnimalNode.PhysicsCategory.Goat) != 0 && (secondBody.categoryBitMask & AnimalNode.PhysicsCategory.Goat) != 0) {
-           goatDidCollisionWithAnother([firstBody.node as AnimalNode, secondBody.node as AnimalNode])
+        if ((firstBody.categoryBitMask & GameScene.Constants.Goat) != 0 && (secondBody.categoryBitMask & GameScene.Constants.Goat) != 0) {
+           goatDidCollideWithAnother([firstBody.node as AnimalNode, secondBody.node as AnimalNode])
+        } else if ((firstBody.categoryBitMask == GameScene.Constants.Category && secondBody.categoryBitMask == GameScene.Constants.Item)
+            || (firstBody.categoryBitMask == GameScene.Constants.Item && secondBody.categoryBitMask == GameScene.Constants.Category)) {
+                if firstBody.node!.name == CategoryNode.Constants.IDENTIFIER {
+                    swap(&firstBody, &secondBody)
+                }
+                itemDidCollideWithCategory(firstBody.node as PowerUpItemNode, category: secondBody.node as CategoryNode)
         }
     }
     
@@ -162,14 +206,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             if node.name != nil && node.name == PowerUpItemNode.Constants.IDENTIFIER {
                 let lastPosition = touch.previousLocationInNode(self)
-                let x = (position.x-lastPosition.x) * Constants.VELOCITY_COEFFICIENT
-                let y = (position.y-lastPosition.y) * Constants.VELOCITY_COEFFICIENT
-                
-                println(lastPosition)
-                println(position)
+                var x = (position.x-lastPosition.x)
+                var y = (position.y-lastPosition.y)
+                var le = sqrt(x*x + y*y)
                 
                 node.physicsBody!.dynamic = true
-                node.physicsBody!.velocity = CGVector(dx: x, dy: y)
+                node.physicsBody!.velocity = CGVector(dx: x/le*Constants.VELOCITY_COEFFICIENT, dy: y/le*Constants.VELOCITY_COEFFICIENT)
             }
         }
     }

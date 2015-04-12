@@ -13,12 +13,6 @@ class AnimalNode: SKSpriteNode {
     
     internal var animal = Animal(color: .WHITE, size: .TINY, status: .DEPLOYED)
     
-    struct PhysicsCategory {
-        static let None : UInt32 = 0
-        static let All  : UInt32 = UInt32.max
-        static let Goat : UInt32 = 0b1 //1
-    }
-    
     struct Constants {
         internal static let VELOCITY = CGFloat(200)
         internal static let FRAME_TIME_DEPLOYED = 0.05
@@ -44,24 +38,23 @@ class AnimalNode: SKSpriteNode {
             centerPoint = CGPoint(x: -self.size.width/2+bodySize.width/2, y: -self.size.height/2+bodySize.height/2)
         }
         
-        self.physicsBody = SKPhysicsBody(rectangleOfSize: bodySize, center: centerPoint)
-        if let physics = self.physicsBody {
-            physics.categoryBitMask = PhysicsCategory.Goat
-            physics.contactTestBitMask = PhysicsCategory.Goat
-            
-            physics.velocity.dx = (animal.color == .WHITE) ? Constants.VELOCITY : -Constants.VELOCITY
-            physics.velocity.dy = 0
-            
-            physics.affectedByGravity = false
-            physics.allowsRotation = false
-            physics.dynamic = true
-            
-            physics.restitution = 0
-            physics.friction = 0
-            
-            physics.mass = animal.getMass()
-        }
+        physicsBody = SKPhysicsBody(rectangleOfSize: bodySize, center: centerPoint)
         
+        physicsBody!.categoryBitMask = GameScene.Constants.Goat
+        physicsBody!.contactTestBitMask = GameScene.Constants.Goat
+        physicsBody!.collisionBitMask = GameScene.Constants.Goat
+            
+        physicsBody!.velocity.dx = (animal.color == .WHITE) ? Constants.VELOCITY : -Constants.VELOCITY
+        physicsBody!.velocity.dy = 0
+            
+        physicsBody!.affectedByGravity = false
+        physicsBody!.allowsRotation = false
+        physicsBody!.dynamic = true
+            
+        physicsBody!.restitution = 0
+        physicsBody!.friction = 0
+            
+        physicsBody!.mass = animal.getMass()
         
         var repeatedAction = SKAction.animateWithTextures(animal.getDeployedTexture(), timePerFrame: Constants.FRAME_TIME_DEPLOYED)
         self.runAction(SKAction.repeatActionForever(repeatedAction))
