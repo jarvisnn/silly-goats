@@ -10,14 +10,13 @@
 import UIKit
 import SpriteKit
 
-class SpecialPowerNode: SKSpriteNode {
+class PowerUpItemNode: SKSpriteNode {
     
     enum PowerType: String {
         case FREEZING = "freezing"
         case BLACK_HOLE = "blackhole"
         case UPGRADING = "upgrading"
         case SUPER = "super"
-    
     }
     
     var type :PowerType = .FREEZING

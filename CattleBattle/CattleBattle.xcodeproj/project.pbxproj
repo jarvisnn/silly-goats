@@ -12,9 +12,14 @@
 		3A7012A21ADA4082002D2BB9 /* InstructionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7012A11ADA4082002D2BB9 /* InstructionViewController.swift */; };
 		3A7012A61ADA41EA002D2BB9 /* button-instruction.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A7012A41ADA41EA002D2BB9 /* button-instruction.png */; };
 		3A7012A71ADA41EA002D2BB9 /* button-start-game.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A7012A51ADA41EA002D2BB9 /* button-start-game.png */; };
+		3AD4A3BC1ADA4D4B00E63495 /* goat-big.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AD4A3B71ADA4D4B00E63495 /* goat-big.png */; };
+		3AD4A3BD1ADA4D4B00E63495 /* goat-huge.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AD4A3B81ADA4D4B00E63495 /* goat-huge.png */; };
+		3AD4A3BE1ADA4D4B00E63495 /* goat-medium.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AD4A3B91ADA4D4B00E63495 /* goat-medium.png */; };
+		3AD4A3BF1ADA4D4B00E63495 /* goat-small.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AD4A3BA1ADA4D4B00E63495 /* goat-small.png */; };
+		3AD4A3C01ADA4D4B00E63495 /* goat-tiny.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AD4A3BB1ADA4D4B00E63495 /* goat-tiny.png */; };
 		3AE20F821AD9A6FC00EE8CE0 /* button-pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AE20F801AD9A6FC00EE8CE0 /* button-pause.png */; };
 		3AE20F831AD9A6FC00EE8CE0 /* topbar3.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AE20F811AD9A6FC00EE8CE0 /* topbar3.png */; };
-		3BD81EDF1AD6EE8900599E30 /* SpecialPowerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD81EDE1AD6EE8900599E30 /* SpecialPowerNode.swift */; };
+		3BD81EDF1AD6EE8900599E30 /* PowerUpItemNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD81EDE1AD6EE8900599E30 /* PowerUpItemNode.swift */; };
 		9616925F1AC4621C0016523C /* GameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9616925E1AC4621C0016523C /* GameModel.swift */; };
 		9660B9FF1AC44F4A00A053A2 /* LoadingNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9660B9FE1AC44F4A00A053A2 /* LoadingNode.swift */; };
 		967F6D891AC55C1B00B50207 /* Animal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F6D881AC55C1B00B50207 /* Animal.swift */; };
@@ -87,9 +92,14 @@
 		3A7012A11ADA4082002D2BB9 /* InstructionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstructionViewController.swift; sourceTree = "<group>"; };
 		3A7012A41ADA41EA002D2BB9 /* button-instruction.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button-instruction.png"; path = "Buttons/button-instruction.png"; sourceTree = "<group>"; };
 		3A7012A51ADA41EA002D2BB9 /* button-start-game.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button-start-game.png"; path = "Buttons/button-start-game.png"; sourceTree = "<group>"; };
+		3AD4A3B71ADA4D4B00E63495 /* goat-big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "goat-big.png"; sourceTree = "<group>"; };
+		3AD4A3B81ADA4D4B00E63495 /* goat-huge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "goat-huge.png"; sourceTree = "<group>"; };
+		3AD4A3B91ADA4D4B00E63495 /* goat-medium.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "goat-medium.png"; sourceTree = "<group>"; };
+		3AD4A3BA1ADA4D4B00E63495 /* goat-small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "goat-small.png"; sourceTree = "<group>"; };
+		3AD4A3BB1ADA4D4B00E63495 /* goat-tiny.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "goat-tiny.png"; sourceTree = "<group>"; };
 		3AE20F801AD9A6FC00EE8CE0 /* button-pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-pause.png"; sourceTree = "<group>"; };
 		3AE20F811AD9A6FC00EE8CE0 /* topbar3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = topbar3.png; sourceTree = "<group>"; };
-		3BD81EDE1AD6EE8900599E30 /* SpecialPowerNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpecialPowerNode.swift; sourceTree = "<group>"; };
+		3BD81EDE1AD6EE8900599E30 /* PowerUpItemNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PowerUpItemNode.swift; sourceTree = "<group>"; };
 		9616925E1AC4621C0016523C /* GameModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameModel.swift; sourceTree = "<group>"; };
 		9660B9FE1AC44F4A00A053A2 /* LoadingNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingNode.swift; sourceTree = "<group>"; };
 		967F6D881AC55C1B00B50207 /* Animal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animal.swift; sourceTree = "<group>"; };
@@ -187,6 +197,18 @@
 			name = Buttons;
 			sourceTree = "<group>";
 		};
+		3AD4A3B61ADA4D4B00E63495 /* Modal */ = {
+			isa = PBXGroup;
+			children = (
+				3AD4A3B71ADA4D4B00E63495 /* goat-big.png */,
+				3AD4A3B81ADA4D4B00E63495 /* goat-huge.png */,
+				3AD4A3B91ADA4D4B00E63495 /* goat-medium.png */,
+				3AD4A3BA1ADA4D4B00E63495 /* goat-small.png */,
+				3AD4A3BB1ADA4D4B00E63495 /* goat-tiny.png */,
+			);
+			path = Modal;
+			sourceTree = "<group>";
+		};
 		96972B371AC2C76F00FF2DC5 = {
 			isa = PBXGroup;
 			children = (
@@ -213,7 +235,7 @@
 				3A70129C1ADA3CA9002D2BB9 /* MenuViewController.swift */,
 				3A70129E1ADA3CB6002D2BB9 /* View Controller */,
 				96CAA74A1AD0074B0094AC44 /* ArrowNode.swift */,
-				3BD81EDE1AD6EE8900599E30 /* SpecialPowerNode.swift */,
+				3BD81EDE1AD6EE8900599E30 /* PowerUpItemNode.swift */,
 				9660B9FE1AC44F4A00A053A2 /* LoadingNode.swift */,
 				C35441511ACD7EAE00BA7369 /* AnimalNode.swift */,
 				967F6D881AC55C1B00B50207 /* Animal.swift */,
@@ -294,6 +316,7 @@
 		C3D7EAA51ACFEE9200A61851 /* Goat */ = {
 			isa = PBXGroup;
 			children = (
+				3AD4A3B61ADA4D4B00E63495 /* Modal */,
 				C3D7EAA61ACFEE9200A61851 /* Bumping */,
 				C3D7EAB31ACFEE9200A61851 /* Button */,
 				C3D7EAC01ACFEE9200A61851 /* Deployed */,
@@ -512,17 +535,22 @@
 				96972B481AC2C77000FF2DC5 /* GameScene.sks in Resources */,
 				C3D7EB051AD0704400A61851 /* river.gif in Resources */,
 				C3D7EAD11ACFEE9200A61851 /* goat-bumping-black-4.png in Resources */,
+				3AD4A3BE1ADA4D4B00E63495 /* goat-medium.png in Resources */,
+				3AD4A3BD1ADA4D4B00E63495 /* goat-huge.png in Resources */,
 				C3D7EADD1ACFEE9200A61851 /* goat-button-white-1.png in Resources */,
 				C3D7EAD21ACFEE9200A61851 /* goat-bumping-black-5.png in Resources */,
+				3AD4A3BC1ADA4D4B00E63495 /* goat-big.png in Resources */,
 				C3D7EADB1ACFEE9200A61851 /* goat-button-black-4.png in Resources */,
 				C3D7EAD91ACFEE9200A61851 /* goat-button-black-2.png in Resources */,
 				C3D7EACE1ACFEE9200A61851 /* goat-bumping-black-1.png in Resources */,
 				C3D7EB031AD069D800A61851 /* topbar2.png in Resources */,
 				96972B4F1AC2C77000FF2DC5 /* Main.storyboard in Resources */,
+				3AD4A3BF1ADA4D4B00E63495 /* goat-small.png in Resources */,
 				C35441591ACDC0AC00BA7369 /* arrow-right.png in Resources */,
 				C3D7EADC1ACFEE9200A61851 /* goat-button-black-5.png in Resources */,
 				C3D7EAEB1ACFEE9200A61851 /* goat-deployed-white-4.png in Resources */,
 				C3D7EAEC1ACFEE9200A61851 /* goat-deployed-white-5.png in Resources */,
+				3AD4A3C01ADA4D4B00E63495 /* goat-tiny.png in Resources */,
 				C3D7EACF1ACFEE9200A61851 /* goat-bumping-black-2.png in Resources */,
 				C354415B1ACDC0AC00BA7369 /* bank-right.png in Resources */,
 				C3D7EAD71ACFEE9200A61851 /* goat-bumping-white-5.png in Resources */,
@@ -551,7 +579,7 @@
 				96972B4C1AC2C77000FF2DC5 /* GameViewController.swift in Sources */,
 				96972B461AC2C77000FF2DC5 /* AppDelegate.swift in Sources */,
 				3A7012A21ADA4082002D2BB9 /* InstructionViewController.swift in Sources */,
-				3BD81EDF1AD6EE8900599E30 /* SpecialPowerNode.swift in Sources */,
+				3BD81EDF1AD6EE8900599E30 /* PowerUpItemNode.swift in Sources */,
 				3A70129D1ADA3CA9002D2BB9 /* MenuViewController.swift in Sources */,
 				C385F6A81AD14813003B4E74 /* SKNodeExtension.swift in Sources */,
 				967F6D891AC55C1B00B50207 /* Animal.swift in Sources */,

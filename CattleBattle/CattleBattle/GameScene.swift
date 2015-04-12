@@ -68,7 +68,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 } else {
                     tmpNode.position = CGPointMake(self.frame.width - 50, y)
                 }
-                tmpNode.zPosition = CGFloat(Constants.INFINITE)
+                tmpNode.zPosition = -CGFloat(Constants.INFINITE)
                 self.addChild(tmpNode)
             }
         }
