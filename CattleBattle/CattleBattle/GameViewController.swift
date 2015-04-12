@@ -49,10 +49,8 @@ class GameViewController: UIViewController {
             skView.allowsTransparency = true
             scene.backgroundColor = UIColor.clearColor()
             skView.presentScene(scene)
-            
         }
     }
-    
 
     override func shouldAutorotate() -> Bool {
         return true
