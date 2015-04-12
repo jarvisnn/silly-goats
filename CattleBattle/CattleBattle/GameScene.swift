@@ -16,6 +16,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         private static let LAUNCH_Y_GAP: CGFloat = 100
         private static let LABEL_FONT = "Chalkduster"
         private static let INFINITE = 1000000000
+        private static let VELOCITY_COEFFICIENT = CGFloat(10)
     }
     
     private let GAME_VIEW_RIGHT_BOUNDARY: CGFloat = 1100
@@ -74,6 +75,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    private func _setupItem() {
+        runAction(SKAction.repeatActionForever(
+            SKAction.sequence([
+                SKAction.waitForDuration(10),
+                SKAction.runBlock(addItem)
+            ])
+        ))
+    }
+    
+    private func addItem() {
+        var item = PowerUpItemNode(type: .BLACK_HOLE)
+        item.powerUpItem.randomPower()
+        item.position = CGPoint(x: self.size.width/2, y: self.size.height/2)
+        item.zPosition = CGFloat(Constants.INFINITE + 1)
+        item.showUp()
+        self.addChild(item)
+    }
+    
     override func didMoveToView(view: SKView) {
         Constants.LAUNCH_X = [self.frame.minX, self.frame.maxX]
         physicsWorld.contactDelegate = self
@@ -82,9 +101,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         _setupLoadingButton()
         _setupLabel()
         _setupArrow()
+        _setupItem()
     }
     
-    func goatDidCollisionWithAnother(goats: [AnimalNode]) {
+    private func goatDidCollisionWithAnother(goats: [AnimalNode]) {
         for goat in goats {
             if goat.animal.status == .DEPLOYED {
                 goat.updateAnimalStatus(.BUMPING)
@@ -103,7 +123,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if ((firstBody.categoryBitMask & AnimalNode.PhysicsCategory.Goat) != 0 && (secondBody.categoryBitMask & AnimalNode.PhysicsCategory.Goat) != 0) {
            goatDidCollisionWithAnother([firstBody.node as AnimalNode, secondBody.node as AnimalNode])
         }
-        
     }
     
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
@@ -112,14 +131,45 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
            
             if node.name != nil && node.name! == LoadingNode.Constants.IDENTIFIER {
                 self._selectButton(node as LoadingNode)
-            }
-            
-            if node.name != nil && node.name! == ArrowNode.Constants.IDENTIFIER {
+            } else if node.name != nil && node.name! == ArrowNode.Constants.IDENTIFIER {
                 var arrow = node as ArrowNode
                 var currentSelected = GameModel.Constants.selected[arrow.side.index]
                 if GameModel.isCattleReady(arrow.side, index: currentSelected) {
                     _deploy(arrow.side, selectedButton: currentSelected, selectedRow: arrow.index)
                 }
+            } else if node.name != nil && node.name == PowerUpItemNode.Constants.IDENTIFIER {
+                node.physicsBody!.velocity = CGVector.zeroVector
+                node.physicsBody!.dynamic = false
+            }
+        }
+    }
+    
+    override func touchesMoved(touches: NSSet, withEvent event: UIEvent) {
+        for touch in touches {
+            let position = touch.locationInNode(self)
+            let node = nodeAtPoint(position)
+            
+            if node.name != nil && node.name == PowerUpItemNode.Constants.IDENTIFIER {
+                node.position = position
+            }
+        }
+    }
+    
+    override func touchesEnded(touches: NSSet, withEvent event: UIEvent) {
+        for touch in touches {
+            let position = touch.locationInNode(self)
+            let node = nodeAtPoint(position)
+            
+            if node.name != nil && node.name == PowerUpItemNode.Constants.IDENTIFIER {
+                let lastPosition = touch.previousLocationInNode(self)
+                let x = (position.x-lastPosition.x) * Constants.VELOCITY_COEFFICIENT
+                let y = (position.y-lastPosition.y) * Constants.VELOCITY_COEFFICIENT
+                
+                println(lastPosition)
+                println(position)
+                
+                node.physicsBody!.dynamic = true
+                node.physicsBody!.velocity = CGVector(dx: x, dy: y)
             }
         }
     }
