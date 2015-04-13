@@ -294,7 +294,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         var le = sqrt(x * x + y * y)
         
         node.physicsBody!.dynamic = true
-        node.physicsBody!.velocity = CGVector(dx: x / le * Constants.VELOCITY_COEFFICIENT, dy: y / le * Constants.VELOCITY_COEFFICIENT)
+        if previous != position {
+            node.physicsBody!.velocity = CGVector(dx: x / le * Constants.VELOCITY_COEFFICIENT, dy: y / le * Constants.VELOCITY_COEFFICIENT)
+        }
     }
     
     private func _deploy(arrow: ArrowNode) {
