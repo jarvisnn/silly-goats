@@ -11,12 +11,6 @@ import UIKit
 class GameModel {
     let NUMBER_OF_READY_CATTLE = 3
     
-    var LeftReadyList : [Bool] = []
-    var LeftIsLoading : [Bool] = []
-    var rightReadyList : [Bool] = []
-    var RightIsLoading : [Bool] = []
-    var leftSelectedCattleIndex = -1
-    var rightSelectedCattleIndex = -1
     var leftScore : Int
     var rightScore : Int
     
@@ -25,12 +19,6 @@ class GameModel {
     }
     
     init () {
-        for i in 0...NUMBER_OF_READY_CATTLE-1  {
-            LeftReadyList.append(true)
-            LeftIsLoading.append(false)
-            rightReadyList.append(true)
-            LeftIsLoading.append(false)
-        }
         leftScore = 0
         rightScore = 0
     }
@@ -46,6 +34,7 @@ class GameModel {
         }
         
         internal static var selected = [0, 0]
+        internal static var categorySelectedItem: [PowerUpNode?] = [nil, nil]
     }
     
     

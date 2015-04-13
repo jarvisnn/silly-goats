@@ -38,7 +38,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     })
     private var loadingButton: [[LoadingNode]] = []
     private var categoryBound = [Constants.ITEM_GAP, Constants.ITEM_GAP]
-    private var categorySelectedItem: [PowerUpNode?] = [nil, nil]
     private var zIndex: CGFloat = 0
     
     private func _setupLoadingButton() {
@@ -243,11 +242,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     private func _selectItem(item: PowerUpNode) {
         let index = item.side.index
-        if let currentSelectedItem = categorySelectedItem[index] {
+        if let currentSelectedItem = GameModel.Constants.categorySelectedItem[index] {
             currentSelectedItem.updateItemStatus(.WAITING)
         }
         
-        categorySelectedItem[index] = item
+        GameModel.Constants.categorySelectedItem[index] = item
         item.updateItemStatus(.SELECTED)
         
         if item.powerUpItem.getImplementationType() {
