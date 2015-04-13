@@ -30,6 +30,7 @@ class AnimalNode: SKSpriteNode {
         self.animal = Animal(color: color, size: size, status: .DEPLOYED)
         updateAnimalStatus(.DEPLOYED)
         
+        self.anchorPoint = CGPointMake(0.5, 0)
         self.name = Constants.IDENTIFIER
         
         var bodySize = CGSizeMake(Constants.PHYSICS_BODY_WIDTH, Constants.PHYSICS_BODY_HEIGHT)

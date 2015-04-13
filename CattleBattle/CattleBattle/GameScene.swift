@@ -311,7 +311,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
         var sprite = AnimalNode(size: currentSize, side: side)
         sprite.position.x = Constants.LAUNCH_X[side.index]
-        sprite.position.y = y + sprite.size.height / 2.0
+        sprite.position.y = y
         sprite.zPosition = ++zIndex
         self.addChild(sprite)
         
