@@ -8,15 +8,19 @@
 
 import SpriteKit
 
-class PowerUpItem {
+class PowerUp {
     enum PowerType: String {
         case FREEZING = "freezing"
         case BLACK_HOLE = "blackhole"
         case UPGRADING = "upgrading"
         case SUPER = "super"
         
-        internal static let types = [FREEZING, BLACK_HOLE, UPGRADING, SUPER]
-        internal static let immediatelyImplemented = [true, false, true, true]
+        internal static let allTypes = [FREEZING, BLACK_HOLE, UPGRADING, SUPER]
+        internal static let targeted = [true, false, true, true]
+
+        internal static func randomPowerType() -> PowerType {
+            return allTypes[Int(arc4random_uniform(UInt32(PowerType.allTypes.count)))]
+        }
     }
     
     enum Status: String {
@@ -26,23 +30,20 @@ class PowerUpItem {
     
     struct Constants {
         internal static let IMAGE_EXT = ".png"
-        internal static let IMAGE_SCALE = CGFloat(0.3)
+        internal static let IMAGE_SCALE: CGFloat = 0.3
     }
     
     internal var status: Status
     internal var type: PowerType
     
     private func _getImageFileName() -> String {
-        return  status.rawValue + type.rawValue + Constants.IMAGE_EXT
+        return status.rawValue + type.rawValue + Constants.IMAGE_EXT
     }
     
     internal func getTexture() -> SKTexture {
         return SKTexture(imageNamed: _getImageFileName())
     }
     
-    func randomPower() {
-        type = PowerType.types[Int(arc4random_uniform(UInt32(PowerType.types.count)))]
-    }
     
     init(type: PowerType, status: Status) {
         self.type = type
@@ -54,7 +55,7 @@ class PowerUpItem {
     }
     
     internal func getImplementationType() -> Bool {
-        return PowerType.immediatelyImplemented[find(PowerType.types, type)!]
+        return PowerType.targeted[find(PowerType.allTypes, type)!]
     }
 }
  

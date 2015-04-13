@@ -41,7 +41,7 @@ class LoadingNode: SKSpriteNode {
     }
     
     internal func change() {
-        self.animal.size = GameModel.generateRandomAnimal()
+        self.animal.size = Animal.Size.generateRandomAnimal()
         self.texture = animal.getTexture()
         self.resize()
     }

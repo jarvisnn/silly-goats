@@ -74,22 +74,8 @@ class GameModel {
     }
     
     // to set the status of ready cattle
-    internal class func setCattleStatus(side : GameModel.Side, index : Int, status : Bool ) {
+    internal class func setCattleStatus(side : GameModel.Side, index : Int, status : Bool) {
         Constants.readyList[side.index][index] = status
     }
     
-    
-    internal class func generateRandomAnimal() -> Animal.Size {
-        var total = Animal.Size.probability.reduce(0, combine: +)
-        var rand = Double(arc4random()) / Double(UINT32_MAX) * Double(total)
-        for i in 0..<Animal.Size.allSizes.count {
-            var prob = Double(Animal.Size.probability[i])
-            if rand < prob {
-                return Animal.Size.allSizes[i]
-            } else {
-                rand -= prob
-            }
-        }
-        return .TINY
-    }
 }

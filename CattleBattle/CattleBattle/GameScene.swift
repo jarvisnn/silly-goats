@@ -38,7 +38,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     })
     private var loadingButton: [[LoadingNode]] = []
     private var categoryBound: [CGFloat] = [Constants.ITEM_GAP, Constants.ITEM_GAP]
-    private var categorySelectedItem: [PowerUpItemNode?] = [nil, nil]
+    private var categorySelectedItem: [PowerUpNode?] = [nil, nil]
     
     private func _setupLoadingButton() {
         loadingButton = GameModel.Side.allSides.map { (side) -> [LoadingNode] in
@@ -89,7 +89,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     private func addItem() {
-        var item = PowerUpItemNode(type: .BLACK_HOLE)
+        var item = PowerUpNode(type: .BLACK_HOLE)
 //        item.randomPower()
         item.position = CGPoint(x: self.size.width/2, y: self.size.height/2)
         item.zPosition = CGFloat(Constants.INFINITE + 1)
@@ -134,7 +134,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    private func itemDidCollideWithCategory(item: PowerUpItemNode, category: CategoryNode) {
+    private func itemDidCollideWithCategory(item: PowerUpNode, category: CategoryNode) {
         if categoryBound[category.side.index] + item.size.width >= category.size.width {
             return
         } else {
@@ -145,7 +145,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             categoryBound[category.side.index] += item.size.width + Constants.ITEM_GAP
             
             item.side = category.side
-            item.name = PowerUpItemNode.Constants.IDENTIFIER_STORED
+            item.name = PowerUpNode.Constants.IDENTIFIER_STORED
             
             item.physicsBody!.contactTestBitMask = GameScene.Constants.None
             item.physicsBody!.collisionBitMask = GameScene.Constants.None
@@ -168,7 +168,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 if firstBody.node!.name == CategoryNode.Constants.IDENTIFIER {
                     swap(&firstBody, &secondBody)
                 }
-                itemDidCollideWithCategory(firstBody.node as PowerUpItemNode, category: secondBody.node as CategoryNode)
+                itemDidCollideWithCategory(firstBody.node as PowerUpNode, category: secondBody.node as CategoryNode)
         }
     }
     
@@ -184,7 +184,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 if GameModel.isCattleReady(arrow.side, index: currentSelected) {
                     _deploy(arrow.side, selectedButton: currentSelected, selectedRow: arrow.index)
                 }
-            } else if node.name != nil && node.name == PowerUpItemNode.Constants.IDENTIFIER {
+            } else if node.name != nil && node.name == PowerUpNode.Constants.IDENTIFIER {
                 node.physicsBody!.velocity = CGVector.zeroVector
                 node.physicsBody!.dynamic = false
             }
@@ -196,7 +196,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let position = touch.locationInNode(self)
             let node = nodeAtPoint(position)
             
-            if node.name != nil && node.name == PowerUpItemNode.Constants.IDENTIFIER {
+            if node.name != nil && node.name == PowerUpNode.Constants.IDENTIFIER {
                 node.position = position
             }
         }
@@ -207,7 +207,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let position = touch.locationInNode(self)
             let node = nodeAtPoint(position)
             
-            if node.name != nil && node.name == PowerUpItemNode.Constants.IDENTIFIER {
+            if node.name != nil && node.name == PowerUpNode.Constants.IDENTIFIER {
                 let lastPosition = touch.previousLocationInNode(self)
                 var x = (position.x-lastPosition.x)
                 var y = (position.y-lastPosition.y)
@@ -215,8 +215,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 
                 node.physicsBody!.dynamic = true
                 node.physicsBody!.velocity = CGVector(dx: x/le*Constants.VELOCITY_COEFFICIENT, dy: y/le*Constants.VELOCITY_COEFFICIENT)
-            } else if node.name != nil && node.name == PowerUpItemNode.Constants.IDENTIFIER_STORED {
-                _selectItem(node as PowerUpItemNode)
+            } else if node.name != nil && node.name == PowerUpNode.Constants.IDENTIFIER_STORED {
+                _selectItem(node as PowerUpNode)
             }
         }
     }
@@ -246,7 +246,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    private func _selectItem(item: PowerUpItemNode) {
+    private func _selectItem(item: PowerUpNode) {
         let index = item.side.index
         if let currentSelectedItem = categorySelectedItem[index] {
             currentSelectedItem.updateItemStatus(.NOTSELECTED)
@@ -260,7 +260,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    private func implementPowerUp(item: PowerUpItemNode, node: SKSpriteNode?) {
+    private func implementPowerUp(item: PowerUpNode, node: SKSpriteNode?) {
         // Add code to implement powerup animations here
         switch item.powerUpItem.type {
         case .BLACK_HOLE:
@@ -276,7 +276,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
     }
     
-    private func rearrangeCategory(item: PowerUpItemNode) {
+    private func rearrangeCategory(item: PowerUpNode) {
         let index = item.side.index
         var x = item.position.x
         var y = item.position.y
@@ -285,7 +285,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         item.removeFromParent()
         var node = nodeAtPoint(CGPointMake(x+value, y))
-        while node.name != nil && node.name == PowerUpItemNode.Constants.IDENTIFIER_STORED {
+        while node.name != nil && node.name == PowerUpNode.Constants.IDENTIFIER_STORED {
             let moveAction = (SKAction.moveTo(CGPointMake(x, y), duration:0.2))
             node.runAction(moveAction)
             

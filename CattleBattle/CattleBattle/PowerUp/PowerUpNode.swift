@@ -10,7 +10,7 @@
 import UIKit
 import SpriteKit
 
-class PowerUpItemNode: SKSpriteNode {
+class PowerUpNode: SKSpriteNode {
     struct Constants {
         internal static let IDENTIFIER_STORED = "storedItem"
         internal static let IDENTIFIER = "powerUpItem"
@@ -21,14 +21,14 @@ class PowerUpItemNode: SKSpriteNode {
         internal static let PHYSICS_BODY_HEIGHT = CGFloat(50)
     }
     
-    internal var powerUpItem = PowerUpItem(type: .FREEZING, status: .NOTSELECTED)
+    internal var powerUpItem = PowerUp(type: .FREEZING, status: .NOTSELECTED)
     internal var side : GameModel.Side = .LEFT
     
-    init(type: PowerUpItem.PowerType) {
+    init(type: PowerUp.PowerType) {
         super.init()
         
         self.name = Constants.IDENTIFIER
-        self.powerUpItem = PowerUpItem(type: type, status: .NOTSELECTED)
+        self.powerUpItem = PowerUp(type: type, status: .NOTSELECTED)
         
         self.texture = self.powerUpItem.getTexture()
         self.size = self.texture!.size()
@@ -51,11 +51,11 @@ class PowerUpItemNode: SKSpriteNode {
     }
     
     internal func randomPower() {
-        powerUpItem.randomPower()
+        powerUpItem.type = PowerUp.PowerType.randomPowerType()
         updateItemStatus(powerUpItem.status)
     }
     
-    internal func updateItemStatus(status: PowerUpItem.Status) {
+    internal func updateItemStatus(status: PowerUp.Status) {
         self.powerUpItem.status = status
         self.texture = self.powerUpItem.getTexture()
     }

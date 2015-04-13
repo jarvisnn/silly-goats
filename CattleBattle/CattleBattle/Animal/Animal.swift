@@ -10,8 +10,6 @@ import SpriteKit
 
 class Animal {
     
-    private let mass = [10, 20, 35, 50, 100]
-    private let point = [100, 70, 50, 30, 20]
     
     enum Color: String {
         case WHITE = "white"
@@ -30,6 +28,22 @@ class Animal {
         internal static let allSizes = [TINY, SMALL, MEDIUM, LARGE, HUGE]
         internal static let probability = [1, 1, 1, 1, 1]
         internal static let scale: [CGFloat] = [0.25, 0.35, 0.4, 0.5, 0.6]
+        internal static let mass: [CGFloat] = [10, 20, 35, 50, 100]
+        internal static let point: [Int] = [100, 70, 50, 30, 20]
+
+        internal static func generateRandomAnimal() -> Size {
+            var total = probability.reduce(0, combine: +)
+            var rand = Int(arc4random_uniform(UInt32(total)))
+            for i in 0..<allSizes.count {
+                var prob = probability[i]
+                if rand < prob {
+                    return allSizes[i]
+                } else {
+                    rand -= prob
+                }
+            }
+            return .TINY
+        }
     }
     
     enum Status: String {
@@ -111,24 +125,22 @@ class Animal {
         return Constants.bumpingTextures[find(Color.allColors, color)!][find(Size.allSizes, size)!]
     }
     
-    
     init(color: Color, size: Size, status: Status) {
         self.color = color
         self.size = size
         self.status = status
     }
     
-    internal func getImageScale() -> (CGFloat, CGFloat) {
-        var scale = Size.scale[find(Size.allSizes, size)!]
-        return (scale, scale)
+    internal func getImageScale() -> CGFloat {
+        return Size.scale[find(Size.allSizes, size)!]
     }
     
     internal func getMass () -> CGFloat {
-        return CGFloat(mass[find(Size.allSizes, size)!])
+        return Size.mass[find(Size.allSizes, size)!]
     }
     
     internal func getPoint() -> Int {
-        return point[find(Size.allSizes, size)!]
+        return Size.point[find(Size.allSizes, size)!]
     }
 }
  
