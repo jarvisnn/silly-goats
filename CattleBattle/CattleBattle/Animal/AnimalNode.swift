@@ -66,14 +66,12 @@ class AnimalNode: SKSpriteNode {
         self.animal.status = status
         self.texture = self.animal.getTexture()
         
-        var oldHeight = self.size.height
-        
         self.xScale = 1
         self.yScale = 1
         
         self.size = self.texture!.size()
-
-        self.xScale = oldHeight < 1 ? animal.getImageScale() : oldHeight/self.size.height
+        
+        self.xScale = animal.getImageScale()
         self.yScale = self.xScale
     }
     

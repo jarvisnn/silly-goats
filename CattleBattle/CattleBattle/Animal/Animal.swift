@@ -27,7 +27,6 @@ class Animal {
         
         internal static let allSizes = [TINY, SMALL, MEDIUM, LARGE, HUGE]
         internal static let probability = [1, 1, 1, 1, 1]
-        internal static let scale: [CGFloat] = [0.25, 0.35, 0.4, 0.5, 0.6]
         internal static let mass: [CGFloat] = [10, 20, 35, 50, 100]
         internal static let point: [Int] = [100, 70, 50, 30, 20]
 
@@ -60,6 +59,8 @@ class Animal {
 
         internal static let SPRITE_SHEET_ROWS = 2
         internal static let SPRITE_SHEET_COLS = 5
+
+        internal static let scale: [[CGFloat]] = [[0.25, 0.35, 0.4, 0.5, 0.6], [0.3, 0.4, 0.45, 0.55, 0.65]]
         
         internal static var deployedTextures = Color.allColors.map() { (color) -> [[SKTexture]] in
             return Size.allSizes.map() { (size) -> [SKTexture] in
@@ -132,7 +133,7 @@ class Animal {
     }
     
     internal func getImageScale() -> CGFloat {
-        return Size.scale[find(Size.allSizes, size)!]
+        return Constants.scale[find(Status.allStatuses, status)!][find(Size.allSizes, size)!]
     }
     
     internal func getMass () -> CGFloat {
