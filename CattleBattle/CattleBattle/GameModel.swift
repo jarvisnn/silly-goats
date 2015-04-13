@@ -11,16 +11,8 @@ import UIKit
 class GameModel {
     let NUMBER_OF_READY_CATTLE = 3
     
-    var leftScore : Int
-    var rightScore : Int
-    
     enum side {
         case left, right
-    }
-    
-    init () {
-        leftScore = 0
-        rightScore = 0
     }
     
     struct Constants {
@@ -33,8 +25,9 @@ class GameModel {
             })
         }
         
-        internal static var selected = [0, 0]
+        internal static var selectedGoat = [0, 0]
         internal static var categorySelectedItem: [PowerUpNode?] = [nil, nil]
+        internal static var score = [0, 0]
     }
     
     
@@ -56,7 +49,7 @@ class GameModel {
     
     internal class func selectForSide(side: GameModel.Side, index: Int) -> Bool {
         if isCattleReady(side, index: index) {
-            Constants.selected[side.index] = index
+            Constants.selectedGoat[side.index] = index
             return true
         }
         return false

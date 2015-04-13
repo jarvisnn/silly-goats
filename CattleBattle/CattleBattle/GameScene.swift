@@ -299,7 +299,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     private func _deploy(arrow: ArrowNode) {
         var side = arrow.side
-        var selectedButton = GameModel.Constants.selected[side.index]
+        var selectedButton = GameModel.Constants.selectedGoat[side.index]
         var selectedRow = arrow.index
         if !GameModel.isCattleReady(side, index: selectedButton) {
             return
