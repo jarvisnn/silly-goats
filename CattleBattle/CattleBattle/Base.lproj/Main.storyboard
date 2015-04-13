@@ -127,7 +127,7 @@
         <!--Item-->
         <scene sceneID="cHX-6T-rk6">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="yMf-Jw-5aO" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="yMf-Jw-5aO" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="ZbX-5h-cKr"/>
                     <toolbarItems/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
