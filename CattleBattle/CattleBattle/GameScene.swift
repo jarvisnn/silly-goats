@@ -249,11 +249,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private func _selectItem(item: PowerUpNode) {
         let index = item.side.index
         if let currentSelectedItem = categorySelectedItem[index] {
-            currentSelectedItem.updateItemStatus(.NOTSELECTED)
+            currentSelectedItem.updateItemStatus(.WAITING)
         }
         
         categorySelectedItem[index] = item
-        item.updateItemStatus(.SELECTING)
+        item.updateItemStatus(.SELECTED)
         
         if item.powerUpItem.getImplementationType() {
             implementPowerUp(item, node: nil)
@@ -262,7 +262,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     private func implementPowerUp(item: PowerUpNode, node: SKSpriteNode?) {
         // Add code to implement powerup animations here
-        switch item.powerUpItem.type {
+        switch item.powerUpItem.powerType {
         case .BLACK_HOLE:
             doBlackHole(node as AnimalNode)
         default:

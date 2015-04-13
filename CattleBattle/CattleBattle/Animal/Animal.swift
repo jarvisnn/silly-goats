@@ -104,7 +104,7 @@ class Animal {
     
     private func _getImageFileName() -> String {
         var fileName = join("-", [Constants.GOAT_KEYWORD, status.rawValue, color.rawValue, size.rawValue])
-        return  fileName + ".png"
+        return fileName + Constants.IMAGE_EXT
     }
     
     internal func getTexture() -> SKTexture {
