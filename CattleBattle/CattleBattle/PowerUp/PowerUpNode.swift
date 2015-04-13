@@ -39,7 +39,7 @@ class PowerUpNode: SKSpriteNode {
         if let physics = self.physicsBody {
             physics.categoryBitMask = GameScene.Constants.Item
             physics.contactTestBitMask = GameScene.Constants.Category
-            physics.collisionBitMask = GameScene.Constants.Category
+            physics.collisionBitMask = GameScene.Constants.Category | GameScene.Constants.Item
             
             physics.affectedByGravity = false
             physics.allowsRotation = false

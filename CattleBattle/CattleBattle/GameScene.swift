@@ -16,18 +16,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         private static let LAUNCH_Y_GAP: CGFloat = 100
         private static let LABEL_FONT = "Chalkduster"
         private static let INFINITE = 1000000000
-        private static let VELOCITY_COEFFICIENT = CGFloat(300)
+        private static let VELOCITY_COEFFICIENT: CGFloat = 300
         
-        private static let ITEM_GAP = CGFloat(15)
+        private static let ITEM_GAP: CGFloat = 5
         
-        private static let Z_INDEX_CATEGORY = CGFloat(10)
-        private static let Z_INDEX_ITEM = CGFloat(9)
+        private static let Z_INDEX_CATEGORY: CGFloat = 10
+        private static let Z_INDEX_ITEM: CGFloat = 9
         
-        internal static let None : UInt32 = 0
-        internal static let All  : UInt32 = UInt32.max
-        internal static let Goat : UInt32 = 0b1 //1
-        internal static let Item : UInt32 = 0b10 //2
-        internal static let Category : UInt32 = 0b100 //3
+        internal static let None: UInt32 = 0
+        internal static let All: UInt32 = UInt32.max
+        internal static let Goat: UInt32 = 0b1 //1
+        internal static let Item: UInt32 = 0b10 //2
+        internal static let Category: UInt32 = 0b100 //3
     }
     
     private let GAME_VIEW_RIGHT_BOUNDARY: CGFloat = 1100
@@ -37,8 +37,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         SKLabelNode()
     })
     private var loadingButton: [[LoadingNode]] = []
-    private var categoryBound: [CGFloat] = [Constants.ITEM_GAP, Constants.ITEM_GAP]
+    private var categoryBound = [Constants.ITEM_GAP, Constants.ITEM_GAP]
     private var categorySelectedItem: [PowerUpNode?] = [nil, nil]
+    private var zIndex: CGFloat = 0
     
     private func _setupLoadingButton() {
         loadingButton = GameModel.Side.allSides.map { (side) -> [LoadingNode] in
@@ -82,8 +83,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private func _setupItem() {
         runAction(SKAction.repeatActionForever(
             SKAction.sequence([
-                SKAction.waitForDuration(5),
-                SKAction.runBlock(addItem)
+                SKAction.runBlock(addItem),
+                SKAction.waitForDuration(Double(Constants.ITEM_GAP))
             ])
         ))
     }
@@ -176,15 +177,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         for touch in touches {
             var node = self.nodeAtPoint(touch.locationInNode(self))
            
-            if node.name != nil && node.name! == LoadingNode.Constants.IDENTIFIER {
-                self._selectButton(node as LoadingNode)
-            } else if node.name != nil && node.name! == ArrowNode.Constants.IDENTIFIER {
-                var arrow = node as ArrowNode
-                var currentSelected = GameModel.Constants.selected[arrow.side.index]
-                if GameModel.isCattleReady(arrow.side, index: currentSelected) {
-                    _deploy(arrow.side, selectedButton: currentSelected, selectedRow: arrow.index)
-                }
-            } else if node.name != nil && node.name == PowerUpNode.Constants.IDENTIFIER {
+            if node.name == LoadingNode.Constants.IDENTIFIER {
+                _selectButton(node as LoadingNode)
+                
+            } else if node.name == ArrowNode.Constants.IDENTIFIER {
+                _deploy(node as ArrowNode)
+                
+            } else if node.name == PowerUpNode.Constants.IDENTIFIER {
                 node.physicsBody!.velocity = CGVector.zeroVector
                 node.physicsBody!.dynamic = false
             }
@@ -193,10 +192,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func touchesMoved(touches: NSSet, withEvent event: UIEvent) {
         for touch in touches {
-            let position = touch.locationInNode(self)
-            let node = nodeAtPoint(position)
+            var position = touch.locationInNode(self)
+            var previous = touch.previousLocationInNode(self)
+            var node = nodeAtPoint(previous)
             
-            if node.name != nil && node.name == PowerUpNode.Constants.IDENTIFIER {
+            if node.name == PowerUpNode.Constants.IDENTIFIER {
                 node.position = position
             }
         }
@@ -204,18 +204,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func touchesEnded(touches: NSSet, withEvent event: UIEvent) {
         for touch in touches {
-            let position = touch.locationInNode(self)
-            let node = nodeAtPoint(position)
+            var position = touch.locationInNode(self)
+            var previous = touch.previousLocationInNode(self)
+            var node = nodeAtPoint(previous)
             
-            if node.name != nil && node.name == PowerUpNode.Constants.IDENTIFIER {
-                let lastPosition = touch.previousLocationInNode(self)
-                var x = (position.x-lastPosition.x)
-                var y = (position.y-lastPosition.y)
-                var le = sqrt(x*x + y*y)
-                
-                node.physicsBody!.dynamic = true
-                node.physicsBody!.velocity = CGVector(dx: x/le*Constants.VELOCITY_COEFFICIENT, dy: y/le*Constants.VELOCITY_COEFFICIENT)
-            } else if node.name != nil && node.name == PowerUpNode.Constants.IDENTIFIER_STORED {
+            if node.name == PowerUpNode.Constants.IDENTIFIER {
+                _applyVelocity(node, position: position, previous: previous)
+            } else if node.name == PowerUpNode.Constants.IDENTIFIER_STORED {
                 _selectItem(node as PowerUpNode)
             }
         }
@@ -225,8 +220,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         for i in self.children {
             var node = i as SKNode
             
-            if node.name != nil && (node.name == "leftRunning" || node.name == "rightRunning") {
-                let sideIndex = node.name == "leftRunning" ? 0 : 1
+            if node.name == AnimalNode.Constants.IDENTIFIER {
+                var sideIndex = ((node as AnimalNode).animal.color == .WHITE) ? 0 : 1
                 if node.position.x < GAME_VIEW_LEFT_BOUNDARY || node.position.x > GAME_VIEW_RIGHT_BOUNDARY {
                     if (sideIndex == 0 && node.position.x > GAME_VIEW_RIGHT_BOUNDARY)
                             || (sideIndex == 1 && node.position.x < GAME_VIEW_LEFT_BOUNDARY){
@@ -236,7 +231,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     }
                     node.removeFromParent()
                 } else {
-                    if node.name == "leftRunning" {
+                    if sideIndex == 0 {
                         (node as AnimalNode).physicsBody!.velocity.dx = AnimalNode.Constants.VELOCITY
                     } else {
                         (node as AnimalNode).physicsBody!.velocity.dx = -AnimalNode.Constants.VELOCITY
@@ -285,7 +280,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         item.removeFromParent()
         var node = nodeAtPoint(CGPointMake(x+value, y))
-        while node.name != nil && node.name == PowerUpNode.Constants.IDENTIFIER_STORED {
+        while node.name == PowerUpNode.Constants.IDENTIFIER_STORED {
             let moveAction = (SKAction.moveTo(CGPointMake(x, y), duration:0.2))
             node.runAction(moveAction)
             
@@ -294,8 +289,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    private var zCount = CGFloat(0)
-    private func _deploy(side: GameModel.Side, selectedButton: Int, selectedRow: Int) {
+    private func _applyVelocity(node: SKNode, position: CGPoint, previous: CGPoint) {
+        var x = position.x - previous.x
+        var y = position.y - previous.y
+        var le = sqrt(x * x + y * y)
+        
+        node.physicsBody!.dynamic = true
+        node.physicsBody!.velocity = CGVector(dx: x / le * Constants.VELOCITY_COEFFICIENT, dy: y / le * Constants.VELOCITY_COEFFICIENT)
+    }
+    
+    private func _deploy(arrow: ArrowNode) {
+        var side = arrow.side
+        var selectedButton = GameModel.Constants.selected[side.index]
+        var selectedRow = arrow.index
+        if !GameModel.isCattleReady(side, index: selectedButton) {
+            return
+        }
+        
         GameModel.setCattleStatus(side, index: selectedButton, status: false)
         var currentSize = loadingButton[side.index][selectedButton].animal.size
         var y = Constants.LAUNCH_Y_TOP - Constants.LAUNCH_Y_GAP * CGFloat(selectedRow)
@@ -303,7 +313,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         var sprite = AnimalNode(size: currentSize, side: side)
         sprite.position.x = Constants.LAUNCH_X[side.index]
         sprite.position.y = y + sprite.size.height / 2.0
-        sprite.zPosition = ++zCount
+        sprite.zPosition = ++zIndex
         self.addChild(sprite)
         
         var button = loadingButton[side.index][selectedButton]

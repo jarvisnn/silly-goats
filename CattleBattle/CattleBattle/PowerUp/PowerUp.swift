@@ -55,7 +55,6 @@ class PowerUp {
         return Constants.textures[find(PowerType.allTypes, powerType)!][find(Status.allStatus, status)!]
     }
     
-    
     init(type: PowerType, status: Status) {
         self.powerType = type
         self.status = status

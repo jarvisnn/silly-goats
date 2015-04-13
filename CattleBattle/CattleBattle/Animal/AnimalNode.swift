@@ -19,6 +19,8 @@ class AnimalNode: SKSpriteNode {
         internal static let FRAME_TIME_BUMPING = 0.07
         internal static let PHYSICS_BODY_WIDTH: CGFloat = 30
         internal static let PHYSICS_BODY_HEIGHT: CGFloat = 50
+        
+        internal static let IDENTIFIER = "animalRunning"
     }
 
     init(size: Animal.Size, side: GameModel.Side) {
@@ -28,7 +30,7 @@ class AnimalNode: SKSpriteNode {
         self.animal = Animal(color: color, size: size, status: .DEPLOYED)
         updateAnimalStatus(.DEPLOYED)
         
-        self.name = side.rawValue + "Running"
+        self.name = Constants.IDENTIFIER
         
         var bodySize = CGSizeMake(Constants.PHYSICS_BODY_WIDTH, Constants.PHYSICS_BODY_HEIGHT)
         var centerPoint: CGPoint

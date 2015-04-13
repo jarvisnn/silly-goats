@@ -42,6 +42,7 @@
 		C33F322C1ADC001E00964B5D /* item-waiting-freezing.png in Resources */ = {isa = PBXBuildFile; fileRef = C33F32231ADC001E00964B5D /* item-waiting-freezing.png */; };
 		C33F322D1ADC001E00964B5D /* item-waiting-super.png in Resources */ = {isa = PBXBuildFile; fileRef = C33F32241ADC001E00964B5D /* item-waiting-super.png */; };
 		C33F322E1ADC001E00964B5D /* item-waiting-upgrading.png in Resources */ = {isa = PBXBuildFile; fileRef = C33F32251ADC001E00964B5D /* item-waiting-upgrading.png */; };
+		C33F32301ADC3B9300964B5D /* AnimationNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33F322F1ADC3B9300964B5D /* AnimationNode.swift */; };
 		C35441521ACD7EAE00BA7369 /* AnimalNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35441511ACD7EAE00BA7369 /* AnimalNode.swift */; };
 		C35441581ACDC0AC00BA7369 /* arrow-left.png in Resources */ = {isa = PBXBuildFile; fileRef = C35441541ACDC0AC00BA7369 /* arrow-left.png */; };
 		C35441591ACDC0AC00BA7369 /* arrow-right.png in Resources */ = {isa = PBXBuildFile; fileRef = C35441551ACDC0AC00BA7369 /* arrow-right.png */; };
@@ -136,6 +137,7 @@
 		C33F32231ADC001E00964B5D /* item-waiting-freezing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "item-waiting-freezing.png"; sourceTree = "<group>"; };
 		C33F32241ADC001E00964B5D /* item-waiting-super.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "item-waiting-super.png"; sourceTree = "<group>"; };
 		C33F32251ADC001E00964B5D /* item-waiting-upgrading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "item-waiting-upgrading.png"; sourceTree = "<group>"; };
+		C33F322F1ADC3B9300964B5D /* AnimationNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationNode.swift; sourceTree = "<group>"; };
 		C35441511ACD7EAE00BA7369 /* AnimalNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalNode.swift; sourceTree = "<group>"; };
 		C35441541ACDC0AC00BA7369 /* arrow-left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow-left.png"; sourceTree = "<group>"; };
 		C35441551ACDC0AC00BA7369 /* arrow-right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow-right.png"; sourceTree = "<group>"; };
@@ -232,6 +234,7 @@
 			isa = PBXGroup;
 			children = (
 				3BD81EDE1AD6EE8900599E30 /* PowerUpNode.swift */,
+				C33F322F1ADC3B9300964B5D /* AnimationNode.swift */,
 				3AD4A4231ADA50CD00E63495 /* PowerUp.swift */,
 			);
 			path = PowerUp;
@@ -665,6 +668,7 @@
 				96972B4C1AC2C77000FF2DC5 /* GameViewController.swift in Sources */,
 				96972B461AC2C77000FF2DC5 /* AppDelegate.swift in Sources */,
 				3A7012A21ADA4082002D2BB9 /* InstructionViewController.swift in Sources */,
+				C33F32301ADC3B9300964B5D /* AnimationNode.swift in Sources */,
 				3BD81EDF1AD6EE8900599E30 /* PowerUpNode.swift in Sources */,
 				3A70129D1ADA3CA9002D2BB9 /* MenuViewController.swift in Sources */,
 				C385F6A81AD14813003B4E74 /* SKNodeExtension.swift in Sources */,
