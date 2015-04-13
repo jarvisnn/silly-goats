@@ -21,14 +21,19 @@ class PowerUpItemNode: SKSpriteNode {
         internal static let PHYSICS_BODY_HEIGHT = CGFloat(50)
     }
     
-    internal var powerUpItem = PowerUpItem(type: .FREEZING, status: .SELECTING)
+    internal var powerUpItem = PowerUpItem(type: .FREEZING, status: .NOTSELECTED)
+    internal var side : GameModel.Side = .LEFT
     
     init(type: PowerUpItem.PowerType) {
         super.init()
         
         self.name = Constants.IDENTIFIER
-        self.powerUpItem = PowerUpItem(type: type, status: .SELECTING)
-        updateAnimalStatus(.SELECTING)
+        self.powerUpItem = PowerUpItem(type: type, status: .NOTSELECTED)
+        
+        self.texture = self.powerUpItem.getTexture()
+        self.size = self.texture!.size()
+        self.xScale = powerUpItem.getImageScale().0
+        self.yScale = powerUpItem.getImageScale().1
         
         self.physicsBody = SKPhysicsBody(circleOfRadius: self.size.height / 2)
         if let physics = self.physicsBody {
@@ -45,14 +50,14 @@ class PowerUpItemNode: SKSpriteNode {
         }
     }
     
-    internal func updateAnimalStatus(status: PowerUpItem.Status) {
+    internal func randomPower() {
+        powerUpItem.randomPower()
+        updateItemStatus(powerUpItem.status)
+    }
+    
+    internal func updateItemStatus(status: PowerUpItem.Status) {
         self.powerUpItem.status = status
         self.texture = self.powerUpItem.getTexture()
-        
-        self.size = self.texture!.size()
-        
-        self.xScale = powerUpItem.getImageScale().0
-        self.yScale = powerUpItem.getImageScale().1
     }
     
     internal func showUp() {

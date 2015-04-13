@@ -27,7 +27,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         internal static let All  : UInt32 = UInt32.max
         internal static let Goat : UInt32 = 0b1 //1
         internal static let Item : UInt32 = 0b10 //2
-        internal static let Category : UInt32 = 0b11 //3
+        internal static let Category : UInt32 = 0b100 //3
     }
     
     private let GAME_VIEW_RIGHT_BOUNDARY: CGFloat = 1100
@@ -38,6 +38,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     })
     private var loadingButton: [[LoadingNode]] = []
     private var categoryBound: [CGFloat] = [Constants.ITEM_GAP, Constants.ITEM_GAP]
+    private var categorySelectedItem: [PowerUpItemNode?] = [nil, nil]
     
     private func _setupLoadingButton() {
         loadingButton = GameModel.Side.allSides.map { (side) -> [LoadingNode] in
@@ -81,7 +82,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private func _setupItem() {
         runAction(SKAction.repeatActionForever(
             SKAction.sequence([
-                SKAction.waitForDuration(10),
+                SKAction.waitForDuration(5),
                 SKAction.runBlock(addItem)
             ])
         ))
@@ -89,7 +90,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     private func addItem() {
         var item = PowerUpItemNode(type: .BLACK_HOLE)
-        item.powerUpItem.randomPower()
+//        item.randomPower()
         item.position = CGPoint(x: self.size.width/2, y: self.size.height/2)
         item.zPosition = CGFloat(Constants.INFINITE + 1)
         item.showUp()
@@ -143,7 +144,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             categoryBound[category.side.index] += item.size.width + Constants.ITEM_GAP
             
+            item.side = category.side
             item.name = PowerUpItemNode.Constants.IDENTIFIER_STORED
+            
             item.physicsBody!.contactTestBitMask = GameScene.Constants.None
             item.physicsBody!.collisionBitMask = GameScene.Constants.None
             item.physicsBody!.dynamic = false
@@ -212,6 +215,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 
                 node.physicsBody!.dynamic = true
                 node.physicsBody!.velocity = CGVector(dx: x/le*Constants.VELOCITY_COEFFICIENT, dy: y/le*Constants.VELOCITY_COEFFICIENT)
+            } else if node.name != nil && node.name == PowerUpItemNode.Constants.IDENTIFIER_STORED {
+                _selectItem(node as PowerUpItemNode)
             }
         }
     }
@@ -238,6 +243,54 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     }
                 }
             }
+        }
+    }
+    
+    private func _selectItem(item: PowerUpItemNode) {
+        let index = item.side.index
+        if let currentSelectedItem = categorySelectedItem[index] {
+            currentSelectedItem.updateItemStatus(.NOTSELECTED)
+        }
+        
+        categorySelectedItem[index] = item
+        item.updateItemStatus(.SELECTING)
+        
+        if item.powerUpItem.getImplementationType() {
+            implementPowerUp(item, node: nil)
+        }
+    }
+    
+    private func implementPowerUp(item: PowerUpItemNode, node: SKSpriteNode?) {
+        // Add code to implement powerup animations here
+        switch item.powerUpItem.type {
+        case .BLACK_HOLE:
+            doBlackHole(node as AnimalNode)
+        default:
+            println("do nothing")
+        }
+        
+        rearrangeCategory(item)
+    }
+
+    private func doBlackHole(node: AnimalNode) {
+        
+    }
+    
+    private func rearrangeCategory(item: PowerUpItemNode) {
+        let index = item.side.index
+        var x = item.position.x
+        var y = item.position.y
+        var value = index == 0 ? item.size.width+Constants.ITEM_GAP : -item.size.width-Constants.ITEM_GAP
+        categoryBound[index] -= item.size.width + Constants.ITEM_GAP
+        
+        item.removeFromParent()
+        var node = nodeAtPoint(CGPointMake(x+value, y))
+        while node.name != nil && node.name == PowerUpItemNode.Constants.IDENTIFIER_STORED {
+            let moveAction = (SKAction.moveTo(CGPointMake(x, y), duration:0.2))
+            node.runAction(moveAction)
+            
+            x += value
+            node = nodeAtPoint(CGPointMake(x+value, y))
         }
     }
     

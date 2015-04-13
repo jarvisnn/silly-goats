@@ -16,6 +16,7 @@ class PowerUpItem {
         case SUPER = "super"
         
         internal static let types = [FREEZING, BLACK_HOLE, UPGRADING, SUPER]
+        internal static let immediatelyImplemented = [true, false, true, true]
     }
     
     enum Status: String {
@@ -50,6 +51,10 @@ class PowerUpItem {
     
     internal func getImageScale() -> (CGFloat, CGFloat) {
         return (Constants.IMAGE_SCALE, Constants.IMAGE_SCALE)
+    }
+    
+    internal func getImplementationType() -> Bool {
+        return PowerType.immediatelyImplemented[find(PowerType.types, type)!]
     }
 }
  
