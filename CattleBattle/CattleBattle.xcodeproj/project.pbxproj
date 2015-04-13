@@ -198,7 +198,6 @@
 			isa = PBXGroup;
 			children = (
 				96972B4B1AC2C77000FF2DC5 /* GameViewController.swift */,
-				9616925E1AC4621C0016523C /* GameModel.swift */,
 				3A7012A11ADA4082002D2BB9 /* InstructionViewController.swift */,
 			);
 			name = "View Controller";
@@ -225,13 +224,13 @@
 			path = Modal;
 			sourceTree = "<group>";
 		};
-		3AD4A4251ADA50D700E63495 /* Power Up */ = {
+		3AD4A4251ADA50D700E63495 /* PowerUp */ = {
 			isa = PBXGroup;
 			children = (
 				3BD81EDE1AD6EE8900599E30 /* PowerUpItemNode.swift */,
 				3AD4A4231ADA50CD00E63495 /* PowerUpItem.swift */,
 			);
-			name = "Power Up";
+			path = PowerUp;
 			sourceTree = "<group>";
 		};
 		3AD4A4261ADA50E200E63495 /* Animal */ = {
@@ -240,7 +239,7 @@
 				C35441511ACD7EAE00BA7369 /* AnimalNode.swift */,
 				967F6D881AC55C1B00B50207 /* Animal.swift */,
 			);
-			name = Animal;
+			path = Animal;
 			sourceTree = "<group>";
 		};
 		3AD4A4271ADA6FBC00E63495 /* Power-up */ = {
@@ -272,15 +271,6 @@
 			path = items;
 			sourceTree = "<group>";
 		};
-		3AD4A4381ADB298000E63495 /* Nodes */ = {
-			isa = PBXGroup;
-			children = (
-				9660B9FE1AC44F4A00A053A2 /* LoadingNode.swift */,
-				3AD4A4361ADB232700E63495 /* CategoryNode.swift */,
-			);
-			name = Nodes;
-			sourceTree = "<group>";
-		};
 		96972B371AC2C76F00FF2DC5 = {
 			isa = PBXGroup;
 			children = (
@@ -306,10 +296,12 @@
 				96972B491AC2C77000FF2DC5 /* GameScene.swift */,
 				3A70129C1ADA3CA9002D2BB9 /* MenuViewController.swift */,
 				3A70129E1ADA3CB6002D2BB9 /* View Controller */,
+				9616925E1AC4621C0016523C /* GameModel.swift */,
 				96CAA74A1AD0074B0094AC44 /* ArrowNode.swift */,
+				9660B9FE1AC44F4A00A053A2 /* LoadingNode.swift */,
+				3AD4A4361ADB232700E63495 /* CategoryNode.swift */,
 				3AD4A4261ADA50E200E63495 /* Animal */,
-				3AD4A4251ADA50D700E63495 /* Power Up */,
-				3AD4A4381ADB298000E63495 /* Nodes */,
+				3AD4A4251ADA50D700E63495 /* PowerUp */,
 				C385F6A71AD14813003B4E74 /* SKNodeExtension.swift */,
 				C35441531ACDB14700BA7369 /* TemporaryCode */,
 				96972B4D1AC2C77000FF2DC5 /* Main.storyboard */,
