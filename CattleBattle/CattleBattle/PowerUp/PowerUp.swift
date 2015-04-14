@@ -52,7 +52,7 @@ class PowerUp {
     }
     
     internal func getTexture() -> SKTexture {
-        return Constants.textures[find(PowerType.allTypes, powerType)!][find(Status.allStatus, status)!]
+        return Constants.textures[find(Status.allStatus, status)!][find(PowerType.allTypes, powerType)!]
     }
     
     init(type: PowerType, status: Status) {
