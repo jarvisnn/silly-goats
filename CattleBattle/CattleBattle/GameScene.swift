@@ -37,7 +37,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         SKLabelNode()
     })
     private var loadingButton: [[LoadingNode]] = []
-    private var categoryBound = [Constants.ITEM_GAP, Constants.ITEM_GAP]
+    private var categoryBound: [CGFloat] = [0, 0]
     private var zIndex: CGFloat = 0
     
     private func _setupLoadingButton() {
@@ -135,14 +135,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     private func itemDidCollideWithCategory(item: PowerUpNode, category: CategoryNode) {
-        if categoryBound[category.side.index] + item.size.width >= category.size.width {
+        if categoryBound[category.side.index] + item.size.width + Constants.ITEM_GAP >= category.size.width {
             return
         } else {
-            let xx = categoryBound[category.side.index] + item.size.width / 2
+            let xx = categoryBound[category.side.index] + Constants.ITEM_GAP + item.size.width / 2
             let x = category.side == .LEFT ? xx : frame.width - xx
             let y = category.size.height / 2
             
-            categoryBound[category.side.index] += item.size.width + Constants.ITEM_GAP
+            categoryBound[category.side.index] += Constants.ITEM_GAP + item.size.width
             
             item.side = category.side
             item.name = PowerUpNode.Constants.IDENTIFIER_STORED
@@ -211,6 +211,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 _applyVelocity(node, position: position, previous: previous)
             } else if node.name == PowerUpNode.Constants.IDENTIFIER_STORED {
                 _selectItem(node as PowerUpNode)
+            } else if (node is AnimalNode) {
+                for item in GameModel.Constants.categorySelectedItem {
+                    _applyPowerUp(item, target: node as? AnimalNode)
+                }
             }
         }
     }
@@ -250,34 +254,41 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         item.updateItemStatus(.SELECTED)
         
         if item.powerUpItem.getImplementationType() {
-            implementPowerUp(item, node: nil)
+            _applyPowerUp(item, target: nil)
         }
     }
     
-    private func implementPowerUp(item: PowerUpNode, node: SKSpriteNode?) {
-        // Add code to implement powerup animations here
-        switch item.powerUpItem.powerType {
-        case .BLACK_HOLE:
-            doBlackHole(node as AnimalNode)
-        default:
-            println("do nothing")
+    private func _applyPowerUp(powerUpItem: PowerUpNode?, target: AnimalNode?) {
+        if let item = powerUpItem {
+            if item.powerUpItem.powerType == .BLACK_HOLE {
+                if let animal = target {
+                    if (item.side == .LEFT && animal.animal.color == .WHITE)
+                        || (item.side == .RIGHT && animal.animal.color == .BLACK) {
+                            return
+                    } else {
+                        applyBlackHole(animal)
+                        removeFromCategory(item)
+                    }
+                }
+            }
         }
-        
-        rearrangeCategory(item)
     }
 
-    private func doBlackHole(node: AnimalNode) {
-        
+    private func applyBlackHole(node: AnimalNode) {
+
     }
     
-    private func rearrangeCategory(item: PowerUpNode) {
+    private func removeFromCategory(item: PowerUpNode) {
         let index = item.side.index
+        
         var x = item.position.x
         var y = item.position.y
         var value = index == 0 ? item.size.width+Constants.ITEM_GAP : -item.size.width-Constants.ITEM_GAP
-        categoryBound[index] -= item.size.width + Constants.ITEM_GAP
         
+        categoryBound[index] -= item.size.width + Constants.ITEM_GAP
+        GameModel.Constants.categorySelectedItem[index] = nil
         item.removeFromParent()
+        
         var node = nodeAtPoint(CGPointMake(x+value, y))
         while node.name == PowerUpNode.Constants.IDENTIFIER_STORED {
             let moveAction = (SKAction.moveTo(CGPointMake(x, y), duration:0.2))
