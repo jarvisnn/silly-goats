@@ -47,10 +47,10 @@ class ArrowNode: SKSpriteNode {
     }
     
     init(side: GameModel.Side, index: Int) {
-        super.init()
-
+        var _texture = ArrowNode.getTextures(side).first
+        var _size = CGSize(width: Constants.ARROW_WIDTH, height: Constants.ARROW_HEIGHT)
+        super.init(texture: _texture, color: UIColor.clearColor(), size: _size)
         self.name = Constants.IDENTIFIER
-        self.size = CGSize(width: Constants.ARROW_WIDTH, height: Constants.ARROW_HEIGHT)
         self.alpha = Constants.ALPHA
 
         self.side = side

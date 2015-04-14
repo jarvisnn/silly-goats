@@ -162,25 +162,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         //check if both are goats
         if ((firstBody.categoryBitMask & GameScene.Constants.Goat) != 0 && (secondBody.categoryBitMask & GameScene.Constants.Goat) != 0) {
-           goatDidCollideWithAnother([firstBody.node as AnimalNode, secondBody.node as AnimalNode])
+           goatDidCollideWithAnother([firstBody.node as! AnimalNode, secondBody.node as! AnimalNode])
         } else if ((firstBody.categoryBitMask == GameScene.Constants.Category && secondBody.categoryBitMask == GameScene.Constants.Item)
             || (firstBody.categoryBitMask == GameScene.Constants.Item && secondBody.categoryBitMask == GameScene.Constants.Category)) {
                 if firstBody.node!.name == CategoryNode.Constants.IDENTIFIER {
                     swap(&firstBody, &secondBody)
                 }
-                itemDidCollideWithCategory(firstBody.node as PowerUpNode, category: secondBody.node as CategoryNode)
+                itemDidCollideWithCategory(firstBody.node as! PowerUpNode, category: secondBody.node as! CategoryNode)
         }
     }
     
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         for touch in touches {
-            var node = self.nodeAtPoint(touch.locationInNode(self))
+            var _touch = touch as! UITouch
+            var node = self.nodeAtPoint(_touch.locationInNode(self))
            
             if node.name == LoadingNode.Constants.IDENTIFIER {
-                _selectButton(node as LoadingNode)
+                _selectButton(node as! LoadingNode)
                 
             } else if node.name == ArrowNode.Constants.IDENTIFIER {
-                _deploy(node as ArrowNode)
+                _deploy(node as! ArrowNode)
                 
             } else if node.name == PowerUpNode.Constants.IDENTIFIER {
                 node.physicsBody!.velocity = CGVector.zeroVector
@@ -189,10 +190,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    override func touchesMoved(touches: NSSet, withEvent event: UIEvent) {
+    override func touchesMoved(touches: Set<NSObject>, withEvent event: UIEvent) {
         for touch in touches {
-            var position = touch.locationInNode(self)
-            var previous = touch.previousLocationInNode(self)
+            var _touch = touch as! UITouch
+            var position = _touch.locationInNode(self)
+            var previous = _touch.previousLocationInNode(self)
             var node = nodeAtPoint(previous)
             
             if node.name == PowerUpNode.Constants.IDENTIFIER {
@@ -201,16 +203,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    override func touchesEnded(touches: NSSet, withEvent event: UIEvent) {
+    override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
         for touch in touches {
-            var position = touch.locationInNode(self)
-            var previous = touch.previousLocationInNode(self)
+            var _touch = touch as! UITouch
+            var position = _touch.locationInNode(self)
+            var previous = _touch.previousLocationInNode(self)
             var node = nodeAtPoint(previous)
             
             if node.name == PowerUpNode.Constants.IDENTIFIER {
                 _applyVelocity(node, position: position, previous: previous)
             } else if node.name == PowerUpNode.Constants.IDENTIFIER_STORED {
-                _selectItem(node as PowerUpNode)
+                _selectItem(node as! PowerUpNode)
             } else if (node is AnimalNode) {
                 for item in GameModel.Constants.categorySelectedItem {
                     _applyPowerUp(item, target: node as? AnimalNode)
@@ -221,23 +224,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func update(currentTime: CFTimeInterval) {
         for i in self.children {
-            var node = i as SKNode
+            var node = i as! SKNode
             
             if node.name == AnimalNode.Constants.IDENTIFIER {
-                var sideIndex = ((node as AnimalNode).animal.color == .WHITE) ? 0 : 1
+                var sideIndex = ((node as! AnimalNode).animal.color == .WHITE) ? 0 : 1
                 if node.position.x < GAME_VIEW_LEFT_BOUNDARY || node.position.x > GAME_VIEW_RIGHT_BOUNDARY {
                     if (sideIndex == 0 && node.position.x > GAME_VIEW_RIGHT_BOUNDARY)
                             || (sideIndex == 1 && node.position.x < GAME_VIEW_LEFT_BOUNDARY){
-                        let point = (node as AnimalNode).animal.getPoint()
+                        let point = (node as! AnimalNode).animal.getPoint()
                         let newScore = playerScoreNode[sideIndex].text.toInt()!+point
                         playerScoreNode[sideIndex].text = (newScore as NSNumber).stringValue
                     }
                     node.removeFromParent()
                 } else {
                     if sideIndex == 0 {
-                        (node as AnimalNode).physicsBody!.velocity.dx = AnimalNode.Constants.VELOCITY
+                        (node as! AnimalNode).physicsBody!.velocity.dx = AnimalNode.Constants.VELOCITY
                     } else {
-                        (node as AnimalNode).physicsBody!.velocity.dx = -AnimalNode.Constants.VELOCITY
+                        (node as! AnimalNode).physicsBody!.velocity.dx = -AnimalNode.Constants.VELOCITY
                     }
                 }
             }

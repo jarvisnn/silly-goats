@@ -25,13 +25,13 @@ class PowerUpNode: SKSpriteNode {
     internal var side : GameModel.Side = .LEFT
     
     init(type: PowerUp.PowerType) {
-        super.init()
+    
+        var _texture = powerUpItem.getTexture()
+        var _size = _texture.size()
+        super.init(texture: _texture, color: UIColor.clearColor(), size: _size)
         
         self.name = Constants.IDENTIFIER
         self.powerUpItem = PowerUp(type: type, status: .WAITING)
-        
-        self.texture = self.powerUpItem.getTexture()
-        self.size = self.texture!.size()
         self.xScale = powerUpItem.getImageScale()
         self.yScale = powerUpItem.getImageScale()
         

@@ -17,13 +17,11 @@ class AnimationNode: SKSpriteNode {
     internal var side: GameModel.Side = .LEFT
     
     init(imageName: String, scale: CGFloat) {
-        super.init()
+        var _texture = SKTexture(imageNamed: imageName+".png")
+        var _size = _texture.size()
+        super.init(texture: _texture, color: UIColor.clearColor(), size: _size)
         
         self.name = Constants.IDENTIFIER
-        
-        self.texture = SKTexture(imageNamed: imageName+".png")
-        
-        self.size = self.texture!.size()
         self.xScale = scale
         self.yScale = scale
     }

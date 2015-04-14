@@ -24,8 +24,10 @@ class AnimalNode: SKSpriteNode {
     }
 
     init(size: Animal.Size, side: GameModel.Side) {
-        super.init()
-
+        
+        var scale = Animal.Constants.scale[find(Animal.Status.allStatuses, animal.status)!][find(Animal.Size.allSizes, animal.size)!]
+        super.init(texture: animal.getTexture(), color: UIColor.clearColor(), size: CGSize(width: scale, height: scale))
+        
         let color: Animal.Color = (side == .LEFT) ? .WHITE : .BLACK
         self.animal = Animal(color: color, size: size, status: .DEPLOYED)
         updateAnimalStatus(.DEPLOYED)

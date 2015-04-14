@@ -24,8 +24,8 @@ class LoadingNode: SKSpriteNode {
     }
     
     init(side: GameModel.Side, index: Int) {
-        super.init()
         
+        super.init(texture: animal.getTexture(), color: UIColor.clearColor(), size: animal.getTexture().size())
         self.index = index
         self.name = Constants.IDENTIFIER
         self.animal.color = (side == .LEFT) ? .WHITE : .BLACK

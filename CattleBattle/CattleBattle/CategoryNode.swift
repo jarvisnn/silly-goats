@@ -19,14 +19,12 @@ class CategoryNode: SKSpriteNode {
     internal var side: GameModel.Side = .LEFT
     
     init(side: GameModel.Side) {
-        super.init()
+        var _texture = SKTexture(imageNamed: "category-"+self.side.rawValue+".png")
+        var _size = _texture.size()
+        super.init(texture: _texture, color: UIColor.clearColor(), size: _size)
         
         self.name = Constants.IDENTIFIER
         self.side = side
-        
-        self.texture = SKTexture(imageNamed: "category-"+self.side.rawValue+".png")
-    
-        self.size = self.texture!.size()
         self.xScale = Constants.SCALE_X
         self.yScale = Constants.SCALE_Y
         
