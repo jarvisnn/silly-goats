@@ -12,6 +12,7 @@ import SpriteKit
 class AnimalNode: SKSpriteNode {
     
     internal var animal = Animal(color: .WHITE, size: .TINY, status: .DEPLOYED)
+    internal var side: GameModel.Side!
     
     struct Constants {
         internal static let VELOCITY: CGFloat = 200
@@ -24,47 +25,18 @@ class AnimalNode: SKSpriteNode {
     }
 
     init(size: Animal.Size, side: GameModel.Side) {
-        
         var scale = Animal.Constants.scale[find(Animal.Status.allStatuses, animal.status)!][find(Animal.Size.allSizes, animal.size)!]
         super.init(texture: animal.getTexture(), color: UIColor.clearColor(), size: CGSize(width: scale, height: scale))
         
+        self.side = side
+        self.name = Constants.IDENTIFIER
+        self.anchorPoint = CGPointMake(0.5, 0)
+        
         let color: Animal.Color = (side == .LEFT) ? .WHITE : .BLACK
         self.animal = Animal(color: color, size: size, status: .DEPLOYED)
+        
         updateAnimalStatus(.DEPLOYED)
-        
-        self.anchorPoint = CGPointMake(0.5, 0)
-        self.name = Constants.IDENTIFIER
-        
-        var bodySize = CGSizeMake(Constants.PHYSICS_BODY_WIDTH, Constants.PHYSICS_BODY_HEIGHT)
-        var centerPoint: CGPoint
-        if (side == .LEFT) {
-            centerPoint = CGPoint(x: self.size.width/2-bodySize.width/2, y: -self.size.height/2+bodySize.height/2)
-        } else {
-            centerPoint = CGPoint(x: -self.size.width/2+bodySize.width/2, y: -self.size.height/2+bodySize.height/2)
-        }
-        
-        var body = SKPhysicsBody(rectangleOfSize: bodySize, center: centerPoint)
-        
-        body.categoryBitMask = GameScene.Constants.Goat
-        body.contactTestBitMask = GameScene.Constants.Goat
-        body.collisionBitMask = GameScene.Constants.Goat
-            
-        body.velocity.dx = (animal.color == .WHITE) ? Constants.VELOCITY : -Constants.VELOCITY
-        body.velocity.dy = 0
-            
-        body.affectedByGravity = false
-        body.allowsRotation = false
-        body.dynamic = true
-            
-        body.restitution = 0
-        body.friction = 0
-            
-        body.mass = animal.getMass()
-        
-        self.physicsBody = body
-        
-        var repeatedAction = SKAction.animateWithTextures(animal.getDeployedTexture(), timePerFrame: Constants.FRAME_TIME_DEPLOYED)
-        self.runAction(SKAction.repeatActionForever(repeatedAction))
+        setupPhysicsBody()
     }
     
     internal func updateAnimalStatus(status: Animal.Status) {
@@ -78,6 +50,48 @@ class AnimalNode: SKSpriteNode {
         
         self.xScale = animal.getImageScale()
         self.yScale = self.xScale
+        
+        let textures = status == .DEPLOYED ? animal.getDeployedTexture() : animal.getBumpingTexture()
+        var repeatedAction = SKAction.animateWithTextures(textures, timePerFrame: Constants.FRAME_TIME_DEPLOYED)
+        self.runAction(SKAction.repeatActionForever(repeatedAction))
+        
+
+    }
+    
+    private func setupPhysicsBody() {
+        var bodySize = CGSizeMake(Constants.PHYSICS_BODY_WIDTH, Constants.PHYSICS_BODY_HEIGHT)
+        var centerPoint: CGPoint
+        if (side == .LEFT) {
+            centerPoint = CGPoint(x: self.size.width/2-bodySize.width/2, y: -self.size.height/2+bodySize.height/2)
+        } else {
+            centerPoint = CGPoint(x: -self.size.width/2+bodySize.width/2, y: -self.size.height/2+bodySize.height/2)
+        }
+
+        var body = SKPhysicsBody(rectangleOfSize: bodySize, center: centerPoint)
+        
+        body.categoryBitMask = GameScene.Constants.Goat
+        body.contactTestBitMask = GameScene.Constants.Goat
+        body.collisionBitMask = GameScene.Constants.Goat
+        
+        body.velocity.dx = (animal.color == .WHITE) ? Constants.VELOCITY : -Constants.VELOCITY
+        body.velocity.dy = 0
+        
+        body.affectedByGravity = false
+        body.allowsRotation = false
+        body.dynamic = true
+        
+        body.restitution = 0
+        body.friction = 0
+        
+        body.mass = animal.getMass()
+        
+        self.physicsBody = body
+    }
+    
+    internal func updateAnimalType(size: Animal.Size) {
+        self.animal.size = size
+        updateAnimalStatus(self.animal.status)
+        setupPhysicsBody()
     }
     
     override init(texture: SKTexture!, color: UIColor!, size: CGSize) {

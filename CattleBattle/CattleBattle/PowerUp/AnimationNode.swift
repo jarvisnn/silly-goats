@@ -27,7 +27,7 @@ class AnimationNode: SKSpriteNode {
         self.yScale = scale
     }
     
-    internal func makeRotation(angle: CGFloat, speed: Double) {
+    internal func rotateForever(angle: CGFloat, speed: Double) {
         var action = SKAction.rotateByAngle(angle, duration: speed)
         self.runAction(SKAction.repeatActionForever(action))
     }

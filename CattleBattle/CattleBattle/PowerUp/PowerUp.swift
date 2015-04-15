@@ -18,12 +18,12 @@ class PowerUp {
     }
     
     enum PowerType: String {
-        case FREEZING = "freezing"
+        case FREEZE = "freeze"
         case BLACK_HOLE = "blackhole"
-        case UPGRADING = "upgrading"
-        case SUPER = "super"
+        case UPGRADE = "upgrade"
+        case FIRE = "fire"
         
-        internal static let allTypes = [FREEZING, BLACK_HOLE, UPGRADING, SUPER]
+        internal static let allTypes = [FREEZE, BLACK_HOLE, UPGRADE, FIRE]
         internal static let targeted = [true, false, true, true]
 
         internal static func randomPowerType() -> PowerType {

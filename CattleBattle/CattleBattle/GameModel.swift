@@ -39,7 +39,6 @@ class GameModel {
         var index: Int {
             return self == .LEFT ? 0 : 1
         }
-
     }
     
     // to check whether a certain cattle is ready for launch

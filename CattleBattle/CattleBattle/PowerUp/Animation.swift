@@ -21,28 +21,26 @@ class Animation {
     }
     
     internal class func applyBlackHole(scene: SKScene, node: AnimalNode) {
-        let freezingResource = NSBundle.mainBundle().pathForResource("freezing", ofType: "sks")
-        let freezing : SKEmitterNode! = NSKeyedUnarchiver.unarchiveObjectWithFile(freezingResource!) as! SKEmitterNode
+        var blackHole = AnimationNode(imageName: "animation-blackHole", scale: 0.1)
+        blackHole.rotateForever(CGFloat(-M_PI), speed: 0.2)
+        blackHole.zPosition = -1
         
-        let fogResource = NSBundle.mainBundle().pathForResource("ice-fog", ofType: "sks")
-        let fog : SKEmitterNode! = NSKeyedUnarchiver.unarchiveObjectWithFile(fogResource!) as! SKEmitterNode
+        node.anchorPoint = CGPointMake(0.5, 0.5)
+        node.position.y += node.size.height/2
         
-        freezing.position = CGPointMake(scene.frame.width/2, scene.frame.height)
-        freezing.particleLifetime = (scene.frame.height - node.position.y) / freezing.particleSpeed
+        blackHole.position = CGPoint.zeroPoint
+        node.addChild(blackHole)
         
-        fog.position = CGPointMake(scene.frame.width/2, node.position.y)
-        
-        scene.addChild(freezing)
-        scene.addChild(fog)
-        
+        blackHole.runAction(SKAction.scaleTo(1, duration: 0.6), completion: { () -> Void in
+            node.runAction(SKAction.scaleTo(0, duration: 0.3), completion: { () -> Void in
+                node.removeFromParent()
+            })
+        })
     }
     
     internal class func applyFreezing(scene: SKScene, node: AnimalNode) {
-        let freezingResource = NSBundle.mainBundle().pathForResource("freezing", ofType: "sks")
-        let freezing : SKEmitterNode! = NSKeyedUnarchiver.unarchiveObjectWithFile(freezingResource!) as! SKEmitterNode
-        
-        let fogResource = NSBundle.mainBundle().pathForResource("ice-fog", ofType: "sks")
-        let fog : SKEmitterNode! = NSKeyedUnarchiver.unarchiveObjectWithFile(fogResource!) as! SKEmitterNode
+        let freezing = getEmitterFromFile("freeze")
+        let fog = getEmitterFromFile("ice-fog")
         
         freezing.position = CGPointMake(scene.frame.width/2, scene.frame.height)
         freezing.particleLifetime = (scene.frame.height - node.position.y) / freezing.particleSpeed
@@ -55,5 +53,46 @@ class Animation {
         scene.addChild(fog)
     }
     
+    internal class func applyUpgrading(scene: SKScene, node: AnimalNode) {
+        let upgradeSmoke = getEmitterFromFile("upgrade")
+        upgradeSmoke.zPosition = 1
+        
+        upgradeSmoke.particlePositionRange = CGVectorMake(node.size.width*2, node.size.height*2)
+        upgradeSmoke.position = CGPointMake(0, node.size.height)
+        node.addChild(upgradeSmoke)
+        
+        let nextSize = find(Animal.Size.allSizes, node.animal.size)! + 1
+        if nextSize < Animal.Size.allSizes.count {
+            node.updateAnimalType(Animal.Size.allSizes[nextSize])
+        }
+    }
     
+    internal class func applyFiring(scene: SKScene, node: AnimalNode) {
+        let fire = getEmitterFromFile("fire")
+        fire.zPosition = -1
+        fire.position = node.position
+        fire.position.y += node.size.height*2/3
+        
+        node.physicsBody!.dynamic = false
+        node.physicsBody!.collisionBitMask = GameScene.Constants.None
+        node.physicsBody!.categoryBitMask = GameScene.Constants.None
+        
+        node.zPosition = Constants.Z_INDEX_FRONT
+        node.xScale = -node.xScale
+        
+        var destination = node.animal.color == .WHITE ? GameScene.Constants.GAME_VIEW_LEFT_BOUNDARY : GameScene.Constants.GAME_VIEW_RIGHT_BOUNDARY
+        
+        var action = SKAction.moveToX(destination, duration: Double(abs(destination - node.position.x)) / Double(AnimalNode.Constants.VELOCITY*1.5))
+        
+        fire.targetNode = scene
+        fire.runAction(action)
+        node.runAction(action)
+        
+        scene.addChild(fire)
+    }
+    
+    private class func getEmitterFromFile(filename: String) -> SKEmitterNode {
+        let resource = NSBundle.mainBundle().pathForResource(filename, ofType: "sks")
+        return NSKeyedUnarchiver.unarchiveObjectWithFile(resource!) as! SKEmitterNode
+    }
 }

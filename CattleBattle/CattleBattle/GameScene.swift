@@ -29,6 +29,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         internal static let Goat: UInt32 = 0b1 //1
         internal static let Item: UInt32 = 0b10 //2
         internal static let Category: UInt32 = 0b100 //3
+        
+        internal static let GAME_VIEW_RIGHT_BOUNDARY: CGFloat = 1100
+        internal static let GAME_VIEW_LEFT_BOUNDARY: CGFloat = -100
     }
     
     private let GAME_VIEW_RIGHT_BOUNDARY: CGFloat = 1100
@@ -90,7 +93,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     private func addItem() {
-        var item = PowerUpNode(type: .BLACK_HOLE)
+        var item = PowerUpNode(type: .UPGRADE)
 //        item.randomPower()
         item.position = CGPoint(x: self.size.width/2, y: self.size.height/2)
         item.zPosition = CGFloat(Constants.INFINITE + 1)
@@ -128,9 +131,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         for goat in goats {
             if goat.animal.status == .DEPLOYED {
                 goat.updateAnimalStatus(.BUMPING)
-                var repeatedAction = SKAction.animateWithTextures(goat.animal.getBumpingTexture(),
-                    timePerFrame: AnimalNode.Constants.FRAME_TIME_BUMPING)
-                goat.runAction(SKAction.repeatActionForever(repeatedAction))
             }
         }
     }
@@ -274,13 +274,33 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         removeFromCategory(item)
                     }
                 }
-            } else if item.powerUpItem.powerType == .FREEZING {
+            } else if item.powerUpItem.powerType == .FREEZE {
                 if let animal = target {
                     if (item.side == .LEFT && animal.animal.color == .WHITE)
                         || (item.side == .RIGHT && animal.animal.color == .BLACK) {
                             return
                     } else {
                         Animation.applyFreezing(self, node: animal)
+                        removeFromCategory(item)
+                    }
+                }
+            } else if item.powerUpItem.powerType == .FIRE {
+                if let animal = target {
+                    if (item.side == .LEFT && animal.animal.color == .WHITE)
+                        || (item.side == .RIGHT && animal.animal.color == .BLACK) {
+                            return
+                    } else {
+                        Animation.applyFiring(self, node: animal)
+                        removeFromCategory(item)
+                    }
+                }
+            } else if item.powerUpItem.powerType == .UPGRADE {
+                if let animal = target {
+                    if (item.side == .LEFT && animal.animal.color == .BLACK)
+                        || (item.side == .RIGHT && animal.animal.color == .WHITE) {
+                            return
+                    } else {
+                        Animation.applyUpgrading(self, node: animal)
                         removeFromCategory(item)
                     }
                 }
