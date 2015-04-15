@@ -16,10 +16,10 @@ class CategoryNode: SKSpriteNode {
         internal static let SCALE_Y: CGFloat = 0.5
     }
     
-    internal var side: GameModel.Side = .LEFT
+    internal var side: GameModel.Side!
     
     init(side: GameModel.Side) {
-        var _texture = SKTexture(imageNamed: "category-"+self.side.rawValue+".png")
+        var _texture = SKTexture(imageNamed: "category-"+side.rawValue+".png")
         var _size = _texture.size()
         super.init(texture: _texture, color: UIColor.clearColor(), size: _size)
         

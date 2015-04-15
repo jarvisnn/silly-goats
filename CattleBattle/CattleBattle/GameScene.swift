@@ -22,6 +22,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         private static let Z_INDEX_CATEGORY: CGFloat = 10
         private static let Z_INDEX_ITEM: CGFloat = 9
+        private static let Z_INDEX_FRONT: CGFloat = 1000000000
         
         internal static let None: UInt32 = 0
         internal static let All: UInt32 = UInt32.max
@@ -269,7 +270,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         || (item.side == .RIGHT && animal.animal.color == .BLACK) {
                             return
                     } else {
-                        applyBlackHole(animal)
+                        Animation.applyBlackHole(self, node: animal)
+                        removeFromCategory(item)
+                    }
+                }
+            } else if item.powerUpItem.powerType == .FREEZING {
+                if let animal = target {
+                    if (item.side == .LEFT && animal.animal.color == .WHITE)
+                        || (item.side == .RIGHT && animal.animal.color == .BLACK) {
+                            return
+                    } else {
+                        Animation.applyFreezing(self, node: animal)
                         removeFromCategory(item)
                     }
                 }
@@ -277,10 +288,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
 
-    private func applyBlackHole(node: AnimalNode) {
-
-    }
-    
     private func removeFromCategory(item: PowerUpNode) {
         let index = item.side.index
         

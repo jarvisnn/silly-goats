@@ -10,8 +10,9 @@ import SpriteKit
 
 class AnimationNode: SKSpriteNode {
     struct Constants {
-        internal static var IDENTIFIER = "animationNode"
-        internal static var ROTATION_SPEED: Double = 1
+        internal static let IDENTIFIER = "animationNode"
+        internal static let ROTATION_SPEED: Double = 1
+        internal static let BLACKHOLE_IMAGE = "animation-blackhole"
     }
     
     internal var side: GameModel.Side = .LEFT
@@ -26,8 +27,8 @@ class AnimationNode: SKSpriteNode {
         self.yScale = scale
     }
     
-    internal func makeRotation() {
-        let action = SKAction.rotateByAngle(CGFloat(M_PI), duration: Constants.ROTATION_SPEED)
+    internal func makeRotation(angle: CGFloat, speed: Double) {
+        var action = SKAction.rotateByAngle(angle, duration: speed)
         self.runAction(SKAction.repeatActionForever(action))
     }
     

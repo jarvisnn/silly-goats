@@ -21,19 +21,18 @@ class PowerUpNode: SKSpriteNode {
         internal static let PHYSICS_BODY_HEIGHT = CGFloat(50)
     }
     
-    internal var powerUpItem = PowerUp(type: .FREEZING, status: .WAITING)
+    internal var powerUpItem: PowerUp!
     internal var side : GameModel.Side = .LEFT
     
     init(type: PowerUp.PowerType) {
-    
-        var _texture = powerUpItem.getTexture()
-        var _size = _texture.size()
-        super.init(texture: _texture, color: UIColor.clearColor(), size: _size)
+        powerUpItem = PowerUp(type: type, status: .WAITING)
+        super.init(texture: powerUpItem.getTexture(), color: UIColor.clearColor(), size: powerUpItem.getTexture().size())
         
         self.name = Constants.IDENTIFIER
-        self.powerUpItem = PowerUp(type: type, status: .WAITING)
+
         self.xScale = powerUpItem.getImageScale()
         self.yScale = powerUpItem.getImageScale()
+        
         
         self.physicsBody = SKPhysicsBody(circleOfRadius: self.size.height / 2)
         if let physics = self.physicsBody {
