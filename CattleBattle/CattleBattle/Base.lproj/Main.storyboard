@@ -198,11 +198,10 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="HGH-vF-2Oq">
-                                <rect key="frame" x="15" y="-347" width="162" height="760"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="HGH-vF-2Oq">
+                                <rect key="frame" x="38" y="11" width="121" height="109"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <state key="normal" title="Back to Main Menu">
+                                <state key="normal" image="back-button-hi.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -523,6 +522,7 @@
         <image name="animation-blackhole.png" width="256" height="256"/>
         <image name="animation-freezing1.png" width="700" height="700"/>
         <image name="animation-freezing2.png" width="633" height="582"/>
+        <image name="back-button-hi.png" width="600" height="601"/>
         <image name="background.jpg" width="1440" height="850"/>
         <image name="bank-left.png" width="250" height="800"/>
         <image name="bank-right.png" width="250" height="800"/>
