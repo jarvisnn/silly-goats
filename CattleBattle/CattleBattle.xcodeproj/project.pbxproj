@@ -239,6 +239,7 @@
 			children = (
 				96972B4B1AC2C77000FF2DC5 /* GameViewController.swift */,
 				3A7012A11ADA4082002D2BB9 /* InstructionViewController.swift */,
+				3BBBA6801ADD565F003A401D /* PageItemController.swift */,
 			);
 			name = "View Controller";
 			sourceTree = "<group>";
@@ -334,7 +335,6 @@
 				9660B9FE1AC44F4A00A053A2 /* LoadingNode.swift */,
 				3A49F8441ADFA5680008B2CB /* ButtonNode.swift */,
 				3A49F8461ADFA5F60008B2CB /* GameButton.swift */,
-				3BBBA6801ADD565F003A401D /* PageItemController.swift */,
 				3AD4A4361ADB232700E63495 /* CategoryNode.swift */,
 				3AD4A4261ADA50E200E63495 /* Animal */,
 				3AD4A4251ADA50D700E63495 /* PowerUp */,

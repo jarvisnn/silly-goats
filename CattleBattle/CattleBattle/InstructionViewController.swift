@@ -15,10 +15,10 @@ class InstructionViewController: UIViewController,UIPageViewControllerDataSource
     
         // MARK: - View Lifecycle
         override func viewDidLoad() {
-            super.viewDidLoad()
-            self.populateControllersLis()
-            self.createPageViewController()
-            self.setupPageControl()
+//            super.viewDidLoad()
+//            self.populateControllersLis()
+//            self.createPageViewController()
+//            self.setupPageControl()
         }
     
         var controllersList = [PageItemController]()
