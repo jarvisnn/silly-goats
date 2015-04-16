@@ -23,6 +23,7 @@
 		3A7012A61ADA41EA002D2BB9 /* button-instruction.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A7012A41ADA41EA002D2BB9 /* button-instruction.png */; };
 		3A7012A71ADA41EA002D2BB9 /* button-start-game.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A7012A51ADA41EA002D2BB9 /* button-start-game.png */; };
 		3A7687A01ADE9CBE00BA87F2 /* upgrade.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3A76879F1ADE9CBE00BA87F2 /* upgrade.sks */; };
+		3A8B0EA51ADFD26F00D3AFF7 /* MinorScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8B0EA41ADFD26F00D3AFF7 /* MinorScreen.swift */; };
 		3AD4A3BC1ADA4D4B00E63495 /* goat-big.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AD4A3B71ADA4D4B00E63495 /* goat-big.png */; };
 		3AD4A3BD1ADA4D4B00E63495 /* goat-huge.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AD4A3B81ADA4D4B00E63495 /* goat-huge.png */; };
 		3AD4A3BE1ADA4D4B00E63495 /* goat-medium.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AD4A3B91ADA4D4B00E63495 /* goat-medium.png */; };
@@ -131,6 +132,7 @@
 		3A7012A41ADA41EA002D2BB9 /* button-instruction.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button-instruction.png"; path = "Buttons/button-instruction.png"; sourceTree = "<group>"; };
 		3A7012A51ADA41EA002D2BB9 /* button-start-game.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button-start-game.png"; path = "Buttons/button-start-game.png"; sourceTree = "<group>"; };
 		3A76879F1ADE9CBE00BA87F2 /* upgrade.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = upgrade.sks; path = ../upgrade.sks; sourceTree = "<group>"; };
+		3A8B0EA41ADFD26F00D3AFF7 /* MinorScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MinorScreen.swift; sourceTree = "<group>"; };
 		3AD4A3B71ADA4D4B00E63495 /* goat-big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "goat-big.png"; sourceTree = "<group>"; };
 		3AD4A3B81ADA4D4B00E63495 /* goat-huge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "goat-huge.png"; sourceTree = "<group>"; };
 		3AD4A3B91ADA4D4B00E63495 /* goat-medium.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "goat-medium.png"; sourceTree = "<group>"; };
@@ -275,8 +277,8 @@
 			children = (
 				3A055DBD1ADE36F10005B6E3 /* Animation.swift */,
 				C33F322F1ADC3B9300964B5D /* AnimationNode.swift */,
-				3BD81EDE1AD6EE8900599E30 /* PowerUpNode.swift */,
 				3AD4A4231ADA50CD00E63495 /* PowerUp.swift */,
+				3BD81EDE1AD6EE8900599E30 /* PowerUpNode.swift */,
 			);
 			path = PowerUp;
 			sourceTree = "<group>";
@@ -284,8 +286,8 @@
 		3AD4A4261ADA50E200E63495 /* Animal */ = {
 			isa = PBXGroup;
 			children = (
-				C35441511ACD7EAE00BA7369 /* AnimalNode.swift */,
 				967F6D881AC55C1B00B50207 /* Animal.swift */,
+				C35441511ACD7EAE00BA7369 /* AnimalNode.swift */,
 			);
 			path = Animal;
 			sourceTree = "<group>";
@@ -328,6 +330,7 @@
 				3BBE779F1ADF00560071CFEE /* back-button-hi.png */,
 				96972B471AC2C77000FF2DC5 /* GameScene.sks */,
 				96972B491AC2C77000FF2DC5 /* GameScene.swift */,
+				3A8B0EA41ADFD26F00D3AFF7 /* MinorScreen.swift */,
 				3A70129C1ADA3CA9002D2BB9 /* MenuViewController.swift */,
 				3A70129E1ADA3CB6002D2BB9 /* View Controller */,
 				9616925E1AC4621C0016523C /* GameModel.swift */,
@@ -741,6 +744,7 @@
 				96972B461AC2C77000FF2DC5 /* AppDelegate.swift in Sources */,
 				3A7012A21ADA4082002D2BB9 /* InstructionViewController.swift in Sources */,
 				3BBBA6811ADD565F003A401D /* PageItemController.swift in Sources */,
+				3A8B0EA51ADFD26F00D3AFF7 /* MinorScreen.swift in Sources */,
 				C33F32301ADC3B9300964B5D /* AnimationNode.swift in Sources */,
 				3BD81EDF1AD6EE8900599E30 /* PowerUpNode.swift in Sources */,
 				3A70129D1ADA3CA9002D2BB9 /* MenuViewController.swift in Sources */,

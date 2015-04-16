@@ -20,8 +20,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         private static let ITEM_GAP: CGFloat = 5
         
-        private static let Z_INDEX_CATEGORY: CGFloat = 10
-        private static let Z_INDEX_ITEM: CGFloat = 9
+        private static let Z_INDEX_CATEGORY: CGFloat = 999999
+        private static let Z_INDEX_ITEM: CGFloat = 1000000
+        private static let Z_INDEX_SCREEN: CGFloat = 1000001
         private static let Z_INDEX_FRONT: CGFloat = 1000000000
         
         internal static let None: UInt32 = 0
@@ -42,6 +43,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     })
     private var loadingButton: [[LoadingNode]] = []
     private var pauseButton: ButtonNode!
+    private var pauseScreen: SKSpriteNode!
     private var categoryBound: [CGFloat] = [0, 0]
     private var zIndex: CGFloat = 0
     
@@ -66,6 +68,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         pauseButton = ButtonNode(buttonType: .PAUSE, scale: 1)
         pauseButton.position = CGPointMake(frame.width/2, frame.height-pauseButton.size.height/2)
         self.addChild(pauseButton)
+    }
+    
+    private func _setupMinorScreen() {
+        pauseScreen = MinorScreen.pauseView(self.frame.size)
+        pauseScreen.zPosition = Constants.Z_INDEX_SCREEN
+        pauseScreen.position = CGPointMake(frame.width / 2, frame.height / 2)
     }
     
     private func _setupLabel() {
@@ -103,7 +111,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         var item = PowerUpNode(type: .UPGRADE)
         item.randomPower()
         item.position = CGPoint(x: self.size.width/2, y: self.size.height/2)
-        item.zPosition = CGFloat(Constants.INFINITE + 1)
+        item.zPosition = Constants.Z_INDEX_ITEM
         item.showUp()
         self.addChild(item)
     }
@@ -129,6 +137,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
         _setupLoadingButton()
         _setupPauseButton()
+        _setupMinorScreen()
         _setupLabel()
         _setupArrow()
         _setupItem()
@@ -228,8 +237,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     _applyPowerUp(item, target: node as? AnimalNode)
                 }
             } else if node is ButtonNode && (node as! ButtonNode).button.buttonType == .PAUSE {
-                self.view!.paused = !self.view!.paused
-                self.paused = !self.paused
+                _pauseGame()
+            } else if node is ButtonNode && (node as! ButtonNode).button.buttonType == .CONTINUE {
+                _continueGame()
             }
         }
     }
@@ -257,6 +267,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 }
             }
         }
+    }
+    
+    private func _pauseGame() {
+        self.runAction(SKAction.runBlock({
+            self.addChild(self.pauseScreen)
+        }), completion: {
+            self.view!.paused = true
+            self.paused = true
+        })
+    }
+    
+    private func _continueGame() {
+        pauseScreen.removeFromParent()
+        self.view!.paused = false
+        self.paused = false
     }
     
     private func _selectItem(item: PowerUpNode) {
