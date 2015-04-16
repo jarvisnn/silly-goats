@@ -127,7 +127,7 @@
 		3AD4A4361ADB232700E63495 /* CategoryNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryNode.swift; sourceTree = "<group>"; };
 		3AD713151ADE5EB400E9544C /* fire.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = fire.sks; sourceTree = "<group>"; };
 		3AD713161ADE5EB400E9544C /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
-		3AE20F801AD9A6FC00EE8CE0 /* button-pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-pause.png"; sourceTree = "<group>"; };
+		3AE20F801AD9A6FC00EE8CE0 /* button-pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button-pause.png"; path = "Background/button-pause.png"; sourceTree = "<group>"; };
 		3AE20F811AD9A6FC00EE8CE0 /* topbar3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = topbar3.png; sourceTree = "<group>"; };
 		3BBBA6801ADD565F003A401D /* PageItemController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageItemController.swift; sourceTree = "<group>"; };
 		3BBE779F1ADF00560071CFEE /* back-button-hi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back-button-hi.png"; sourceTree = "<group>"; };
@@ -236,6 +236,7 @@
 			children = (
 				3A7012A41ADA41EA002D2BB9 /* button-instruction.png */,
 				3A7012A51ADA41EA002D2BB9 /* button-start-game.png */,
+				3AE20F801AD9A6FC00EE8CE0 /* button-pause.png */,
 			);
 			name = Buttons;
 			sourceTree = "<group>";
@@ -409,7 +410,6 @@
 			isa = PBXGroup;
 			children = (
 				3A70129F1ADA3CEC002D2BB9 /* background.jpg */,
-				3AE20F801AD9A6FC00EE8CE0 /* button-pause.png */,
 				3AE20F811AD9A6FC00EE8CE0 /* topbar3.png */,
 				C3D7EB041AD0704400A61851 /* river.gif */,
 				C3D7EAFC1AD069D800A61851 /* category-left.png */,
