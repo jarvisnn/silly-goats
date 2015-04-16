@@ -94,7 +94,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     private func addItem() {
         var item = PowerUpNode(type: .UPGRADE)
-//        item.randomPower()
+        item.randomPower()
         item.position = CGPoint(x: self.size.width/2, y: self.size.height/2)
         item.zPosition = CGFloat(Constants.INFINITE + 1)
         item.showUp()

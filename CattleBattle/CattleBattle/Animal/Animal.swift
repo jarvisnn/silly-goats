@@ -26,9 +26,9 @@ class Animal {
         case HUGE = "5"
         
         internal static let allSizes = [TINY, SMALL, MEDIUM, LARGE, HUGE]
-        internal static let probability = [1, 1, 1, 1, 1]
+        internal static let probability = [5, 4, 3, 2, 1]
         internal static let mass: [CGFloat] = [10, 20, 35, 50, 100]
-        internal static let point: [Int] = [100, 70, 50, 30, 20]
+        internal static let point: [Int] = [80, 60, 45, 30, 20]
 
         internal static func generateRandomAnimal() -> Size {
             var total = probability.reduce(0, combine: +)

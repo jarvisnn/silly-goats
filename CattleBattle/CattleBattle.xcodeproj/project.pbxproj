@@ -25,7 +25,6 @@
 		3AD4A4371ADB232700E63495 /* CategoryNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD4A4361ADB232700E63495 /* CategoryNode.swift */; };
 		3AD713171ADE5EB400E9544C /* fire.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3AD713151ADE5EB400E9544C /* fire.sks */; };
 		3AD713181ADE5EB400E9544C /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AD713161ADE5EB400E9544C /* spark.png */; };
-		3AE20F821AD9A6FC00EE8CE0 /* button-pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AE20F801AD9A6FC00EE8CE0 /* button-pause.png */; };
 		3AE20F831AD9A6FC00EE8CE0 /* topbar3.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AE20F811AD9A6FC00EE8CE0 /* topbar3.png */; };
 		3BBBA6811ADD565F003A401D /* PageItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBBA6801ADD565F003A401D /* PageItemController.swift */; };
 		3BBE77A01ADF00560071CFEE /* back-button-hi.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BBE779F1ADF00560071CFEE /* back-button-hi.png */; };
@@ -127,7 +126,6 @@
 		3AD4A4361ADB232700E63495 /* CategoryNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryNode.swift; sourceTree = "<group>"; };
 		3AD713151ADE5EB400E9544C /* fire.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = fire.sks; sourceTree = "<group>"; };
 		3AD713161ADE5EB400E9544C /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
-		3AE20F801AD9A6FC00EE8CE0 /* button-pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button-pause.png"; path = "Background/button-pause.png"; sourceTree = "<group>"; };
 		3AE20F811AD9A6FC00EE8CE0 /* topbar3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = topbar3.png; sourceTree = "<group>"; };
 		3BBBA6801ADD565F003A401D /* PageItemController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageItemController.swift; sourceTree = "<group>"; };
 		3BBE779F1ADF00560071CFEE /* back-button-hi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back-button-hi.png"; sourceTree = "<group>"; };
@@ -236,7 +234,6 @@
 			children = (
 				3A7012A41ADA41EA002D2BB9 /* button-instruction.png */,
 				3A7012A51ADA41EA002D2BB9 /* button-start-game.png */,
-				3AE20F801AD9A6FC00EE8CE0 /* button-pause.png */,
 			);
 			name = Buttons;
 			sourceTree = "<group>";
@@ -642,7 +639,6 @@
 				C3D7EAE01ACFEE9200A61851 /* goat-button-white-4.png in Resources */,
 				3A7012A71ADA41EA002D2BB9 /* button-start-game.png in Resources */,
 				C3D7EB001AD069D800A61851 /* category-left.png in Resources */,
-				3AE20F821AD9A6FC00EE8CE0 /* button-pause.png in Resources */,
 				C3D7EAE61ACFEE9200A61851 /* goat-deployed-black-5.png in Resources */,
 				C3D7EAD61ACFEE9200A61851 /* goat-bumping-white-4.png in Resources */,
 				C3D7EAE31ACFEE9200A61851 /* goat-deployed-black-2.png in Resources */,
