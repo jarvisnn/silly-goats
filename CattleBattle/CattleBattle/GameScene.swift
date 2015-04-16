@@ -44,6 +44,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private var pauseButton: ButtonNode!
     private var categoryBound: [CGFloat] = [0, 0]
     private var zIndex: CGFloat = 0
+    private var isAI : Bool = true
+    private var AI : EasyAI = EasyAI()
+    private var frameCount : Int = 0    // this is use to delay actions in update function
+    
     
     private func _setupLoadingButton() {
         loadingButton = GameModel.Side.allSides.map { (side) -> [LoadingNode] in
@@ -235,6 +239,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func update(currentTime: CFTimeInterval) {
+        frameCount = (frameCount + 1) % 10  // The AI will launch a sheep every 10 frame
         for i in self.children {
             var node = i as! SKNode
             
@@ -255,6 +260,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         (node as! AnimalNode).physicsBody!.velocity.dx = -AnimalNode.Constants.VELOCITY
                     }
                 }
+            }
+        }
+        
+        if isAI == true {
+            var launchPair = AI.autoLaunch()
+            if launchPair.0 > -1 && frameCount == 1{
+                self.launchSheepForAI(launchPair.0, trackIndex: launchPair.1)
             }
         }
     }
@@ -378,6 +390,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private func _selectButton(node: LoadingNode) {
         var side: GameModel.Side = (node.animal.color == .WHITE) ? .LEFT : .RIGHT
         GameModel.selectForSide(side, index: node.index)
+    }
+    
+    private func launchSheepForAI(readyIndex : Int, trackIndex : Int) {
+        self.enumerateChildNodesWithName(ArrowNode.Constants.IDENTIFIER, usingBlock: { (node, stop) -> Void in
+            var arrowNode : ArrowNode = node as! ArrowNode
+            if arrowNode.side == .RIGHT && arrowNode.index == trackIndex {
+                GameModel.selectForSide(.RIGHT, index: readyIndex)
+                self._deploy(arrowNode)
+            }
+        })
     }
     
 }
