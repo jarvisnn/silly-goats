@@ -41,6 +41,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         SKLabelNode()
     })
     private var loadingButton: [[LoadingNode]] = []
+    private var pauseButton: ButtonNode!
     private var categoryBound: [CGFloat] = [0, 0]
     private var zIndex: CGFloat = 0
     
@@ -59,6 +60,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 return node
             })
         }
+    }
+    
+    private func _setupPauseButton() {
+        pauseButton = ButtonNode(buttonType: .PAUSE, scale: 1)
+        pauseButton.position = CGPointMake(frame.width/2, frame.height-pauseButton.size.height/2)
+        self.addChild(pauseButton)
     }
     
     private func _setupLabel() {
@@ -121,6 +128,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.physicsWorld.gravity = CGVectorMake(0, 0)
 
         _setupLoadingButton()
+        _setupPauseButton()
         _setupLabel()
         _setupArrow()
         _setupItem()
@@ -219,6 +227,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 for item in GameModel.Constants.categorySelectedItem {
                     _applyPowerUp(item, target: node as? AnimalNode)
                 }
+            } else if node is ButtonNode && (node as! ButtonNode).button.buttonType == .PAUSE {
+                self.view!.paused = !self.view!.paused
+                self.paused = !self.paused
             }
         }
     }

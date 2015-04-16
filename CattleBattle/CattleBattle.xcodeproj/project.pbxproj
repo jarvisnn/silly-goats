@@ -10,6 +10,13 @@
 		3A055DBE1ADE36F10005B6E3 /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A055DBD1ADE36F10005B6E3 /* Animation.swift */; };
 		3A3021451ADD6C3B00FBE3B2 /* freeze.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3A3021431ADD6C3B00FBE3B2 /* freeze.sks */; };
 		3A3021481ADD779900FBE3B2 /* ice-fog.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3A3021471ADD779900FBE3B2 /* ice-fog.sks */; };
+		3A49F83F1ADFA35C0008B2CB /* button-back.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A49F83A1ADFA35C0008B2CB /* button-back.png */; };
+		3A49F8401ADFA35C0008B2CB /* button-continue.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A49F83B1ADFA35C0008B2CB /* button-continue.png */; };
+		3A49F8411ADFA35C0008B2CB /* button-home.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A49F83C1ADFA35C0008B2CB /* button-home.png */; };
+		3A49F8421ADFA35C0008B2CB /* button-pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A49F83D1ADFA35C0008B2CB /* button-pause.png */; };
+		3A49F8431ADFA35C0008B2CB /* button-restart.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A49F83E1ADFA35C0008B2CB /* button-restart.png */; };
+		3A49F8451ADFA5680008B2CB /* ButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A49F8441ADFA5680008B2CB /* ButtonNode.swift */; };
+		3A49F8471ADFA5F60008B2CB /* GameButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A49F8461ADFA5F60008B2CB /* GameButton.swift */; };
 		3A70129D1ADA3CA9002D2BB9 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70129C1ADA3CA9002D2BB9 /* MenuViewController.swift */; };
 		3A7012A01ADA3CEC002D2BB9 /* background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3A70129F1ADA3CEC002D2BB9 /* background.jpg */; };
 		3A7012A21ADA4082002D2BB9 /* InstructionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7012A11ADA4082002D2BB9 /* InstructionViewController.swift */; };
@@ -111,6 +118,13 @@
 		3A055DBD1ADE36F10005B6E3 /* Animation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
 		3A3021431ADD6C3B00FBE3B2 /* freeze.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = freeze.sks; sourceTree = "<group>"; };
 		3A3021471ADD779900FBE3B2 /* ice-fog.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = "ice-fog.sks"; sourceTree = "<group>"; };
+		3A49F83A1ADFA35C0008B2CB /* button-back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button-back.png"; path = "Buttons/button-back.png"; sourceTree = "<group>"; };
+		3A49F83B1ADFA35C0008B2CB /* button-continue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button-continue.png"; path = "Buttons/button-continue.png"; sourceTree = "<group>"; };
+		3A49F83C1ADFA35C0008B2CB /* button-home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button-home.png"; path = "Buttons/button-home.png"; sourceTree = "<group>"; };
+		3A49F83D1ADFA35C0008B2CB /* button-pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button-pause.png"; path = "Buttons/button-pause.png"; sourceTree = "<group>"; };
+		3A49F83E1ADFA35C0008B2CB /* button-restart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button-restart.png"; path = "Buttons/button-restart.png"; sourceTree = "<group>"; };
+		3A49F8441ADFA5680008B2CB /* ButtonNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonNode.swift; sourceTree = "<group>"; };
+		3A49F8461ADFA5F60008B2CB /* GameButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameButton.swift; sourceTree = "<group>"; };
 		3A70129C1ADA3CA9002D2BB9 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		3A70129F1ADA3CEC002D2BB9 /* background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background.jpg; sourceTree = "<group>"; };
 		3A7012A11ADA4082002D2BB9 /* InstructionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstructionViewController.swift; sourceTree = "<group>"; };
@@ -232,6 +246,11 @@
 		3A7012A31ADA41D4002D2BB9 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
+				3A49F83A1ADFA35C0008B2CB /* button-back.png */,
+				3A49F83B1ADFA35C0008B2CB /* button-continue.png */,
+				3A49F83C1ADFA35C0008B2CB /* button-home.png */,
+				3A49F83D1ADFA35C0008B2CB /* button-pause.png */,
+				3A49F83E1ADFA35C0008B2CB /* button-restart.png */,
 				3A7012A41ADA41EA002D2BB9 /* button-instruction.png */,
 				3A7012A51ADA41EA002D2BB9 /* button-start-game.png */,
 			);
@@ -313,6 +332,8 @@
 				9616925E1AC4621C0016523C /* GameModel.swift */,
 				96CAA74A1AD0074B0094AC44 /* ArrowNode.swift */,
 				9660B9FE1AC44F4A00A053A2 /* LoadingNode.swift */,
+				3A49F8441ADFA5680008B2CB /* ButtonNode.swift */,
+				3A49F8461ADFA5F60008B2CB /* GameButton.swift */,
 				3BBBA6801ADD565F003A401D /* PageItemController.swift */,
 				3AD4A4361ADB232700E63495 /* CategoryNode.swift */,
 				3AD4A4261ADA50E200E63495 /* Animal */,
@@ -627,6 +648,7 @@
 				3BBE77A01ADF00560071CFEE /* back-button-hi.png in Resources */,
 				C3AE5D551ACB081B00E8E8F2 /* bridge.png in Resources */,
 				C3D7EAE51ACFEE9200A61851 /* goat-deployed-black-4.png in Resources */,
+				3A49F8431ADFA35C0008B2CB /* button-restart.png in Resources */,
 				C3D7EAE81ACFEE9200A61851 /* goat-deployed-white-1.png in Resources */,
 				C3D7EADE1ACFEE9200A61851 /* goat-button-white-2.png in Resources */,
 				96972B541AC2C77000FF2DC5 /* LaunchScreen.xib in Resources */,
@@ -634,6 +656,8 @@
 				C33F322E1ADC001E00964B5D /* item-waiting-upgrade.png in Resources */,
 				C3D7EAE91ACFEE9200A61851 /* goat-deployed-white-2.png in Resources */,
 				C3D7EAE41ACFEE9200A61851 /* goat-deployed-black-3.png in Resources */,
+				3A49F8411ADFA35C0008B2CB /* button-home.png in Resources */,
+				3A49F8421ADFA35C0008B2CB /* button-pause.png in Resources */,
 				96972B511AC2C77000FF2DC5 /* Images.xcassets in Resources */,
 				3AD713171ADE5EB400E9544C /* fire.sks in Resources */,
 				C3D7EAE01ACFEE9200A61851 /* goat-button-white-4.png in Resources */,
@@ -643,6 +667,7 @@
 				C3D7EAD61ACFEE9200A61851 /* goat-bumping-white-4.png in Resources */,
 				C3D7EAE31ACFEE9200A61851 /* goat-deployed-black-2.png in Resources */,
 				C3D7EAD01ACFEE9200A61851 /* goat-bumping-black-3.png in Resources */,
+				3A49F8401ADFA35C0008B2CB /* button-continue.png in Resources */,
 				C3D7EAEA1ACFEE9200A61851 /* goat-deployed-white-3.png in Resources */,
 				C3D7EAE11ACFEE9200A61851 /* goat-button-white-5.png in Resources */,
 				3A7012A01ADA3CEC002D2BB9 /* background.jpg in Resources */,
@@ -684,6 +709,7 @@
 				3A3021481ADD779900FBE3B2 /* ice-fog.sks in Resources */,
 				C3D7EAEB1ACFEE9200A61851 /* goat-deployed-white-4.png in Resources */,
 				C33F322C1ADC001E00964B5D /* item-waiting-freeze.png in Resources */,
+				3A49F83F1ADFA35C0008B2CB /* button-back.png in Resources */,
 				C3D7EAEC1ACFEE9200A61851 /* goat-deployed-white-5.png in Resources */,
 				3AD4A3C01ADA4D4B00E63495 /* goat-tiny.png in Resources */,
 				C3D7EACF1ACFEE9200A61851 /* goat-bumping-black-2.png in Resources */,
@@ -722,11 +748,13 @@
 				3AD4A4371ADB232700E63495 /* CategoryNode.swift in Sources */,
 				3AD4A4241ADA50CD00E63495 /* PowerUp.swift in Sources */,
 				3A055DBE1ADE36F10005B6E3 /* Animation.swift in Sources */,
+				3A49F8471ADFA5F60008B2CB /* GameButton.swift in Sources */,
 				967F6D891AC55C1B00B50207 /* Animal.swift in Sources */,
 				C35441521ACD7EAE00BA7369 /* AnimalNode.swift in Sources */,
 				9660B9FF1AC44F4A00A053A2 /* LoadingNode.swift in Sources */,
 				96CAA74B1AD0074B0094AC44 /* ArrowNode.swift in Sources */,
 				9616925F1AC4621C0016523C /* GameModel.swift in Sources */,
+				3A49F8451ADFA5680008B2CB /* ButtonNode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
