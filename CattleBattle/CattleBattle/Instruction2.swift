@@ -7,9 +7,11 @@
 //
 import UIKit
 
-class PageItemController: UIViewController {
+class Instruction2: UIViewController {
     // MARK: - Variables
-    var itemIndex: Int = 0
-   
+       
+    @IBAction func backButtonClicked(sender: AnyObject) {
+        self.navigationController!.popViewControllerAnimated(true)
+    }
 }
 

@@ -19,7 +19,7 @@
 		3A49F8471ADFA5F60008B2CB /* GameButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A49F8461ADFA5F60008B2CB /* GameButton.swift */; };
 		3A70129D1ADA3CA9002D2BB9 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70129C1ADA3CA9002D2BB9 /* MenuViewController.swift */; };
 		3A7012A01ADA3CEC002D2BB9 /* background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3A70129F1ADA3CEC002D2BB9 /* background.jpg */; };
-		3A7012A21ADA4082002D2BB9 /* InstructionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7012A11ADA4082002D2BB9 /* InstructionViewController.swift */; };
+		3A7012A21ADA4082002D2BB9 /* Instruction1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7012A11ADA4082002D2BB9 /* Instruction1.swift */; };
 		3A7012A61ADA41EA002D2BB9 /* button-instruction.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A7012A41ADA41EA002D2BB9 /* button-instruction.png */; };
 		3A7012A71ADA41EA002D2BB9 /* button-start-game.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A7012A51ADA41EA002D2BB9 /* button-start-game.png */; };
 		3A7687A01ADE9CBE00BA87F2 /* upgrade.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3A76879F1ADE9CBE00BA87F2 /* upgrade.sks */; };
@@ -37,9 +37,12 @@
 		3ADADDDB1ADFF5EF00DE17F3 /* win.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ADADDD91ADFF5EF00DE17F3 /* win.png */; };
 		3ADDD0BC1AE0EC0300090FA0 /* spark.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3ADDD0BB1AE0EC0300090FA0 /* spark.sks */; };
 		3AE20F831AD9A6FC00EE8CE0 /* topbar3.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AE20F811AD9A6FC00EE8CE0 /* topbar3.png */; };
-		3BBBA6811ADD565F003A401D /* PageItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBBA6801ADD565F003A401D /* PageItemController.swift */; };
+		3B94EF001ADFE74200F4F488 /* background 1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3B94EEFF1ADFE74200F4F488 /* background 1.jpg */; };
+		3BBBA6811ADD565F003A401D /* Instruction2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBBA6801ADD565F003A401D /* Instruction2.swift */; };
 		3BBE77A01ADF00560071CFEE /* back-button-hi.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BBE779F1ADF00560071CFEE /* back-button-hi.png */; };
 		3BD81EDF1AD6EE8900599E30 /* PowerUpNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD81EDE1AD6EE8900599E30 /* PowerUpNode.swift */; };
+		9606B63D1ADFDCCA005442EF /* EasyAI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9606B63C1ADFDCCA005442EF /* EasyAI.swift */; };
+		3BDC0E091AE016B600EAF13D /* InstructionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDC0E081AE016B600EAF13D /* InstructionViewController.swift */; };
 		9616925F1AC4621C0016523C /* GameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9616925E1AC4621C0016523C /* GameModel.swift */; };
 		9660B9FF1AC44F4A00A053A2 /* LoadingNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9660B9FE1AC44F4A00A053A2 /* LoadingNode.swift */; };
 		967F6D891AC55C1B00B50207 /* Animal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F6D881AC55C1B00B50207 /* Animal.swift */; };
@@ -131,7 +134,7 @@
 		3A49F8461ADFA5F60008B2CB /* GameButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameButton.swift; sourceTree = "<group>"; };
 		3A70129C1ADA3CA9002D2BB9 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		3A70129F1ADA3CEC002D2BB9 /* background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background.jpg; sourceTree = "<group>"; };
-		3A7012A11ADA4082002D2BB9 /* InstructionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstructionViewController.swift; sourceTree = "<group>"; };
+		3A7012A11ADA4082002D2BB9 /* Instruction1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Instruction1.swift; sourceTree = "<group>"; };
 		3A7012A41ADA41EA002D2BB9 /* button-instruction.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button-instruction.png"; path = "Buttons/button-instruction.png"; sourceTree = "<group>"; };
 		3A7012A51ADA41EA002D2BB9 /* button-start-game.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button-start-game.png"; path = "Buttons/button-start-game.png"; sourceTree = "<group>"; };
 		3A76879F1ADE9CBE00BA87F2 /* upgrade.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = upgrade.sks; path = ../upgrade.sks; sourceTree = "<group>"; };
@@ -149,9 +152,12 @@
 		3ADADDD91ADFF5EF00DE17F3 /* win.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = win.png; path = GameOver/win.png; sourceTree = "<group>"; };
 		3ADDD0BB1AE0EC0300090FA0 /* spark.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = spark.sks; sourceTree = "<group>"; };
 		3AE20F811AD9A6FC00EE8CE0 /* topbar3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = topbar3.png; sourceTree = "<group>"; };
-		3BBBA6801ADD565F003A401D /* PageItemController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageItemController.swift; sourceTree = "<group>"; };
+		3B94EEFF1ADFE74200F4F488 /* background 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background 1.jpg"; sourceTree = "<group>"; };
+		3BBBA6801ADD565F003A401D /* Instruction2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Instruction2.swift; sourceTree = "<group>"; };
 		3BBE779F1ADF00560071CFEE /* back-button-hi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back-button-hi.png"; sourceTree = "<group>"; };
 		3BD81EDE1AD6EE8900599E30 /* PowerUpNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PowerUpNode.swift; sourceTree = "<group>"; };
+		9606B63C1ADFDCCA005442EF /* EasyAI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EasyAI.swift; sourceTree = "<group>"; };
+		3BDC0E081AE016B600EAF13D /* InstructionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstructionViewController.swift; sourceTree = "<group>"; };
 		9616925E1AC4621C0016523C /* GameModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameModel.swift; sourceTree = "<group>"; };
 		9660B9FE1AC44F4A00A053A2 /* LoadingNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingNode.swift; sourceTree = "<group>"; };
 		967F6D881AC55C1B00B50207 /* Animal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animal.swift; sourceTree = "<group>"; };
@@ -245,9 +251,10 @@
 		3A70129E1ADA3CB6002D2BB9 /* View Controller */ = {
 			isa = PBXGroup;
 			children = (
+				3BDC0E081AE016B600EAF13D /* InstructionViewController.swift */,
 				96972B4B1AC2C77000FF2DC5 /* GameViewController.swift */,
-				3A7012A11ADA4082002D2BB9 /* InstructionViewController.swift */,
-				3BBBA6801ADD565F003A401D /* PageItemController.swift */,
+				3A7012A11ADA4082002D2BB9 /* Instruction1.swift */,
+				3BBBA6801ADD565F003A401D /* Instruction2.swift */,
 			);
 			name = "View Controller";
 			sourceTree = "<group>";
@@ -343,6 +350,7 @@
 				3AD713161ADE5EB400E9544C /* spark.png */,
 				3A3021471ADD779900FBE3B2 /* ice-fog.sks */,
 				3BBE779F1ADF00560071CFEE /* back-button-hi.png */,
+				3B94EEFF1ADFE74200F4F488 /* background 1.jpg */,
 				96972B471AC2C77000FF2DC5 /* GameScene.sks */,
 				96972B491AC2C77000FF2DC5 /* GameScene.swift */,
 				3A8B0EA41ADFD26F00D3AFF7 /* MinorScreen.swift */,
@@ -355,6 +363,7 @@
 				3A49F8441ADFA5680008B2CB /* ButtonNode.swift */,
 				3A49F8461ADFA5F60008B2CB /* GameButton.swift */,
 				3AD4A4361ADB232700E63495 /* CategoryNode.swift */,
+				9606B63C1ADFDCCA005442EF /* EasyAI.swift */,
 				3AD4A4261ADA50E200E63495 /* Animal */,
 				3AD4A4251ADA50D700E63495 /* PowerUp */,
 				C385F6A71AD14813003B4E74 /* SKNodeExtension.swift */,
@@ -677,6 +686,7 @@
 				C33F322E1ADC001E00964B5D /* item-waiting-upgrade.png in Resources */,
 				C3D7EAE91ACFEE9200A61851 /* goat-deployed-white-2.png in Resources */,
 				C3D7EAE41ACFEE9200A61851 /* goat-deployed-black-3.png in Resources */,
+				3B94EF001ADFE74200F4F488 /* background 1.jpg in Resources */,
 				3A49F8411ADFA35C0008B2CB /* button-home.png in Resources */,
 				3A49F8421ADFA35C0008B2CB /* button-pause.png in Resources */,
 				96972B511AC2C77000FF2DC5 /* Images.xcassets in Resources */,
@@ -762,12 +772,13 @@
 				96972B4A1AC2C77000FF2DC5 /* GameScene.swift in Sources */,
 				96972B4C1AC2C77000FF2DC5 /* GameViewController.swift in Sources */,
 				96972B461AC2C77000FF2DC5 /* AppDelegate.swift in Sources */,
-				3A7012A21ADA4082002D2BB9 /* InstructionViewController.swift in Sources */,
-				3BBBA6811ADD565F003A401D /* PageItemController.swift in Sources */,
+				3A7012A21ADA4082002D2BB9 /* Instruction1.swift in Sources */,
+				3BBBA6811ADD565F003A401D /* Instruction2.swift in Sources */,
 				3A8B0EA51ADFD26F00D3AFF7 /* MinorScreen.swift in Sources */,
 				C33F32301ADC3B9300964B5D /* AnimationNode.swift in Sources */,
 				3BD81EDF1AD6EE8900599E30 /* PowerUpNode.swift in Sources */,
 				3A70129D1ADA3CA9002D2BB9 /* MenuViewController.swift in Sources */,
+				3BDC0E091AE016B600EAF13D /* InstructionViewController.swift in Sources */,
 				C385F6A81AD14813003B4E74 /* SKNodeExtension.swift in Sources */,
 				3AD4A4371ADB232700E63495 /* CategoryNode.swift in Sources */,
 				3AD4A4241ADA50CD00E63495 /* PowerUp.swift in Sources */,
@@ -775,6 +786,7 @@
 				3A49F8471ADFA5F60008B2CB /* GameButton.swift in Sources */,
 				967F6D891AC55C1B00B50207 /* Animal.swift in Sources */,
 				C35441521ACD7EAE00BA7369 /* AnimalNode.swift in Sources */,
+				9606B63D1ADFDCCA005442EF /* EasyAI.swift in Sources */,
 				9660B9FF1AC44F4A00A053A2 /* LoadingNode.swift in Sources */,
 				96CAA74B1AD0074B0094AC44 /* ArrowNode.swift in Sources */,
 				9616925F1AC4621C0016523C /* GameModel.swift in Sources */,
