@@ -55,7 +55,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private var categoryBound: [CGFloat] = [0, 0]
     private var zIndex: CGFloat = 0
     private var gameInfo: SKLabelNode!
-    private var isAI : Bool = true
+    private var isAI : Bool = false
     private var AI : EasyAI = EasyAI()
     private var frameCount : Int = 0    // this is use to delay actions in update function
     
@@ -65,7 +65,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         gameInfo.position = CGPoint(x: frame.width/2, y : 650);
         
         if gameMode == .TIMING {
-            var timesecond = 61
+            var timesecond = 14
             var actionwait = SKAction.waitForDuration(1)
             var actionrun = SKAction.runBlock({
                 if --timesecond == -1 {
@@ -95,7 +95,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     location = CGPoint(x: (Int)(self.frame.width) - 50 - index * 80, y : 725)
                 }
                 node.position = location
-                self.addChild(node)
+//                self.addChild(node)
                 return node
             })
         }
@@ -141,14 +141,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    private var kun: CGVector!
+    
     private func _setupItem() {
+        kun = CGVectorMake(300, 0)
         if isAI {
             return
         }
         runAction(SKAction.repeatActionForever(
             SKAction.sequence([
                 SKAction.runBlock(addItem),
-                SKAction.waitForDuration(Double(Constants.ITEM_GAP))
+                SKAction.waitForDuration(Double(0.1))
             ])
         ))
     }
@@ -158,8 +161,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         item.randomPower()
         item.position = CGPoint(x: self.size.width/2, y: self.size.height/2)
         item.zPosition = Constants.Z_INDEX_ITEM
+        
+        var x = Double(kun.dx)
+        var y = Double(kun.dy)
+        var a = M_PI/6
+        kun.dx = CGFloat(x * cos(a) - y * sin(a))
+        kun.dy = CGFloat(x * sin(a) + y * cos(a))
+        
         item.showUp()
         self.addChild(item)
+        item.physicsBody!.velocity = kun
     }
     
     private func _setupCategory() {
@@ -200,25 +211,31 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     private func itemDidCollideWithCategory(item: PowerUpNode, category: CategoryNode) {
-        if categoryBound[category.side.index] + item.size.width + Constants.ITEM_GAP >= category.size.width {
-            return
+        if category.side == .LEFT {
+            _addScore(0, point: 10)
         } else {
-            let xx = categoryBound[category.side.index] + Constants.ITEM_GAP + item.size.width / 2
-            let x = category.side == .LEFT ? xx : frame.width - xx
-            let y = category.size.height / 2
-            
-            categoryBound[category.side.index] += Constants.ITEM_GAP + item.size.width
-            
-            item.side = category.side
-            item.name = PowerUpNode.Constants.IDENTIFIER_STORED
-            
-            item.physicsBody!.contactTestBitMask = GameScene.Constants.None
-            item.physicsBody!.collisionBitMask = GameScene.Constants.None
-            item.physicsBody!.dynamic = false
-            
-            let moveAction = (SKAction.moveTo(CGPointMake(x, y), duration:0.5))
-            item.runAction(moveAction)
+            _addScore(1, point: 10)
         }
+        item.removeFromParent()
+//        if categoryBound[category.side.index] + item.size.width + Constants.ITEM_GAP >= category.size.width {
+//            return
+//        } else {
+//            let xx = categoryBound[category.side.index] + Constants.ITEM_GAP + item.size.width / 2
+//            let x = category.side == .LEFT ? xx : frame.width - xx
+//            let y = category.size.height / 2
+//            
+//            categoryBound[category.side.index] += Constants.ITEM_GAP + item.size.width
+//            
+//            item.side = category.side
+//            item.name = PowerUpNode.Constants.IDENTIFIER_STORED
+//            
+//            item.physicsBody!.contactTestBitMask = GameScene.Constants.None
+//            item.physicsBody!.collisionBitMask = GameScene.Constants.None
+//            item.physicsBody!.dynamic = false
+//            
+//            let moveAction = (SKAction.moveTo(CGPointMake(x, y), duration:0.5))
+//            item.runAction(moveAction)
+//        }
     }
     
     func didBeginContact(contact: SKPhysicsContact) {
