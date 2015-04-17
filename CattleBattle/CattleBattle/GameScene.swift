@@ -10,6 +10,11 @@ import SpriteKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
+    enum GameMode: String {
+        case TIMING = "timing"
+        case SCORING = "scoring"
+    }
+    
     struct Constants {
         private static var LAUNCH_X: [CGFloat]!
         private static let LAUNCH_Y_TOP: CGFloat = 560
@@ -41,11 +46,40 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var playerScoreNode: [SKLabelNode] = GameModel.Side.allSides.map({ (side) -> SKLabelNode in
         SKLabelNode()
     })
+    
+    private var gameMode: GameMode = .TIMING
     private var loadingButton: [[LoadingNode]] = []
     private var pauseButton: ButtonNode!
     private var pauseScreen: SKSpriteNode!
+    private var gameOverScreen: [SKSpriteNode] = []
     private var categoryBound: [CGFloat] = [0, 0]
     private var zIndex: CGFloat = 0
+    private var gameInfo: SKLabelNode!
+    
+    private func _setupGame() {
+        gameInfo = SKLabelNode(fontNamed: Constants.LABEL_FONT)
+        gameInfo.fontSize = 25
+        gameInfo.position = CGPoint(x: frame.width/2, y : 650);
+        
+        if gameMode == .TIMING {
+            var timesecond = 61
+            var actionwait = SKAction.waitForDuration(1)
+            var actionrun = SKAction.runBlock({
+                if --timesecond == -1 {
+                    self._gameOver()
+                } else if timesecond >= 0 {
+                    self.gameInfo.text = "\(timesecond/60):\(timesecond%60)"
+                }
+            })
+            
+            gameInfo.runAction(SKAction.repeatActionForever(SKAction.sequence([actionrun, actionwait])))
+            self.addChild(gameInfo)
+            
+        } else if gameMode == .SCORING {
+            gameInfo.text = "2000"
+            self.addChild(gameInfo)
+        }
+    }
     
     private func _setupLoadingButton() {
         loadingButton = GameModel.Side.allSides.map { (side) -> [LoadingNode] in
@@ -74,6 +108,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         pauseScreen = MinorScreen.pauseView(self.frame.size)
         pauseScreen.zPosition = Constants.Z_INDEX_SCREEN
         pauseScreen.position = CGPointMake(frame.width / 2, frame.height / 2)
+        
+        for i in 0...2 {
+            gameOverScreen.append(MinorScreen.gameOverView(self.frame.size, winner: i))
+            gameOverScreen[i].zPosition = Constants.Z_INDEX_SCREEN
+            gameOverScreen[i].position = CGPointMake(frame.width / 2, frame.height / 2)
+        }
     }
     
     private func _setupLabel() {
@@ -134,7 +174,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         physicsWorld.contactDelegate = self
         self.physicsWorld.gravity = CGVectorMake(0, 0)
-
+        
+        _setupGame()
         _setupLoadingButton()
         _setupPauseButton()
         _setupMinorScreen()
@@ -253,9 +294,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 if node.position.x < GAME_VIEW_LEFT_BOUNDARY || node.position.x > GAME_VIEW_RIGHT_BOUNDARY {
                     if (sideIndex == 0 && node.position.x > GAME_VIEW_RIGHT_BOUNDARY)
                             || (sideIndex == 1 && node.position.x < GAME_VIEW_LEFT_BOUNDARY){
-                        let point = (node as! AnimalNode).animal.getPoint()
-                        let newScore = playerScoreNode[sideIndex].text.toInt()!+point
-                        playerScoreNode[sideIndex].text = (newScore as NSNumber).stringValue
+                        _addScore(sideIndex, point: (node as! AnimalNode).animal.getPoint())
                     }
                     node.removeFromParent()
                 } else {
@@ -266,6 +305,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     }
                 }
             }
+        }
+    }
+    
+    private func _addScore(side: Int, point: Int) {
+        let newScore = playerScoreNode[side].text.toInt()!+point
+        playerScoreNode[side].text = (newScore as NSNumber).stringValue
+        if gameMode == .SCORING && newScore >= gameInfo.text.toInt()! {
+            _gameOver()
         }
     }
     
@@ -282,6 +329,27 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         pauseScreen.removeFromParent()
         self.view!.paused = false
         self.paused = false
+    }
+    
+    private func _gameOver() {
+        var leftScore = playerScoreNode[0].text.toInt()!
+        var rightScore = playerScoreNode[1].text.toInt()!
+        var index: Int!
+        
+        if leftScore > rightScore {
+            index = 0
+        } else if leftScore < rightScore {
+            index = 1
+        } else {
+            index = 2
+        }
+        
+        self.runAction(SKAction.runBlock({
+            self.addChild(self.gameOverScreen[index])
+        }), completion: {
+            self.view!.paused = true
+            self.paused = true
+        })
     }
     
     private func _selectItem(item: PowerUpNode) {

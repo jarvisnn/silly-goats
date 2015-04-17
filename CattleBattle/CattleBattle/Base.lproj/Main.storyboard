@@ -75,9 +75,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="bnQ-6S-HYB">
                                 <rect key="frame" x="267" y="266" width="339" height="421"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="button-start-game.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
+                                <state key="normal" image="button-start-game.png"/>
                                 <connections>
                                     <segue destination="BV1-FR-VrT" kind="push" id="NYE-Pw-YN6"/>
                                 </connections>

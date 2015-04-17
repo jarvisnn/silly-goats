@@ -33,6 +33,9 @@
 		3AD4A4371ADB232700E63495 /* CategoryNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD4A4361ADB232700E63495 /* CategoryNode.swift */; };
 		3AD713171ADE5EB400E9544C /* fire.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3AD713151ADE5EB400E9544C /* fire.sks */; };
 		3AD713181ADE5EB400E9544C /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AD713161ADE5EB400E9544C /* spark.png */; };
+		3ADADDDA1ADFF5EF00DE17F3 /* lose.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ADADDD81ADFF5EF00DE17F3 /* lose.png */; };
+		3ADADDDB1ADFF5EF00DE17F3 /* win.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ADADDD91ADFF5EF00DE17F3 /* win.png */; };
+		3ADDD0BC1AE0EC0300090FA0 /* spark.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3ADDD0BB1AE0EC0300090FA0 /* spark.sks */; };
 		3AE20F831AD9A6FC00EE8CE0 /* topbar3.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AE20F811AD9A6FC00EE8CE0 /* topbar3.png */; };
 		3BBBA6811ADD565F003A401D /* PageItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBBA6801ADD565F003A401D /* PageItemController.swift */; };
 		3BBE77A01ADF00560071CFEE /* back-button-hi.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BBE779F1ADF00560071CFEE /* back-button-hi.png */; };
@@ -66,7 +69,7 @@
 		C385F6A81AD14813003B4E74 /* SKNodeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C385F6A71AD14813003B4E74 /* SKNodeExtension.swift */; };
 		C3AE5D551ACB081B00E8E8F2 /* bridge.png in Resources */ = {isa = PBXBuildFile; fileRef = C3AE5D521ACB081B00E8E8F2 /* bridge.png */; };
 		C3B37F301ADD62DE00CB747C /* animation-freezing2.png in Resources */ = {isa = PBXBuildFile; fileRef = C3B37F2D1ADD62DE00CB747C /* animation-freezing2.png */; };
-		C3B37F311ADD62DE00CB747C /* animation-blackhole.png in Resources */ = {isa = PBXBuildFile; fileRef = C3B37F2E1ADD62DE00CB747C /* animation-blackhole.png */; };
+		C3B37F311ADD62DE00CB747C /* animation-blackHole.png in Resources */ = {isa = PBXBuildFile; fileRef = C3B37F2E1ADD62DE00CB747C /* animation-blackHole.png */; };
 		C3B37F321ADD62DE00CB747C /* animation-freezing1.png in Resources */ = {isa = PBXBuildFile; fileRef = C3B37F2F1ADD62DE00CB747C /* animation-freezing1.png */; };
 		C3D7EACE1ACFEE9200A61851 /* goat-bumping-black-1.png in Resources */ = {isa = PBXBuildFile; fileRef = C3D7EAA81ACFEE9200A61851 /* goat-bumping-black-1.png */; };
 		C3D7EACF1ACFEE9200A61851 /* goat-bumping-black-2.png in Resources */ = {isa = PBXBuildFile; fileRef = C3D7EAA91ACFEE9200A61851 /* goat-bumping-black-2.png */; };
@@ -142,6 +145,9 @@
 		3AD4A4361ADB232700E63495 /* CategoryNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryNode.swift; sourceTree = "<group>"; };
 		3AD713151ADE5EB400E9544C /* fire.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = fire.sks; sourceTree = "<group>"; };
 		3AD713161ADE5EB400E9544C /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
+		3ADADDD81ADFF5EF00DE17F3 /* lose.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = lose.png; path = GameOver/lose.png; sourceTree = "<group>"; };
+		3ADADDD91ADFF5EF00DE17F3 /* win.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = win.png; path = GameOver/win.png; sourceTree = "<group>"; };
+		3ADDD0BB1AE0EC0300090FA0 /* spark.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = spark.sks; sourceTree = "<group>"; };
 		3AE20F811AD9A6FC00EE8CE0 /* topbar3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = topbar3.png; sourceTree = "<group>"; };
 		3BBBA6801ADD565F003A401D /* PageItemController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageItemController.swift; sourceTree = "<group>"; };
 		3BBE779F1ADF00560071CFEE /* back-button-hi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back-button-hi.png"; sourceTree = "<group>"; };
@@ -179,7 +185,7 @@
 		C385F6A71AD14813003B4E74 /* SKNodeExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKNodeExtension.swift; sourceTree = "<group>"; };
 		C3AE5D521ACB081B00E8E8F2 /* bridge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bridge.png; sourceTree = "<group>"; };
 		C3B37F2D1ADD62DE00CB747C /* animation-freezing2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "animation-freezing2.png"; sourceTree = "<group>"; };
-		C3B37F2E1ADD62DE00CB747C /* animation-blackhole.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "animation-blackhole.png"; sourceTree = "<group>"; };
+		C3B37F2E1ADD62DE00CB747C /* animation-blackHole.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "animation-blackHole.png"; sourceTree = "<group>"; };
 		C3B37F2F1ADD62DE00CB747C /* animation-freezing1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "animation-freezing1.png"; sourceTree = "<group>"; };
 		C3D7EAA81ACFEE9200A61851 /* goat-bumping-black-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "goat-bumping-black-1.png"; sourceTree = "<group>"; };
 		C3D7EAA91ACFEE9200A61851 /* goat-bumping-black-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "goat-bumping-black-2.png"; sourceTree = "<group>"; };
@@ -301,6 +307,15 @@
 			path = PowerUp;
 			sourceTree = "<group>";
 		};
+		3ADADDDC1ADFF5F700DE17F3 /* GameOver */ = {
+			isa = PBXGroup;
+			children = (
+				3ADADDD81ADFF5EF00DE17F3 /* lose.png */,
+				3ADADDD91ADFF5EF00DE17F3 /* win.png */,
+			);
+			name = GameOver;
+			sourceTree = "<group>";
+		};
 		96972B371AC2C76F00FF2DC5 = {
 			isa = PBXGroup;
 			children = (
@@ -331,6 +346,7 @@
 				96972B471AC2C77000FF2DC5 /* GameScene.sks */,
 				96972B491AC2C77000FF2DC5 /* GameScene.swift */,
 				3A8B0EA41ADFD26F00D3AFF7 /* MinorScreen.swift */,
+				3ADDD0BB1AE0EC0300090FA0 /* spark.sks */,
 				3A70129C1ADA3CA9002D2BB9 /* MenuViewController.swift */,
 				3A70129E1ADA3CB6002D2BB9 /* View Controller */,
 				9616925E1AC4621C0016523C /* GameModel.swift */,
@@ -412,6 +428,7 @@
 		C34E580A1AC98E96000E282B /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				3ADADDDC1ADFF5F700DE17F3 /* GameOver */,
 				3AD4A4271ADA6FBC00E63495 /* PowerUp */,
 				3A7012A31ADA41D4002D2BB9 /* Buttons */,
 				C3D7EAA51ACFEE9200A61851 /* Goat */,
@@ -450,7 +467,7 @@
 			isa = PBXGroup;
 			children = (
 				C3B37F2D1ADD62DE00CB747C /* animation-freezing2.png */,
-				C3B37F2E1ADD62DE00CB747C /* animation-blackhole.png */,
+				C3B37F2E1ADD62DE00CB747C /* animation-blackHole.png */,
 				C3B37F2F1ADD62DE00CB747C /* animation-freezing1.png */,
 			);
 			path = Effect;
@@ -654,6 +671,7 @@
 				3A49F8431ADFA35C0008B2CB /* button-restart.png in Resources */,
 				C3D7EAE81ACFEE9200A61851 /* goat-deployed-white-1.png in Resources */,
 				C3D7EADE1ACFEE9200A61851 /* goat-button-white-2.png in Resources */,
+				3ADDD0BC1AE0EC0300090FA0 /* spark.sks in Resources */,
 				96972B541AC2C77000FF2DC5 /* LaunchScreen.xib in Resources */,
 				C3D7EAD41ACFEE9200A61851 /* goat-bumping-white-2.png in Resources */,
 				C33F322E1ADC001E00964B5D /* item-waiting-upgrade.png in Resources */,
@@ -681,7 +699,7 @@
 				C3D7EAE21ACFEE9200A61851 /* goat-deployed-black-1.png in Resources */,
 				C3D7EAD81ACFEE9200A61851 /* goat-button-black-1.png in Resources */,
 				C3D7EB011AD069D800A61851 /* category-right.png in Resources */,
-				C3B37F311ADD62DE00CB747C /* animation-blackhole.png in Resources */,
+				C3B37F311ADD62DE00CB747C /* animation-blackHole.png in Resources */,
 				C3B37F321ADD62DE00CB747C /* animation-freezing1.png in Resources */,
 				C33F32281ADC001E00964B5D /* item-selected-freeze.png in Resources */,
 				C3D7EAD31ACFEE9200A61851 /* goat-bumping-white-1.png in Resources */,
@@ -697,6 +715,7 @@
 				C3D7EADD1ACFEE9200A61851 /* goat-button-white-1.png in Resources */,
 				C3D7EAD21ACFEE9200A61851 /* goat-bumping-black-5.png in Resources */,
 				3AD713181ADE5EB400E9544C /* spark.png in Resources */,
+				3ADADDDA1ADFF5EF00DE17F3 /* lose.png in Resources */,
 				3AD4A3BC1ADA4D4B00E63495 /* goat-big.png in Resources */,
 				C3D7EADB1ACFEE9200A61851 /* goat-button-black-4.png in Resources */,
 				3A7687A01ADE9CBE00BA87F2 /* upgrade.sks in Resources */,
@@ -712,6 +731,7 @@
 				3A3021481ADD779900FBE3B2 /* ice-fog.sks in Resources */,
 				C3D7EAEB1ACFEE9200A61851 /* goat-deployed-white-4.png in Resources */,
 				C33F322C1ADC001E00964B5D /* item-waiting-freeze.png in Resources */,
+				3ADADDDB1ADFF5EF00DE17F3 /* win.png in Resources */,
 				3A49F83F1ADFA35C0008B2CB /* button-back.png in Resources */,
 				C3D7EAEC1ACFEE9200A61851 /* goat-deployed-white-5.png in Resources */,
 				3AD4A3C01ADA4D4B00E63495 /* goat-tiny.png in Resources */,

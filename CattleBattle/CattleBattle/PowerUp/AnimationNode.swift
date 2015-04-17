@@ -12,7 +12,7 @@ class AnimationNode: SKSpriteNode {
     struct Constants {
         internal static let IDENTIFIER = "animationNode"
         internal static let ROTATION_SPEED: Double = 1
-        internal static let BLACKHOLE_IMAGE = "animation-blackhole"
+        internal static let BLACKHOLE_IMAGE = "animation-blackHole"
     }
     
     internal var side: GameModel.Side = .LEFT
@@ -23,6 +23,8 @@ class AnimationNode: SKSpriteNode {
         super.init(texture: _texture, color: UIColor.clearColor(), size: _size)
         
         self.name = Constants.IDENTIFIER
+        self.texture = _texture
+        self.size = _size
         self.xScale = scale
         self.yScale = scale
     }
