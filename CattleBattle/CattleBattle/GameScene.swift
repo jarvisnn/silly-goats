@@ -142,6 +142,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     private func _setupItem() {
+        if isAI {
+            return
+        }
         runAction(SKAction.repeatActionForever(
             SKAction.sequence([
                 SKAction.runBlock(addItem),
