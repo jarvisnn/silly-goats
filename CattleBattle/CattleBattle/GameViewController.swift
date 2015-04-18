@@ -22,19 +22,20 @@ class GameViewController: UIViewController {
    
     var sheepScene : GameScene!
     var sheepView : UIView!
-
+    var gameMode: GameScene.GameMode!
     
+    internal func setupGame(mode: GameScene.GameMode) {
+        gameMode = mode
+    }
     
     override func viewDidLoad() {
-        
         super.viewDidLoad()
         self.sheepView = SKView(frame: CGRectMake(0, 0, self.view!.frame.width, self.view!.frame.height))
 
         if let scene = GameScene.unarchiveFromFile("GameScene") as? GameScene {
             // Configure the view.
+            scene.setupGame(gameMode)
             let skView = self.sheepView as! SKView
-//            skView.showsFPS = true
-//            skView.showsNodeCount = true
             self.sheepScene = scene
             
             /* Sprite Kit applies additional optimizations to improve rendering performance */

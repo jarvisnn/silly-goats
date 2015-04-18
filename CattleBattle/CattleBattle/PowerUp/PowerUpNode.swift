@@ -60,12 +60,9 @@ class PowerUpNode: SKSpriteNode {
     }
     
     internal func showUp() {
-        self.physicsBody!.velocity = CGVector(dx: random() % 10 + 1, dy: random() % 10 + 1)
         self.alpha = 0
-        var action1 = SKAction.fadeInWithDuration(0.1)
-        var actionList = SKAction.sequence([action1])
-        self.runAction(actionList)
-
+        var action = SKAction.fadeInWithDuration(0.1)
+        self.runAction(action)
     }
     
     override init(texture: SKTexture!, color: UIColor!, size: CGSize) {

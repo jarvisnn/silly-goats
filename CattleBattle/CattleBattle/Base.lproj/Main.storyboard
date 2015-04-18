@@ -1,9 +1,74 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="yMf-Jw-5aO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="yMf-Jw-5aO">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
     </dependencies>
     <scenes>
+        <!--Game Selection View Controller-->
+        <scene sceneID="1ve-Xj-FzT">
+            <objects>
+                <viewController id="bOe-JJ-2zE" customClass="GameSelectionViewController" customModule="CattleBattle" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="j0d-c5-HrB">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background.jpg" id="YtX-7v-r9I">
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="GyS-yK-Qry">
+                                <rect key="frame" x="491" y="258" width="167" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="mode-single-player.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="singlePlayerModeSelected:" destination="bOe-JJ-2zE" eventType="touchUpInside" id="ref-f7-b0v"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ek5-1w-K34">
+                                <rect key="frame" x="201" y="439" width="136" height="157"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="button-previous-screen.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="backButtonClicked:" destination="bOe-JJ-2zE" eventType="touchUpInside" id="OPh-HA-QPf"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="OMV-7W-9PQ">
+                                <rect key="frame" x="491" y="341" width="167" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="mode-multiplayer.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="multiplayerModeSelected:" destination="bOe-JJ-2zE" eventType="touchUpInside" id="dDv-QX-uDV"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="5sc-lP-RrN">
+                                <rect key="frame" x="491" y="409" width="167" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="mode-item.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="itemModeSelected:" destination="bOe-JJ-2zE" eventType="touchUpInside" id="OZr-vO-Esg"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="yFa-oN-zRZ"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <connections>
+                        <segue destination="BV1-FR-VrT" kind="push" identifier="moveToGameArea" id="lfn-hb-iPO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="W14-YM-uAs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5956" y="997"/>
+        </scene>
         <!--Game View Controller-->
         <scene sceneID="tXr-a1-R10">
             <objects>
@@ -58,7 +123,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6205" y="997"/>
+            <point key="canvasLocation" x="7140" y="997"/>
         </scene>
         <!--Menu View Controller-->
         <scene sceneID="VMy-Ug-Pam">
@@ -77,7 +142,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="button-start-game.png"/>
                                 <connections>
-                                    <segue destination="BV1-FR-VrT" kind="push" id="NYE-Pw-YN6"/>
+                                    <segue destination="bOe-JJ-2zE" kind="push" id="o21-mN-TzC"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Acy-1q-RaS">
@@ -375,6 +440,7 @@
         <image name="bank-right.png" width="250" height="800"/>
         <image name="bridge.png" width="1024" height="284"/>
         <image name="button-instruction.png" width="262" height="270"/>
+        <image name="button-previous-screen.png" width="262" height="270"/>
         <image name="button-start-game.png" width="262" height="270"/>
         <image name="goat-button-white-1.png" width="216" height="218"/>
         <image name="goat-button-white-2.png" width="216" height="218"/>
@@ -385,6 +451,9 @@
         <image name="item-waiting-fire.png" width="300" height="300"/>
         <image name="item-waiting-freeze.png" width="300" height="300"/>
         <image name="item-waiting-upgrade.png" width="300" height="300"/>
+        <image name="mode-item.png" width="149" height="40"/>
+        <image name="mode-multiplayer.png" width="156" height="40"/>
+        <image name="mode-single-player.png" width="167" height="40"/>
         <image name="river.gif" width="1022" height="1892"/>
         <image name="topbar3.png" width="1026" height="127"/>
     </resources>

@@ -11,8 +11,11 @@ import SpriteKit
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
     enum GameMode: String {
-        case TIMING = "timing"
-        case SCORING = "scoring"
+        case SINGLE_PLAYER = "single_player"
+        case MULTIPLAYER = "multiplayer"
+        case ITEM_MODE = "item_mode"
+//        case TIMING = "timing"
+//        case SCORING = "scoring"
     }
     
     struct Constants {
@@ -21,9 +24,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         private static let LAUNCH_Y_GAP: CGFloat = 100
         private static let LABEL_FONT = "Chalkduster"
         private static let INFINITE = 1000000000
-        private static let VELOCITY_COEFFICIENT: CGFloat = 300
+        
+        private static let ITEM_VELOCITY: CGFloat = 300
+        private static let ITEM_INIT_VELOCITY = CGVectorMake(20, 0)
         
         private static let ITEM_GAP: CGFloat = 5
+        private static let ITEM_SHOW_TIME: Double = 13
         
         private static let Z_INDEX_CATEGORY: CGFloat = 999999
         private static let Z_INDEX_ITEM: CGFloat = 1000000
@@ -38,6 +44,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         internal static let GAME_VIEW_RIGHT_BOUNDARY: CGFloat = 1100
         internal static let GAME_VIEW_LEFT_BOUNDARY: CGFloat = -100
+        
+        private static let ROUND_TIME = 91
     }
     
     private let GAME_VIEW_RIGHT_BOUNDARY: CGFloat = 1100
@@ -46,42 +54,51 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var playerScoreNode: [SKLabelNode] = GameModel.Side.allSides.map({ (side) -> SKLabelNode in
         SKLabelNode()
     })
-    
-    private var gameMode: GameMode = .TIMING
+    private var arrows = [[ArrowNode]](count: GameModel.Constants.NUMBER_OF_BRIDGES, repeatedValue: [ArrowNode](count: Animal.Size.allSizes.count, repeatedValue: ArrowNode()))
     private var loadingButton: [[LoadingNode]] = []
     private var pauseButton: ButtonNode!
     private var pauseScreen: SKSpriteNode!
     private var gameOverScreen: [SKSpriteNode] = []
+    private var categories = [CategoryNode](count: 2, repeatedValue: CategoryNode())
     private var categoryBound: [CGFloat] = [0, 0]
     private var zIndex: CGFloat = 0
     private var gameInfo: SKLabelNode!
-    private var isAI : Bool = false
+    
+    private var item_velocity: CGVector = Constants.ITEM_INIT_VELOCITY
+    
+    private var gameMode: GameMode!// = .MULTIPLAYER
+    private var isAI : Bool!
     private var AI : EasyAI = EasyAI()
     private var frameCount : Int = 0    // this is use to delay actions in update function
     
-    private func _setupGame() {
+    internal func setupGame(mode: GameMode) {
+        self.gameMode = mode
+        if mode == .SINGLE_PLAYER {
+            self.isAI = true
+        } else if mode == .MULTIPLAYER {
+            self.isAI = false
+        } else if mode == .ITEM_MODE {
+            self.isAI = false
+        }
+    }
+    
+    private func _setupTiming() {
         gameInfo = SKLabelNode(fontNamed: Constants.LABEL_FONT)
         gameInfo.fontSize = 25
         gameInfo.position = CGPoint(x: frame.width/2, y : 650);
         
-        if gameMode == .TIMING {
-            var timesecond = 14
-            var actionwait = SKAction.waitForDuration(1)
-            var actionrun = SKAction.runBlock({
-                if --timesecond == -1 {
-                    self._gameOver()
-                } else if timesecond >= 0 {
-                    self.gameInfo.text = "\(timesecond/60):\(timesecond%60)"
-                }
-            })
-            
-            gameInfo.runAction(SKAction.repeatActionForever(SKAction.sequence([actionrun, actionwait])))
-            self.addChild(gameInfo)
-            
-        } else if gameMode == .SCORING {
-            gameInfo.text = "2000"
-            self.addChild(gameInfo)
-        }
+        var timesecond = Constants.ROUND_TIME + 1
+        var actionwait = SKAction.waitForDuration(1)
+        var actionrun = SKAction.runBlock({
+            if --timesecond == -1 {
+                self._gameOver()
+            } else if timesecond >= 0 {
+                self.gameInfo.text = "\(timesecond/60):\(timesecond%60)"
+            }
+        })
+        
+        gameInfo.runAction(SKAction.repeatActionForever(SKAction.sequence([actionrun, actionwait])))
+        self.addChild(gameInfo)
     }
     
     private func _setupLoadingButton() {
@@ -95,7 +112,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     location = CGPoint(x: (Int)(self.frame.width) - 50 - index * 80, y : 725)
                 }
                 node.position = location
-//                self.addChild(node)
+                self.addChild(node)
                 return node
             })
         }
@@ -133,27 +150,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         for i in 0..<GameModel.Constants.NUMBER_OF_BRIDGES {
             var y = CGFloat(Constants.LAUNCH_Y_TOP - Constants.LAUNCH_Y_GAP * CGFloat(i))
             for side in GameModel.Side.allSides {
-                var tmpNode = ArrowNode(side: side, index: i)
-                tmpNode.position = CGPointMake(side == .LEFT ? 50 : frame.width-50, y)
-                tmpNode.zPosition = -CGFloat(Constants.INFINITE)
-                self.addChild(tmpNode)
+                arrows[i][side.index] = ArrowNode(side: side, index: i)
+                arrows[i][side.index].position = CGPointMake(side == .LEFT ? 50 : frame.width-50, y)
+                arrows[i][side.index].zPosition = -CGFloat(Constants.INFINITE)
+                self.addChild(arrows[i][side.index])
             }
         }
     }
     
-    private var kun: CGVector!
-    
     private func _setupItem() {
-        kun = CGVectorMake(300, 0)
-        if isAI {
-            return
+        if gameMode == .MULTIPLAYER {
+            runAction(SKAction.repeatActionForever(
+                SKAction.sequence([
+                    SKAction.runBlock(addItem),
+                    SKAction.waitForDuration(Constants.ITEM_SHOW_TIME)
+                ])
+            ))
+        } else if gameMode == .ITEM_MODE {
+            
         }
-        runAction(SKAction.repeatActionForever(
-            SKAction.sequence([
-                SKAction.runBlock(addItem),
-                SKAction.waitForDuration(Double(0.1))
-            ])
-        ))
     }
     
     private func addItem() {
@@ -162,27 +177,44 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         item.position = CGPoint(x: self.size.width/2, y: self.size.height/2)
         item.zPosition = Constants.Z_INDEX_ITEM
         
-        var x = Double(kun.dx)
-        var y = Double(kun.dy)
+        var x = Double(item_velocity.dx)
+        var y = Double(item_velocity.dy)
         var a = M_PI/6
-        kun.dx = CGFloat(x * cos(a) - y * sin(a))
-        kun.dy = CGFloat(x * sin(a) + y * cos(a))
+        item_velocity.dx = CGFloat(x * cos(a) - y * sin(a))
+        item_velocity.dy = CGFloat(x * sin(a) + y * cos(a))
         
         item.showUp()
         self.addChild(item)
-        item.physicsBody!.velocity = kun
+        item.physicsBody!.velocity = item_velocity
     }
     
     private func _setupCategory() {
         for side in GameModel.Side.allSides {
-            var node = CategoryNode(side: side)
+            categories[side.index] = CategoryNode(side: side)
             if side == .LEFT {
-                node.position = CGPointMake(node.size.width/2, node.size.height/2)
+                categories[side.index].position = CGPointMake(categories[side.index].size.width/2, categories[side.index].size.height/2)
             } else {
-                node.position = CGPointMake(frame.width - node.size.width/2, node.size.height/2)
+                categories[side.index].position = CGPointMake(frame.width - categories[side.index].size.width/2, categories[side.index].size.height/2)
             }
-            node.zPosition = Constants.Z_INDEX_CATEGORY
-            self.addChild(node)
+            categories[side.index].zPosition = Constants.Z_INDEX_CATEGORY
+            self.addChild(categories[side.index])
+        }
+    }
+    
+    private func _hideUncessaryNode() {
+        if gameMode == .SINGLE_PLAYER {
+            for i in 0..<GameModel.Constants.NUMBER_OF_BRIDGES {
+                arrows[i][1].removeFromParent()
+            }
+            for node in categories {
+                node.removeFromParent()
+            }
+        } else if gameMode == .ITEM_MODE {
+            for nodeArray in loadingButton {
+                for node in nodeArray {
+                    node.removeFromParent()
+                }
+            }
         }
     }
     
@@ -192,7 +224,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         physicsWorld.contactDelegate = self
         self.physicsWorld.gravity = CGVectorMake(0, 0)
         
-        _setupGame()
+        _setupTiming()
         _setupLoadingButton()
         _setupPauseButton()
         _setupMinorScreen()
@@ -200,6 +232,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         _setupArrow()
         _setupItem()
         _setupCategory()
+        _hideUncessaryNode()
     }
     
     private func goatDidCollideWithAnother(goats: [AnimalNode]) {
@@ -211,31 +244,34 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     private func itemDidCollideWithCategory(item: PowerUpNode, category: CategoryNode) {
-        if category.side == .LEFT {
-            _addScore(0, point: 10)
+        if gameMode == .ITEM_MODE {
+            item.removeFromParent()
+            if category.side == .LEFT {
+                _addScore(0, point: 10)
+            } else {
+                _addScore(1, point: 10)
+            }
         } else {
-            _addScore(1, point: 10)
+            if categoryBound[category.side.index] + item.size.width + Constants.ITEM_GAP >= category.size.width {
+                return
+            } else {
+                let xx = categoryBound[category.side.index] + Constants.ITEM_GAP + item.size.width / 2
+                let x = category.side == .LEFT ? xx : frame.width - xx
+                let y = category.size.height / 2
+                
+                categoryBound[category.side.index] += Constants.ITEM_GAP + item.size.width
+                
+                item.side = category.side
+                item.name = PowerUpNode.Constants.IDENTIFIER_STORED
+                
+                item.physicsBody!.contactTestBitMask = GameScene.Constants.None
+                item.physicsBody!.collisionBitMask = GameScene.Constants.None
+                item.physicsBody!.dynamic = false
+                
+                let moveAction = (SKAction.moveTo(CGPointMake(x, y), duration:0.5))
+                item.runAction(moveAction)
+            }
         }
-        item.removeFromParent()
-//        if categoryBound[category.side.index] + item.size.width + Constants.ITEM_GAP >= category.size.width {
-//            return
-//        } else {
-//            let xx = categoryBound[category.side.index] + Constants.ITEM_GAP + item.size.width / 2
-//            let x = category.side == .LEFT ? xx : frame.width - xx
-//            let y = category.size.height / 2
-//            
-//            categoryBound[category.side.index] += Constants.ITEM_GAP + item.size.width
-//            
-//            item.side = category.side
-//            item.name = PowerUpNode.Constants.IDENTIFIER_STORED
-//            
-//            item.physicsBody!.contactTestBitMask = GameScene.Constants.None
-//            item.physicsBody!.collisionBitMask = GameScene.Constants.None
-//            item.physicsBody!.dynamic = false
-//            
-//            let moveAction = (SKAction.moveTo(CGPointMake(x, y), duration:0.5))
-//            item.runAction(moveAction)
-//        }
     }
     
     func didBeginContact(contact: SKPhysicsContact) {
@@ -342,9 +378,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private func _addScore(side: Int, point: Int) {
         let newScore = playerScoreNode[side].text.toInt()!+point
         playerScoreNode[side].text = (newScore as NSNumber).stringValue
-        if gameMode == .SCORING && newScore >= gameInfo.text.toInt()! {
-            _gameOver()
-        }
     }
     
     private func _pauseGame() {
@@ -471,7 +504,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         node.physicsBody!.dynamic = true
         if previous != position {
-            node.physicsBody!.velocity = CGVector(dx: x / le * Constants.VELOCITY_COEFFICIENT, dy: y / le * Constants.VELOCITY_COEFFICIENT)
+            node.physicsBody!.velocity = CGVector(dx: x / le * Constants.ITEM_VELOCITY, dy: y / le * Constants.ITEM_VELOCITY)
         }
     }
     
@@ -505,13 +538,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     private func launchSheepForAI(readyIndex : Int, trackIndex : Int) {
-        self.enumerateChildNodesWithName(ArrowNode.Constants.IDENTIFIER, usingBlock: { (node, stop) -> Void in
-            var arrowNode : ArrowNode = node as! ArrowNode
-            if arrowNode.side == .RIGHT && arrowNode.index == trackIndex {
-                GameModel.selectForSide(.RIGHT, index: readyIndex)
-                self._deploy(arrowNode)
-            }
-        })
+        GameModel.selectForSide(.RIGHT, index: readyIndex)
+        _deploy(arrows[trackIndex][1])
+        
+//        self.enumerateChildNodesWithName(ArrowNode.Constants.IDENTIFIER, usingBlock: { (node, stop) -> Void in
+//            var arrowNode : ArrowNode = node as! ArrowNode
+//            if arrowNode.side == .RIGHT && arrowNode.index == trackIndex {
+//                GameModel.selectForSide(.RIGHT, index: readyIndex)
+//                self._deploy(arrowNode)
+//            }
+//        })
     }
     
 }
