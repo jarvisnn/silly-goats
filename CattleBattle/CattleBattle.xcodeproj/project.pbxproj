@@ -144,7 +144,7 @@
 		3A7012A11ADA4082002D2BB9 /* Instruction1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Instruction1.swift; sourceTree = "<group>"; };
 		3A7012A41ADA41EA002D2BB9 /* button-instruction.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button-instruction.png"; path = "Buttons/button-instruction.png"; sourceTree = "<group>"; };
 		3A7012A51ADA41EA002D2BB9 /* button-start-game.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button-start-game.png"; path = "Buttons/button-start-game.png"; sourceTree = "<group>"; };
-		3A76879F1ADE9CBE00BA87F2 /* upgrade.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = upgrade.sks; path = ../upgrade.sks; sourceTree = "<group>"; };
+		3A76879F1ADE9CBE00BA87F2 /* upgrade.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = upgrade.sks; sourceTree = "<group>"; };
 		3A8B0EA41ADFD26F00D3AFF7 /* MinorScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MinorScreen.swift; sourceTree = "<group>"; };
 		3A96A8CD1AE245E9007D6F90 /* mode-item.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "mode-item.png"; path = "Buttons/mode-item.png"; sourceTree = "<group>"; };
 		3A96A8CE1AE245E9007D6F90 /* mode-multiplayer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "mode-multiplayer.png"; path = "Buttons/mode-multiplayer.png"; sourceTree = "<group>"; };
@@ -312,6 +312,7 @@
 				C33F322F1ADC3B9300964B5D /* AnimationNode.swift */,
 				3AD4A4231ADA50CD00E63495 /* PowerUp.swift */,
 				3BD81EDE1AD6EE8900599E30 /* PowerUpNode.swift */,
+				C364D5C81AE296C000E09DAB /* Animation */,
 			);
 			path = PowerUp;
 			sourceTree = "<group>";
@@ -364,14 +365,6 @@
 		96972B421AC2C77000FF2DC5 /* CattleBattle */ = {
 			isa = PBXGroup;
 			children = (
-				3A76879F1ADE9CBE00BA87F2 /* upgrade.sks */,
-				3A3021431ADD6C3B00FBE3B2 /* freeze.sks */,
-				3AD713151ADE5EB400E9544C /* fire.sks */,
-				3ADDD0BB1AE0EC0300090FA0 /* spark.sks */,
-				3A3021471ADD779900FBE3B2 /* ice-fog.sks */,
-				3AD713161ADE5EB400E9544C /* spark.png */,
-				3BBE779F1ADF00560071CFEE /* back-button-hi.png */,
-				3B94EEFF1ADFE74200F4F488 /* background 1.jpg */,
 				96972B491AC2C77000FF2DC5 /* GameScene.swift */,
 				3AB818911AE273450039E315 /* GameScene.sks */,
 				3ADB3AFC1AE2678200B986D1 /* RiverScene.swift */,
@@ -388,12 +381,12 @@
 				3AD4A4261ADA50E200E63495 /* Animal */,
 				3AD4A4251ADA50D700E63495 /* PowerUp */,
 				C385F6A71AD14813003B4E74 /* SKNodeExtension.swift */,
+				C34E580A1AC98E96000E282B /* Images */,
 				C35441531ACDB14700BA7369 /* TemporaryCode */,
 				96972B4D1AC2C77000FF2DC5 /* Main.storyboard */,
 				96972B501AC2C77000FF2DC5 /* Images.xcassets */,
 				96972B451AC2C77000FF2DC5 /* AppDelegate.swift */,
 				96972B521AC2C77000FF2DC5 /* LaunchScreen.xib */,
-				C34E580A1AC98E96000E282B /* Images */,
 				96972B431AC2C77000FF2DC5 /* Supporting Files */,
 			);
 			path = CattleBattle;
@@ -474,9 +467,23 @@
 			name = TemporaryCode;
 			sourceTree = "<group>";
 		};
+		C364D5C81AE296C000E09DAB /* Animation */ = {
+			isa = PBXGroup;
+			children = (
+				3A76879F1ADE9CBE00BA87F2 /* upgrade.sks */,
+				3A3021431ADD6C3B00FBE3B2 /* freeze.sks */,
+				3AD713151ADE5EB400E9544C /* fire.sks */,
+				3ADDD0BB1AE0EC0300090FA0 /* spark.sks */,
+				3A3021471ADD779900FBE3B2 /* ice-fog.sks */,
+			);
+			path = Animation;
+			sourceTree = "<group>";
+		};
 		C3AE5D511ACB081B00E8E8F2 /* Background */ = {
 			isa = PBXGroup;
 			children = (
+				3BBE779F1ADF00560071CFEE /* back-button-hi.png */,
+				3B94EEFF1ADFE74200F4F488 /* background 1.jpg */,
 				3A70129F1ADA3CEC002D2BB9 /* background.jpg */,
 				3AE20F811AD9A6FC00EE8CE0 /* topbar3.png */,
 				C3D7EB041AD0704400A61851 /* river.gif */,
@@ -496,6 +503,7 @@
 		C3B37F2C1ADD62DE00CB747C /* Effect */ = {
 			isa = PBXGroup;
 			children = (
+				3AD713161ADE5EB400E9544C /* spark.png */,
 				C3B37F2D1ADD62DE00CB747C /* animation-freezing2.png */,
 				C3B37F2E1ADD62DE00CB747C /* animation-blackHole.png */,
 				C3B37F2F1ADD62DE00CB747C /* animation-freezing1.png */,
