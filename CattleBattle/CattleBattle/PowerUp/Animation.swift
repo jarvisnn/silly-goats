@@ -20,7 +20,7 @@ class Animation {
         internal static let Z_INDEX_FRONT: CGFloat = 1000000
     }
     
-    internal class func applyBlackHole(scene: SKScene, node: AnimalNode) {
+    private class func _applyBlackHole(scene: SKScene, node: AnimalNode) {
         var blackHole = AnimationNode(imageName: "animation-blackHole", scale: 0.1)
         blackHole.rotateForever(CGFloat(-M_PI), speed: 0.2)
         blackHole.zPosition = -1
@@ -38,7 +38,7 @@ class Animation {
         })
     }
     
-    internal class func applyFreezing(scene: SKScene, node: AnimalNode) {
+    private class func _applyFreezing(scene: SKScene, node: AnimalNode) {
         let freezing = getEmitterFromFile("freeze")
         let fog = getEmitterFromFile("ice-fog")
         
@@ -53,7 +53,7 @@ class Animation {
         scene.addChild(fog)
     }
     
-    internal class func applyUpgrading(scene: SKScene, node: AnimalNode) {
+    private class func _applyUpgrading(scene: SKScene, node: AnimalNode) {
         let upgradeSmoke = getEmitterFromFile("upgrade")
         upgradeSmoke.zPosition = 1
         
@@ -67,7 +67,7 @@ class Animation {
         }
     }
     
-    internal class func applyFiring(scene: SKScene, node: AnimalNode) {
+    private class func _applyFiring(scene: SKScene, node: AnimalNode) {
         let fire = getEmitterFromFile("fire")
         fire.zPosition = -1
         fire.position = node.position
@@ -80,7 +80,7 @@ class Animation {
         node.zPosition = Constants.Z_INDEX_FRONT
         node.xScale = -node.xScale
         
-        var destination = node.animal.color == .WHITE ? GameScene.Constants.GAME_VIEW_LEFT_BOUNDARY : GameScene.Constants.GAME_VIEW_RIGHT_BOUNDARY
+        var destination = node.animal.side == .LEFT ? GameScene.Constants.GAME_VIEW_LEFT_BOUNDARY : GameScene.Constants.GAME_VIEW_RIGHT_BOUNDARY
         
         var action = SKAction.moveToX(destination, duration: Double(abs(destination - node.position.x)) / Double(AnimalNode.Constants.VELOCITY*1.5))
         
@@ -89,6 +89,31 @@ class Animation {
         node.runAction(action)
         
         scene.addChild(fire)
+    }
+    
+    internal class func applyPowerUp(powerUpItem: PowerUpNode?, target: AnimalNode?, scene: GameScene, removeItemFunc: ((PowerUpNode) -> ())) {
+        if let item = powerUpItem {
+            if let animal = target {
+                var isValid = (item.side == animal.animal.side) == PowerUp.PowerType.targetFriendly(item.powerUpItem.powerType)
+                if !isValid {
+                    return
+                }
+
+                if item.powerUpItem.powerType == .BLACK_HOLE {
+                    Animation._applyBlackHole(scene, node: animal)
+                    
+                } else if item.powerUpItem.powerType == .FREEZE {
+                    Animation._applyFreezing(scene, node: animal)
+                    
+                } else if item.powerUpItem.powerType == .FIRE {
+                    Animation._applyFiring(scene, node: animal)
+                    
+                } else if item.powerUpItem.powerType == .UPGRADE {
+                    Animation._applyUpgrading(scene, node: animal)
+                }
+                removeItemFunc(item)
+            }
+        }
     }
     
     private class func getEmitterFromFile(filename: String) -> SKEmitterNode {

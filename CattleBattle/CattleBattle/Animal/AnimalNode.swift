@@ -11,8 +11,7 @@ import SpriteKit
 
 class AnimalNode: SKSpriteNode {
     
-    internal var animal = Animal(color: .WHITE, size: .TINY, status: .DEPLOYED)
-    internal var side: GameModel.Side!
+    internal var animal = Animal(side: .LEFT, size: .TINY, status: .DEPLOYED)
     
     struct Constants {
         internal static let VELOCITY: CGFloat = 200
@@ -24,16 +23,14 @@ class AnimalNode: SKSpriteNode {
         internal static let IDENTIFIER = "animalRunning"
     }
 
-    init(size: Animal.Size, side: GameModel.Side) {
+    init(size: Animal.Size, side: Animal.Side) {
         var scale = Animal.Constants.scale[find(Animal.Status.allStatuses, animal.status)!][find(Animal.Size.allSizes, animal.size)!]
         super.init(texture: animal.getTexture(), color: UIColor.clearColor(), size: CGSize(width: scale, height: scale))
         
-        self.side = side
         self.name = Constants.IDENTIFIER
         self.anchorPoint = CGPointMake(0.5, 0)
         
-        let color: Animal.Color = (side == .LEFT) ? .WHITE : .BLACK
-        self.animal = Animal(color: color, size: size, status: .DEPLOYED)
+        self.animal = Animal(side: side, size: size, status: .DEPLOYED)
         
         updateAnimalStatus(.DEPLOYED)
         setupPhysicsBody()
@@ -61,7 +58,7 @@ class AnimalNode: SKSpriteNode {
     private func setupPhysicsBody() {
         var bodySize = CGSizeMake(Constants.PHYSICS_BODY_WIDTH, Constants.PHYSICS_BODY_HEIGHT)
         var centerPoint: CGPoint
-        if (side == .LEFT) {
+        if (animal.side == .LEFT) {
             centerPoint = CGPoint(x: self.size.width/2-bodySize.width/2, y: -self.size.height/2+bodySize.height/2)
         } else {
             centerPoint = CGPoint(x: -self.size.width/2+bodySize.width/2, y: -self.size.height/2+bodySize.height/2)
@@ -73,7 +70,7 @@ class AnimalNode: SKSpriteNode {
         body.contactTestBitMask = GameScene.Constants.Goat
         body.collisionBitMask = GameScene.Constants.Goat
         
-        body.velocity.dx = (animal.color == .WHITE) ? Constants.VELOCITY : -Constants.VELOCITY
+        body.velocity.dx = (animal.side == .LEFT) ? Constants.VELOCITY : -Constants.VELOCITY
         body.velocity.dy = 0
         
         body.affectedByGravity = false

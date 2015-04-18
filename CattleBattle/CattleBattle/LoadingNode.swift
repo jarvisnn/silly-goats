@@ -16,19 +16,19 @@ class LoadingNode: SKSpriteNode {
     }
     
     internal var index = 0
-    internal var animal: Animal = Animal(color: .WHITE, size: .TINY, status: .BUTTON) {
+    internal var animal: Animal = Animal(side: .LEFT, size: .TINY, status: .BUTTON) {
         didSet {
             self.texture = animal.getTexture()
             self.resize()
         }
     }
     
-    init(side: GameModel.Side, index: Int) {
+    init(side: Animal.Side, index: Int) {
         
         super.init(texture: animal.getTexture(), color: UIColor.clearColor(), size: animal.getTexture().size())
         self.index = index
         self.name = Constants.IDENTIFIER
-        self.animal.color = (side == .LEFT) ? .WHITE : .BLACK
+        self.animal.side = side
         change()
     }
     
@@ -46,7 +46,7 @@ class LoadingNode: SKSpriteNode {
         self.resize()
     }
     
-    internal func fadeAnimation(side : GameModel.Side, index : Int){
+    internal func fadeAnimation(side : Animal.Side, index : Int){
         self.alpha = 0
         var action1 = SKAction.fadeInWithDuration(3)
         var action2 = SKAction.scaleBy(1.2, duration: 0.3)

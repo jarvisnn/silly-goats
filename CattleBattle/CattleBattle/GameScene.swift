@@ -25,7 +25,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         private static let LAUNCH_Y_TOP: CGFloat = 560
         private static let LAUNCH_Y_GAP: CGFloat = 100
         private static let LABEL_FONT = "Chalkduster"
-        private static let INFINITE = 1000000000
+        private static let INFINITE: CGFloat = 1000000000
         
         private static let ITEM_VELOCITY: CGFloat = 300
         private static let ITEM_INIT_VELOCITY = CGVectorMake(20, 0)
@@ -33,10 +33,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         private static let ITEM_GAP: CGFloat = 5
         private static let ITEM_SHOW_TIME: Double = 13
         
-        private static let Z_INDEX_CATEGORY: CGFloat = 999999
         private static let Z_INDEX_ITEM: CGFloat = 1000000
-        private static let Z_INDEX_SCREEN: CGFloat = 1000001
-        private static let Z_INDEX_FRONT: CGFloat = 1000000000
+        private static let Z_INDEX_CATEGORY: CGFloat = Z_INDEX_ITEM - 1
+        private static let Z_INDEX_SCREEN: CGFloat = Z_INDEX_ITEM + 1
+        private static let Z_INDEX_FRONT: CGFloat = INFINITE
         
         internal static let None: UInt32 = 0
         internal static let All: UInt32 = UInt32.max
@@ -53,7 +53,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private let GAME_VIEW_RIGHT_BOUNDARY: CGFloat = 1100
     private let GAME_VIEW_LEFT_BOUNDARY: CGFloat = -100
     
-    var playerScoreNode: [SKLabelNode] = GameModel.Side.allSides.map({ (side) -> SKLabelNode in
+    var playerScoreNode: [SKLabelNode] = Animal.Side.allSides.map({ (side) -> SKLabelNode in
         SKLabelNode()
     })
     private var arrows = [[ArrowNode]](count: GameModel.Constants.NUMBER_OF_BRIDGES, repeatedValue: [ArrowNode](count: Animal.Size.allSizes.count, repeatedValue: ArrowNode()))
@@ -104,7 +104,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     private func _setupLoadingButton() {
-        loadingButton = GameModel.Side.allSides.map { (side) -> [LoadingNode] in
+        loadingButton = Animal.Side.allSides.map { (side) -> [LoadingNode] in
             return map(0..<GameModel.Constants.NUMBER_OF_RESERVED, { (index) -> LoadingNode in
                 var location: CGPoint
                 var node = LoadingNode(side: side, index: index)
@@ -139,7 +139,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     private func _setupLabel() {
-        for side in GameModel.Side.allSides {
+        for side in Animal.Side.allSides {
             playerScoreNode[side.index] = SKLabelNode(fontNamed: Constants.LABEL_FONT)
             playerScoreNode[side.index].text = "000";
             playerScoreNode[side.index].fontSize = 40;
@@ -151,10 +151,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private func _setupArrow() {
         for i in 0..<GameModel.Constants.NUMBER_OF_BRIDGES {
             var y = CGFloat(Constants.LAUNCH_Y_TOP - Constants.LAUNCH_Y_GAP * CGFloat(i))
-            for side in GameModel.Side.allSides {
+            for side in Animal.Side.allSides {
                 arrows[i][side.index] = ArrowNode(side: side, index: i)
                 arrows[i][side.index].position = CGPointMake(side == .LEFT ? 50 : frame.width-50, y)
-                arrows[i][side.index].zPosition = -CGFloat(Constants.INFINITE)
+                arrows[i][side.index].zPosition = -Constants.INFINITE
                 self.addChild(arrows[i][side.index])
             }
         }
@@ -191,7 +191,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     private func _setupCategory() {
-        for side in GameModel.Side.allSides {
+        for side in Animal.Side.allSides {
             categories[side.index] = CategoryNode(side: side)
             if side == .LEFT {
                 categories[side.index].position = CGPointMake(categories[side.index].size.width/2, categories[side.index].size.height/2)
@@ -337,7 +337,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 _selectItem(node as! PowerUpNode)
             } else if (node is AnimalNode) {
                 for item in GameModel.Constants.categorySelectedItem {
-                    _applyPowerUp(item, target: node as? AnimalNode)
+                    Animation.applyPowerUp(item, target: node as? AnimalNode, scene: self, removeItemFunc: removeFromCategory)
                 }
             } else if node is MenuButtonNode && (node as! MenuButtonNode).button.buttonType == .PAUSE {
                 _pauseGame()
@@ -357,7 +357,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             var node = i as! SKNode
             
             if node.name == AnimalNode.Constants.IDENTIFIER {
-                var sideIndex = ((node as! AnimalNode).animal.color == .WHITE) ? 0 : 1
+                var sideIndex = (node as! AnimalNode).animal.side.index
                 if node.position.x < GAME_VIEW_LEFT_BOUNDARY || node.position.x > GAME_VIEW_RIGHT_BOUNDARY {
                     if (sideIndex == 0 && node.position.x > GAME_VIEW_RIGHT_BOUNDARY)
                             || (sideIndex == 1 && node.position.x < GAME_VIEW_LEFT_BOUNDARY){
@@ -433,56 +433,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         item.updateItemStatus(.SELECTED)
         
         if item.powerUpItem.getImplementationType() {
-            _applyPowerUp(item, target: nil)
+            Animation.applyPowerUp(item, target: nil, scene: self, removeItemFunc: removeFromCategory)
         }
     }
     
-    private func _applyPowerUp(powerUpItem: PowerUpNode?, target: AnimalNode?) {
-        if let item = powerUpItem {
-            if item.powerUpItem.powerType == .BLACK_HOLE {
-                if let animal = target {
-                    if (item.side == .LEFT && animal.animal.color == .WHITE)
-                        || (item.side == .RIGHT && animal.animal.color == .BLACK) {
-                            return
-                    } else {
-                        Animation.applyBlackHole(self, node: animal)
-                        removeFromCategory(item)
-                    }
-                }
-            } else if item.powerUpItem.powerType == .FREEZE {
-                if let animal = target {
-                    if (item.side == .LEFT && animal.animal.color == .WHITE)
-                        || (item.side == .RIGHT && animal.animal.color == .BLACK) {
-                            return
-                    } else {
-                        Animation.applyFreezing(self, node: animal)
-                        removeFromCategory(item)
-                    }
-                }
-            } else if item.powerUpItem.powerType == .FIRE {
-                if let animal = target {
-                    if (item.side == .LEFT && animal.animal.color == .WHITE)
-                        || (item.side == .RIGHT && animal.animal.color == .BLACK) {
-                            return
-                    } else {
-                        Animation.applyFiring(self, node: animal)
-                        removeFromCategory(item)
-                    }
-                }
-            } else if item.powerUpItem.powerType == .UPGRADE {
-                if let animal = target {
-                    if (item.side == .LEFT && animal.animal.color == .BLACK)
-                        || (item.side == .RIGHT && animal.animal.color == .WHITE) {
-                            return
-                    } else {
-                        Animation.applyUpgrading(self, node: animal)
-                        removeFromCategory(item)
-                    }
-                }
-            }
-        }
-    }
-
     private func removeFromCategory(item: PowerUpNode) {
         let index = item.side.index
         
@@ -540,8 +494,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
     private func _selectButton(node: LoadingNode) {
-        var side: GameModel.Side = (node.animal.color == .WHITE) ? .LEFT : .RIGHT
-        GameModel.selectForSide(side, index: node.index)
+        GameModel.selectForSide(node.animal.side, index: node.index)
     }
     
     private func launchSheepForAI(readyIndex : Int, trackIndex : Int) {

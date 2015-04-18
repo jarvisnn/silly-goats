@@ -18,23 +18,23 @@ class CategoryNode: SKSpriteNode {
         internal static let SCALE_Y: CGFloat = 0.5
         internal static let BODY_OFFSET: CGFloat = 15
         
-        internal static var textures = GameModel.Side.allSides.map { (side) -> SKTexture in
+        internal static var textures = Animal.Side.allSides.map { (side) -> SKTexture in
             return SKTexture(imageNamed: CategoryNode._getImageFileName(side))
         }
     }
     
-    internal class func getTexture(side: GameModel.Side) -> SKTexture {
-        return Constants.textures[find(GameModel.Side.allSides, side)!]
+    internal class func getTexture(side: Animal.Side) -> SKTexture {
+        return Constants.textures[find(Animal.Side.allSides, side)!]
     }
     
-    private class func _getImageFileName(side: GameModel.Side) -> String {
+    private class func _getImageFileName(side: Animal.Side) -> String {
         var fileName = join("-", [Constants.CATEGORY_KEYWORD, side.rawValue])
         return fileName + Constants.IMAGE_EXT
     }
 
-    internal var side: GameModel.Side!
+    internal var side: Animal.Side!
     
-    init(side: GameModel.Side) {
+    init(side: Animal.Side) {
         var texture = CategoryNode.getTexture(side)
         var size = texture.size()
         super.init(texture: texture, color: SKColor.clearColor(), size: size)

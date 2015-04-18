@@ -11,7 +11,7 @@ import UIKit
 
 class EasyAI {
     
-    internal var side : GameModel.Side
+    internal var side : Animal.Side
     
     
     init() {

@@ -29,6 +29,10 @@ class PowerUp {
         internal static func randomPowerType() -> PowerType {
             return allTypes[Int(arc4random_uniform(UInt32(PowerType.allTypes.count)))]
         }
+        
+        internal static func targetFriendly(powerType: PowerType) -> Bool {
+            return (powerType == .UPGRADE) ? true : false
+        }
     }
     
     struct Constants {
@@ -45,7 +49,7 @@ class PowerUp {
     
     internal var status: Status
     internal var powerType: PowerType
-    
+
     private func _getImageFileName() -> String {
         var fileName = join("-", [Constants.POWERUP_KEYWORD, status.rawValue, powerType.rawValue])
         return fileName + Constants.IMAGE_EXT

@@ -10,12 +10,15 @@ import SpriteKit
 
 class Animal {
     
-    
-    enum Color: String {
-        case WHITE = "white"
-        case BLACK = "black"
+    enum Side: String {
+        case LEFT = "left"
+        case RIGHT = "right"
         
-        internal static let allColors = [WHITE, BLACK]
+        internal var index: Int {
+            return (self == .LEFT) ? 0 : 1
+        }
+        
+        internal static var allSides = [LEFT, RIGHT]
     }
     
     enum Size: String {
@@ -62,27 +65,27 @@ class Animal {
 
         internal static let scale: [[CGFloat]] = [[0.25, 0.35, 0.4, 0.5, 0.6], [0.3, 0.4, 0.45, 0.55, 0.65]]
         
-        internal static var deployedTextures = Color.allColors.map() { (color) -> [[SKTexture]] in
+        internal static var deployedTextures = Side.allSides.map() { (side) -> [[SKTexture]] in
             return Size.allSizes.map() { (size) -> [SKTexture] in
-                return Constants.getTextureList(color: color, size: size, status: .DEPLOYED)
+                return Constants.getTextureList(side: side, size: size, status: .DEPLOYED)
             }
         }
         
-        internal static var bumpingTextures = Color.allColors.map() { (color) -> [[SKTexture]] in
+        internal static var bumpingTextures = Side.allSides.map() { (side) -> [[SKTexture]] in
             return Size.allSizes.map() { (size) -> [SKTexture] in
-                return Constants.getTextureList(color: color, size: size, status: .BUMPING)
+                return Constants.getTextureList(side: side, size: size, status: .BUMPING)
             }
         }
         
-        internal static var buttonTextures = Color.allColors.map() { (color) -> [SKTexture] in
+        internal static var buttonTextures = Side.allSides.map() { (side) -> [SKTexture] in
             return Size.allSizes.map() { (size) -> SKTexture in
-                return SKTexture(imageNamed: Animal(color: color, size: size, status: .BUTTON)._getImageFileName())
+                return SKTexture(imageNamed: Animal(side: side, size: size, status: .BUTTON)._getImageFileName())
             }
         }
         
         //get the array of textures from a texture sheet for running animation
-        internal static func getTextureList(#color: Color, size: Size, status: Status) -> [SKTexture] {
-            var spriteSheet = SKTexture(imageNamed:  Animal(color: color, size: size, status: status)._getImageFileName())
+        internal static func getTextureList(#side: Side, size: Size, status: Status) -> [SKTexture] {
+            var spriteSheet = SKTexture(imageNamed:  Animal(side: side, size: size, status: status)._getImageFileName())
             if status == .DEPLOYED || status == .BUMPING {
                 spriteSheet.filteringMode = SKTextureFilteringMode.Nearest
             }
@@ -99,35 +102,35 @@ class Animal {
         }
     }
     
-    internal var color: Color
+    internal var side: Side
     internal var size: Size
     internal var status: Status
     
     private func _getImageFileName() -> String {
-        var fileName = join("-", [Constants.GOAT_KEYWORD, status.rawValue, color.rawValue, size.rawValue])
+        var fileName = join("-", [Constants.GOAT_KEYWORD, status.rawValue, side.rawValue, size.rawValue])
         return fileName + Constants.IMAGE_EXT
     }
     
     internal func getTexture() -> SKTexture {
         if status == .BUTTON {
-            return Constants.buttonTextures[find(Color.allColors, color)!][find(Size.allSizes, size)!]
+            return Constants.buttonTextures[find(Side.allSides, side)!][find(Size.allSizes, size)!]
         } else if status == .DEPLOYED {
-            return Constants.deployedTextures[find(Color.allColors, color)!][find(Size.allSizes, size)!][0]
+            return Constants.deployedTextures[find(Side.allSides, side)!][find(Size.allSizes, size)!][0]
         } else {
-            return Constants.bumpingTextures[find(Color.allColors, color)!][find(Size.allSizes, size)!][0]
+            return Constants.bumpingTextures[find(Side.allSides, side)!][find(Size.allSizes, size)!][0]
         }
     }
     
     internal func getDeployedTexture() -> [SKTexture] {
-        return Constants.deployedTextures[find(Color.allColors, color)!][find(Size.allSizes, size)!]
+        return Constants.deployedTextures[find(Side.allSides, side)!][find(Size.allSizes, size)!]
     }
     
     internal func getBumpingTexture() -> [SKTexture] {
-        return Constants.bumpingTextures[find(Color.allColors, color)!][find(Size.allSizes, size)!]
+        return Constants.bumpingTextures[find(Side.allSides, side)!][find(Size.allSizes, size)!]
     }
     
-    init(color: Color, size: Size, status: Status) {
-        self.color = color
+    init(side: Side, size: Size, status: Status) {
+        self.side = side
         self.size = size
         self.status = status
     }

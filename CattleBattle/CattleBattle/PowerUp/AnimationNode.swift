@@ -15,7 +15,7 @@ class AnimationNode: SKSpriteNode {
         internal static let BLACKHOLE_IMAGE = "animation-blackHole"
     }
     
-    internal var side: GameModel.Side = .LEFT
+    internal var side: Animal.Side = .LEFT
     
     init(imageName: String, scale: CGFloat) {
         var _texture = SKTexture(imageNamed: imageName+".png")

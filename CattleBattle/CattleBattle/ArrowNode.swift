@@ -11,7 +11,7 @@ import SpriteKit
 
 class ArrowNode: SKSpriteNode {
     
-    internal var side: GameModel.Side = .LEFT
+    internal var side: Animal.Side = .LEFT
     
     internal var originTex: SKTexture = SKTexture()
     internal var index: Int = 0
@@ -28,7 +28,7 @@ class ArrowNode: SKSpriteNode {
         
         internal static let IDENTIFIER = "arrow"
 
-        internal static var arrowTextures = GameModel.Side.allSides.map() { (side) -> [SKTexture] in
+        internal static var arrowTextures = Animal.Side.allSides.map() { (side) -> [SKTexture] in
             var spriteSheet = SKTexture(imageNamed: Constants.IDENTIFIER + "-" + side.rawValue + Constants.IMAGE_EXT)
             
             var x = 1.0 / CGFloat(SPRITE_SHEET_LENGTH)
@@ -42,11 +42,11 @@ class ArrowNode: SKSpriteNode {
         }
     }
     
-    internal class func getTextures(side: GameModel.Side) -> [SKTexture] {
+    internal class func getTextures(side: Animal.Side) -> [SKTexture] {
         return Constants.arrowTextures[side.index]
     }
     
-    init(side: GameModel.Side, index: Int) {
+    init(side: Animal.Side, index: Int) {
         var _texture = ArrowNode.getTextures(side).first
         var _size = CGSize(width: Constants.ARROW_WIDTH, height: Constants.ARROW_HEIGHT)
         super.init(texture: _texture, color: UIColor.clearColor(), size: _size)
