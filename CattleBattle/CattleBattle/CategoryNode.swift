@@ -12,23 +12,39 @@ import SpriteKit
 class CategoryNode: SKSpriteNode {
     struct Constants {
         internal static var IDENTIFIER = "categoryNode"
+        internal static var CATEGORY_KEYWORD = "category"
+        internal static var IMAGE_EXT = ".png"
         internal static let SCALE_X: CGFloat = 0.6
         internal static let SCALE_Y: CGFloat = 0.5
+        internal static let BODY_OFFSET: CGFloat = 15
+        
+        internal static var textures = GameModel.Side.allSides.map { (side) -> SKTexture in
+            return SKTexture(imageNamed: CategoryNode._getImageFileName(side))
+        }
     }
     
+    internal class func getTexture(side: GameModel.Side) -> SKTexture {
+        return Constants.textures[find(GameModel.Side.allSides, side)!]
+    }
+    
+    private class func _getImageFileName(side: GameModel.Side) -> String {
+        var fileName = join("-", [Constants.CATEGORY_KEYWORD, side.rawValue])
+        return fileName + Constants.IMAGE_EXT
+    }
+
     internal var side: GameModel.Side!
     
     init(side: GameModel.Side) {
-        var _texture = SKTexture(imageNamed: "category-"+side.rawValue+".png")
-        var _size = _texture.size()
-        super.init(texture: _texture, color: UIColor.clearColor(), size: _size)
+        var texture = CategoryNode.getTexture(side)
+        var size = texture.size()
+        super.init(texture: texture, color: SKColor.clearColor(), size: size)
         
         self.name = Constants.IDENTIFIER
         self.side = side
         self.xScale = Constants.SCALE_X
         self.yScale = Constants.SCALE_Y
         
-        var bodySize = CGSizeMake(self.size.width-15, self.size.height-15)
+        var bodySize = CGSizeMake(self.size.width - Constants.BODY_OFFSET, self.size.height - Constants.BODY_OFFSET)
         physicsBody = SKPhysicsBody(rectangleOfSize: bodySize)
         
         physicsBody!.categoryBitMask = GameScene.Constants.Category
@@ -39,8 +55,8 @@ class CategoryNode: SKSpriteNode {
         physicsBody!.restitution = 1
     }
 
-    override init(texture:SKTexture, color:SKColor, size:CGSize) {
-        super.init(texture:texture, color:color, size:size)
+    override init(texture: SKTexture, color: SKColor, size: CGSize) {
+        super.init(texture: texture, color: color, size: size)
     }
     
     required init?(coder aDecoder: NSCoder) {

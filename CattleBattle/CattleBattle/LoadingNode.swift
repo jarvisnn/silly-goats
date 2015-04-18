@@ -11,8 +11,8 @@ import SpriteKit
 
 class LoadingNode: SKSpriteNode {
     struct Constants {
-        internal static var IDENTIFIER = "loadingButton"
         internal static let SCALE: CGFloat = 0.35
+        internal static var IDENTIFIER = "loadingButton"
     }
     
     internal var index = 0

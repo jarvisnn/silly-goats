@@ -11,14 +11,14 @@ import UIKit
 
 class EasyAI {
     
-    let side : GameModel.Side
+    internal var side : GameModel.Side
     
     
     init() {
         self.side = .RIGHT
     }
     
-    func isExistReadyGoat() -> Int{
+    func isExistReadyGoat() -> Int {
         for i in 0...2 {
             if GameModel.isCattleReady(side, index: i) {
                 return i
