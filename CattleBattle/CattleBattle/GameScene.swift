@@ -221,6 +221,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func didMoveToView(view: SKView) {
+        
         Constants.LAUNCH_X = [self.frame.minX, self.frame.maxX]
         
         physicsWorld.contactDelegate = self

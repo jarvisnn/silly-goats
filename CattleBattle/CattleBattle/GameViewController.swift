@@ -19,9 +19,10 @@ class GameViewController: UIViewController {
     
     let gameModel = GameModel()
 
-   
     var sheepScene : GameScene!
     var sheepView : UIView!
+    var riverScene: RiverScene!
+    var riverView: UIView!
     var gameMode: GameScene.GameMode!
     
     internal func setupGame(mode: GameScene.GameMode) {
@@ -34,17 +35,32 @@ class GameViewController: UIViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "backToPreviousScene:", name: GameScene.Constants.BACK_HOME_MESS, object: nil)
 
         self.sheepView = SKView(frame: CGRectMake(0, 0, self.view!.frame.width, self.view!.frame.height))
-
+        self.riverView = SKView(frame: CGRectMake(0, 0, self.view!.frame.width, self.view!.frame.height))
+        
+        
+        if let scene = RiverScene.unarchiveFromFile("RiverScene") as? RiverScene {
+            let skView = self.riverView as! SKView
+            self.riverScene = scene
+            
+            skView.ignoresSiblingOrder = true
+            scene.scaleMode = .AspectFill
+            
+            self.view!.addSubview(skView)
+            self.view!.sendSubviewToBack(skView)
+            
+            skView.allowsTransparency = true
+            scene.backgroundColor = UIColor.clearColor()
+            skView.presentScene(scene)
+        }
+        
+        
+        
         if let scene = GameScene.unarchiveFromFile("GameScene") as? GameScene {
-            // Configure the view.
             scene.setupGame(gameMode)
             let skView = self.sheepView as! SKView
             self.sheepScene = scene
             
-            /* Sprite Kit applies additional optimizations to improve rendering performance */
             skView.ignoresSiblingOrder = true
-            
-            // Set the scale mode to scale to fit the window
             scene.scaleMode = .AspectFill
 
             self.view!.addSubview(skView)

@@ -29,6 +29,8 @@
 		3A96A8D21AE245E9007D6F90 /* mode-single-player.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A96A8CF1AE245E9007D6F90 /* mode-single-player.png */; };
 		3A96A8D41AE2479C007D6F90 /* button-previous-screen.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A96A8D31AE2479C007D6F90 /* button-previous-screen.png */; };
 		3A96A8D61AE24892007D6F90 /* GameSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A96A8D51AE24892007D6F90 /* GameSelectionViewController.swift */; };
+		3AB818921AE273450039E315 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3AB818911AE273450039E315 /* GameScene.sks */; };
+		3AB818941AE273730039E315 /* RiverScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3AB818931AE273730039E315 /* RiverScene.sks */; };
 		3AD4A3BC1ADA4D4B00E63495 /* goat-big.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AD4A3B71ADA4D4B00E63495 /* goat-big.png */; };
 		3AD4A3BD1ADA4D4B00E63495 /* goat-huge.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AD4A3B81ADA4D4B00E63495 /* goat-huge.png */; };
 		3AD4A3BE1ADA4D4B00E63495 /* goat-medium.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AD4A3B91ADA4D4B00E63495 /* goat-medium.png */; };
@@ -40,6 +42,7 @@
 		3AD713181ADE5EB400E9544C /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AD713161ADE5EB400E9544C /* spark.png */; };
 		3ADADDDA1ADFF5EF00DE17F3 /* lose.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ADADDD81ADFF5EF00DE17F3 /* lose.png */; };
 		3ADADDDB1ADFF5EF00DE17F3 /* win.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ADADDD91ADFF5EF00DE17F3 /* win.png */; };
+		3ADB3AFD1AE2678200B986D1 /* RiverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADB3AFC1AE2678200B986D1 /* RiverScene.swift */; };
 		3ADDD0BC1AE0EC0300090FA0 /* spark.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3ADDD0BB1AE0EC0300090FA0 /* spark.sks */; };
 		3AE20F831AD9A6FC00EE8CE0 /* topbar3.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AE20F811AD9A6FC00EE8CE0 /* topbar3.png */; };
 		3B94EF001ADFE74200F4F488 /* background 1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3B94EEFF1ADFE74200F4F488 /* background 1.jpg */; };
@@ -52,7 +55,6 @@
 		9660B9FF1AC44F4A00A053A2 /* LoadingNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9660B9FE1AC44F4A00A053A2 /* LoadingNode.swift */; };
 		967F6D891AC55C1B00B50207 /* Animal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F6D881AC55C1B00B50207 /* Animal.swift */; };
 		96972B461AC2C77000FF2DC5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96972B451AC2C77000FF2DC5 /* AppDelegate.swift */; };
-		96972B481AC2C77000FF2DC5 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 96972B471AC2C77000FF2DC5 /* GameScene.sks */; };
 		96972B4A1AC2C77000FF2DC5 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96972B491AC2C77000FF2DC5 /* GameScene.swift */; };
 		96972B4C1AC2C77000FF2DC5 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96972B4B1AC2C77000FF2DC5 /* GameViewController.swift */; };
 		96972B4F1AC2C77000FF2DC5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96972B4D1AC2C77000FF2DC5 /* Main.storyboard */; };
@@ -149,6 +151,8 @@
 		3A96A8CF1AE245E9007D6F90 /* mode-single-player.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "mode-single-player.png"; path = "Buttons/mode-single-player.png"; sourceTree = "<group>"; };
 		3A96A8D31AE2479C007D6F90 /* button-previous-screen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button-previous-screen.png"; path = "Buttons/button-previous-screen.png"; sourceTree = "<group>"; };
 		3A96A8D51AE24892007D6F90 /* GameSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameSelectionViewController.swift; sourceTree = "<group>"; };
+		3AB818911AE273450039E315 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
+		3AB818931AE273730039E315 /* RiverScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = RiverScene.sks; sourceTree = "<group>"; };
 		3AD4A3B71ADA4D4B00E63495 /* goat-big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "goat-big.png"; sourceTree = "<group>"; };
 		3AD4A3B81ADA4D4B00E63495 /* goat-huge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "goat-huge.png"; sourceTree = "<group>"; };
 		3AD4A3B91ADA4D4B00E63495 /* goat-medium.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "goat-medium.png"; sourceTree = "<group>"; };
@@ -160,6 +164,7 @@
 		3AD713161ADE5EB400E9544C /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		3ADADDD81ADFF5EF00DE17F3 /* lose.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = lose.png; path = GameOver/lose.png; sourceTree = "<group>"; };
 		3ADADDD91ADFF5EF00DE17F3 /* win.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = win.png; path = GameOver/win.png; sourceTree = "<group>"; };
+		3ADB3AFC1AE2678200B986D1 /* RiverScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RiverScene.swift; sourceTree = "<group>"; };
 		3ADDD0BB1AE0EC0300090FA0 /* spark.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = spark.sks; sourceTree = "<group>"; };
 		3AE20F811AD9A6FC00EE8CE0 /* topbar3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = topbar3.png; sourceTree = "<group>"; };
 		3B94EEFF1ADFE74200F4F488 /* background 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background 1.jpg"; sourceTree = "<group>"; };
@@ -174,7 +179,6 @@
 		96972B401AC2C77000FF2DC5 /* CattleBattle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CattleBattle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96972B441AC2C77000FF2DC5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		96972B451AC2C77000FF2DC5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		96972B471AC2C77000FF2DC5 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		96972B491AC2C77000FF2DC5 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		96972B4B1AC2C77000FF2DC5 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		96972B4E1AC2C77000FF2DC5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -363,14 +367,16 @@
 				3A76879F1ADE9CBE00BA87F2 /* upgrade.sks */,
 				3A3021431ADD6C3B00FBE3B2 /* freeze.sks */,
 				3AD713151ADE5EB400E9544C /* fire.sks */,
-				3AD713161ADE5EB400E9544C /* spark.png */,
+				3ADDD0BB1AE0EC0300090FA0 /* spark.sks */,
 				3A3021471ADD779900FBE3B2 /* ice-fog.sks */,
+				3AD713161ADE5EB400E9544C /* spark.png */,
 				3BBE779F1ADF00560071CFEE /* back-button-hi.png */,
 				3B94EEFF1ADFE74200F4F488 /* background 1.jpg */,
-				96972B471AC2C77000FF2DC5 /* GameScene.sks */,
 				96972B491AC2C77000FF2DC5 /* GameScene.swift */,
+				3AB818911AE273450039E315 /* GameScene.sks */,
+				3ADB3AFC1AE2678200B986D1 /* RiverScene.swift */,
+				3AB818931AE273730039E315 /* RiverScene.sks */,
 				3A8B0EA41ADFD26F00D3AFF7 /* MinorScreen.swift */,
-				3ADDD0BB1AE0EC0300090FA0 /* spark.sks */,
 				3A70129E1ADA3CB6002D2BB9 /* View Controller */,
 				9616925E1AC4621C0016523C /* GameModel.swift */,
 				96CAA74A1AD0074B0094AC44 /* ArrowNode.swift */,
@@ -723,6 +729,7 @@
 				C33F322B1ADC001E00964B5D /* item-waiting-blackhole.png in Resources */,
 				C3D7EADA1ACFEE9200A61851 /* goat-button-black-3.png in Resources */,
 				3A7012A61ADA41EA002D2BB9 /* button-instruction.png in Resources */,
+				3AB818941AE273730039E315 /* RiverScene.sks in Resources */,
 				3A3021451ADD6C3B00FBE3B2 /* freeze.sks in Resources */,
 				C3D7EAE21ACFEE9200A61851 /* goat-deployed-black-1.png in Resources */,
 				C3D7EAD81ACFEE9200A61851 /* goat-button-black-1.png in Resources */,
@@ -734,7 +741,6 @@
 				C3D7EADF1ACFEE9200A61851 /* goat-button-white-3.png in Resources */,
 				C354415A1ACDC0AC00BA7369 /* bank-left.png in Resources */,
 				C33F32271ADC001E00964B5D /* item-selected-blackhole.png in Resources */,
-				96972B481AC2C77000FF2DC5 /* GameScene.sks in Resources */,
 				C3D7EB051AD0704400A61851 /* river.gif in Resources */,
 				C3D7EAD11ACFEE9200A61851 /* goat-bumping-black-4.png in Resources */,
 				3AD4A3BE1ADA4D4B00E63495 /* goat-medium.png in Resources */,
@@ -748,6 +754,7 @@
 				C3D7EADB1ACFEE9200A61851 /* goat-button-black-4.png in Resources */,
 				3A7687A01ADE9CBE00BA87F2 /* upgrade.sks in Resources */,
 				C3D7EAD91ACFEE9200A61851 /* goat-button-black-2.png in Resources */,
+				3AB818921AE273450039E315 /* GameScene.sks in Resources */,
 				C3D7EACE1ACFEE9200A61851 /* goat-bumping-black-1.png in Resources */,
 				C3D7EB031AD069D800A61851 /* topbar2.png in Resources */,
 				96972B4F1AC2C77000FF2DC5 /* Main.storyboard in Resources */,
@@ -805,6 +812,7 @@
 				3A055DBE1ADE36F10005B6E3 /* Animation.swift in Sources */,
 				3A49F8471ADFA5F60008B2CB /* GameButton.swift in Sources */,
 				967F6D891AC55C1B00B50207 /* Animal.swift in Sources */,
+				3ADB3AFD1AE2678200B986D1 /* RiverScene.swift in Sources */,
 				C35441521ACD7EAE00BA7369 /* AnimalNode.swift in Sources */,
 				9606B63D1ADFDCCA005442EF /* EasyAI.swift in Sources */,
 				9660B9FF1AC44F4A00A053A2 /* LoadingNode.swift in Sources */,

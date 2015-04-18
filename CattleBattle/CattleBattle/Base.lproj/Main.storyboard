@@ -77,10 +77,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="river.gif" id="pD0-pr-y28">
-                                <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bank-left.png" id="1KX-de-9ah">
                                 <rect key="frame" x="0.0" y="0.0" width="162" height="768"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -454,7 +450,6 @@
         <image name="mode-item.png" width="149" height="40"/>
         <image name="mode-multiplayer.png" width="156" height="40"/>
         <image name="mode-single-player.png" width="167" height="40"/>
-        <image name="river.gif" width="1022" height="1892"/>
         <image name="topbar3.png" width="1026" height="127"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
