@@ -1,5 +1,5 @@
 //
-//  ButtonNode.swift
+//  MenuButtonNode.swift
 //  CattleBattle
 //
 //  Created by jarvis on 4/16/15.
@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-class GameButton {
+class MenuButton {
     
     enum ButtonType: String {
         case PAUSE = "pause"
@@ -25,7 +25,7 @@ class GameButton {
         internal static let IMAGE_EXT = ".png"
         
         internal static var textures = ButtonType.allTypes.map() { type -> SKTexture in
-            return SKTexture(imageNamed: GameButton(type: type)._getImageFileName())
+            return SKTexture(imageNamed: MenuButton(type: type)._getImageFileName())
         }
     }
     

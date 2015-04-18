@@ -58,7 +58,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     })
     private var arrows = [[ArrowNode]](count: GameModel.Constants.NUMBER_OF_BRIDGES, repeatedValue: [ArrowNode](count: Animal.Size.allSizes.count, repeatedValue: ArrowNode()))
     private var loadingButton: [[LoadingNode]] = []
-    private var pauseButton: ButtonNode!
+    private var pauseButton: MenuButtonNode!
     private var pauseScreen: SKSpriteNode!
     private var gameOverScreen: [SKSpriteNode] = []
     private var categories = [CategoryNode](count: 2, repeatedValue: CategoryNode())
@@ -121,7 +121,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     private func _setupPauseButton() {
-        pauseButton = ButtonNode(buttonType: .PAUSE, scale: 1)
+        pauseButton = MenuButtonNode(buttonType: .PAUSE, scale: 1)
         pauseButton.position = CGPointMake(frame.width/2, frame.height-pauseButton.size.height/2)
         self.addChild(pauseButton)
     }
@@ -339,13 +339,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 for item in GameModel.Constants.categorySelectedItem {
                     _applyPowerUp(item, target: node as? AnimalNode)
                 }
-            } else if node is ButtonNode && (node as! ButtonNode).button.buttonType == .PAUSE {
+            } else if node is MenuButtonNode && (node as! MenuButtonNode).button.buttonType == .PAUSE {
                 _pauseGame()
-            } else if node is ButtonNode && (node as! ButtonNode).button.buttonType == .CONTINUE {
+            } else if node is MenuButtonNode && (node as! MenuButtonNode).button.buttonType == .CONTINUE {
                 _continueGame()
-            } else if node is ButtonNode && (node as! ButtonNode).button.buttonType == .HOME {
+            } else if node is MenuButtonNode && (node as! MenuButtonNode).button.buttonType == .HOME {
                 NSNotificationCenter.defaultCenter().postNotificationName(Constants.BACK_HOME_MESS, object: nil)
-            } else if node is ButtonNode && (node as! ButtonNode).button.buttonType == .RESTART {
+            } else if node is MenuButtonNode && (node as! MenuButtonNode).button.buttonType == .RESTART {
                 
             }
         }

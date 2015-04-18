@@ -1,5 +1,5 @@
 //
-//  ButtonNode.swift
+//  MenuButtonNode.swift
 //  CattleBattle
 //
 //  Created by jarvis on 4/16/15.
@@ -9,15 +9,15 @@
 import UIKit
 import SpriteKit
 
-class ButtonNode: SKSpriteNode {
+class MenuButtonNode: SKSpriteNode {
     struct Constants {
         internal static var IDENTIFIER = "buttonNode"
     }
     
-    internal var button: GameButton!
+    internal var button: MenuButton!
     
-    init(buttonType: GameButton.ButtonType, scale: CGFloat) {
-        button = GameButton(type: buttonType)
+    init(buttonType: MenuButton.ButtonType, scale: CGFloat) {
+        button = MenuButton(type: buttonType)
         super.init(texture: button.getTexture(), color: UIColor.clearColor(), size: button.getTexture().size())
         
         self.name = Constants.IDENTIFIER

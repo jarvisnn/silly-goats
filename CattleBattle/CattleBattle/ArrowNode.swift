@@ -1,5 +1,5 @@
 //
-//  LaunchButtonNode.swift
+//  LaunchMenuButtonNode.swift
 //  CattleBattle
 //
 //  Created by Ding Ming on 4/4/15.
