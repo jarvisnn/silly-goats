@@ -92,8 +92,8 @@ class Animation {
     }
     
     internal class func applyPowerUp(powerUpItem: PowerUpNode?, target: AnimalNode?, scene: GameScene, removeItemFunc: ((PowerUpNode) -> ())) {
-        if let item = powerUpItem {
-            if let animal = target {
+        if var item = powerUpItem {
+            if var animal = target {
                 var isValid = (item.side == animal.animal.side) == PowerUp.PowerType.targetFriendly(item.powerUpItem.powerType)
                 if !isValid {
                     return

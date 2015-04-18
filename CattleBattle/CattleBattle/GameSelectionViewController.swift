@@ -11,7 +11,7 @@ import SpriteKit
 
 class GameSelectionViewController: UIViewController {
     
-    private var gameMode: GameScene.GameMode!
+    private var gameMode: GameModel.GameMode!
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if (segue.identifier == "moveToGameArea") {

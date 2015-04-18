@@ -17,15 +17,13 @@ class GameViewController: UIViewController {
     private let LAUNCH_Y_TOP : CGFloat = 500
     private let LAUNCH_Y_GAP : CGFloat = 80
     
-    let gameModel = GameModel()
-
     var sheepScene : GameScene!
     var sheepView : UIView!
     var riverScene: RiverScene!
     var riverView: UIView!
-    var gameMode: GameScene.GameMode!
+    var gameMode: GameModel.GameMode!
     
-    internal func setupGame(mode: GameScene.GameMode) {
+    internal func setupGame(mode: GameModel.GameMode) {
         gameMode = mode
     }
     
@@ -38,7 +36,7 @@ class GameViewController: UIViewController {
         self.riverView = SKView(frame: CGRectMake(0, 0, self.view!.frame.width, self.view!.frame.height))
         
         
-        if let scene = RiverScene.unarchiveFromFile("RiverScene") as? RiverScene {
+        if var scene = RiverScene.unarchiveFromFile("RiverScene") as? RiverScene {
             let skView = self.riverView as! SKView
             self.riverScene = scene
             
@@ -55,7 +53,7 @@ class GameViewController: UIViewController {
         
         
         
-        if let scene = GameScene.unarchiveFromFile("GameScene") as? GameScene {
+        if var scene = GameScene.unarchiveFromFile("GameScene") as? GameScene {
             scene.setupGame(gameMode)
             let skView = self.sheepView as! SKView
             self.sheepScene = scene

@@ -9,39 +9,54 @@
 import UIKit
 
 class GameModel {
-    let NUMBER_OF_READY_CATTLE = 3
+    enum GameMode: String {
+        case SINGLE_PLAYER = "single_player"
+        case MULTIPLAYER = "multiplayer"
+        case ITEM_MODE = "item_mode"
+    }
     
+    internal var AI: EasyAI?
+    internal var gameMode: GameMode
+
     struct Constants {
         internal static let NUMBER_OF_BRIDGES = 5
         internal static let NUMBER_OF_RESERVED = 3
         
-        internal static var readyList: [[Bool]] = Animal.Side.allSides.map { (_) -> [Bool] in
-            map(0..<NUMBER_OF_RESERVED, { (_) -> Bool in
-                return true
-            })
+        internal static var gameModel: GameModel!
+    }
+    
+    internal var readyList: [[Bool]] = Animal.Side.allSides.map { (_) -> [Bool] in
+        map(0..<Constants.NUMBER_OF_RESERVED, { (_) -> Bool in
+            return true
+        })
+    }
+    
+    internal var selectedGoat = [0, 0]
+    internal var categorySelectedItem: [PowerUpNode?] = [nil, nil]
+    internal var score = [0, 0]
+    
+    init(gameMode: GameMode) {
+        self.gameMode = gameMode
+        if gameMode == .SINGLE_PLAYER {
+            self.AI = EasyAI()
         }
-        
-        internal static var selectedGoat = [0, 0]
-        internal static var categorySelectedItem: [PowerUpNode?] = [nil, nil]
-        internal static var score = [0, 0]
+        Constants.gameModel = self
+    }
+
+    internal func isCattleReady(side: Animal.Side, index: Int) -> Bool {
+        return readyList[side.index][index]
     }
     
-    // to check whether a certain cattle is ready for launch
-    internal class func isCattleReady(side: Animal.Side, index: Int) -> Bool {
-        return Constants.readyList[side.index][index]
-    }
-    
-    internal class func selectForSide(side: Animal.Side, index: Int) -> Bool {
+    internal func selectForSide(side: Animal.Side, index: Int) -> Bool {
         if isCattleReady(side, index: index) {
-            Constants.selectedGoat[side.index] = index
+            selectedGoat[side.index] = index
             return true
         }
         return false
     }
     
-    // to set the status of ready cattle
-    internal class func setCattleStatus(side : Animal.Side, index : Int, status : Bool) {
-        Constants.readyList[side.index][index] = status
+    internal func setCattleStatus(side : Animal.Side, index : Int, status : Bool) {
+        readyList[side.index][index] = status
     }
     
 }

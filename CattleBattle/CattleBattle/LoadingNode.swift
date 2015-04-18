@@ -24,7 +24,6 @@ class LoadingNode: SKSpriteNode {
     }
     
     init(side: Animal.Side, index: Int) {
-        
         super.init(texture: animal.getTexture(), color: UIColor.clearColor(), size: animal.getTexture().size())
         self.index = index
         self.name = Constants.IDENTIFIER
@@ -52,8 +51,8 @@ class LoadingNode: SKSpriteNode {
         var action2 = SKAction.scaleBy(1.2, duration: 0.3)
         var action3 = action2.reversedAction()
         var actionList = SKAction.sequence([action1, action2 ,action3])
-        self.runAction(actionList, completion: { () -> Void in            
-            GameModel.setCattleStatus(side, index: index, status: true)
+        self.runAction(actionList, completion: { () -> Void in
+            GameModel.Constants.gameModel.setCattleStatus(side, index: index, status: true)
         })
     }
 

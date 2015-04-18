@@ -35,7 +35,7 @@ class PowerUpNode: SKSpriteNode {
         
         
         self.physicsBody = SKPhysicsBody(circleOfRadius: self.size.height / 2)
-        if let physics = self.physicsBody {
+        if var physics = self.physicsBody {
             physics.categoryBitMask = GameScene.Constants.Item
             physics.contactTestBitMask = GameScene.Constants.Category
             physics.collisionBitMask = GameScene.Constants.Category | GameScene.Constants.Item

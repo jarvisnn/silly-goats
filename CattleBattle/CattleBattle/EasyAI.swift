@@ -20,7 +20,7 @@ class EasyAI {
     
     func isExistReadyGoat() -> Int {
         for i in 0...2 {
-            if GameModel.isCattleReady(side, index: i) {
+            if GameModel.Constants.gameModel.isCattleReady(side, index: i) {
                 return i
             }
         }

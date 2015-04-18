@@ -10,14 +10,6 @@ import SpriteKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
-    enum GameMode: String {
-        case SINGLE_PLAYER = "single_player"
-        case MULTIPLAYER = "multiplayer"
-        case ITEM_MODE = "item_mode"
-//        case TIMING = "timing"
-//        case SCORING = "scoring"
-    }
-    
     struct Constants {
         internal static let BACK_HOME_MESS = "backToPreviousScene"
         
@@ -68,20 +60,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     private var item_velocity: CGVector = Constants.ITEM_INIT_VELOCITY
     
-    private var gameMode: GameMode!// = .MULTIPLAYER
-    private var isAI : Bool!
-    private var AI : EasyAI = EasyAI()
     private var frameCount : Int = 0    // this is use to delay actions in update function
     
-    internal func setupGame(mode: GameMode) {
-        self.gameMode = mode
-        if mode == .SINGLE_PLAYER {
-            self.isAI = true
-        } else if mode == .MULTIPLAYER {
-            self.isAI = false
-        } else if mode == .ITEM_MODE {
-            self.isAI = false
-        }
+    private var gameModel: GameModel!
+    
+    internal func setupGame(mode: GameModel.GameMode) {
+        gameModel = GameModel(gameMode: mode)
     }
     
     private func _setupTiming() {
@@ -161,14 +145,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     private func _setupItem() {
-        if gameMode == .MULTIPLAYER {
+        if gameModel.gameMode == .MULTIPLAYER {
             runAction(SKAction.repeatActionForever(
                 SKAction.sequence([
                     SKAction.runBlock(addItem),
                     SKAction.waitForDuration(Constants.ITEM_SHOW_TIME)
                 ])
             ))
-        } else if gameMode == .ITEM_MODE {
+        } else if gameModel.gameMode == .ITEM_MODE {
             
         }
     }
@@ -204,14 +188,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     private func _hideUncessaryNode() {
-        if gameMode == .SINGLE_PLAYER {
+        if gameModel.gameMode == .SINGLE_PLAYER {
             for i in 0..<GameModel.Constants.NUMBER_OF_BRIDGES {
                 arrows[i][1].removeFromParent()
             }
             for node in categories {
                 node.removeFromParent()
             }
-        } else if gameMode == .ITEM_MODE {
+        } else if gameModel.gameMode == .ITEM_MODE {
             for nodeArray in loadingButton {
                 for node in nodeArray {
                     node.removeFromParent()
@@ -247,7 +231,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     private func itemDidCollideWithCategory(item: PowerUpNode, category: CategoryNode) {
-        if gameMode == .ITEM_MODE {
+        if gameModel.gameMode == .ITEM_MODE {
             item.removeFromParent()
             if category.side == .LEFT {
                 _addScore(0, point: 10)
@@ -336,7 +320,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             } else if node.name == PowerUpNode.Constants.IDENTIFIER_STORED {
                 _selectItem(node as! PowerUpNode)
             } else if (node is AnimalNode) {
-                for item in GameModel.Constants.categorySelectedItem {
+                for item in gameModel.categorySelectedItem {
                     Animation.applyPowerUp(item, target: node as? AnimalNode, scene: self, removeItemFunc: removeFromCategory)
                 }
             } else if node is MenuButtonNode && (node as! MenuButtonNode).button.buttonType == .PAUSE {
@@ -374,7 +358,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
         
-        if isAI == true {
+        if var AI = gameModel.AI {
             var launchPair = AI.autoLaunch()
             if launchPair.0 > -1 && frameCount == 1{
                 self.launchSheepForAI(launchPair.0, trackIndex: launchPair.1)
@@ -425,11 +409,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     private func _selectItem(item: PowerUpNode) {
         let index = item.side.index
-        if let currentSelectedItem = GameModel.Constants.categorySelectedItem[index] {
+        if var currentSelectedItem = gameModel.categorySelectedItem[index] {
             currentSelectedItem.updateItemStatus(.WAITING)
         }
         
-        GameModel.Constants.categorySelectedItem[index] = item
+        gameModel.categorySelectedItem[index] = item
         item.updateItemStatus(.SELECTED)
         
         if item.powerUpItem.getImplementationType() {
@@ -445,7 +429,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         var value = index == 0 ? item.size.width+Constants.ITEM_GAP : -item.size.width-Constants.ITEM_GAP
         
         categoryBound[index] -= item.size.width + Constants.ITEM_GAP
-        GameModel.Constants.categorySelectedItem[index] = nil
+        gameModel.categorySelectedItem[index] = nil
         item.removeFromParent()
         
         var node = nodeAtPoint(CGPointMake(x+value, y))
@@ -471,13 +455,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     private func _deploy(arrow: ArrowNode) {
         var side = arrow.side
-        var selectedButton = GameModel.Constants.selectedGoat[side.index]
+        var selectedButton = gameModel.selectedGoat[side.index]
         var selectedRow = arrow.index
-        if !GameModel.isCattleReady(side, index: selectedButton) {
+        if !gameModel.isCattleReady(side, index: selectedButton) {
             return
         }
         
-        GameModel.setCattleStatus(side, index: selectedButton, status: false)
+        gameModel.setCattleStatus(side, index: selectedButton, status: false)
         var currentSize = loadingButton[side.index][selectedButton].animal.size
         var y = Constants.LAUNCH_Y_TOP - Constants.LAUNCH_Y_GAP * CGFloat(selectedRow)
 
@@ -494,11 +478,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
     private func _selectButton(node: LoadingNode) {
-        GameModel.selectForSide(node.animal.side, index: node.index)
+        gameModel.selectForSide(node.animal.side, index: node.index)
     }
     
     private func launchSheepForAI(readyIndex : Int, trackIndex : Int) {
-        GameModel.selectForSide(.RIGHT, index: readyIndex)
+        gameModel.selectForSide(.RIGHT, index: readyIndex)
         _deploy(arrows[trackIndex][1])
     }
     
