@@ -55,7 +55,7 @@ class GameModel {
         return false
     }
     
-    internal func setCattleStatus(side : Animal.Side, index : Int, status : Bool) {
+    internal func setCattleStatus(side: Animal.Side, index: Int, status: Bool) {
         readyList[side.index][index] = status
     }
     

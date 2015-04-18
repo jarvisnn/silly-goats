@@ -60,7 +60,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     private var item_velocity: CGVector = Constants.ITEM_INIT_VELOCITY
     
-    private var frameCount : Int = 0    // this is use to delay actions in update function
+    private var frameCount: Int = 0    // this is use to delay actions in update function
     
     private var gameModel: GameModel!
     
@@ -71,7 +71,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private func _setupTiming() {
         gameInfo = SKLabelNode(fontNamed: Constants.LABEL_FONT)
         gameInfo.fontSize = 25
-        gameInfo.position = CGPoint(x: frame.width/2, y : 650);
+        gameInfo.position = CGPoint(x: frame.width/2, y: 650);
         
         var timesecond = Constants.ROUND_TIME + 1
         var actionwait = SKAction.waitForDuration(1)
@@ -93,9 +93,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 var location: CGPoint
                 var node = LoadingNode(side: side, index: index)
                 if side == .LEFT {
-                    location = CGPoint(x: 50 + index * 80, y : 725)
+                    location = CGPoint(x: 50 + index * 80, y: 725)
                 } else {
-                    location = CGPoint(x: (Int)(self.frame.width) - 50 - index * 80, y : 725)
+                    location = CGPoint(x: (Int)(self.frame.width) - 50 - index * 80, y: 725)
                 }
                 node.position = location
                 self.addChild(node)
@@ -323,14 +323,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 for item in gameModel.categorySelectedItem {
                     Animation.applyPowerUp(item, target: node as? AnimalNode, scene: self, removeItemFunc: removeFromCategory)
                 }
-            } else if node is MenuButtonNode && (node as! MenuButtonNode).button.buttonType == .PAUSE {
-                _pauseGame()
-            } else if node is MenuButtonNode && (node as! MenuButtonNode).button.buttonType == .CONTINUE {
-                _continueGame()
-            } else if node is MenuButtonNode && (node as! MenuButtonNode).button.buttonType == .HOME {
-                NSNotificationCenter.defaultCenter().postNotificationName(Constants.BACK_HOME_MESS, object: nil)
-            } else if node is MenuButtonNode && (node as! MenuButtonNode).button.buttonType == .RESTART {
-                
+            } else if node is MenuButtonNode {
+                var buttonType = (node as! MenuButtonNode).button.buttonType
+                if buttonType == .PAUSE {
+                    _moveToScreen(pauseScreen)
+                } else if buttonType == .CONTINUE {
+                    _continueGame()
+                } else if buttonType == .HOME {
+                    NSNotificationCenter.defaultCenter().postNotificationName(Constants.BACK_HOME_MESS, object: nil)
+                } else if buttonType == .RESTART {
+                }
             }
         }
     }
@@ -371,15 +373,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         playerScoreNode[side].text = (newScore as NSNumber).stringValue
     }
     
-    private func _pauseGame() {
-        self.runAction(SKAction.runBlock({
-            self.addChild(self.pauseScreen)
-        }), completion: {
-            self.view!.paused = true
-            self.paused = true
-        })
-    }
-    
     private func _continueGame() {
         pauseScreen.removeFromParent()
         self.view!.paused = false
@@ -399,8 +392,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             index = 2
         }
         
+        _moveToScreen(gameOverScreen[index])
+    }
+    
+    private func _moveToScreen(screen: SKSpriteNode) {
         self.runAction(SKAction.runBlock({
-            self.addChild(self.gameOverScreen[index])
+            self.addChild(screen)
         }), completion: {
             self.view!.paused = true
             self.paused = true
@@ -481,7 +478,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         gameModel.selectForSide(node.animal.side, index: node.index)
     }
     
-    private func launchSheepForAI(readyIndex : Int, trackIndex : Int) {
+    private func launchSheepForAI(readyIndex: Int, trackIndex: Int) {
         gameModel.selectForSide(.RIGHT, index: readyIndex)
         _deploy(arrows[trackIndex][1])
     }

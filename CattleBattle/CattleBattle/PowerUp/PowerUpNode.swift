@@ -22,7 +22,7 @@ class PowerUpNode: SKSpriteNode {
     }
     
     internal var powerUpItem: PowerUp!
-    internal var side : Animal.Side = .LEFT
+    internal var side: Animal.Side = .LEFT
     
     init(type: PowerUp.PowerType) {
         powerUpItem = PowerUp(type: type, status: .WAITING)

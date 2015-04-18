@@ -45,7 +45,7 @@ class LoadingNode: SKSpriteNode {
         self.resize()
     }
     
-    internal func fadeAnimation(side : Animal.Side, index : Int){
+    internal func fadeAnimation(side: Animal.Side, index: Int) {
         self.alpha = 0
         var action1 = SKAction.fadeInWithDuration(3)
         var action2 = SKAction.scaleBy(1.2, duration: 0.3)

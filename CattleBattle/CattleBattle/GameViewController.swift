@@ -12,13 +12,8 @@ import SpriteKit
 
 class GameViewController: UIViewController {
 
-    private let RIGHT_LAUNCH_X : CGFloat = 1024
-    private let LEFT_LAUNCH_X : CGFloat = 0
-    private let LAUNCH_Y_TOP : CGFloat = 500
-    private let LAUNCH_Y_GAP : CGFloat = 80
-    
-    var sheepScene : GameScene!
-    var sheepView : UIView!
+    var sheepScene: GameScene!
+    var sheepView: UIView!
     var riverScene: RiverScene!
     var riverView: UIView!
     var gameMode: GameModel.GameMode!

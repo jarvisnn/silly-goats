@@ -11,7 +11,7 @@ import UIKit
 
 class EasyAI {
     
-    internal var side : Animal.Side
+    internal var side: Animal.Side
     
     
     init() {
@@ -29,13 +29,13 @@ class EasyAI {
     
     
     
-    func calcutateTrackToLaunch() -> Int{
+    func calcutateTrackToLaunch() -> Int {
         // Easy AI use random way to select the track
-        var rand : CGFloat = (CGFloat)(Float(arc4random()) / Float(UINT32_MAX))
+        var rand: CGFloat = (CGFloat)(Float(arc4random()) / Float(UINT32_MAX))
         return (Int)(rand*5)
     }
     
-    func autoLaunch() -> (Int, Int){
+    func autoLaunch() -> (Int, Int) {
         if isExistReadyGoat() != -1 {
             return (isExistReadyGoat(), calcutateTrackToLaunch())
         }
