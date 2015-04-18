@@ -15,10 +15,13 @@ class MinorScreen {
         
         var continueButton = ButtonNode(buttonType: .CONTINUE, scale: 1)
         var homeButton = ButtonNode(buttonType: .HOME, scale: 1)
+        var restartButton = ButtonNode(buttonType: .RESTART, scale: 1)
         
-        continueButton.position = CGPointMake(-70, 0)
-        homeButton.position = CGPointMake(70, 0)
+        restartButton.position = CGPointMake(-100, 0)
+        continueButton.position = CGPointMake(0, 0)
+        homeButton.position = CGPointMake(100, 0)
         
+        node.addChild(restartButton)
         node.addChild(continueButton)
         node.addChild(homeButton)
         

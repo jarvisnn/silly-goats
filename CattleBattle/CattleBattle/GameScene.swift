@@ -19,6 +19,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     struct Constants {
+        internal static let BACK_HOME_MESS = "backToPreviousScene"
+        
         private static var LAUNCH_X: [CGFloat]!
         private static let LAUNCH_Y_TOP: CGFloat = 560
         private static let LAUNCH_Y_GAP: CGFloat = 100
@@ -340,6 +342,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 _pauseGame()
             } else if node is ButtonNode && (node as! ButtonNode).button.buttonType == .CONTINUE {
                 _continueGame()
+            } else if node is ButtonNode && (node as! ButtonNode).button.buttonType == .HOME {
+                NSNotificationCenter.defaultCenter().postNotificationName(Constants.BACK_HOME_MESS, object: nil)
+            } else if node is ButtonNode && (node as! ButtonNode).button.buttonType == .RESTART {
+                
             }
         }
     }
@@ -540,14 +546,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private func launchSheepForAI(readyIndex : Int, trackIndex : Int) {
         GameModel.selectForSide(.RIGHT, index: readyIndex)
         _deploy(arrows[trackIndex][1])
-        
-//        self.enumerateChildNodesWithName(ArrowNode.Constants.IDENTIFIER, usingBlock: { (node, stop) -> Void in
-//            var arrowNode : ArrowNode = node as! ArrowNode
-//            if arrowNode.side == .RIGHT && arrowNode.index == trackIndex {
-//                GameModel.selectForSide(.RIGHT, index: readyIndex)
-//                self._deploy(arrowNode)
-//            }
-//        })
     }
     
 }

@@ -261,9 +261,10 @@
 		3A70129E1ADA3CB6002D2BB9 /* View Controller */ = {
 			isa = PBXGroup;
 			children = (
+				3A70129C1ADA3CA9002D2BB9 /* MenuViewController.swift */,
+				96972B4B1AC2C77000FF2DC5 /* GameViewController.swift */,
 				3A96A8D51AE24892007D6F90 /* GameSelectionViewController.swift */,
 				3BDC0E081AE016B600EAF13D /* InstructionViewController.swift */,
-				96972B4B1AC2C77000FF2DC5 /* GameViewController.swift */,
 				3A7012A11ADA4082002D2BB9 /* Instruction1.swift */,
 				3BBBA6801ADD565F003A401D /* Instruction2.swift */,
 			);
@@ -370,7 +371,6 @@
 				96972B491AC2C77000FF2DC5 /* GameScene.swift */,
 				3A8B0EA41ADFD26F00D3AFF7 /* MinorScreen.swift */,
 				3ADDD0BB1AE0EC0300090FA0 /* spark.sks */,
-				3A70129C1ADA3CA9002D2BB9 /* MenuViewController.swift */,
 				3A70129E1ADA3CB6002D2BB9 /* View Controller */,
 				9616925E1AC4621C0016523C /* GameModel.swift */,
 				96CAA74A1AD0074B0094AC44 /* ArrowNode.swift */,

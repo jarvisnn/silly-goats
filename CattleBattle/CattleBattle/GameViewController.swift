@@ -30,6 +30,9 @@ class GameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "backToPreviousScene:", name: GameScene.Constants.BACK_HOME_MESS, object: nil)
+
         self.sheepView = SKView(frame: CGRectMake(0, 0, self.view!.frame.width, self.view!.frame.height))
 
         if let scene = GameScene.unarchiveFromFile("GameScene") as? GameScene {
@@ -57,4 +60,7 @@ class GameViewController: UIViewController {
         return true
     }
 
+    func backToPreviousScene(sender: NSNotification) {
+        navigationController?.popViewControllerAnimated(true)
+    }
 }
