@@ -26,16 +26,6 @@
                                     <action selector="singlePlayerModeSelected:" destination="bOe-JJ-2zE" eventType="touchUpInside" id="ref-f7-b0v"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ek5-1w-K34">
-                                <rect key="frame" x="201" y="439" width="136" height="157"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="button-previous-screen.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="backButtonClicked:" destination="bOe-JJ-2zE" eventType="touchUpInside" id="OPh-HA-QPf"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="OMV-7W-9PQ">
                                 <rect key="frame" x="491" y="341" width="167" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -54,6 +44,16 @@
                                 </state>
                                 <connections>
                                     <action selector="itemModeSelected:" destination="bOe-JJ-2zE" eventType="touchUpInside" id="OZr-vO-Esg"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ek5-1w-K34">
+                                <rect key="frame" x="170" y="489" width="141" height="119"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="button-previous-screen.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="backButtonClicked:" destination="bOe-JJ-2zE" eventType="touchUpInside" id="OPh-HA-QPf"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -137,22 +137,22 @@
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="bnQ-6S-HYB">
-                                <rect key="frame" x="267" y="266" width="339" height="421"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="button-start-game.png"/>
-                                <connections>
-                                    <segue destination="bOe-JJ-2zE" kind="push" id="o21-mN-TzC"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Acy-1q-RaS">
-                                <rect key="frame" x="526" y="193" width="275" height="533"/>
+                                <rect key="frame" x="292" y="213" width="320" height="542"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="button-instruction.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <segue destination="SpT-dO-Hv0" kind="push" id="zIt-bg-XgC"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="bnQ-6S-HYB">
+                                <rect key="frame" x="484" y="286" width="339" height="421"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="button-start-game.png"/>
+                                <connections>
+                                    <segue destination="bOe-JJ-2zE" kind="push" id="o21-mN-TzC"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -163,7 +163,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C5O-GK-yRN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4809" y="997"/>
+            <point key="canvasLocation" x="4767" y="997"/>
         </scene>
         <!--Instruction View Controller-->
         <scene sceneID="fgo-qv-BDf">
@@ -438,10 +438,10 @@
         <image name="background.jpg" width="1440" height="850"/>
         <image name="bank-left.png" width="250" height="800"/>
         <image name="bank-right.png" width="250" height="800"/>
-        <image name="bridge.png" width="1024" height="284"/>
-        <image name="button-instruction.png" width="262" height="270"/>
-        <image name="button-previous-screen.png" width="262" height="270"/>
-        <image name="button-start-game.png" width="262" height="270"/>
+        <image name="bridge.png" width="1336" height="378"/>
+        <image name="button-instruction.png" width="370" height="332"/>
+        <image name="button-previous-screen.png" width="196" height="173"/>
+        <image name="button-start-game.png" width="370" height="332"/>
         <image name="goat-button-white-1.png" width="216" height="218"/>
         <image name="goat-button-white-2.png" width="216" height="218"/>
         <image name="goat-button-white-3.png" width="216" height="218"/>
