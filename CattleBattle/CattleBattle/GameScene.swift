@@ -12,6 +12,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     struct Constants {
         internal static let BACK_HOME_MESS = "backToPreviousScene"
+        private static var GENERATE_ITEM_KEY = "generateItem"
         
         private static var LAUNCH_X: [CGFloat]!
         private static let LAUNCH_Y_TOP: CGFloat = 560
@@ -39,7 +40,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         internal static let GAME_VIEW_RIGHT_BOUNDARY: CGFloat = 1100
         internal static let GAME_VIEW_LEFT_BOUNDARY: CGFloat = -100
         
-        private static let ROUND_TIME = 91
+        private static let ROUND_TIME = 90
     }
     
     private let GAME_VIEW_RIGHT_BOUNDARY: CGFloat = 1100
@@ -151,9 +152,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     SKAction.runBlock(addItem),
                     SKAction.waitForDuration(Constants.ITEM_SHOW_TIME)
                 ])
-            ))
+            ), withKey: Constants.GENERATE_ITEM_KEY)
         } else if gameModel.gameMode == .ITEM_MODE {
-            
+            generateItem()
         }
     }
     
@@ -173,6 +174,61 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(item)
         item.physicsBody!.velocity = item_velocity
     }
+    
+    private func randomNumber(from: Int, to: Int) -> CGFloat {
+        return CGFloat(arc4random_uniform(UInt32(to-from+1))) + CGFloat(from)
+    }
+    
+    private func generateItem() {
+        var _actionPack1 = SKAction.runBlock({
+            var item = PowerUpNode(type: .UPGRADE)
+            item.randomPower()
+            item.position = CGPoint(x: self.size.width/2 + self.randomNumber(-400, to: 400),
+                y: self.size.height/2 + self.randomNumber(-300, to: 300))
+            item.zPosition = Constants.Z_INDEX_ITEM
+            item.physicsBody!.velocity.dx = self.randomNumber(-30, to: 30)
+            item.physicsBody!.velocity.dy = self.randomNumber(-30, to: 30)
+            
+            item.showUp()
+            self.addChild(item)
+        })
+        var action1_1 = SKAction.sequence([_actionPack1, SKAction.waitForDuration(1.5)])
+        var action1_2 = SKAction.sequence([_actionPack1, SKAction.waitForDuration(1.0)])
+        var action1_3 = SKAction.sequence([_actionPack1, SKAction.waitForDuration(0.75)])
+        var action1_4 = SKAction.sequence([_actionPack1, SKAction.waitForDuration(0.5)])
+        
+        var item_velocity = CGVectorMake(300, 0)
+        var _actionPack2 = SKAction.runBlock({
+            var item = PowerUpNode(type: .UPGRADE)
+            item.randomPower()
+            item.position = CGPoint(x: self.size.width/2, y: self.size.height/2)
+            item.zPosition = Constants.Z_INDEX_ITEM
+            
+            var x = Double(item_velocity.dx)
+            var y = Double(item_velocity.dy)
+            var a = M_PI/6
+            item_velocity.dx = CGFloat(x * cos(a) - y * sin(a))
+            item_velocity.dy = CGFloat(x * sin(a) + y * cos(a))
+            
+            item.physicsBody!.velocity = item_velocity
+            item.showUp()
+            self.addChild(item)
+        })
+        var action2_1 = SKAction.sequence([_actionPack2, SKAction.waitForDuration(0.5)])
+        var action2_2 = SKAction.sequence([_actionPack2, SKAction.waitForDuration(0.3)])
+        var action2_3 = SKAction.sequence([_actionPack2, SKAction.waitForDuration(0.1)])
+        
+        self.runAction(SKAction.sequence([
+            SKAction.repeatAction(action1_1, count: 10),
+            SKAction.repeatAction(action1_2, count: 10),
+            SKAction.repeatAction(action1_3, count: 10),
+            SKAction.repeatAction(action1_4, count: 10),
+            SKAction.repeatAction(action2_1, count: 40),
+            SKAction.repeatAction(action2_2, count: 50),
+            SKAction.repeatAction(action2_3, count: 200)
+        ]), withKey: Constants.GENERATE_ITEM_KEY)
+    }
+    
     
     private func _setupCategory() {
         for side in Animal.Side.allSides {
@@ -200,6 +256,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 for node in nodeArray {
                     node.removeFromParent()
                 }
+            }
+            for i in 0..<GameModel.Constants.NUMBER_OF_BRIDGES {
+                arrows[i][1].removeFromParent()
             }
         }
     }
@@ -332,6 +391,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 } else if buttonType == .HOME {
                     NSNotificationCenter.defaultCenter().postNotificationName(Constants.BACK_HOME_MESS, object: nil)
                 } else if buttonType == .RESTART {
+                    _restartGame()
                 }
             }
         }
@@ -377,6 +437,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         pauseScreen.removeFromParent()
         self.view!.paused = false
         self.paused = false
+    }
+    
+    private func _restartGame() {
+        _continueGame()
+        
+        for node in self.children {
+            if node is AnimalNode || node is PowerUpNode || node is LoadingNode || node is SKLabelNode{
+                node.removeFromParent()
+            }
+        }
+        self.removeActionForKey(Constants.GENERATE_ITEM_KEY)
+        
+        _setupTiming()
+        _setupLabel()
+        _setupItem()
+        if gameModel.gameMode != .ITEM_MODE {
+            _setupLoadingButton()
+        }
     }
     
     private func _gameOver() {
