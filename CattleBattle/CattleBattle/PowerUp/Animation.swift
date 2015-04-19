@@ -120,27 +120,25 @@ class Animation {
     }
     
     internal class func applyPowerUp(powerUpItem: PowerUpNode?, targets: [AnimalNode?], scene: GameScene, removeItemFunc: ((PowerUpNode) -> ())) {
-        if var item = powerUpItem {
-            if var animal = targets[0] {
-                var isValid = (item.side == animal.animal.side) == PowerUp.PowerType.targetFriendly(item.powerUpItem.powerType)
-                if !isValid {
-                    return
-                }
-
-                if item.powerUpItem.powerType == .BLACK_HOLE {
-                    Animation._applyBlackHole(scene, node: animal)
-                    
-                } else if item.powerUpItem.powerType == .FREEZE {
-                    Animation._applyFreezing(scene, nodes: targets)
-                    
-                } else if item.powerUpItem.powerType == .FIRE {
-                    Animation._applyFiring(scene, node: animal)
-                    
-                } else if item.powerUpItem.powerType == .UPGRADE {
-                    Animation._applyUpgrading(scene, node: animal)
-                }
-                removeItemFunc(item)
+        if var item = powerUpItem, animal = targets[0] {
+            var isValid = (item.side == animal.animal.side) == PowerUp.PowerType.targetFriendly(item.powerUpItem.powerType)
+            if !isValid {
+                return
             }
+            
+            if item.powerUpItem.powerType == .BLACK_HOLE {
+                Animation._applyBlackHole(scene, node: animal)
+                
+            } else if item.powerUpItem.powerType == .FREEZE {
+                Animation._applyFreezing(scene, nodes: targets)
+                
+            } else if item.powerUpItem.powerType == .FIRE {
+                Animation._applyFiring(scene, node: animal)
+                
+            } else if item.powerUpItem.powerType == .UPGRADE {
+                Animation._applyUpgrading(scene, node: animal)
+            }
+            removeItemFunc(item)
         }
     }
     

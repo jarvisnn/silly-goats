@@ -118,6 +118,8 @@
 		C3D7EB021AD069D800A61851 /* topbar.png in Resources */ = {isa = PBXBuildFile; fileRef = C3D7EAFE1AD069D800A61851 /* topbar.png */; };
 		C3D7EB031AD069D800A61851 /* topbar2.png in Resources */ = {isa = PBXBuildFile; fileRef = C3D7EAFF1AD069D800A61851 /* topbar2.png */; };
 		C3D7EB051AD0704400A61851 /* river.gif in Resources */ = {isa = PBXBuildFile; fileRef = C3D7EB041AD0704400A61851 /* river.gif */; };
+		C3E9D8CB1AE4276600C45089 /* PauseScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E9D8CA1AE4276600C45089 /* PauseScene.swift */; };
+		C3E9D8CD1AE4369A00C45089 /* ScoreNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E9D8CC1AE4369A00C45089 /* ScoreNode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -246,6 +248,8 @@
 		C3D7EAFE1AD069D800A61851 /* topbar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = topbar.png; sourceTree = "<group>"; };
 		C3D7EAFF1AD069D800A61851 /* topbar2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = topbar2.png; sourceTree = "<group>"; };
 		C3D7EB041AD0704400A61851 /* river.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = river.gif; sourceTree = "<group>"; };
+		C3E9D8CA1AE4276600C45089 /* PauseScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PauseScene.swift; sourceTree = "<group>"; };
+		C3E9D8CC1AE4369A00C45089 /* ScoreNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -363,6 +367,8 @@
 				3ADB3AFC1AE2678200B986D1 /* RiverScene.swift */,
 				3AB818931AE273730039E315 /* RiverScene.sks */,
 				3A8B0EA41ADFD26F00D3AFF7 /* MinorScreen.swift */,
+				C3E9D8CA1AE4276600C45089 /* PauseScene.swift */,
+				C3E9D8CC1AE4369A00C45089 /* ScoreNode.swift */,
 				9616925E1AC4621C0016523C /* GameModel.swift */,
 				96CAA74A1AD0074B0094AC44 /* ArrowNode.swift */,
 				9660B9FE1AC44F4A00A053A2 /* LoadingNode.swift */,
@@ -834,6 +840,8 @@
 				3AD4A4371ADB232700E63495 /* CategoryNode.swift in Sources */,
 				3AD4A4241ADA50CD00E63495 /* PowerUp.swift in Sources */,
 				3A055DBE1ADE36F10005B6E3 /* Animation.swift in Sources */,
+				C3E9D8CB1AE4276600C45089 /* PauseScene.swift in Sources */,
+				C3E9D8CD1AE4369A00C45089 /* ScoreNode.swift in Sources */,
 				3A49F8471ADFA5F60008B2CB /* MenuButton.swift in Sources */,
 				967F6D891AC55C1B00B50207 /* Animal.swift in Sources */,
 				3ADB3AFD1AE2678200B986D1 /* RiverScene.swift in Sources */,

@@ -10,24 +10,6 @@ import SpriteKit
 
 class MinorScreen {
     
-    internal class func pauseView(size: CGSize) -> SKSpriteNode {
-        var node = SKSpriteNode(color: UIColor(white: 0, alpha: 0.4), size: size)
-        
-        var continueButton = MenuButtonNode(buttonType: .CONTINUE, scale: 1)
-        var homeButton = MenuButtonNode(buttonType: .HOME, scale: 1)
-        var restartButton = MenuButtonNode(buttonType: .RESTART, scale: 1)
-        
-        restartButton.position = CGPointMake(-100, 0)
-        continueButton.position = CGPointMake(0, 0)
-        homeButton.position = CGPointMake(100, 0)
-        
-        node.addChild(restartButton)
-        node.addChild(continueButton)
-        node.addChild(homeButton)
-        
-        return node
-    }
-    
     internal class func gameOverView(size: CGSize, winner: Int) -> SKSpriteNode {
         var node = SKSpriteNode(color: UIColor(white:0, alpha: 0.2), size: size)
         

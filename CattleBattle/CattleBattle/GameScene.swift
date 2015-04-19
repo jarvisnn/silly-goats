@@ -46,18 +46,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private let GAME_VIEW_RIGHT_BOUNDARY: CGFloat = 1100
     private let GAME_VIEW_LEFT_BOUNDARY: CGFloat = -100
     
-    var playerScoreNode: [SKLabelNode] = Animal.Side.allSides.map({ (side) -> SKLabelNode in
-        SKLabelNode()
+    private var playerScoreNode: [ScoreNode] = Animal.Side.allSides.map({ (side) -> ScoreNode in
+        return ScoreNode(side: side)
     })
+    
     private var arrows = [[ArrowNode]](count: GameModel.Constants.NUMBER_OF_BRIDGES, repeatedValue: [ArrowNode](count: Animal.Size.allSizes.count, repeatedValue: ArrowNode()))
     private var loadingButton: [[LoadingNode]] = []
     private var pauseButton: MenuButtonNode!
-    private var pauseScreen: SKSpriteNode!
+    private var pauseScreen: PauseScene!
     private var gameOverScreen: [SKSpriteNode] = []
     private var categories = [CategoryNode](count: 2, repeatedValue: CategoryNode())
     private var categoryBound: [CGFloat] = [0, 0]
     private var zIndex: CGFloat = 0
-    private var gameInfo: SKLabelNode!
+    private var timerNode: SKLabelNode!
     
     private var item_velocity: CGVector = Constants.ITEM_INIT_VELOCITY
     
@@ -70,9 +71,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     private func _setupTiming() {
-        gameInfo = SKLabelNode(fontNamed: Constants.LABEL_FONT)
-        gameInfo.fontSize = 25
-        gameInfo.position = CGPoint(x: frame.width/2, y: 650);
+        timerNode = SKLabelNode(fontNamed: Constants.LABEL_FONT)
+        timerNode.fontSize = 25
+        timerNode.position = CGPoint(x: frame.width/2, y: 650);
         
         var timesecond = Constants.ROUND_TIME + 1
         var actionwait = SKAction.waitForDuration(1)
@@ -80,12 +81,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if --timesecond == -1 {
                 self._gameOver()
             } else if timesecond >= 0 {
-                self.gameInfo.text = "\(timesecond/60):\(timesecond%60)"
+                self.timerNode.text = "\(timesecond/60):\(timesecond%60)"
             }
         })
         
-        gameInfo.runAction(SKAction.repeatActionForever(SKAction.sequence([actionrun, actionwait])))
-        self.addChild(gameInfo)
+        timerNode.runAction(SKAction.repeatActionForever(SKAction.sequence([actionrun, actionwait])))
+        self.addChild(timerNode)
     }
     
     private func _setupLoadingButton() {
@@ -112,7 +113,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     private func _setupMinorScreen() {
-        pauseScreen = MinorScreen.pauseView(self.frame.size)
+        pauseScreen = PauseScene(size: self.frame.size, pauseFunc: _pauseGame, continueFunc: _continueGame, restartFunc: _restartGame, homeFunc: _backToHome)
         pauseScreen.zPosition = Constants.Z_INDEX_SCREEN
         pauseScreen.position = CGPointMake(frame.width / 2, frame.height / 2)
         
@@ -123,12 +124,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    private func _setupLabel() {
+    private func _setupScore() {
         for side in Animal.Side.allSides {
-            playerScoreNode[side.index] = SKLabelNode(fontNamed: Constants.LABEL_FONT)
-            playerScoreNode[side.index].text = "000";
-            playerScoreNode[side.index].fontSize = 40;
-            playerScoreNode[side.index].position = CGPoint(x: side == .LEFT ? 420 : 604, y : 710);
+            playerScoreNode[side.index].score = 0
             self.addChild(playerScoreNode[side.index])
         }
     }
@@ -274,7 +272,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         _setupLoadingButton()
         _setupPauseButton()
         _setupMinorScreen()
-        _setupLabel()
+        _setupScore()
         _setupArrow()
         _setupItem()
         _setupCategory()
@@ -292,11 +290,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private func itemDidCollideWithCategory(item: PowerUpNode, category: CategoryNode) {
         if gameModel.gameMode == .ITEM_MODE {
             item.removeFromParent()
-            if category.side == .LEFT {
-                _addScore(0, point: 10)
-            } else {
-                _addScore(1, point: 10)
-            }
+            playerScoreNode[category.side.index].score += 10
         } else {
             if categoryBound[category.side.index] + item.size.width + Constants.ITEM_GAP >= category.size.width {
                 return
@@ -383,16 +377,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     _applyPowerUp(item, target: node as? AnimalNode)
                 }
             } else if node is MenuButtonNode {
-                var buttonType = (node as! MenuButtonNode).button.buttonType
-                if buttonType == .PAUSE {
-                    _moveToScreen(pauseScreen)
-                } else if buttonType == .CONTINUE {
-                    _continueGame()
-                } else if buttonType == .HOME {
-                    NSNotificationCenter.defaultCenter().postNotificationName(Constants.BACK_HOME_MESS, object: nil)
-                } else if buttonType == .RESTART {
-                    _restartGame()
-                }
+                pauseScreen.buttonClicked((node as! MenuButtonNode).button.buttonType)
             }
         }
     }
@@ -405,9 +390,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if node.name == AnimalNode.Constants.IDENTIFIER {
                 var sideIndex = (node as! AnimalNode).animal.side.index
                 if node.position.x < GAME_VIEW_LEFT_BOUNDARY || node.position.x > GAME_VIEW_RIGHT_BOUNDARY {
-                    if (sideIndex == 0 && node.position.x > GAME_VIEW_RIGHT_BOUNDARY)
-                            || (sideIndex == 1 && node.position.x < GAME_VIEW_LEFT_BOUNDARY){
-                        _addScore(sideIndex, point: (node as! AnimalNode).animal.getPoint())
+                    if (sideIndex == 0 && node.position.x > GAME_VIEW_RIGHT_BOUNDARY) || (sideIndex == 1 && node.position.x < GAME_VIEW_LEFT_BOUNDARY){
+                        playerScoreNode[sideIndex].score += (node as! AnimalNode).animal.getPoint()
                     }
                     node.removeFromParent()
                 } else {
@@ -427,30 +411,33 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
     }
-    
-    private func _addScore(side: Int, point: Int) {
-        let newScore = playerScoreNode[side].text.toInt()!+point
-        playerScoreNode[side].text = (newScore as NSNumber).stringValue
-    }
-    
+        
     private func _continueGame() {
         pauseScreen.removeFromParent()
         self.view!.paused = false
         self.paused = false
     }
     
+    private func _backToHome() {
+        NSNotificationCenter.defaultCenter().postNotificationName(Constants.BACK_HOME_MESS, object: nil)
+    }
+    
+    private func _pauseGame() {
+        _moveToScreen(pauseScreen)
+    }
+    
     private func _restartGame() {
         _continueGame()
         
         for node in self.children {
-            if node is AnimalNode || node is PowerUpNode || node is LoadingNode || node is SKLabelNode{
+            if node is AnimalNode || node is PowerUpNode || node is LoadingNode || node is SKLabelNode {
                 node.removeFromParent()
             }
         }
         self.removeActionForKey(Constants.GENERATE_ITEM_KEY)
         
         _setupTiming()
-        _setupLabel()
+        _setupScore()
         _setupItem()
         if gameModel.gameMode != .ITEM_MODE {
             _setupLoadingButton()
@@ -500,7 +487,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if item != nil && item!.powerUpItem.powerType == .FREEZE && target != nil {
             var targets = [target]
             for i in self.children {
-                if let node = i as? AnimalNode {
+                if var node = i as? AnimalNode {
                     if target!.position.y - 50 < node.position.y && node.position.y < target!.position.y + 50 && node != target {
                         targets.append(node)
                     }
