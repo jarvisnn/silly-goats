@@ -23,7 +23,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         private static let ITEM_INIT_VELOCITY = CGVectorMake(20, 0)
         
         private static let ITEM_GAP: CGFloat = 5
-        private static let ITEM_SHOW_TIME: Double = 13
+        private static let ITEM_SHOW_TIME: Double = 5
         
         private static let Z_INDEX_ITEM: CGFloat = 1000000
         private static let Z_INDEX_CATEGORY: CGFloat = Z_INDEX_ITEM - 1
@@ -321,7 +321,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 _selectItem(node as! PowerUpNode)
             } else if (node is AnimalNode) {
                 for item in gameModel.categorySelectedItem {
-                    Animation.applyPowerUp(item, target: node as? AnimalNode, scene: self, removeItemFunc: removeFromCategory)
+                    _applyPowerUp(item, target: node as? AnimalNode)
                 }
             } else if node is MenuButtonNode {
                 var buttonType = (node as! MenuButtonNode).button.buttonType
@@ -338,7 +338,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func update(currentTime: CFTimeInterval) {
-        frameCount = (frameCount + 1) % 10  // The AI will launch a sheep every 10 frame
+        frameCount = (frameCount + 1) % 45  // The AI will launch a sheep every 45 frame
         for i in self.children {
             var node = i as! SKNode
             
@@ -414,7 +414,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         item.updateItemStatus(.SELECTED)
         
         if item.powerUpItem.getImplementationType() {
-            Animation.applyPowerUp(item, target: nil, scene: self, removeItemFunc: removeFromCategory)
+            Animation.applyPowerUp(item, targets: [nil], scene: self, removeItemFunc: removeFromCategory)
+        }
+    }
+    
+    private func _applyPowerUp(item: PowerUpNode?, target: AnimalNode?) {
+        if item != nil && item!.powerUpItem.powerType == .FREEZE && target != nil {
+            var targets = [target]
+            for i in self.children {
+                if let node = i as? AnimalNode {
+                    if target!.position.y - 50 < node.position.y && node.position.y < target!.position.y + 50 && node != target {
+                        targets.append(node)
+                    }
+                }
+            }
+            Animation.applyPowerUp(item, targets: targets, scene: self, removeItemFunc: removeFromCategory)
+        } else {
+            Animation.applyPowerUp(item, targets: [target], scene: self, removeItemFunc: removeFromCategory)
         }
     }
     

@@ -24,7 +24,7 @@ class PowerUp {
         case FIRE = "fire"
         
         internal static let allTypes = [FREEZE, BLACK_HOLE, UPGRADE, FIRE]
-        internal static let targeted = [true, false, true, true]
+        internal static let targeted = [true, true, true, true]
 
         internal static func randomPowerType() -> PowerType {
             return allTypes[Int(arc4random_uniform(UInt32(PowerType.allTypes.count)))]
