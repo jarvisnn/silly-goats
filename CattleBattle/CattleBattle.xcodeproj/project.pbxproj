@@ -31,6 +31,8 @@
 		3A96A8D61AE24892007D6F90 /* GameSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A96A8D51AE24892007D6F90 /* GameSelectionViewController.swift */; };
 		3AB818921AE273450039E315 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3AB818911AE273450039E315 /* GameScene.sks */; };
 		3AB818941AE273730039E315 /* RiverScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3AB818931AE273730039E315 /* RiverScene.sks */; };
+		3AC1E0121AE3A1FC00E016A2 /* button-volumn.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AC1E0101AE3A1FC00E016A2 /* button-volumn.png */; };
+		3AC1E0131AE3A1FC00E016A2 /* sign-board-standing.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AC1E0111AE3A1FC00E016A2 /* sign-board-standing.png */; };
 		3AD4A4241ADA50CD00E63495 /* PowerUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD4A4231ADA50CD00E63495 /* PowerUp.swift */; };
 		3AD4A4371ADB232700E63495 /* CategoryNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD4A4361ADB232700E63495 /* CategoryNode.swift */; };
 		3AD713171ADE5EB400E9544C /* fire.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3AD713151ADE5EB400E9544C /* fire.sks */; };
@@ -153,6 +155,8 @@
 		3A96A8D51AE24892007D6F90 /* GameSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameSelectionViewController.swift; sourceTree = "<group>"; };
 		3AB818911AE273450039E315 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		3AB818931AE273730039E315 /* RiverScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = RiverScene.sks; sourceTree = "<group>"; };
+		3AC1E0101AE3A1FC00E016A2 /* button-volumn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button-volumn.png"; path = "CattleBattle/Images/Buttons/button-volumn.png"; sourceTree = SOURCE_ROOT; };
+		3AC1E0111AE3A1FC00E016A2 /* sign-board-standing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "sign-board-standing.png"; path = "CattleBattle/Images/Buttons/sign-board-standing.png"; sourceTree = SOURCE_ROOT; };
 		3AD4A4231ADA50CD00E63495 /* PowerUp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PowerUp.swift; sourceTree = "<group>"; };
 		3AD4A4361ADB232700E63495 /* CategoryNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryNode.swift; sourceTree = "<group>"; };
 		3AD713151ADE5EB400E9544C /* fire.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = fire.sks; sourceTree = "<group>"; };
@@ -287,6 +291,7 @@
 				3A49F83C1ADFA35C0008B2CB /* button-home.png */,
 				3A49F83D1ADFA35C0008B2CB /* button-pause.png */,
 				3A49F83E1ADFA35C0008B2CB /* button-restart.png */,
+				3AC1E0101AE3A1FC00E016A2 /* button-volumn.png */,
 				3A7012A41ADA41EA002D2BB9 /* button-instruction.png */,
 				3A7012A51ADA41EA002D2BB9 /* button-start-game.png */,
 			);
@@ -600,6 +605,7 @@
 		C3AE5D511ACB081B00E8E8F2 /* Background */ = {
 			isa = PBXGroup;
 			children = (
+				3AC1E0111AE3A1FC00E016A2 /* sign-board-standing.png */,
 				3BBE779F1ADF00560071CFEE /* back-button-hi.png */,
 				3B94EEFF1ADFE74200F4F488 /* background 1.jpg */,
 				3A70129F1ADA3CEC002D2BB9 /* background.jpg */,
@@ -717,7 +723,9 @@
 				3A49F8431ADFA35C0008B2CB /* button-restart.png in Resources */,
 				3ADDD0BC1AE0EC0300090FA0 /* spark.sks in Resources */,
 				96972B541AC2C77000FF2DC5 /* LaunchScreen.xib in Resources */,
+				3AC1E0131AE3A1FC00E016A2 /* sign-board-standing.png in Resources */,
 				C33F322E1ADC001E00964B5D /* item-waiting-upgrade.png in Resources */,
+				3AC1E0121AE3A1FC00E016A2 /* button-volumn.png in Resources */,
 				C38B424D1AE2E23400938FC5 /* goat-bumping-right-1.png in Resources */,
 				3A96A8D21AE245E9007D6F90 /* mode-single-player.png in Resources */,
 				3A96A8D41AE2479C007D6F90 /* button-previous-screen.png in Resources */,

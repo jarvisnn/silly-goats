@@ -13,11 +13,15 @@ class RiverScene: SKScene {
     override func didMoveToView(view: SKView) {
         var river = SKSpriteNode(imageNamed: "river.gif")
         
+        river.size.width = 770
+        river.position.x = self.frame.width/2
         
-        println("hello")
+        var action = SKAction.sequence([
+            SKAction.moveToY(river.size.height/2, duration: 0),
+            SKAction.moveToY(self.frame.height-river.size.height/2, duration: 4)
+            ])
+        river.runAction(SKAction.repeatActionForever(action))
         
-        river.position = CGPointMake(500, 500)
         self.addChild(river)
-
     }
 }
