@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-class GameScene: SKScene, SKPhysicsContactDelegate {
+class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate {
     
     struct Constants {
         internal static let BACK_HOME_MESS = "backToPreviousScene"
@@ -23,7 +23,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         private static let ITEM_VELOCITY: CGFloat = 300
         private static let ITEM_INIT_VELOCITY = CGVectorMake(20, 0)
         
-        private static let ITEM_GAP: CGFloat = 5
         private static let ITEM_SHOW_TIME: Double = 5
         
         private static let Z_INDEX_ITEM: CGFloat = 1000000
@@ -56,7 +55,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private var pauseScreen: PauseScene!
     private var gameOverScreen: [SKSpriteNode] = []
     private var categories = [CategoryNode](count: 2, repeatedValue: CategoryNode())
-    private var categoryBound: [CGFloat] = [0, 0]
     private var zIndex: CGFloat = 0
     private var timerNode: SKLabelNode!
     
@@ -65,9 +63,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private var frameCount: Int = 0    // this is use to delay actions in update function
     
     private var gameModel: GameModel!
-    
+
+    private var _tapGesture: UITapGestureRecognizer!
+    private var _leftPanGesture: UIPanGestureRecognizer!
+    private var _rightPanGesture: UIPanGestureRecognizer!
+
     internal func setupGame(mode: GameModel.GameMode) {
         gameModel = GameModel(gameMode: mode)
+    }
+    
+    private func _setupRecognizer() {
+        _tapGesture = UITapGestureRecognizer(target: self, action: "tapHandler:")
+        _leftPanGesture = UIPanGestureRecognizer(target: self, action: "panHandler:")
+        _rightPanGesture = UIPanGestureRecognizer(target: self, action: "panHandler:")
+        self.view!.addGestureRecognizer(_tapGesture)
+        self.view!.addGestureRecognizer(_leftPanGesture)
+        self.view!.addGestureRecognizer(_rightPanGesture)
+        
+        for recognizer in self.view!.gestureRecognizers! {
+            (recognizer as! UIGestureRecognizer).delegate = self
+        }
     }
     
     private func _setupTiming() {
@@ -268,6 +283,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         physicsWorld.contactDelegate = self
         self.physicsWorld.gravity = CGVectorMake(0, 0)
         
+        _setupRecognizer()
         _setupTiming()
         _setupLoadingButton()
         _setupPauseButton()
@@ -287,103 +303,111 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    private func itemDidCollideWithCategory(item: PowerUpNode, category: CategoryNode) {
-        if gameModel.gameMode == .ITEM_MODE {
-            item.removeFromParent()
-            playerScoreNode[category.side.index].score += 10
-        } else {
-            if categoryBound[category.side.index] + item.size.width + Constants.ITEM_GAP >= category.size.width {
-                return
-            } else {
-                let xx = categoryBound[category.side.index] + Constants.ITEM_GAP + item.size.width / 2
-                let x = category.side == .LEFT ? xx : frame.width - xx
-                let y = category.size.height / 2
-                
-                categoryBound[category.side.index] += Constants.ITEM_GAP + item.size.width
-                
-                item.side = category.side
-                item.name = PowerUpNode.Constants.IDENTIFIER_STORED
-                
-                item.physicsBody!.contactTestBitMask = GameScene.Constants.None
-                item.physicsBody!.collisionBitMask = GameScene.Constants.None
-                item.physicsBody!.dynamic = false
-                
-                let moveAction = (SKAction.moveTo(CGPointMake(x, y), duration:0.5))
-                item.runAction(moveAction, completion: { () -> Void in
-                    item.position = item.parent!.convertPoint(item.position, toNode: category)
-                    item.removeFromParent()
-                    category.addChild(item)
-                })
-            }
-        }
-    }
     
     func didBeginContact(contact: SKPhysicsContact) {
-        var firstBody: SKPhysicsBody = contact.bodyA
-        var secondBody: SKPhysicsBody = contact.bodyB
+        var bodyA: SKPhysicsBody = contact.bodyA
+        var bodyB: SKPhysicsBody = contact.bodyB
         
-        //check if both are goats
-        if ((firstBody.categoryBitMask & GameScene.Constants.Goat) != 0 && (secondBody.categoryBitMask & GameScene.Constants.Goat) != 0) {
-           goatDidCollideWithAnother([firstBody.node as! AnimalNode, secondBody.node as! AnimalNode])
-        } else if ((firstBody.categoryBitMask == GameScene.Constants.Category && secondBody.categoryBitMask == GameScene.Constants.Item)
-            || (firstBody.categoryBitMask == GameScene.Constants.Item && secondBody.categoryBitMask == GameScene.Constants.Category)) {
-                if firstBody.node!.name == CategoryNode.Constants.IDENTIFIER {
-                    swap(&firstBody, &secondBody)
+        if ((bodyA.categoryBitMask & GameScene.Constants.Goat) != 0 && (bodyB.categoryBitMask & GameScene.Constants.Goat) != 0) {
+           goatDidCollideWithAnother([bodyA.node as! AnimalNode, bodyB.node as! AnimalNode])
+        } else if ((bodyA.categoryBitMask == GameScene.Constants.Category && bodyB.categoryBitMask == GameScene.Constants.Item) || (bodyA.categoryBitMask == GameScene.Constants.Item && bodyB.categoryBitMask == GameScene.Constants.Category)) {
+                if bodyA.node!.name == CategoryNode.Constants.IDENTIFIER {
+                    swap(&bodyA, &bodyB)
                 }
-                itemDidCollideWithCategory(firstBody.node as! PowerUpNode, category: secondBody.node as! CategoryNode)
+                var item = bodyA.node as! PowerUpNode
+                var category = bodyB.node as! CategoryNode
+                if gameModel.gameMode == .ITEM_MODE {
+                    item.removeFromParent()
+                    playerScoreNode[category.side.index].score += 10
+                } else {
+                    category.add(item)
+                }
+
         }
     }
     
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
-        for touch in touches {
-            var _touch = touch as! UITouch
-            var node = self.nodeAtPoint(_touch.locationInNode(self))
-           
-            if node.name == LoadingNode.Constants.IDENTIFIER {
-                _selectButton(node as! LoadingNode)
-                
-            } else if node.name == ArrowNode.Constants.IDENTIFIER {
-                _deploy(node as! ArrowNode)
-                
-            } else if node.name == PowerUpNode.Constants.IDENTIFIER {
-                node.physicsBody!.velocity = CGVector.zeroVector
-                node.physicsBody!.dynamic = false
-            }
-        }
-    }
-    
-    override func touchesMoved(touches: Set<NSObject>, withEvent event: UIEvent) {
-        for touch in touches {
-            var _touch = touch as! UITouch
-            var position = _touch.locationInNode(self)
-            var previous = _touch.previousLocationInNode(self)
-            var node = nodeAtPoint(previous)
+    internal func tapHandler(recognizer: UITapGestureRecognizer) {
+        println("tap")
+        var location = self.convertPointFromView(recognizer.locationInView(recognizer.view))
+        var node = self.nodeAtPoint(location)
+        
+        if node.name == LoadingNode.Constants.IDENTIFIER {
+            _selectButton(node as! LoadingNode)
             
+        } else if node.name == ArrowNode.Constants.IDENTIFIER {
+            _deploy(node as! ArrowNode)
+            
+        }  else if node is MenuButtonNode {
+            pauseScreen.buttonClicked((node as! MenuButtonNode).button.buttonType)
+        }
+    }
+    
+    internal func panHandler(recognizer: UIPanGestureRecognizer) {
+        var end = recognizer.locationInView(recognizer.view)
+        var translation = recognizer.translationInView(recognizer.view!)
+        var start = CGPointMake(end.x - translation.x, end.y - translation.y)
+        
+        start = self.convertPointFromView(start)
+        end = self.convertPointFromView(end)
+        
+        var node = self.nodeAtPoint(start)
+        if recognizer.state == .Began {
+            println("start")
+            if node.name == PowerUpNode.Constants.IDENTIFIER_STORED {
+                var itemNode = node as! PowerUpNode
+                var side = itemNode.side
+                var index = find(categories[side.index].items, itemNode)
+                gameModel.categorySelectedItem[side.index] = index
+                itemNode.updateItemStatus(.SELECTED)
+            }
+            
+        } else if recognizer.state == .Changed {
             if node.name == PowerUpNode.Constants.IDENTIFIER {
-                node.position = position
+                if start != end {
+                    node.position = end
+                    recognizer.setTranslation(CGPoint.zeroPoint, inView: recognizer.view)
+                }
+                
+            } else if node.name == PowerUpNode.Constants.IDENTIFIER_STORED {
+                var effect = SKEmitterNode.getEmitterFromFile("apply")
+                effect.zPosition = -1
+                effect.position = end
+                effect.targetNode = self
+                self.addChild(effect)
+                
+            }
+        } else if recognizer.state == .Ended {
+            println("end")
+            println(recognizer.view!.multipleTouchEnabled)
+            if node.name == PowerUpNode.Constants.IDENTIFIER {
+                var speed = self.convertPointFromView(recognizer.velocityInView(recognizer.view))
+                _applyVelocity(node, x: speed.x, y: speed.y)
+            } else if node.name == PowerUpNode.Constants.IDENTIFIER_STORED {
+                var itemNode = node as! PowerUpNode
+                itemNode.updateItemStatus(.WAITING)
             }
         }
     }
     
     override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
-        for touch in touches {
-            var _touch = touch as! UITouch
-            var position = _touch.locationInNode(self)
-            var previous = _touch.previousLocationInNode(self)
-            var node = nodeAtPoint(previous)
-            
-            if node.name == PowerUpNode.Constants.IDENTIFIER {
-                _applyVelocity(node, position: position, previous: previous)
-            } else if node.name == PowerUpNode.Constants.IDENTIFIER_STORED {
-                _selectItem(node as! PowerUpNode)
-            } else if (node is AnimalNode) {
-                for item in gameModel.categorySelectedItem {
-                    _applyPowerUp(item, target: node as? AnimalNode)
-                }
-            } else if node is MenuButtonNode {
-                pauseScreen.buttonClicked((node as! MenuButtonNode).button.buttonType)
-            }
-        }
+//        for touch in touches {
+//            var _touch = touch as! UITouch
+//            var position = _touch.locationInNode(self)
+//            var previous = _touch.previousLocationInNode(self)
+//            var node = nodeAtPoint(previous)
+//            
+//            if node.name == PowerUpNode.Constants.IDENTIFIER {
+//                _applyVelocity(node, position: position, previous: previous)
+//            } else if node.name == PowerUpNode.Constants.IDENTIFIER_STORED {
+//                _selectItem(node as! PowerUpNode)
+//            } else if (node is AnimalNode) {
+//                for item in gameModel.categorySelectedItem {
+//                    if item != nil {
+//                        _applyPowerUp(item!, target: node as? AnimalNode)
+//                    }
+//                }
+//            }
+//        }
     }
     
     override func update(currentTime: CFTimeInterval) {
@@ -474,21 +498,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     private func _selectItem(item: PowerUpNode) {
-        let index = item.side.index
-        if var currentSelectedItem = gameModel.categorySelectedItem[index] {
-            currentSelectedItem.updateItemStatus(.WAITING)
-        }
-        
-        gameModel.categorySelectedItem[index] = item
-        item.updateItemStatus(.SELECTED)
-        
-        if item.powerUpItem.getImplementationType() {
-            Animation.applyPowerUp(item, targets: [nil], scene: self, removeItemFunc: removeFromCategory)
-        }
+//        let index = item.side.index
+//        if var currentSelectedItem = gameModel.categorySelectedItem[index] {
+//            currentSelectedItem.updateItemStatus(.WAITING)
+//        }
+//        
+//        gameModel.categorySelectedItem[index] = item
+//        item.updateItemStatus(.SELECTED)
+//        
+//        if item.powerUpItem.getImplementationType() {
+//            var category = item.parent as! CategoryNode
+//            Animation.applyPowerUp(item, targets: [nil], scene: self, removeItemFunc: category.remove)
+//        }
     }
     
-    private func _applyPowerUp(item: PowerUpNode?, target: AnimalNode?) {
-        if item != nil && item!.powerUpItem.powerType == .FREEZE && target != nil {
+    private func _applyPowerUp(item: PowerUpNode, target: AnimalNode?) {
+        if item.powerUpItem.powerType == .FREEZE && target != nil {
+            var category = item.parent as! CategoryNode
             var targets = [target]
             for i in self.children {
                 if var node = i as? AnimalNode {
@@ -497,40 +523,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     }
                 }
             }
-            Animation.applyPowerUp(item, targets: targets, scene: self, removeItemFunc: removeFromCategory)
+            Animation.applyPowerUp(item, targets: targets, scene: self, removeItemFunc: category.remove)
         } else {
-            Animation.applyPowerUp(item, targets: [target], scene: self, removeItemFunc: removeFromCategory)
+            var category = item.parent as! CategoryNode
+            Animation.applyPowerUp(item, targets: [target], scene: self, removeItemFunc: category.remove)
         }
     }
-    
-    private func removeFromCategory(item: PowerUpNode) {
-        let index = item.side.index
         
-        var x = item.position.x
-        var y = item.position.y
-        var value = index == 0 ? item.size.width+Constants.ITEM_GAP : -item.size.width-Constants.ITEM_GAP
-        
-        categoryBound[index] -= item.size.width + Constants.ITEM_GAP
-        gameModel.categorySelectedItem[index] = nil
-        item.removeFromParent()
-        
-        var node = nodeAtPoint(CGPointMake(x+value, y))
-        while node.name == PowerUpNode.Constants.IDENTIFIER_STORED {
-            let moveAction = (SKAction.moveTo(CGPointMake(x, y), duration:0.2))
-            node.runAction(moveAction)
-            
-            x += value
-            node = nodeAtPoint(CGPointMake(x+value, y))
-        }
-    }
-    
-    private func _applyVelocity(node: SKNode, position: CGPoint, previous: CGPoint) {
-        var x = position.x - previous.x
-        var y = position.y - previous.y
+    private func _applyVelocity(node: SKNode, x: CGFloat, y: CGFloat) {
         var le = sqrt(x * x + y * y)
         
         node.physicsBody!.dynamic = true
-        if previous != position {
+        if le != 0 {
             node.physicsBody!.velocity = CGVector(dx: x / le * Constants.ITEM_VELOCITY, dy: y / le * Constants.ITEM_VELOCITY)
         }
     }
@@ -566,6 +570,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private func launchSheepForAI(readyIndex: Int, trackIndex: Int) {
         gameModel.selectForSide(.RIGHT, index: readyIndex)
         _deploy(arrows[trackIndex][1])
+    }
+    
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+    
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
+        var x = touch.locationInView(self.view).x
+        if gestureRecognizer == _tapGesture {
+            return true
+        }
+        if (gestureRecognizer == _leftPanGesture) && (x < self.view!.frame.width / 2) {
+            return true
+        }
+        if (gestureRecognizer == _rightPanGesture) && (x >= self.view!.frame.width / 2) {
+            return true
+        }
+        return false
     }
     
 }

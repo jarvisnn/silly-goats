@@ -32,7 +32,7 @@ class GameModel {
     }
     
     internal var selectedGoat = [0, 0]
-    internal var categorySelectedItem: [PowerUpNode?] = [nil, nil]
+    internal var categorySelectedItem: [Int?] = [nil, nil]
     internal var score = [0, 0]
     
     init(gameMode: GameMode) {

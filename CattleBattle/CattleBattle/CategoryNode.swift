@@ -17,6 +17,12 @@ class CategoryNode: SKSpriteNode {
         internal static let SCALE_X: CGFloat = 0.6
         internal static let SCALE_Y: CGFloat = 0.5
         internal static let BODY_OFFSET: CGFloat = 15
+        internal static let ITEM_GAP: CGFloat = 5
+ 
+        internal static let MAX_POWERUP: Int = 4
+        
+        internal static let ADD_DURATION: Double = 0.5
+        internal static let REMOVE_DURATION: Double = 0.2
         
         internal static var textures = Animal.Side.allSides.map { (side) -> SKTexture in
             return SKTexture(imageNamed: CategoryNode._getImageFileName(side))
@@ -52,6 +58,48 @@ class CategoryNode: SKSpriteNode {
         physicsBody!.dynamic = false
         
         physicsBody!.restitution = 1
+    }
+    
+    internal func _getPosition(item: PowerUpNode, position: Int) -> CGPoint {
+        var offset = (Constants.ITEM_GAP + item.size.width) * CGFloat(position) + item.size.width / 2
+        var x = self.side == .LEFT ? offset : self.parent!.frame.width - offset
+        var y = self.size.height / 2
+        return CGPointMake(x, y)
+    }
+    
+    internal func add(item: PowerUpNode) {
+        if items.count >= Constants.MAX_POWERUP {
+            return
+        }
+        
+        item.side = self.side
+        item.name = PowerUpNode.Constants.IDENTIFIER_STORED
+        
+        item.physicsBody!.contactTestBitMask = GameScene.Constants.None
+        item.physicsBody!.collisionBitMask = GameScene.Constants.None
+        item.physicsBody!.dynamic = false
+        
+        items.append(item)
+        
+        var moveAction = (SKAction.moveTo(_getPosition(item, position: items.count - 1), duration: Constants.ADD_DURATION))
+        item.runAction(moveAction, completion: { () -> Void in
+            item.position = item.parent!.convertPoint(item.position, toNode: self)
+            item.removeFromParent()
+            self.addChild(item)
+        })
+    }
+
+    internal func remove(item: PowerUpNode) {
+        let index = item.side.index
+        
+        GameModel.Constants.gameModel.categorySelectedItem[index] = nil
+        items.removeAtIndex(find(items, item)!)
+        item.removeFromParent()
+        
+        for (index, node) in enumerate(items) {
+            var action = SKAction.moveTo(_getPosition(node, position: index), duration: Constants.REMOVE_DURATION)
+            node.runAction(action)
+        }
     }
 
     override init(texture: SKTexture, color: SKColor, size: CGSize) {
