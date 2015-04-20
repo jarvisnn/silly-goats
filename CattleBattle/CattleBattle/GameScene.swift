@@ -327,7 +327,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     }
     
     internal func tapHandler(recognizer: UITapGestureRecognizer) {
-        println("tap")
         var location = self.convertPointFromView(recognizer.locationInView(recognizer.view))
         var node = self.nodeAtPoint(location)
         
@@ -352,7 +351,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         
         var node = self.nodeAtPoint(start)
         if recognizer.state == .Began {
-            println("start")
             if node.name == PowerUpNode.Constants.IDENTIFIER_STORED {
                 var itemNode = node as! PowerUpNode
                 var side = itemNode.side
@@ -377,39 +375,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
                 
             }
         } else if recognizer.state == .Ended {
-            println("end")
-            println(recognizer.view!.multipleTouchEnabled)
             if node.name == PowerUpNode.Constants.IDENTIFIER {
                 var speed = self.convertPointFromView(recognizer.velocityInView(recognizer.view))
                 _applyVelocity(node, x: speed.x, y: speed.y)
             } else if node.name == PowerUpNode.Constants.IDENTIFIER_STORED {
                 var itemNode = node as! PowerUpNode
                 itemNode.updateItemStatus(.WAITING)
+
+                node = self.nodeAtPoint(end)
+                if node is AnimalNode {
+                    _applyPowerUp(itemNode, target: node as? AnimalNode)
+                }
             }
         }
     }
-    
-    override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
-//        for touch in touches {
-//            var _touch = touch as! UITouch
-//            var position = _touch.locationInNode(self)
-//            var previous = _touch.previousLocationInNode(self)
-//            var node = nodeAtPoint(previous)
-//            
-//            if node.name == PowerUpNode.Constants.IDENTIFIER {
-//                _applyVelocity(node, position: position, previous: previous)
-//            } else if node.name == PowerUpNode.Constants.IDENTIFIER_STORED {
-//                _selectItem(node as! PowerUpNode)
-//            } else if (node is AnimalNode) {
-//                for item in gameModel.categorySelectedItem {
-//                    if item != nil {
-//                        _applyPowerUp(item!, target: node as? AnimalNode)
-//                    }
-//                }
-//            }
-//        }
-    }
-    
+        
     override func update(currentTime: CFTimeInterval) {
         frameCount = (frameCount + 1) % 45  // The AI will launch a sheep every 45 frame
         for i in self.children {
@@ -495,21 +475,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             self.view!.paused = true
             self.paused = true
         })
-    }
-    
-    private func _selectItem(item: PowerUpNode) {
-//        let index = item.side.index
-//        if var currentSelectedItem = gameModel.categorySelectedItem[index] {
-//            currentSelectedItem.updateItemStatus(.WAITING)
-//        }
-//        
-//        gameModel.categorySelectedItem[index] = item
-//        item.updateItemStatus(.SELECTED)
-//        
-//        if item.powerUpItem.getImplementationType() {
-//            var category = item.parent as! CategoryNode
-//            Animation.applyPowerUp(item, targets: [nil], scene: self, removeItemFunc: category.remove)
-//        }
     }
     
     private func _applyPowerUp(item: PowerUpNode, target: AnimalNode?) {

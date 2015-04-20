@@ -60,11 +60,20 @@ class CategoryNode: SKSpriteNode {
         physicsBody!.restitution = 1
     }
     
-    internal func _getPosition(item: PowerUpNode, position: Int) -> CGPoint {
-        var offset = (Constants.ITEM_GAP + item.size.width) * CGFloat(position) + item.size.width / 2
+    internal func _getPosition(item: PowerUpNode, index: Int) -> CGPoint {
+        var offset = (Constants.ITEM_GAP + item.size.width) * CGFloat(index) + item.size.width / 2
         var x = self.side == .LEFT ? offset : self.parent!.frame.width - offset
         var y = self.size.height / 2
         return CGPointMake(x, y)
+    }
+    
+    private func _moveItem(item: PowerUpNode, index: Int) {
+        var moveAction = (SKAction.moveTo(_getPosition(item, index: index), duration: Constants.ADD_DURATION))
+        item.runAction(moveAction, completion: { () -> Void in
+            item.position = item.parent!.convertPoint(item.position, toNode: self)
+            item.removeFromParent()
+            self.addChild(item)
+        })
     }
     
     internal func add(item: PowerUpNode) {
@@ -75,30 +84,25 @@ class CategoryNode: SKSpriteNode {
         item.side = self.side
         item.name = PowerUpNode.Constants.IDENTIFIER_STORED
         
-        item.physicsBody!.contactTestBitMask = GameScene.Constants.None
-        item.physicsBody!.collisionBitMask = GameScene.Constants.None
-        item.physicsBody!.dynamic = false
+        item.physicsBody = nil
         
         items.append(item)
         
-        var moveAction = (SKAction.moveTo(_getPosition(item, position: items.count - 1), duration: Constants.ADD_DURATION))
-        item.runAction(moveAction, completion: { () -> Void in
-            item.position = item.parent!.convertPoint(item.position, toNode: self)
-            item.removeFromParent()
-            self.addChild(item)
-        })
+        _moveItem(item, index: items.count - 1)
     }
 
-    internal func remove(item: PowerUpNode) {
-        let index = item.side.index
+    internal func remove(removedItem: PowerUpNode) {
+        let index = removedItem.side.index
         
         GameModel.Constants.gameModel.categorySelectedItem[index] = nil
-        items.removeAtIndex(find(items, item)!)
-        item.removeFromParent()
+        items.removeAtIndex(find(items, removedItem)!)
+        removedItem.removeFromParent()
         
-        for (index, node) in enumerate(items) {
-            var action = SKAction.moveTo(_getPosition(node, position: index), duration: Constants.REMOVE_DURATION)
-            node.runAction(action)
+        for (index, item) in enumerate(items) {
+            item.removeFromParent()
+            item.position = self.parent!.convertPoint(item.position, fromNode: self)
+            self.parent!.addChild(item)
+            _moveItem(item, index: index)
         }
     }
 
