@@ -122,11 +122,6 @@ class Animation {
     
     internal class func applyPowerUp(powerUpItem: PowerUpNode?, targets: [AnimalNode?], scene: GameScene, removeItemFunc: ((PowerUpNode) -> ())) {
         if var item = powerUpItem, animal = targets[0] {
-            var isValid = (item.side == animal.animal.side) == PowerUp.PowerType.targetFriendly(item.powerUpItem.powerType)
-            if !isValid {
-                return
-            }
-            
             if item.powerUpItem.powerType == .BLACK_HOLE {
                 Animation._applyBlackHole(scene, node: animal)
                 
@@ -143,12 +138,13 @@ class Animation {
         }
     }
     
-    internal class func draggingPowerUp(powerType: PowerUp.PowerType, scene: SKScene, position: CGPoint) {
+    internal class func draggingPowerUp(powerType: PowerUp.PowerType, scene: SKScene, position: CGPoint) -> SKEmitterNode {
         var fileName = Constants.DRAGGING_KEYWORD + powerType.rawValue
         var effect = SKEmitterNode.getEmitterFromFile(fileName)
         effect.zPosition = -1
         effect.position = position
         effect.targetNode = scene
         scene.addChild(effect)
+        return effect
     }
 }

@@ -377,14 +377,65 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
                 var itemNode = node as! PowerUpNode
                 itemNode.updateItemStatus(.WAITING)
 
-                node = self.nodeAtPoint(end)
-                if node is AnimalNode {
-                    _applyPowerUp(itemNode, target: node as? AnimalNode)
+                var effect = Animation.draggingPowerUp((node as! PowerUpNode).powerUpItem.powerType, scene: self, position: end)
+
+                var node = _findNearestAnimal(itemNode, effect: effect)
+                if node != nil {
+                    _applyPowerUp(itemNode, target: node!)
                 }
             }
         }
     }
+    
+    private func _isItemValid(itemNode: PowerUpNode, animalNode: AnimalNode) -> Bool {
+        if itemNode.powerUpItem.powerType == .FREEZE {
+            return true
+        }
+        return (itemNode.side == animalNode.animal.side) == PowerUp.PowerType.targetFriendly(itemNode.powerUpItem.powerType)
+    }
         
+    private func _findNearestAnimal(itemNode: PowerUpNode, effect: SKEmitterNode) -> AnimalNode? {
+        var result: AnimalNode?
+        for node in self.children {
+            if var animalNode = node as? AnimalNode {
+                var range = CGPoint(x: effect.particlePositionRange.dx, y: effect.particlePositionRange.dy)
+                var size = range * 2.0
+                var origin = effect.position - range
+                var effectFrame = CGRect(origin: origin, size: CGSize(width: size.x, height: size.y))
+                
+                var isOver = CGRectIntersection(effectFrame, animalNode.frame).size != CGSize.zeroSize
+                var isValid = _isItemValid(itemNode, animalNode: animalNode)
+                println(animalNode.frame)
+                if isOver && isValid {
+                    if result == nil {
+                        result = animalNode
+                    } else {
+                        if (animalNode.position - effect.position).getDistance() < (result!.position - effect.position).getDistance() {
+                            result = animalNode
+                        }
+                    }
+                }
+            }
+        }
+        return result
+    }
+        
+    private func _applyPowerUp(item: PowerUpNode, target: AnimalNode) {
+        var targets = [target]
+        var category = item.parent as! CategoryNode
+        if item.powerUpItem.powerType == .FREEZE {
+            var category = item.parent as! CategoryNode
+            for i in self.children {
+                if var node = i as? AnimalNode {
+                    if node.row == target.row {
+                        targets.append(node)
+                    }
+                }
+            }
+        }
+        Animation.applyPowerUp(item, targets: [target], scene: self, removeItemFunc: category.remove)
+    }
+    
     override func update(currentTime: CFTimeInterval) {
         frameCount = (frameCount + 1) % 45
         for i in self.children {
@@ -472,26 +523,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         })
     }
     
-    private func _applyPowerUp(item: PowerUpNode, target: AnimalNode?) {
-        if item.powerUpItem.powerType == .FREEZE && target != nil {
-            var category = item.parent as! CategoryNode
-            var targets = [target]
-            for i in self.children {
-                if var node = i as? AnimalNode {
-                    if target!.position.y - 50 < node.position.y && node.position.y < target!.position.y + 50 && node != target {
-                        targets.append(node)
-                    }
-                }
-            }
-            Animation.applyPowerUp(item, targets: targets, scene: self, removeItemFunc: category.remove)
-        } else {
-            var category = item.parent as! CategoryNode
-            Animation.applyPowerUp(item, targets: [target], scene: self, removeItemFunc: category.remove)
-        }
-    }
-        
     private func _applyVelocity(node: SKNode, x: CGFloat, y: CGFloat) {
-        var le = sqrt(x * x + y * y)
+        var le = CGPoint(x: x, y: y).getDistance()
         
         node.physicsBody!.dynamic = true
         if le != 0 {
@@ -511,7 +544,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         var currentSize = loadingButton[side.index][selectedButton].animal.size
         var y = Constants.LAUNCH_Y_TOP - Constants.LAUNCH_Y_GAP * CGFloat(selectedRow)
 
-        var sprite = AnimalNode(size: currentSize, side: side)
+        var sprite = AnimalNode(size: currentSize, side: side, row: selectedRow)
         sprite.position.x = Constants.LAUNCH_X[side.index]
         sprite.position.y = y
         sprite.zPosition = ++zIndex

@@ -31,3 +31,25 @@ extension SKEmitterNode {
         return NSKeyedUnarchiver.unarchiveObjectWithFile(resource!) as! SKEmitterNode
     }
 }
+
+extension CGPoint {
+    func distanceTo(toPoint: CGPoint) -> CGFloat {
+        return (self - toPoint).getDistance()
+    }
+    
+    func getDistance() -> CGFloat {
+        return sqrt(self.x * self.x + self.y * self.y)
+    }
+}
+
+func +(left: CGPoint, right: CGPoint) -> CGPoint {
+    return CGPoint(x: left.x + right.x, y: left.y + right.y)
+}
+
+func -(left: CGPoint, right: CGPoint) -> CGPoint {
+    return CGPoint(x: left.x - right.x, y: left.y - right.y)
+}
+
+func *(left: CGPoint, right: CGFloat) -> CGPoint {
+    return CGPoint(x: left.x * right, y: left.y * right)
+}

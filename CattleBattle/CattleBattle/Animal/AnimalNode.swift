@@ -12,6 +12,7 @@ import SpriteKit
 class AnimalNode: SKSpriteNode {
     
     internal var animal = Animal(side: .LEFT, size: .TINY, status: .DEPLOYED)
+    internal var row: Int = 0
     
     struct Constants {
         internal static let VELOCITY: CGFloat = 200
@@ -23,7 +24,7 @@ class AnimalNode: SKSpriteNode {
         internal static let IDENTIFIER = "animalRunning"
     }
 
-    init(size: Animal.Size, side: Animal.Side) {
+    init(size: Animal.Size, side: Animal.Side, row: Int) {
         var scale = Animal.Constants.scale[find(Animal.Status.allStatuses, animal.status)!][find(Animal.Size.allSizes, animal.size)!]
         super.init(texture: animal.getTexture(), color: UIColor.clearColor(), size: CGSize(width: scale, height: scale))
         
@@ -31,6 +32,7 @@ class AnimalNode: SKSpriteNode {
         self.anchorPoint = CGPointMake(0.5, 0)
         
         self.animal = Animal(side: side, size: size, status: .DEPLOYED)
+        self.row = row
         
         updateAnimalStatus(.DEPLOYED)
         setupPhysicsBody()
