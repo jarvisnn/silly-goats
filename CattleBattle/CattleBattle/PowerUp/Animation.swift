@@ -39,8 +39,8 @@ class Animation {
     }
     
     private class func _applyFreezing(scene: SKScene, nodes: [AnimalNode?]) {
-        let fallingIce = getEmitterFromFile("freeze")
-        let fog = getEmitterFromFile("ice-fog")
+        let fallingIce = SKEmitterNode.getEmitterFromFile("freeze")
+        let fog = SKEmitterNode.getEmitterFromFile("ice-fog")
         
         fallingIce.position = CGPointMake(scene.frame.width/2, scene.frame.height)
         fallingIce.particleLifetime = (scene.frame.height - nodes[0]!.position.y) / fallingIce.particleSpeed
@@ -82,21 +82,21 @@ class Animation {
     }
     
     private class func _applyUpgrading(scene: SKScene, node: AnimalNode) {
-        let upgradeSmoke = getEmitterFromFile("upgrade")
+        var upgradeSmoke = SKEmitterNode.getEmitterFromFile("upgrade")
         upgradeSmoke.zPosition = 1
         
         upgradeSmoke.particlePositionRange = CGVectorMake(node.size.width*2, node.size.height*2)
         upgradeSmoke.position = CGPointMake(0, node.size.height)
         node.addChild(upgradeSmoke)
         
-        let nextSize = find(Animal.Size.allSizes, node.animal.size)! + 1
+        var nextSize = find(Animal.Size.allSizes, node.animal.size)! + 1
         if nextSize < Animal.Size.allSizes.count {
             node.updateAnimalType(Animal.Size.allSizes[nextSize])
         }
     }
     
     private class func _applyFiring(scene: SKScene, node: AnimalNode) {
-        let fire = getEmitterFromFile("fire")
+        let fire = SKEmitterNode.getEmitterFromFile("fire")
         fire.zPosition = -1
         fire.position = node.position
         fire.position.y += node.size.height*5/9
@@ -140,10 +140,5 @@ class Animation {
             }
             removeItemFunc(item)
         }
-    }
-    
-    private class func getEmitterFromFile(filename: String) -> SKEmitterNode {
-        let resource = NSBundle.mainBundle().pathForResource(filename, ofType: "sks")
-        return NSKeyedUnarchiver.unarchiveObjectWithFile(resource!) as! SKEmitterNode
     }
 }

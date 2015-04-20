@@ -309,7 +309,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 item.physicsBody!.dynamic = false
                 
                 let moveAction = (SKAction.moveTo(CGPointMake(x, y), duration:0.5))
-                item.runAction(moveAction)
+                item.runAction(moveAction, completion: { () -> Void in
+                    item.position = item.parent!.convertPoint(item.position, toNode: category)
+                    item.removeFromParent()
+                    category.addChild(item)
+                })
             }
         }
     }

@@ -24,3 +24,10 @@ extension SKNode {
         }
     }
 }
+
+extension SKEmitterNode {
+    class func getEmitterFromFile(filename: String) -> SKEmitterNode {
+        let resource = NSBundle.mainBundle().pathForResource(filename, ofType: "sks")
+        return NSKeyedUnarchiver.unarchiveObjectWithFile(resource!) as! SKEmitterNode
+    }
+}

@@ -33,16 +33,15 @@ class CategoryNode: SKSpriteNode {
     }
 
     internal var side: Animal.Side!
+    internal var items = [PowerUpNode]()
     
     init(side: Animal.Side) {
         var texture = CategoryNode.getTexture(side)
         var size = texture.size()
-        super.init(texture: texture, color: SKColor.clearColor(), size: size)
+        super.init(texture: texture, color: SKColor.clearColor(), size: CGSizeMake(size.width * Constants.SCALE_X, size.height * Constants.SCALE_Y))
         
         self.name = Constants.IDENTIFIER
         self.side = side
-        self.xScale = Constants.SCALE_X
-        self.yScale = Constants.SCALE_Y
         
         var bodySize = CGSizeMake(self.size.width - Constants.BODY_OFFSET, self.size.height - Constants.BODY_OFFSET)
         physicsBody = SKPhysicsBody(rectangleOfSize: bodySize)
