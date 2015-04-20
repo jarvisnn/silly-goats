@@ -60,7 +60,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     
     private var item_velocity: CGVector = Constants.ITEM_INIT_VELOCITY
     
-    private var frameCount: Int = 0    // this is use to delay actions in update function
+    private var frameCount: Int = 0
     
     private var gameModel: GameModel!
 
@@ -367,12 +367,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
                 }
                 
             } else if node.name == PowerUpNode.Constants.IDENTIFIER_STORED {
-                var effect = SKEmitterNode.getEmitterFromFile("apply")
-                effect.zPosition = -1
-                effect.position = end
-                effect.targetNode = self
-                self.addChild(effect)
-                
+                Animation.draggingPowerUp((node as! PowerUpNode).powerUpItem.powerType, scene: self, position: end)
             }
         } else if recognizer.state == .Ended {
             if node.name == PowerUpNode.Constants.IDENTIFIER {
@@ -391,7 +386,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     }
         
     override func update(currentTime: CFTimeInterval) {
-        frameCount = (frameCount + 1) % 45  // The AI will launch a sheep every 45 frame
+        frameCount = (frameCount + 1) % 45
         for i in self.children {
             var node = i as! SKNode
             

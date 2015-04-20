@@ -120,7 +120,10 @@
 		C3D7EB051AD0704400A61851 /* river.gif in Resources */ = {isa = PBXBuildFile; fileRef = C3D7EB041AD0704400A61851 /* river.gif */; };
 		C3E9D8CB1AE4276600C45089 /* PauseScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E9D8CA1AE4276600C45089 /* PauseScene.swift */; };
 		C3E9D8CD1AE4369A00C45089 /* ScoreNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E9D8CC1AE4369A00C45089 /* ScoreNode.swift */; };
-		C3E9D8CF1AE4F45400C45089 /* apply.sks in Resources */ = {isa = PBXBuildFile; fileRef = C3E9D8CE1AE4F45400C45089 /* apply.sks */; };
+		C3FB2ADB1AE56E9900244916 /* dragging-blackhole.sks in Resources */ = {isa = PBXBuildFile; fileRef = C3FB2AD71AE56E9900244916 /* dragging-blackhole.sks */; };
+		C3FB2ADC1AE56E9900244916 /* dragging-fire.sks in Resources */ = {isa = PBXBuildFile; fileRef = C3FB2AD81AE56E9900244916 /* dragging-fire.sks */; };
+		C3FB2ADD1AE56E9900244916 /* dragging-freeze.sks in Resources */ = {isa = PBXBuildFile; fileRef = C3FB2AD91AE56E9900244916 /* dragging-freeze.sks */; };
+		C3FB2ADE1AE56E9900244916 /* dragging-upgrade.sks in Resources */ = {isa = PBXBuildFile; fileRef = C3FB2ADA1AE56E9900244916 /* dragging-upgrade.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -251,7 +254,10 @@
 		C3D7EB041AD0704400A61851 /* river.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = river.gif; sourceTree = "<group>"; };
 		C3E9D8CA1AE4276600C45089 /* PauseScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PauseScene.swift; sourceTree = "<group>"; };
 		C3E9D8CC1AE4369A00C45089 /* ScoreNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreNode.swift; sourceTree = "<group>"; };
-		C3E9D8CE1AE4F45400C45089 /* apply.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = apply.sks; sourceTree = "<group>"; };
+		C3FB2AD71AE56E9900244916 /* dragging-blackhole.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = "dragging-blackhole.sks"; sourceTree = "<group>"; };
+		C3FB2AD81AE56E9900244916 /* dragging-fire.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = "dragging-fire.sks"; sourceTree = "<group>"; };
+		C3FB2AD91AE56E9900244916 /* dragging-freeze.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = "dragging-freeze.sks"; sourceTree = "<group>"; };
+		C3FB2ADA1AE56E9900244916 /* dragging-upgrade.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = "dragging-upgrade.sks"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -471,7 +477,10 @@
 			isa = PBXGroup;
 			children = (
 				3A76879F1ADE9CBE00BA87F2 /* upgrade.sks */,
-				C3E9D8CE1AE4F45400C45089 /* apply.sks */,
+				C3FB2AD71AE56E9900244916 /* dragging-blackhole.sks */,
+				C3FB2AD81AE56E9900244916 /* dragging-fire.sks */,
+				C3FB2AD91AE56E9900244916 /* dragging-freeze.sks */,
+				C3FB2ADA1AE56E9900244916 /* dragging-upgrade.sks */,
 				3A3021431ADD6C3B00FBE3B2 /* freeze.sks */,
 				3AD713151ADE5EB400E9544C /* fire.sks */,
 				3ADDD0BB1AE0EC0300090FA0 /* spark.sks */,
@@ -728,6 +737,7 @@
 				C33F322A1ADC001E00964B5D /* item-selected-upgrade.png in Resources */,
 				C38B42631AE2E23400938FC5 /* goat-deployed-right-3.png in Resources */,
 				3BBE77A01ADF00560071CFEE /* back-button-hi.png in Resources */,
+				C3FB2ADD1AE56E9900244916 /* dragging-freeze.sks in Resources */,
 				C3AE5D551ACB081B00E8E8F2 /* bridge.png in Resources */,
 				3A49F8431ADFA35C0008B2CB /* button-restart.png in Resources */,
 				3ADDD0BC1AE0EC0300090FA0 /* spark.sks in Resources */,
@@ -739,12 +749,12 @@
 				3A96A8D21AE245E9007D6F90 /* mode-single-player.png in Resources */,
 				3A96A8D41AE2479C007D6F90 /* button-previous-screen.png in Resources */,
 				3B94EF001ADFE74200F4F488 /* background 1.jpg in Resources */,
+				C3FB2ADC1AE56E9900244916 /* dragging-fire.sks in Resources */,
 				3A49F8411ADFA35C0008B2CB /* button-home.png in Resources */,
 				C38B42621AE2E23400938FC5 /* goat-deployed-right-2.png in Resources */,
 				3A49F8421ADFA35C0008B2CB /* button-pause.png in Resources */,
 				96972B511AC2C77000FF2DC5 /* Images.xcassets in Resources */,
 				C38B42641AE2E23400938FC5 /* goat-deployed-right-4.png in Resources */,
-				C3E9D8CF1AE4F45400C45089 /* apply.sks in Resources */,
 				C38B42591AE2E23400938FC5 /* goat-button-right-3.png in Resources */,
 				3AD713171ADE5EB400E9544C /* fire.sks in Resources */,
 				C38B425D1AE2E23400938FC5 /* goat-deployed-left-2.png in Resources */,
@@ -759,6 +769,7 @@
 				C38B426A1AE2E23400938FC5 /* goat-tiny.png in Resources */,
 				C38B42541AE2E23400938FC5 /* goat-button-left-3.png in Resources */,
 				C38B42511AE2E23400938FC5 /* goat-bumping-right-5.png in Resources */,
+				C3FB2ADB1AE56E9900244916 /* dragging-blackhole.sks in Resources */,
 				C38B424A1AE2E23400938FC5 /* goat-bumping-left-3.png in Resources */,
 				3A7012A61ADA41EA002D2BB9 /* button-instruction.png in Resources */,
 				C38B424F1AE2E23400938FC5 /* goat-bumping-right-3.png in Resources */,
@@ -800,6 +811,7 @@
 				C38B424B1AE2E23400938FC5 /* goat-bumping-left-4.png in Resources */,
 				3A96A8D01AE245E9007D6F90 /* mode-item.png in Resources */,
 				3A3021481ADD779900FBE3B2 /* ice-fog.sks in Resources */,
+				C3FB2ADE1AE56E9900244916 /* dragging-upgrade.sks in Resources */,
 				C38B42561AE2E23400938FC5 /* goat-button-left-5.png in Resources */,
 				C33F322C1ADC001E00964B5D /* item-waiting-freeze.png in Resources */,
 				C38B42601AE2E23400938FC5 /* goat-deployed-left-5.png in Resources */,

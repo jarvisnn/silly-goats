@@ -14,6 +14,7 @@ class Animation {
     
     struct Constants {
         internal static let POWERUP_KEYWORD = "item"
+        internal static let DRAGGING_KEYWORD = "dragging-"
         internal static let IMAGE_EXT = ".png"
         internal static let IMAGE_SCALE: CGFloat = 0.3
         
@@ -140,5 +141,14 @@ class Animation {
             }
             removeItemFunc(item)
         }
+    }
+    
+    internal class func draggingPowerUp(powerType: PowerUp.PowerType, scene: SKScene, position: CGPoint) {
+        var fileName = Constants.DRAGGING_KEYWORD + powerType.rawValue
+        var effect = SKEmitterNode.getEmitterFromFile(fileName)
+        effect.zPosition = -1
+        effect.position = position
+        effect.targetNode = scene
+        scene.addChild(effect)
     }
 }
