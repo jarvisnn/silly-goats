@@ -17,7 +17,7 @@ class ScoreNode: SKLabelNode {
         internal static let POS_X: [CGFloat] = [420, 604]
     }
     
-    internal var side: Animal.Side = .LEFT
+    internal var side: Animal.Side!
     
     internal var score: Int {
         get {
@@ -29,11 +29,23 @@ class ScoreNode: SKLabelNode {
         }
     }
     
-    convenience init(side: Animal.Side) {
-        self.init(fontNamed: Constants.LABEL_FONT)
+    init(side: Animal.Side) {
+        super.init(fontNamed: Constants.LABEL_FONT)
         self.side = side
         self.fontSize = Constants.FONT_SIZE;
         self.position = CGPoint(x: Constants.POS_X[side.index], y: Constants.POS_Y);
+    }
+    
+    override init(fontNamed fontName: String!) {
+        super.init(fontNamed: fontName)
+    }
+    
+    override init() {
+        super.init()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
 }
