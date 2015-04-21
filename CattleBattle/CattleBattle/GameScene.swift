@@ -39,7 +39,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         internal static let GAME_VIEW_RIGHT_BOUNDARY: CGFloat = 1100
         internal static let GAME_VIEW_LEFT_BOUNDARY: CGFloat = -100
         
-        private static let ROUND_TIME = 10
+        private static let ROUND_TIME = 90
     }
     
     private let GAME_VIEW_RIGHT_BOUNDARY: CGFloat = 1100
