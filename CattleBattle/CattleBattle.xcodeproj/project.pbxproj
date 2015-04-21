@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		3A055DBE1ADE36F10005B6E3 /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A055DBD1ADE36F10005B6E3 /* Animation.swift */; };
+		3A1C83131AE6CB64002118D3 /* about-item-blackhole.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A1C830F1AE6CB64002118D3 /* about-item-blackhole.png */; };
+		3A1C83141AE6CB64002118D3 /* about-item-fire.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A1C83101AE6CB64002118D3 /* about-item-fire.png */; };
+		3A1C83151AE6CB64002118D3 /* about-item-freeze.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A1C83111AE6CB64002118D3 /* about-item-freeze.png */; };
+		3A1C83161AE6CB64002118D3 /* about-item-upgrade.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A1C83121AE6CB64002118D3 /* about-item-upgrade.png */; };
 		3A3021451ADD6C3B00FBE3B2 /* freeze.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3A3021431ADD6C3B00FBE3B2 /* freeze.sks */; };
 		3A3021481ADD779900FBE3B2 /* ice-fog.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3A3021471ADD779900FBE3B2 /* ice-fog.sks */; };
 		3A49F83F1ADFA35C0008B2CB /* button-back.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A49F83A1ADFA35C0008B2CB /* button-back.png */; };
@@ -149,6 +153,10 @@
 
 /* Begin PBXFileReference section */
 		3A055DBD1ADE36F10005B6E3 /* Animation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
+		3A1C830F1AE6CB64002118D3 /* about-item-blackhole.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "about-item-blackhole.png"; path = "Buttons/about-item-blackhole.png"; sourceTree = "<group>"; };
+		3A1C83101AE6CB64002118D3 /* about-item-fire.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "about-item-fire.png"; path = "Buttons/about-item-fire.png"; sourceTree = "<group>"; };
+		3A1C83111AE6CB64002118D3 /* about-item-freeze.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "about-item-freeze.png"; path = "Buttons/about-item-freeze.png"; sourceTree = "<group>"; };
+		3A1C83121AE6CB64002118D3 /* about-item-upgrade.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "about-item-upgrade.png"; path = "Buttons/about-item-upgrade.png"; sourceTree = "<group>"; };
 		3A3021431ADD6C3B00FBE3B2 /* freeze.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = freeze.sks; sourceTree = "<group>"; };
 		3A3021471ADD779900FBE3B2 /* ice-fog.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = "ice-fog.sks"; sourceTree = "<group>"; };
 		3A49F83A1ADFA35C0008B2CB /* button-back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button-back.png"; path = "Buttons/button-back.png"; sourceTree = "<group>"; };
@@ -311,9 +319,13 @@
 			path = ViewController;
 			sourceTree = "<group>";
 		};
-		3A7012A31ADA41D4002D2BB9 /* I */ = {
+		3A7012A31ADA41D4002D2BB9 /* button */ = {
 			isa = PBXGroup;
 			children = (
+				3A1C830F1AE6CB64002118D3 /* about-item-blackhole.png */,
+				3A1C83101AE6CB64002118D3 /* about-item-fire.png */,
+				3A1C83111AE6CB64002118D3 /* about-item-freeze.png */,
+				3A1C83121AE6CB64002118D3 /* about-item-upgrade.png */,
 				3AFEC6681AE6B6FE00A6EF2F /* about-goat.png */,
 				3AFEC6691AE6B6FE00A6EF2F /* about-item.png */,
 				3AFEC66A1AE6B6FE00A6EF2F /* about-title-1.png */,
@@ -332,7 +344,7 @@
 				3A7012A41ADA41EA002D2BB9 /* button-instruction.png */,
 				3A7012A51ADA41EA002D2BB9 /* button-start-game.png */,
 			);
-			name = I;
+			name = button;
 			sourceTree = "<group>";
 		};
 		3AD4A4251ADA50D700E63495 /* PowerUp */ = {
@@ -525,7 +537,7 @@
 				C38B421A1AE2E23400938FC5 /* Goat */,
 				3ADADDDC1ADFF5F700DE17F3 /* GameOver */,
 				3AD4A4271ADA6FBC00E63495 /* PowerUp */,
-				3A7012A31ADA41D4002D2BB9 /* I */,
+				3A7012A31ADA41D4002D2BB9 /* button */,
 				C3AE5D511ACB081B00E8E8F2 /* Background */,
 			);
 			path = Images;
@@ -805,6 +817,7 @@
 				C3FB2ADD1AE56E9900244916 /* dragging-freeze.sks in Resources */,
 				C3AE5D551ACB081B00E8E8F2 /* bridge.png in Resources */,
 				3A49F8431ADFA35C0008B2CB /* button-restart.png in Resources */,
+				3A1C83151AE6CB64002118D3 /* about-item-freeze.png in Resources */,
 				3ADDD0BC1AE0EC0300090FA0 /* spark.sks in Resources */,
 				96972B541AC2C77000FF2DC5 /* LaunchScreen.xib in Resources */,
 				3AC1E0131AE3A1FC00E016A2 /* sign-board-standing.png in Resources */,
@@ -831,6 +844,7 @@
 				3A96A8D11AE245E9007D6F90 /* mode-multiplayer.png in Resources */,
 				C38B42651AE2E23400938FC5 /* goat-deployed-right-5.png in Resources */,
 				3A7012A01ADA3CEC002D2BB9 /* background.jpg in Resources */,
+				3A1C83141AE6CB64002118D3 /* about-item-fire.png in Resources */,
 				C33F322B1ADC001E00964B5D /* item-waiting-blackhole.png in Resources */,
 				C38B426A1AE2E23400938FC5 /* goat-tiny.png in Resources */,
 				C38B42541AE2E23400938FC5 /* goat-button-left-3.png in Resources */,
@@ -847,6 +861,7 @@
 				C3B37F311ADD62DE00CB747C /* animation-blackHole.png in Resources */,
 				C32E24721AE6A3B90022FDEE /* fire.wav in Resources */,
 				C38B424C1AE2E23400938FC5 /* goat-bumping-left-5.png in Resources */,
+				3A1C83131AE6CB64002118D3 /* about-item-blackhole.png in Resources */,
 				C3B37F321ADD62DE00CB747C /* animation-freezing1.png in Resources */,
 				3AFEC66D1AE6B6FE00A6EF2F /* about-goat.png in Resources */,
 				C33F32281ADC001E00964B5D /* item-selected-freeze.png in Resources */,
@@ -877,6 +892,7 @@
 				C35441591ACDC0AC00BA7369 /* arrow-right.png in Resources */,
 				C38B42531AE2E23400938FC5 /* goat-button-left-2.png in Resources */,
 				C33F322D1ADC001E00964B5D /* item-waiting-fire.png in Resources */,
+				3A1C83161AE6CB64002118D3 /* about-item-upgrade.png in Resources */,
 				C38B425F1AE2E23400938FC5 /* goat-deployed-left-4.png in Resources */,
 				C38B424B1AE2E23400938FC5 /* goat-bumping-left-4.png in Resources */,
 				3A96A8D01AE245E9007D6F90 /* mode-item.png in Resources */,
