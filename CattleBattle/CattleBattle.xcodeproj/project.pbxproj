@@ -19,7 +19,6 @@
 		3A49F8471ADFA5F60008B2CB /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A49F8461ADFA5F60008B2CB /* MenuButton.swift */; };
 		3A70129D1ADA3CA9002D2BB9 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70129C1ADA3CA9002D2BB9 /* MenuViewController.swift */; };
 		3A7012A01ADA3CEC002D2BB9 /* background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3A70129F1ADA3CEC002D2BB9 /* background.jpg */; };
-		3A7012A21ADA4082002D2BB9 /* Instruction1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7012A11ADA4082002D2BB9 /* Instruction1.swift */; };
 		3A7012A61ADA41EA002D2BB9 /* button-instruction.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A7012A41ADA41EA002D2BB9 /* button-instruction.png */; };
 		3A7012A71ADA41EA002D2BB9 /* button-start-game.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A7012A51ADA41EA002D2BB9 /* button-start-game.png */; };
 		3A7687A01ADE9CBE00BA87F2 /* upgrade.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3A76879F1ADE9CBE00BA87F2 /* upgrade.sks */; };
@@ -43,7 +42,6 @@
 		3ADDD0BC1AE0EC0300090FA0 /* spark.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3ADDD0BB1AE0EC0300090FA0 /* spark.sks */; };
 		3AE20F831AD9A6FC00EE8CE0 /* topbar3.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AE20F811AD9A6FC00EE8CE0 /* topbar3.png */; };
 		3B94EF001ADFE74200F4F488 /* background 1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3B94EEFF1ADFE74200F4F488 /* background 1.jpg */; };
-		3BBBA6811ADD565F003A401D /* Instruction2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBBA6801ADD565F003A401D /* Instruction2.swift */; };
 		3BBE77A01ADF00560071CFEE /* back-button-hi.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BBE779F1ADF00560071CFEE /* back-button-hi.png */; };
 		3BD81EDF1AD6EE8900599E30 /* PowerUpNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD81EDE1AD6EE8900599E30 /* PowerUpNode.swift */; };
 		3BDC0E091AE016B600EAF13D /* InstructionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDC0E081AE016B600EAF13D /* InstructionViewController.swift */; };
@@ -157,7 +155,6 @@
 		3A49F8461ADFA5F60008B2CB /* MenuButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuButton.swift; sourceTree = "<group>"; };
 		3A70129C1ADA3CA9002D2BB9 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		3A70129F1ADA3CEC002D2BB9 /* background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background.jpg; sourceTree = "<group>"; };
-		3A7012A11ADA4082002D2BB9 /* Instruction1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Instruction1.swift; sourceTree = "<group>"; };
 		3A7012A41ADA41EA002D2BB9 /* button-instruction.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button-instruction.png"; path = "Buttons/button-instruction.png"; sourceTree = "<group>"; };
 		3A7012A51ADA41EA002D2BB9 /* button-start-game.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button-start-game.png"; path = "Buttons/button-start-game.png"; sourceTree = "<group>"; };
 		3A76879F1ADE9CBE00BA87F2 /* upgrade.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = upgrade.sks; sourceTree = "<group>"; };
@@ -181,7 +178,6 @@
 		3ADDD0BB1AE0EC0300090FA0 /* spark.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = spark.sks; sourceTree = "<group>"; };
 		3AE20F811AD9A6FC00EE8CE0 /* topbar3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = topbar3.png; sourceTree = "<group>"; };
 		3B94EEFF1ADFE74200F4F488 /* background 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background 1.jpg"; sourceTree = "<group>"; };
-		3BBBA6801ADD565F003A401D /* Instruction2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Instruction2.swift; sourceTree = "<group>"; };
 		3BBE779F1ADF00560071CFEE /* back-button-hi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back-button-hi.png"; sourceTree = "<group>"; };
 		3BD81EDE1AD6EE8900599E30 /* PowerUpNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PowerUpNode.swift; sourceTree = "<group>"; };
 		3BDC0E081AE016B600EAF13D /* InstructionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstructionViewController.swift; sourceTree = "<group>"; };
@@ -301,8 +297,6 @@
 				96972B4B1AC2C77000FF2DC5 /* GameViewController.swift */,
 				3A96A8D51AE24892007D6F90 /* GameSelectionViewController.swift */,
 				3BDC0E081AE016B600EAF13D /* InstructionViewController.swift */,
-				3A7012A11ADA4082002D2BB9 /* Instruction1.swift */,
-				3BBBA6801ADD565F003A401D /* Instruction2.swift */,
 			);
 			name = "View Controller";
 			sourceTree = "<group>";
@@ -891,8 +885,6 @@
 				96972B4A1AC2C77000FF2DC5 /* GameScene.swift in Sources */,
 				96972B4C1AC2C77000FF2DC5 /* GameViewController.swift in Sources */,
 				96972B461AC2C77000FF2DC5 /* AppDelegate.swift in Sources */,
-				3A7012A21ADA4082002D2BB9 /* Instruction1.swift in Sources */,
-				3BBBA6811ADD565F003A401D /* Instruction2.swift in Sources */,
 				3A8B0EA51ADFD26F00D3AFF7 /* GameOverScene.swift in Sources */,
 				C33F32301ADC3B9300964B5D /* AnimationNode.swift in Sources */,
 				3A96A8D61AE24892007D6F90 /* GameSelectionViewController.swift in Sources */,

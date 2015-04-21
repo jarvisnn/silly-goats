@@ -219,10 +219,10 @@
             </objects>
             <point key="canvasLocation" x="4809" y="2018"/>
         </scene>
-        <!--Instruction1-->
+        <!--Instruction View Controller-->
         <scene sceneID="EBw-Ca-T5R">
             <objects>
-                <viewController id="8By-SQ-SeK" customClass="Instruction1" customModule="CattleBattle" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="8By-SQ-SeK" customClass="InstructionViewController" customModule="CattleBattle" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" restorationIdentifier="Instruction1" id="bNX-hk-BfK">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -300,7 +300,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="backButtonClicked:" destination="8By-SQ-SeK" eventType="touchUpInside" id="ZJm-3P-QpO"/>
+                                    <action selector="backButtonClicked:" destination="8By-SQ-SeK" eventType="touchUpInside" id="h00-tX-Txm"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -313,10 +313,10 @@
             </objects>
             <point key="canvasLocation" x="4143" y="3034"/>
         </scene>
-        <!--Instruction2-->
+        <!--Instruction View Controller-->
         <scene sceneID="t6R-DT-aXI">
             <objects>
-                <viewController id="Kmq-wI-8Bo" customClass="Instruction2" customModule="CattleBattle" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Kmq-wI-8Bo" customClass="InstructionViewController" customModule="CattleBattle" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="q7e-aI-vxd">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -362,8 +362,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="backButtonClicked:" destination="Kmq-wI-8Bo" eventType="touchUpInside" id="cPA-Fs-TPs"/>
-                                    <action selector="goBack" destination="bV5-lS-hbA" eventType="touchUpInside" id="4p5-O7-98f"/>
+                                    <action selector="backButtonClicked:" destination="Kmq-wI-8Bo" eventType="touchUpInside" id="mgA-Jp-Xwg"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose the special item then tap on the goat " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="se4-tG-6Xy">
