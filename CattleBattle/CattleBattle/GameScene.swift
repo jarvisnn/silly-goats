@@ -40,20 +40,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         internal static let GAME_VIEW_LEFT_BOUNDARY: CGFloat = -100
         
         private static let ROUND_TIME = 90
+        
+        private static let PAN_GESTURE_WIDTH = 3
+        private static let PAN_GESTURE_HEIGHT = 2
     }
     
     private let GAME_VIEW_RIGHT_BOUNDARY: CGFloat = 1100
     private let GAME_VIEW_LEFT_BOUNDARY: CGFloat = -100
     
-    private var playerScoreNode: [ScoreNode] = Animal.Side.allSides.map({ (side) -> ScoreNode in
+    private var scoreNode: [ScoreNode] = Animal.Side.allSides.map({ (side) -> ScoreNode in
         return ScoreNode(side: side)
     })
     
     private var arrows = [[ArrowNode]](count: GameModel.Constants.NUMBER_OF_BRIDGES, repeatedValue: [ArrowNode](count: Animal.Size.allSizes.count, repeatedValue: ArrowNode()))
     private var loadingButton: [[LoadingNode]] = []
-    private var pauseButton: MenuButtonNode!
+    
     private var pauseScreen: PauseScene!
     private var gameOverScreen: GameOverScene!
+    
     private var categories = [CategoryNode](count: 2, repeatedValue: CategoryNode())
     private var zIndex: CGFloat = 0
     private var timerNode: SKLabelNode!
@@ -65,8 +69,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     private var gameModel: GameModel!
 
     private var _tapGesture: UITapGestureRecognizer!
-    private var _leftPanGesture: UIPanGestureRecognizer!
-    private var _rightPanGesture: UIPanGestureRecognizer!
+    private var _panGesture = [[UIPanGestureRecognizer]]()
 
     internal func setupGame(mode: GameModel.GameMode) {
         gameModel = GameModel(gameMode: mode)
@@ -74,11 +77,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     
     private func _setupRecognizer() {
         _tapGesture = UITapGestureRecognizer(target: self, action: "tapHandler:")
-        _leftPanGesture = UIPanGestureRecognizer(target: self, action: "panHandler:")
-        _rightPanGesture = UIPanGestureRecognizer(target: self, action: "panHandler:")
         self.view!.addGestureRecognizer(_tapGesture)
-        self.view!.addGestureRecognizer(_leftPanGesture)
-        self.view!.addGestureRecognizer(_rightPanGesture)
+
+        for i in 0..<Constants.PAN_GESTURE_WIDTH {
+            _panGesture.append([])
+            for j in 0..<Constants.PAN_GESTURE_HEIGHT {
+                _panGesture[i].append(UIPanGestureRecognizer(target: self, action: "panHandler:"))
+                self.view!.addGestureRecognizer(_panGesture[i][j])
+                _panGesture[i][j].maximumNumberOfTouches = 1
+            }
+        }
         
         for recognizer in self.view!.gestureRecognizers! {
             (recognizer as! UIGestureRecognizer).delegate = self
@@ -123,8 +131,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     
     private func _setupPauseButton() {
         MenuButtonNode.Constants.reactions = [_pauseGame, _restartGame, _backToHome, _continueGame]
-        
-        pauseButton = MenuButtonNode(buttonType: .PAUSE, scale: 1)
+
+        var pauseButton = MenuButtonNode(buttonType: .PAUSE, scale: 1)
         pauseButton.position = CGPointMake(frame.width / 2, frame.height - pauseButton.size.height / 2)
         self.addChild(pauseButton)
     }
@@ -141,8 +149,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     
     private func _setupScore() {
         for side in Animal.Side.allSides {
-            playerScoreNode[side.index].score = 0
-            self.addChild(playerScoreNode[side.index])
+            scoreNode[side.index].score = 0
+            self.addChild(scoreNode[side.index])
         }
     }
     
@@ -317,7 +325,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
                 var category = bodyB.node as! CategoryNode
                 if gameModel.gameMode == .ITEM_MODE {
                     item.removeFromParent()
-                    playerScoreNode[category.side.index].score += 10
+                    scoreNode[category.side.index].score += 10
                 } else {
                     category.add(item)
                 }
@@ -444,7 +452,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
                 var sideIndex = (node as! AnimalNode).animal.side.index
                 if node.position.x < GAME_VIEW_LEFT_BOUNDARY || node.position.x > GAME_VIEW_RIGHT_BOUNDARY {
                     if (node.position.x > GAME_VIEW_RIGHT_BOUNDARY) || (node.position.x < GAME_VIEW_LEFT_BOUNDARY) {
-                        playerScoreNode[sideIndex].score += (node as! AnimalNode).animal.getPoint()
+                        scoreNode[sideIndex].score += (node as! AnimalNode).animal.getPoint()
                     }
                     node.removeFromParent()
                 } else {
@@ -558,17 +566,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     }
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
-        var x = touch.locationInView(self.view).x
         if gestureRecognizer == _tapGesture {
             return true
         }
-        if (gestureRecognizer == _leftPanGesture) && (x < self.view!.frame.width / 2) {
-            return true
-        }
-        if (gestureRecognizer == _rightPanGesture) && (x >= self.view!.frame.width / 2) {
-            return true
-        }
-        return false
+        
+        var x = Double(touch.locationInView(self.view).x) / Double(self.view!.frame.width)
+        var y = Double(touch.locationInView(self.view).y) / Double(self.view!.frame.height)
+        x *= Double(Constants.PAN_GESTURE_WIDTH)
+        y *= Double(Constants.PAN_GESTURE_HEIGHT)
+        x = min(floor(x), Double(Constants.PAN_GESTURE_WIDTH - 1))
+        y = min(floor(y), Double(Constants.PAN_GESTURE_HEIGHT - 1))
+        println("\(x) \(y) \(gestureRecognizer == _panGesture[Int(x)][Int(y)])")
+        return gestureRecognizer == _panGesture[Int(x)][Int(y)]
     }
-    
 }
