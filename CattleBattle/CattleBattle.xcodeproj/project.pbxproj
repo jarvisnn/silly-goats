@@ -23,6 +23,7 @@
 		3A49F8431ADFA35C0008B2CB /* button-restart.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A49F83E1ADFA35C0008B2CB /* button-restart.png */; };
 		3A49F8451ADFA5680008B2CB /* MenuButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A49F8441ADFA5680008B2CB /* MenuButtonNode.swift */; };
 		3A49F8471ADFA5F60008B2CB /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A49F8461ADFA5F60008B2CB /* MenuButton.swift */; };
+		3A658B801AE7035F00621936 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A658B7F1AE7035F00621936 /* logo.png */; };
 		3A70129D1ADA3CA9002D2BB9 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70129C1ADA3CA9002D2BB9 /* MenuViewController.swift */; };
 		3A7012A01ADA3CEC002D2BB9 /* background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3A70129F1ADA3CEC002D2BB9 /* background.jpg */; };
 		3A7012A61ADA41EA002D2BB9 /* button-instruction.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A7012A41ADA41EA002D2BB9 /* button-instruction.png */; };
@@ -170,6 +171,7 @@
 		3A49F83E1ADFA35C0008B2CB /* button-restart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button-restart.png"; path = "Buttons/button-restart.png"; sourceTree = "<group>"; };
 		3A49F8441ADFA5680008B2CB /* MenuButtonNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuButtonNode.swift; sourceTree = "<group>"; };
 		3A49F8461ADFA5F60008B2CB /* MenuButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuButton.swift; sourceTree = "<group>"; };
+		3A658B7F1AE7035F00621936 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		3A70129C1ADA3CA9002D2BB9 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		3A70129F1ADA3CEC002D2BB9 /* background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background.jpg; sourceTree = "<group>"; };
 		3A7012A41ADA41EA002D2BB9 /* button-instruction.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button-instruction.png"; path = "Buttons/button-instruction.png"; sourceTree = "<group>"; };
@@ -706,6 +708,7 @@
 		C3AE5D511ACB081B00E8E8F2 /* Background */ = {
 			isa = PBXGroup;
 			children = (
+				3A658B7F1AE7035F00621936 /* logo.png */,
 				3AC1E0111AE3A1FC00E016A2 /* sign-board-standing.png */,
 				3BBE779F1ADF00560071CFEE /* back-button-hi.png */,
 				3B94EEFF1ADFE74200F4F488 /* background 1.jpg */,
@@ -873,6 +876,7 @@
 				3AFEC66D1AE6B6FE00A6EF2F /* about-goat.png in Resources */,
 				C33F32281ADC001E00964B5D /* item-selected-freeze.png in Resources */,
 				C38B42571AE2E23400938FC5 /* goat-button-right-1.png in Resources */,
+				3A658B801AE7035F00621936 /* logo.png in Resources */,
 				C354415A1ACDC0AC00BA7369 /* bank-left.png in Resources */,
 				C33F32271ADC001E00964B5D /* item-selected-blackhole.png in Resources */,
 				C3D7EB051AD0704400A61851 /* river.gif in Resources */,
