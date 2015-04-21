@@ -15,8 +15,7 @@ class MenuViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         GameSound.setupAudio()
-        GameSound.Constants.soundtrack.numberOfLoops = -1
-        GameSound.Constants.soundtrack.play()
+        GameSound.playForever(.SOUNDTRACK)
     }
 
     override func didReceiveMemoryWarning() {

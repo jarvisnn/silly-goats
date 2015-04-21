@@ -11,12 +11,38 @@ import SpriteKit
 
 class GameSound {
     
+    enum Sound: String {
+        case SOUNDTRACK = "sound-track"
+        case FREEZE = "freeze"
+        case BLACKHOLE = "blackhole"
+        case UPGRADE = "upgrade"
+        case GOAT_SOUND = "goat-sound"
+        
+        private static let allSounds = [SOUNDTRACK, FREEZE, BLACKHOLE, UPGRADE, GOAT_SOUND]
+        private static let types = ["mp3", "mp3", "wav", "wav", "wav"]
+        private static let initialVolumn: [Float] = [1, 1, 1, 1, 1]
+    }
+    
     struct Constants {
-        internal static let soundtrack = GameSound.unarchiveFromFile("sound-track", type: "mp3")
-        internal static let freeze = GameSound.unarchiveFromFile("freeze", type: "mp3")
-        internal static let blackhole = GameSound.unarchiveFromFile("blackhole", type: "wav")
-        internal static let upgrade = GameSound.unarchiveFromFile("upgrade", type: "wav")
-        internal static let goatSound = GameSound.unarchiveFromFile("goat-sound", type: "flac")
+        internal static var volumn: Float = 1
+        internal static let audio = Sound.allSounds.map() { (sound) -> AVAudioPlayer in
+            return GameSound.unarchiveFromFile(sound)
+        }
+    }
+    
+    internal class func play(sound: Sound) {
+        if let index = find(Sound.allSounds, sound) {
+            Constants.audio[index].volume = Sound.initialVolumn[index] * Constants.volumn
+            Constants.audio[index].play()
+        }
+    }
+    
+    internal class func playForever(sound: Sound) {
+        if let index = find(Sound.allSounds, sound) {
+            Constants.audio[index].numberOfLoops = -1
+            Constants.audio[index].volume = Sound.initialVolumn[index] * Constants.volumn
+            Constants.audio[index].play()
+        }
     }
     
     internal class func setupAudio() {
@@ -24,12 +50,13 @@ class GameSound {
         AVAudioSession.sharedInstance().setActive(true, error: nil)
     }
     
-    private class func unarchiveFromFile(file: String, type: String) -> AVAudioPlayer  {
-        var path = NSBundle.mainBundle().pathForResource(file as String, ofType:type as String)
+    private class func unarchiveFromFile(sound: GameSound.Sound) -> AVAudioPlayer  {
+        var file = sound.rawValue
+        var type = Sound.types[find(Sound.allSounds, sound)!]
+        
+        var path = NSBundle.mainBundle().pathForResource(file, ofType: type)
         var url = NSURL.fileURLWithPath(path!)
         var error: NSError?
-        var audioPlayer:AVAudioPlayer?
-        audioPlayer = AVAudioPlayer(contentsOfURL: url, error: &error)
-        return audioPlayer!
+        return AVAudioPlayer(contentsOfURL: url, error: &error)!
     }
 }
