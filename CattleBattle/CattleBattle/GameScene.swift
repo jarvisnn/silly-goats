@@ -122,13 +122,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     }
     
     private func _setupPauseButton() {
+        MenuButtonNode.Constants.reactions = [_pauseGame, _restartGame, _backToHome, _continueGame]
+        
         pauseButton = MenuButtonNode(buttonType: .PAUSE, scale: 1)
         pauseButton.position = CGPointMake(frame.width / 2, frame.height - pauseButton.size.height / 2)
         self.addChild(pauseButton)
     }
     
     private func _setupMinorScreen() {
-        pauseScreen = PauseScene(size: self.frame.size, pauseFunc: _pauseGame, continueFunc: _continueGame, restartFunc: _restartGame, homeFunc: _backToHome)
+        pauseScreen = PauseScene(size: self.frame.size)
         pauseScreen.zPosition = Constants.Z_INDEX_SCREEN
         pauseScreen.position = CGPointMake(frame.width / 2, frame.height / 2)
         
@@ -334,7 +336,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             _deploy(node as! ArrowNode)
             
         }  else if node is MenuButtonNode {
-            pauseScreen.buttonClicked((node as! MenuButtonNode).button.buttonType)
+            (node as! MenuButtonNode).clicked()
         }
     }
     
@@ -441,7 +443,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             if node.name == AnimalNode.Constants.IDENTIFIER {
                 var sideIndex = (node as! AnimalNode).animal.side.index
                 if node.position.x < GAME_VIEW_LEFT_BOUNDARY || node.position.x > GAME_VIEW_RIGHT_BOUNDARY {
-                    if (sideIndex == 0 && node.position.x > GAME_VIEW_RIGHT_BOUNDARY) || (sideIndex == 1 && node.position.x < GAME_VIEW_LEFT_BOUNDARY){
+                    if (node.position.x > GAME_VIEW_RIGHT_BOUNDARY) || (node.position.x < GAME_VIEW_LEFT_BOUNDARY) {
                         playerScoreNode[sideIndex].score += (node as! AnimalNode).animal.getPoint()
                     }
                     node.removeFromParent()
