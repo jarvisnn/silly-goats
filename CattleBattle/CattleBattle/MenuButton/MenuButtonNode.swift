@@ -12,17 +12,20 @@ import SpriteKit
 class MenuButtonNode: SKSpriteNode {
     struct Constants {
         internal static var IDENTIFIER = "buttonNode"
+        internal static var reactions: [(() -> ())]!
     }
     
-    internal var button: MenuButton!
+    internal var clicked: (() -> ())!
     
     init(buttonType: MenuButton.ButtonType, scale: CGFloat) {
-        button = MenuButton(type: buttonType)
+        var button = MenuButton(type: buttonType)
         super.init(texture: button.getTexture(), color: UIColor.clearColor(), size: button.getTexture().size())
         
+        self.clicked = Constants.reactions[find(MenuButton.ButtonType.allTypes, buttonType)!]
         self.name = Constants.IDENTIFIER
         self.xScale = scale
         self.yScale = scale
+
     }
     
     override init(texture:SKTexture, color:SKColor, size:CGSize) {

@@ -14,10 +14,9 @@ class MenuButton {
         case PAUSE = "pause"
         case RESTART = "restart"
         case HOME = "home"
-        case BACK = "back"
         case CONTINUE = "continue"
         
-        internal static let allTypes = [PAUSE, RESTART, HOME, BACK, CONTINUE]
+        internal static let allTypes = [PAUSE, RESTART, HOME, CONTINUE]
     }
     
     struct Constants {
