@@ -39,46 +39,44 @@ class Animation {
         })
     }
     
-    private class func _applyFreezing(scene: SKScene, nodes: [AnimalNode?]) {
+    private class func _applyFreezing(scene: SKScene, nodes: [AnimalNode]) {
         let fallingIce = SKEmitterNode.getEmitterFromFile("freeze")
         let fog = SKEmitterNode.getEmitterFromFile("ice-fog")
         
         fallingIce.position = CGPointMake(scene.frame.width/2, scene.frame.height)
-        fallingIce.particleLifetime = (scene.frame.height - nodes[0]!.position.y) / fallingIce.particleSpeed
+        fallingIce.particleLifetime = (scene.frame.height - nodes[0].position.y) / fallingIce.particleSpeed
         fallingIce.zPosition = Constants.Z_INDEX_FRONT
         
-        fog.position = CGPointMake(scene.frame.width/2, nodes[0]!.position.y)
+        fog.position = CGPointMake(scene.frame.width/2, nodes[0].position.y)
         fog.zPosition = Constants.Z_INDEX_FRONT + 1
         
         scene.addChild(fallingIce)
         scene.addChild(fog)
         
-        for i in nodes {
-            if var node = i {
-                var freezing = AnimationNode(imageName: "animation-freezing2.png", scale: 0.4)
-                freezing.alpha = 0
-                freezing.position = CGPointMake(0, node.size.height/2)
-                freezing.zPosition = 1
-                
-                node.addChild(freezing)
-                
-                var action1 = SKAction.runBlock({
-                    freezing.runAction(SKAction.fadeInWithDuration(0.5), completion: {
-                        node.physicsBody!.dynamic = false
-                        node.paused = true
-                    })
+        for node in nodes {
+            var freezing = AnimationNode(imageName: "animation-freezing2.png", scale: 0.4)
+            freezing.alpha = 0
+            freezing.position = CGPointMake(0, node.size.height/2)
+            freezing.zPosition = 1
+            
+            node.addChild(freezing)
+            
+            var action1 = SKAction.runBlock({
+                freezing.runAction(SKAction.fadeInWithDuration(0.5), completion: {
+                    node.physicsBody!.dynamic = false
+                    node.paused = true
                 })
-                var action2 = SKAction.waitForDuration(5)
-                var action3 = SKAction.runBlock({
-                    node.paused = false
-                    freezing.runAction(SKAction.fadeOutWithDuration(0.5), completion: {
-                        node.physicsBody!.dynamic = true
-                        freezing.removeFromParent()
-                    })
+            })
+            var action2 = SKAction.waitForDuration(5)
+            var action3 = SKAction.runBlock({
+                node.paused = false
+                freezing.runAction(SKAction.fadeOutWithDuration(0.5), completion: {
+                    node.physicsBody!.dynamic = true
+                    freezing.removeFromParent()
                 })
-                
-                scene.runAction(SKAction.sequence([action1, action2, action3]))
-            }
+            })
+            
+            scene.runAction(SKAction.sequence([action1, action2, action3]))
         }
     }
     
@@ -120,8 +118,9 @@ class Animation {
         scene.addChild(fire)
     }
     
-    internal class func applyPowerUp(powerUpItem: PowerUpNode?, targets: [AnimalNode?], scene: GameScene, removeItemFunc: ((PowerUpNode) -> ())) {
-        if var item = powerUpItem, animal = targets[0] {
+    internal class func applyPowerUp(powerUpItem: PowerUpNode?, targets: [AnimalNode], scene: GameScene, removeItemFunc: ((PowerUpNode) -> ())) {
+        var animal = targets[0]
+        if var item = powerUpItem {
             if item.powerUpItem.powerType == .BLACK_HOLE {
                 Animation._applyBlackHole(scene, node: animal)
                 

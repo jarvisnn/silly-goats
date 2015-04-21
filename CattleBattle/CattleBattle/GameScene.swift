@@ -246,11 +246,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     private func _setupCategory() {
         for side in Animal.Side.allSides {
             categories[side.index] = CategoryNode(side: side)
-            if side == .LEFT {
-                categories[side.index].position = CGPointMake(categories[side.index].size.width/2, categories[side.index].size.height/2)
-            } else {
-                categories[side.index].position = CGPointMake(frame.width - categories[side.index].size.width/2, categories[side.index].size.height/2)
-            }
+            var y = categories[side.index].size.height / 2
+            var x = categories[side.index].size.width / 2
+            x = (side == .LEFT) ? x : frame.width - x
+            categories[side.index].position = CGPointMake(x, y)
             categories[side.index].zPosition = Constants.Z_INDEX_CATEGORY
             self.addChild(categories[side.index])
         }
@@ -405,7 +404,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
                 
                 var isOver = CGRectIntersection(effectFrame, animalNode.frame).size != CGSize.zeroSize
                 var isValid = _isItemValid(itemNode, animalNode: animalNode)
-                println(animalNode.frame)
                 if isOver && isValid {
                     if result == nil {
                         result = animalNode
@@ -424,16 +422,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         var targets = [target]
         var category = item.parent as! CategoryNode
         if item.powerUpItem.powerType == .FREEZE {
-            var category = item.parent as! CategoryNode
-            for i in self.children {
+            var unwrapped = self.children.filter() { (i) -> Bool in
                 if var node = i as? AnimalNode {
-                    if node.row == target.row {
-                        targets.append(node)
-                    }
+                    return node.row == target.row
                 }
+                return false
+            }
+            targets = unwrapped.map() { (node) -> AnimalNode in
+                return node as! AnimalNode
             }
         }
-        Animation.applyPowerUp(item, targets: [target], scene: self, removeItemFunc: category.remove)
+        Animation.applyPowerUp(item, targets: targets, scene: self, removeItemFunc: category.remove)
     }
     
     override func update(currentTime: CFTimeInterval) {
