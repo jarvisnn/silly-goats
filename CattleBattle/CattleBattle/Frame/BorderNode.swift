@@ -12,6 +12,7 @@ import SpriteKit
 class BorderNode: SKSpriteNode {
     struct Constants {
         private static let SCALE: CGFloat = 0.4
+        private static let SPEED: Double = 2.5
         internal static var IDENTIFIER = "item-border"
     }
     
@@ -19,14 +20,11 @@ class BorderNode: SKSpriteNode {
 
     init() {
         var _texture = SKTexture(imageNamed: "item-border.png")
-        super.init(texture: _texture, color: UIColor.clearColor(), size: _texture.size())
+        super.init(texture: _texture, color: UIColor.clearColor(), size: _texture.size() * Constants.SCALE)
         self.name = Constants.IDENTIFIER
         
-        self.xScale = Constants.SCALE
-        self.yScale = Constants.SCALE
-        
         self.alpha = 0
-        rotateForever(CGFloat(-M_PI), speed: 0.7)
+        rotateForever(CGFloat(-M_PI), speed: Constants.SPEED)
     }
     
     internal func rotateForever(angle: CGFloat, speed: Double) {
