@@ -529,7 +529,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
                 node.removeFromParent()
             }
         }
+        
+        for side in Animal.Side.allSides {
+            for node in categories[side.index].items {
+                categories[side.index].remove(node)
+            }
+        }
+        
         self.removeActionForKey(Constants.GENERATE_ITEM_KEY)
+        
+        setupGame(gameModel.gameMode)
         
         _setupTiming()
         _setupScore()
@@ -591,6 +600,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     
     private func updateLoadingBorder(side: Animal.Side) {
         if side == .RIGHT && gameModel.gameMode == .SINGLE_PLAYER {
+            return
+        }
+        if gameModel.gameMode == .ITEM_MODE {
             return
         }
         var j = gameModel.selectedGoat[find(Animal.Side.allSides, side)!]
