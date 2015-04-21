@@ -300,7 +300,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3A70129E1ADA3CB6002D2BB9 /* View Controller */ = {
+		3A70129E1ADA3CB6002D2BB9 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
 				3A70129C1ADA3CA9002D2BB9 /* MenuViewController.swift */,
@@ -308,7 +308,7 @@
 				3A96A8D51AE24892007D6F90 /* GameSelectionViewController.swift */,
 				3BDC0E081AE016B600EAF13D /* InstructionViewController.swift */,
 			);
-			name = "View Controller";
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 		3A7012A31ADA41D4002D2BB9 /* I */ = {
@@ -397,16 +397,9 @@
 			children = (
 				96972B491AC2C77000FF2DC5 /* GameScene.swift */,
 				3AB818911AE273450039E315 /* GameScene.sks */,
-				3ADB3AFC1AE2678200B986D1 /* RiverScene.swift */,
-				3AB818931AE273730039E315 /* RiverScene.sks */,
-				C3E9D8CC1AE4369A00C45089 /* ScoreNode.swift */,
-				9616925E1AC4621C0016523C /* GameModel.swift */,
-				96CAA74A1AD0074B0094AC44 /* ArrowNode.swift */,
-				9660B9FE1AC44F4A00A053A2 /* LoadingNode.swift */,
-				3AD4A4361ADB232700E63495 /* CategoryNode.swift */,
-				9606B63C1ADFDCCA005442EF /* EasyAI.swift */,
-				C32E24571AE652EC0022FDEE /* GameSound.swift */,
-				3A70129E1ADA3CB6002D2BB9 /* View Controller */,
+				C30A61B61AE6C5A2003AFA68 /* Algorithm */,
+				C30A61B71AE6C623003AFA68 /* Frame */,
+				3A70129E1ADA3CB6002D2BB9 /* ViewController */,
 				C34282F71AE641A1009DFE8E /* MinorScene */,
 				C364D5CA1AE299D000E09DAB /* MenuButton */,
 				3AD4A4261ADA50E200E63495 /* Animal */,
@@ -449,9 +442,32 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		C30A61B61AE6C5A2003AFA68 /* Algorithm */ = {
+			isa = PBXGroup;
+			children = (
+				9606B63C1ADFDCCA005442EF /* EasyAI.swift */,
+				9616925E1AC4621C0016523C /* GameModel.swift */,
+			);
+			path = Algorithm;
+			sourceTree = "<group>";
+		};
+		C30A61B71AE6C623003AFA68 /* Frame */ = {
+			isa = PBXGroup;
+			children = (
+				C3E9D8CC1AE4369A00C45089 /* ScoreNode.swift */,
+				96CAA74A1AD0074B0094AC44 /* ArrowNode.swift */,
+				9660B9FE1AC44F4A00A053A2 /* LoadingNode.swift */,
+				3AD4A4361ADB232700E63495 /* CategoryNode.swift */,
+				3ADB3AFC1AE2678200B986D1 /* RiverScene.swift */,
+				3AB818931AE273730039E315 /* RiverScene.sks */,
+			);
+			path = Frame;
+			sourceTree = "<group>";
+		};
 		C32E24681AE6A3B90022FDEE /* Sound */ = {
 			isa = PBXGroup;
 			children = (
+				C32E24571AE652EC0022FDEE /* GameSound.swift */,
 				C32E24691AE6A3B90022FDEE /* blackhole.wav */,
 				C32E246A1AE6A3B90022FDEE /* button-clicked.wav */,
 				C32E246B1AE6A3B90022FDEE /* fire.wav */,
