@@ -41,6 +41,11 @@
 		3ADB3AFD1AE2678200B986D1 /* RiverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADB3AFC1AE2678200B986D1 /* RiverScene.swift */; };
 		3ADDD0BC1AE0EC0300090FA0 /* spark.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3ADDD0BB1AE0EC0300090FA0 /* spark.sks */; };
 		3AE20F831AD9A6FC00EE8CE0 /* topbar3.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AE20F811AD9A6FC00EE8CE0 /* topbar3.png */; };
+		3AFEC66D1AE6B6FE00A6EF2F /* about-goat.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AFEC6681AE6B6FE00A6EF2F /* about-goat.png */; };
+		3AFEC66E1AE6B6FE00A6EF2F /* about-item.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AFEC6691AE6B6FE00A6EF2F /* about-item.png */; };
+		3AFEC66F1AE6B6FE00A6EF2F /* about-title-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AFEC66A1AE6B6FE00A6EF2F /* about-title-1.png */; };
+		3AFEC6701AE6B6FE00A6EF2F /* about-title-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AFEC66B1AE6B6FE00A6EF2F /* about-title-2.png */; };
+		3AFEC6711AE6B6FE00A6EF2F /* button-previous-screen-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AFEC66C1AE6B6FE00A6EF2F /* button-previous-screen-2.png */; };
 		3B94EF001ADFE74200F4F488 /* background 1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3B94EEFF1ADFE74200F4F488 /* background 1.jpg */; };
 		3BBE77A01ADF00560071CFEE /* back-button-hi.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BBE779F1ADF00560071CFEE /* back-button-hi.png */; };
 		3BD81EDF1AD6EE8900599E30 /* PowerUpNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD81EDE1AD6EE8900599E30 /* PowerUpNode.swift */; };
@@ -177,6 +182,11 @@
 		3ADB3AFC1AE2678200B986D1 /* RiverScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RiverScene.swift; sourceTree = "<group>"; };
 		3ADDD0BB1AE0EC0300090FA0 /* spark.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = spark.sks; sourceTree = "<group>"; };
 		3AE20F811AD9A6FC00EE8CE0 /* topbar3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = topbar3.png; sourceTree = "<group>"; };
+		3AFEC6681AE6B6FE00A6EF2F /* about-goat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "about-goat.png"; path = "Buttons/about-goat.png"; sourceTree = "<group>"; };
+		3AFEC6691AE6B6FE00A6EF2F /* about-item.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "about-item.png"; path = "Buttons/about-item.png"; sourceTree = "<group>"; };
+		3AFEC66A1AE6B6FE00A6EF2F /* about-title-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "about-title-1.png"; path = "Buttons/about-title-1.png"; sourceTree = "<group>"; };
+		3AFEC66B1AE6B6FE00A6EF2F /* about-title-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "about-title-2.png"; path = "Buttons/about-title-2.png"; sourceTree = "<group>"; };
+		3AFEC66C1AE6B6FE00A6EF2F /* button-previous-screen-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button-previous-screen-2.png"; path = "Buttons/button-previous-screen-2.png"; sourceTree = "<group>"; };
 		3B94EEFF1ADFE74200F4F488 /* background 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background 1.jpg"; sourceTree = "<group>"; };
 		3BBE779F1ADF00560071CFEE /* back-button-hi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back-button-hi.png"; sourceTree = "<group>"; };
 		3BD81EDE1AD6EE8900599E30 /* PowerUpNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PowerUpNode.swift; sourceTree = "<group>"; };
@@ -301,9 +311,14 @@
 			name = "View Controller";
 			sourceTree = "<group>";
 		};
-		3A7012A31ADA41D4002D2BB9 /* Buttons */ = {
+		3A7012A31ADA41D4002D2BB9 /* I */ = {
 			isa = PBXGroup;
 			children = (
+				3AFEC6681AE6B6FE00A6EF2F /* about-goat.png */,
+				3AFEC6691AE6B6FE00A6EF2F /* about-item.png */,
+				3AFEC66A1AE6B6FE00A6EF2F /* about-title-1.png */,
+				3AFEC66B1AE6B6FE00A6EF2F /* about-title-2.png */,
+				3AFEC66C1AE6B6FE00A6EF2F /* button-previous-screen-2.png */,
 				3A96A8D31AE2479C007D6F90 /* button-previous-screen.png */,
 				3A96A8CD1AE245E9007D6F90 /* mode-item.png */,
 				3A96A8CE1AE245E9007D6F90 /* mode-multiplayer.png */,
@@ -317,7 +332,7 @@
 				3A7012A41ADA41EA002D2BB9 /* button-instruction.png */,
 				3A7012A51ADA41EA002D2BB9 /* button-start-game.png */,
 			);
-			name = Buttons;
+			name = I;
 			sourceTree = "<group>";
 		};
 		3AD4A4251ADA50D700E63495 /* PowerUp */ = {
@@ -494,7 +509,7 @@
 				C38B421A1AE2E23400938FC5 /* Goat */,
 				3ADADDDC1ADFF5F700DE17F3 /* GameOver */,
 				3AD4A4271ADA6FBC00E63495 /* PowerUp */,
-				3A7012A31ADA41D4002D2BB9 /* Buttons */,
+				3A7012A31ADA41D4002D2BB9 /* I */,
 				C3AE5D511ACB081B00E8E8F2 /* Background */,
 			);
 			path = Images;
@@ -796,6 +811,7 @@
 				C3D7EB001AD069D800A61851 /* category-left.png in Resources */,
 				C38B425B1AE2E23400938FC5 /* goat-button-right-5.png in Resources */,
 				3A49F8401ADFA35C0008B2CB /* button-continue.png in Resources */,
+				3AFEC66F1AE6B6FE00A6EF2F /* about-title-1.png in Resources */,
 				3A96A8D11AE245E9007D6F90 /* mode-multiplayer.png in Resources */,
 				C38B42651AE2E23400938FC5 /* goat-deployed-right-5.png in Resources */,
 				3A7012A01ADA3CEC002D2BB9 /* background.jpg in Resources */,
@@ -816,6 +832,7 @@
 				C32E24721AE6A3B90022FDEE /* fire.wav in Resources */,
 				C38B424C1AE2E23400938FC5 /* goat-bumping-left-5.png in Resources */,
 				C3B37F321ADD62DE00CB747C /* animation-freezing1.png in Resources */,
+				3AFEC66D1AE6B6FE00A6EF2F /* about-goat.png in Resources */,
 				C33F32281ADC001E00964B5D /* item-selected-freeze.png in Resources */,
 				C38B42571AE2E23400938FC5 /* goat-button-right-1.png in Resources */,
 				C354415A1ACDC0AC00BA7369 /* bank-left.png in Resources */,
@@ -847,9 +864,11 @@
 				C38B425F1AE2E23400938FC5 /* goat-deployed-left-4.png in Resources */,
 				C38B424B1AE2E23400938FC5 /* goat-bumping-left-4.png in Resources */,
 				3A96A8D01AE245E9007D6F90 /* mode-item.png in Resources */,
+				3AFEC6711AE6B6FE00A6EF2F /* button-previous-screen-2.png in Resources */,
 				3A3021481ADD779900FBE3B2 /* ice-fog.sks in Resources */,
 				C3FB2ADE1AE56E9900244916 /* dragging-upgrade.sks in Resources */,
 				C38B42561AE2E23400938FC5 /* goat-button-left-5.png in Resources */,
+				3AFEC6701AE6B6FE00A6EF2F /* about-title-2.png in Resources */,
 				C33F322C1ADC001E00964B5D /* item-waiting-freeze.png in Resources */,
 				C32E24761AE6A3B90022FDEE /* upgrade.wav in Resources */,
 				C38B42601AE2E23400938FC5 /* goat-deployed-left-5.png in Resources */,
@@ -861,6 +880,7 @@
 				C354415B1ACDC0AC00BA7369 /* bank-right.png in Resources */,
 				3AE20F831AD9A6FC00EE8CE0 /* topbar3.png in Resources */,
 				C38B42551AE2E23400938FC5 /* goat-button-left-4.png in Resources */,
+				3AFEC66E1AE6B6FE00A6EF2F /* about-item.png in Resources */,
 				C35441581ACDC0AC00BA7369 /* arrow-left.png in Resources */,
 				C3D7EB021AD069D800A61851 /* topbar.png in Resources */,
 				C32E24741AE6A3B90022FDEE /* goat-sound.wav in Resources */,
