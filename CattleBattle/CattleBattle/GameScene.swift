@@ -467,6 +467,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     }
         
     private func _continueGame() {
+        for screen in gameOverScreen {
+            screen.removeFromParent()
+        }
         pauseScreen.removeFromParent()
         self.view!.paused = false
         self.paused = false
