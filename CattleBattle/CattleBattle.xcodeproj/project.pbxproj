@@ -12,6 +12,8 @@
 		3A1C83141AE6CB64002118D3 /* about-item-fire.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A1C83101AE6CB64002118D3 /* about-item-fire.png */; };
 		3A1C83151AE6CB64002118D3 /* about-item-freeze.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A1C83111AE6CB64002118D3 /* about-item-freeze.png */; };
 		3A1C83161AE6CB64002118D3 /* about-item-upgrade.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A1C83121AE6CB64002118D3 /* about-item-upgrade.png */; };
+		3A1C83181AE6CE20002118D3 /* BorderNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1C83171AE6CE20002118D3 /* BorderNode.swift */; };
+		3A1C831A1AE6CE55002118D3 /* item-border.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A1C83191AE6CE55002118D3 /* item-border.png */; };
 		3A3021451ADD6C3B00FBE3B2 /* freeze.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3A3021431ADD6C3B00FBE3B2 /* freeze.sks */; };
 		3A3021481ADD779900FBE3B2 /* ice-fog.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3A3021471ADD779900FBE3B2 /* ice-fog.sks */; };
 		3A49F83F1ADFA35C0008B2CB /* button-back.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A49F83A1ADFA35C0008B2CB /* button-back.png */; };
@@ -157,6 +159,8 @@
 		3A1C83101AE6CB64002118D3 /* about-item-fire.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "about-item-fire.png"; path = "Buttons/about-item-fire.png"; sourceTree = "<group>"; };
 		3A1C83111AE6CB64002118D3 /* about-item-freeze.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "about-item-freeze.png"; path = "Buttons/about-item-freeze.png"; sourceTree = "<group>"; };
 		3A1C83121AE6CB64002118D3 /* about-item-upgrade.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "about-item-upgrade.png"; path = "Buttons/about-item-upgrade.png"; sourceTree = "<group>"; };
+		3A1C83171AE6CE20002118D3 /* BorderNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderNode.swift; sourceTree = "<group>"; };
+		3A1C83191AE6CE55002118D3 /* item-border.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "item-border.png"; sourceTree = "<group>"; };
 		3A3021431ADD6C3B00FBE3B2 /* freeze.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = freeze.sks; sourceTree = "<group>"; };
 		3A3021471ADD779900FBE3B2 /* ice-fog.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = "ice-fog.sks"; sourceTree = "<group>"; };
 		3A49F83A1ADFA35C0008B2CB /* button-back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button-back.png"; path = "Buttons/button-back.png"; sourceTree = "<group>"; };
@@ -469,6 +473,7 @@
 				C3E9D8CC1AE4369A00C45089 /* ScoreNode.swift */,
 				96CAA74A1AD0074B0094AC44 /* ArrowNode.swift */,
 				9660B9FE1AC44F4A00A053A2 /* LoadingNode.swift */,
+				3A1C83171AE6CE20002118D3 /* BorderNode.swift */,
 				3AD4A4361ADB232700E63495 /* CategoryNode.swift */,
 				3ADB3AFC1AE2678200B986D1 /* RiverScene.swift */,
 				3AB818931AE273730039E315 /* RiverScene.sks */,
@@ -494,6 +499,7 @@
 		C33F321A1ADC001E00964B5D /* Item */ = {
 			isa = PBXGroup;
 			children = (
+				3A1C83191AE6CE55002118D3 /* item-border.png */,
 				C33F321C1ADC001E00964B5D /* Selected */,
 				C33F32211ADC001E00964B5D /* Waiting */,
 			);
@@ -815,6 +821,7 @@
 				C38B42631AE2E23400938FC5 /* goat-deployed-right-3.png in Resources */,
 				3BBE77A01ADF00560071CFEE /* back-button-hi.png in Resources */,
 				C3FB2ADD1AE56E9900244916 /* dragging-freeze.sks in Resources */,
+				3A1C831A1AE6CE55002118D3 /* item-border.png in Resources */,
 				C3AE5D551ACB081B00E8E8F2 /* bridge.png in Resources */,
 				3A49F8431ADFA35C0008B2CB /* button-restart.png in Resources */,
 				3A1C83151AE6CB64002118D3 /* about-item-freeze.png in Resources */,
@@ -935,6 +942,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				96972B4A1AC2C77000FF2DC5 /* GameScene.swift in Sources */,
+				3A1C83181AE6CE20002118D3 /* BorderNode.swift in Sources */,
 				96972B4C1AC2C77000FF2DC5 /* GameViewController.swift in Sources */,
 				96972B461AC2C77000FF2DC5 /* AppDelegate.swift in Sources */,
 				3A8B0EA51ADFD26F00D3AFF7 /* GameOverScene.swift in Sources */,

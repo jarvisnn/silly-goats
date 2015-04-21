@@ -54,6 +54,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     
     private var arrows = [[ArrowNode]](count: GameModel.Constants.NUMBER_OF_BRIDGES, repeatedValue: [ArrowNode](count: Animal.Size.allSizes.count, repeatedValue: ArrowNode()))
     private var loadingButton: [[LoadingNode]] = []
+    private var loadingBorder: [[BorderNode]] = []
     
     private var pauseScreen: PauseScene!
     private var gameOverScreen: GameOverScene!
@@ -127,6 +128,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
                 return node
             })
         }
+        for i in 0..<Animal.Side.allSides.count {
+            loadingBorder.append([])
+            for j in 0..<GameModel.Constants.NUMBER_OF_RESERVED {
+                var node = BorderNode()
+                node.position = loadingButton[i][j].position
+                node.zPosition = -1
+                println(node)
+                self.addChild(node)
+                loadingBorder[i].append(node)
+            }
+        }
+        
+        updateLoadingBorder(.LEFT)
+        updateLoadingBorder(.RIGHT)
     }
     
     private func _setupPauseButton() {
@@ -566,11 +581,34 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         var button = loadingButton[side.index][selectedButton]
         button.change()
         button.fadeAnimation(side, index: selectedButton)
+        updateLoadingBorder(arrow.side)
     }
     
     
     private func _selectButton(node: LoadingNode) {
         gameModel.selectForSide(node.animal.side, index: node.index)
+        updateLoadingBorder(node.animal.side)
+    }
+    
+    private func updateLoadingBorder(side: Animal.Side) {
+        if side == .RIGHT && gameModel.gameMode == .SINGLE_PLAYER {
+            return
+        }
+        var j = gameModel.selectedGoat[find(Animal.Side.allSides, side)!]
+        for z in 0..<3 {
+            if gameModel.isCattleReady(side, index: (j+z) % 3) {
+                gameModel.selectForSide(side, index: (j+z) % 3)
+                break
+            }
+        }
+        
+        var node = loadingBorder[side.index][gameModel.selectedGoat[side.index]]
+        if node.alpha == 0 {
+            for z in 0..<3 {
+                loadingBorder[side.index][z].alpha = 0
+            }
+            node.fadeIn()
+        }
     }
     
     private func launchSheepForAI(readyIndex: Int, trackIndex: Int) {
