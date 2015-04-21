@@ -28,7 +28,7 @@ class ArrowNode: SKSpriteNode {
         
         internal static let IDENTIFIER = "arrow"
 
-        internal static var arrowTextures = Animal.Side.allSides.map() { (side) -> [SKTexture] in
+        private static var _textures = Animal.Side.allSides.map() { (side) -> [SKTexture] in
             var spriteSheet = SKTexture(imageNamed: Constants.IDENTIFIER + "-" + side.rawValue + Constants.IMAGE_EXT)
             
             var x = 1.0 / CGFloat(SPRITE_SHEET_LENGTH)
@@ -43,7 +43,7 @@ class ArrowNode: SKSpriteNode {
     }
     
     internal class func getTextures(side: Animal.Side) -> [SKTexture] {
-        return Constants.arrowTextures[side.index]
+        return Constants._textures[side.index]
     }
     
     init(side: Animal.Side, index: Int) {

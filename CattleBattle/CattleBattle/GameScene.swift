@@ -39,7 +39,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         internal static let GAME_VIEW_RIGHT_BOUNDARY: CGFloat = 1100
         internal static let GAME_VIEW_LEFT_BOUNDARY: CGFloat = -100
         
-        private static let ROUND_TIME = 10
+        private static let ROUND_TIME = 90
     }
     
     private let GAME_VIEW_RIGHT_BOUNDARY: CGFloat = 1100
@@ -442,11 +442,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
                     }
                     node.removeFromParent()
                 } else {
-                    if sideIndex == 0 {
-                        (node as! AnimalNode).physicsBody!.velocity.dx = AnimalNode.Constants.VELOCITY
-                    } else {
-                        (node as! AnimalNode).physicsBody!.velocity.dx = -AnimalNode.Constants.VELOCITY
-                    }
+                    var factor: CGFloat = (sideIndex == 0) ? 1 : -1
+                    (node as! AnimalNode).physicsBody!.velocity.dx = AnimalNode.Constants.VELOCITY * factor
                 }
             }
         }
@@ -492,7 +489,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     }
     
     private func _gameOver() {
-        var gameOver = MinorScreen(size: self.frame.size)
+        var gameOver = GameOverScene(size: self.frame.size)
         gameOver.zPosition = Constants.Z_INDEX_SCREEN
         gameOver.position = CGPointMake(frame.width / 2, frame.height / 2)
         _moveToScreen(gameOver)

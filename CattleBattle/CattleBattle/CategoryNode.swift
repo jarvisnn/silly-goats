@@ -11,26 +11,26 @@ import SpriteKit
 
 class CategoryNode: SKSpriteNode {
     struct Constants {
-        internal static var IDENTIFIER = "categoryNode"
-        internal static var CATEGORY_KEYWORD = "category"
-        internal static var IMAGE_EXT = ".png"
-        internal static let SCALE_X: CGFloat = 0.6
-        internal static let SCALE_Y: CGFloat = 0.5
-        internal static let BODY_OFFSET: CGFloat = 15
-        internal static let ITEM_GAP: CGFloat = 5
+        internal static let IDENTIFIER = "categoryNode"
+        internal static let CATEGORY_KEYWORD = "category"
+        private static let IMAGE_EXT = ".png"
+        private static let SCALE_X: CGFloat = 0.6
+        private static let SCALE_Y: CGFloat = 0.5
+        private static let BODY_OFFSET: CGFloat = 15
+        private static let ITEM_GAP: CGFloat = 5
  
-        internal static let MAX_POWERUP: Int = 4
+        private static let MAX_POWERUP: Int = 4
         
-        internal static let ADD_DURATION: Double = 0.5
-        internal static let REMOVE_DURATION: Double = 0.2
+        private static let ADD_DURATION: Double = 0.5
+        private static let REMOVE_DURATION: Double = 0.2
         
-        internal static var textures = Animal.Side.allSides.map { (side) -> SKTexture in
+        private static var _textures = Animal.Side.allSides.map { (side) -> SKTexture in
             return SKTexture(imageNamed: CategoryNode._getImageFileName(side))
         }
     }
     
     internal class func getTexture(side: Animal.Side) -> SKTexture {
-        return Constants.textures[find(Animal.Side.allSides, side)!]
+        return Constants._textures[find(Animal.Side.allSides, side)!]
     }
     
     private class func _getImageFileName(side: Animal.Side) -> String {

@@ -8,14 +8,14 @@
 
 import SpriteKit
 
-class MinorScreen: SKSpriteNode {
+class GameOverScene: SKSpriteNode {
     struct Constants {
-        internal static var WIN_FILENAME = "win"
-        internal static var LOSE_FILENAME = "lose"
-        internal static var IMAGE_EXT = ".png"
-        internal static var HOME_POSITION = CGPointMake(0, -70)
-        internal static var RESTART_POSITION = CGPointMake(0, 70)
-        internal static var TROPHY_OFFSET: CGFloat = 300
+        private static var WIN_FILENAME = "win"
+        private static var LOSE_FILENAME = "lose"
+        private static var IMAGE_EXT = ".png"
+        private static var HOME_POSITION = CGPointMake(0, -70)
+        private static var RESTART_POSITION = CGPointMake(0, 70)
+        private static var TROPHY_OFFSET: CGFloat = 300
     }
     
     init(size: CGSize) {
@@ -30,7 +30,7 @@ class MinorScreen: SKSpriteNode {
         var score = GameModel.Constants.gameModel.score
         
         for side in Animal.Side.allSides {
-            var trophy = MinorScreen._getTrophy(score[side.index], opponent: score[1 - side.index])
+            var trophy = GameOverScene._getTrophy(score[side.index], opponent: score[1 - side.index])
             var x = Constants.TROPHY_OFFSET
             trophy.position = CGPointMake((side == .LEFT) ? -x : x, 0)
             self.addChild(trophy)
