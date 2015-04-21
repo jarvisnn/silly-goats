@@ -23,36 +23,46 @@ class GameSound {
         private static let allSounds = [SOUNDTRACK, FREEZE, BLACKHOLE, UPGRADE, FIRE, BUTTON_CLICK, GOAT_SOUND]
         private static let types = ["mp3", "mp3", "wav", "wav", "wav", "wav", "wav"]
         private static let initialVolumn: [Float] = [1, 1, 1, 1, 1, 1, 1]
+        private static let startPoints: [Double] = [0, 0, 0, 0, 0, 0, 0.5]
     }
     
     struct Constants {
-        internal static var volumn: Float = 1
         internal static let audio = Sound.allSounds.map() { (sound) -> AVAudioPlayer in
-            return GameSound.unarchiveFromFile(sound)
+            return _sharedInstance.unarchiveFromFile(sound)
         }
+       
+        internal static let instance: GameSound = _sharedInstance
     }
     
-    internal class func play(sound: Sound) {
+    private var volumn: Float
+    
+    private init() {
+        self.volumn = 1
+    }
+    
+    internal func play(sound: Sound) {
         if let index = find(Sound.allSounds, sound) {
-            Constants.audio[index].volume = Sound.initialVolumn[index] * Constants.volumn
+            Constants.audio[index].volume = Sound.initialVolumn[index] * self.volumn
+            Constants.audio[index].currentTime = Sound.startPoints[index]
             Constants.audio[index].play()
         }
     }
     
-    internal class func playForever(sound: Sound) {
+    internal func playForever(sound: Sound) {
         if let index = find(Sound.allSounds, sound) {
             Constants.audio[index].numberOfLoops = -1
-            Constants.audio[index].volume = Sound.initialVolumn[index] * Constants.volumn
+            Constants.audio[index].volume = Sound.initialVolumn[index] * self.volumn
+            Constants.audio[index].currentTime = Sound.startPoints[index]
             Constants.audio[index].play()
         }
     }
     
-    internal class func setupAudio() {
+    internal func setupAudio() {
         AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, error: nil)
         AVAudioSession.sharedInstance().setActive(true, error: nil)
     }
     
-    private class func unarchiveFromFile(sound: GameSound.Sound) -> AVAudioPlayer  {
+    private func unarchiveFromFile(sound: GameSound.Sound) -> AVAudioPlayer  {
         var file = sound.rawValue
         var type = Sound.types[find(Sound.allSounds, sound)!]
         
@@ -62,3 +72,5 @@ class GameSound {
         return AVAudioPlayer(contentsOfURL: url, error: &error)!
     }
 }
+
+private let _sharedInstance = GameSound()

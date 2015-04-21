@@ -542,6 +542,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             return
         }
         
+        GameSound.Constants.instance.play(.GOAT_SOUND)
+        
         gameModel.setCattleStatus(side, index: selectedButton, status: false)
         var currentSize = loadingButton[side.index][selectedButton].animal.size
         var y = Constants.LAUNCH_Y_TOP - Constants.LAUNCH_Y_GAP * CGFloat(selectedRow)
