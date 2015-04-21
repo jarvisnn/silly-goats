@@ -420,13 +420,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     }
         
     private func _applyPowerUp(item: PowerUpNode, target: AnimalNode) {
-        var targets = [target]
+        var targets: [AnimalNode?] = [target]
         var category = item.parent as! CategoryNode
         if item.powerUpItem.powerType == .FREEZE {
             var category = item.parent as! CategoryNode
             for i in self.children {
                 if var node = i as? AnimalNode {
-                    if node.row == target.row {
+                    if node.row == target.row && node != target {
                         targets.append(node)
                     }
                 }
