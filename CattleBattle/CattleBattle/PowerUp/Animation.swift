@@ -22,7 +22,7 @@ class Animation {
     }
     
     private class func _applyBlackHole(scene: SKScene, node: AnimalNode) {
-        var blackHole = AnimationNode(imageName: "animation-blackHole", scale: 0.1)
+        var blackHole = AnimationNode(imageName: "animation-blackHole", scale: 0.1, parentScale: node.animal.getImageScale())
         blackHole.rotateForever(CGFloat(-M_PI), speed: 0.2)
         blackHole.zPosition = -1
         
@@ -55,16 +55,17 @@ class Animation {
         scene.addChild(fog)
         
         for node in nodes {
-            var freezing = AnimationNode(imageName: "animation-freezing2.png", scale: 0.4)
+            var freezing = AnimationNode(imageName: "animation-freezing2.png", scale: 0.4, parentScale: node.animal.getImageScale())
             freezing.alpha = 0
-            freezing.position = CGPointMake(0, node.size.height/2)
+            freezing.anchorPoint = CGPointMake(0.5, 0.2)
+            freezing.position = CGPoint.zeroPoint
             freezing.zPosition = 1
             
             node.addChild(freezing)
             
             var action1 = SKAction.runBlock({
+                node.physicsBody!.dynamic = false
                 freezing.runAction(SKAction.fadeInWithDuration(0.5), completion: {
-                    node.physicsBody!.dynamic = false
                     node.paused = true
                 })
             })
@@ -101,14 +102,12 @@ class Animation {
         let fire = SKEmitterNode.getEmitterFromFile("fire")
         fire.zPosition = -1
         fire.position = node.position
-        fire.position.y += node.size.height*5/9
+        fire.position.y += node.size.height * 5 / 9
         
-        node.physicsBody!.dynamic = false
-        node.physicsBody!.collisionBitMask = GameScene.Constants.None
-        node.physicsBody!.categoryBitMask = GameScene.Constants.None
+        node.physicsBody = nil
         
         node.zPosition = Constants.Z_INDEX_FRONT
-        node.xScale = -node.xScale
+        node.xScale = -1
         
         var destination = node.animal.side == .LEFT ? GameScene.Constants.GAME_VIEW_LEFT_BOUNDARY : GameScene.Constants.GAME_VIEW_RIGHT_BOUNDARY
         

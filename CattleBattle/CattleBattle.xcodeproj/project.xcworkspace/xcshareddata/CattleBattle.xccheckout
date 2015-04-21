@@ -11,7 +11,7 @@
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>35B676531CA5E6E94582889F7AD48597474298AC</key>
-		<string>https://bitbucket.org/cs3217/2015-final-group09</string>
+		<string>https://bitbucket.org/cs3217/2015-final-group09.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>CattleBattle/CattleBattle.xcodeproj</string>
@@ -21,7 +21,7 @@
 		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://bitbucket.org/cs3217/2015-final-group09</string>
+	<string>https://bitbucket.org/cs3217/2015-final-group09.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>

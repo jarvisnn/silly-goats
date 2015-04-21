@@ -10,21 +10,21 @@ import SpriteKit
 
 class AnimationNode: SKSpriteNode {
     struct Constants {
-        internal static let IDENTIFIER = "animationNode"
-        internal static let ROTATION_SPEED: Double = 1
+        private static let IDENTIFIER = "animationNode"
+        private static let IMAGE_EXT = ".png"
+        private static let ROTATION_SPEED: Double = 1
         internal static let BLACKHOLE_IMAGE = "animation-blackHole"
     }
     
     internal var side: Animal.Side = .LEFT
     
-    init(imageName: String, scale: CGFloat) {
-        var _texture = SKTexture(imageNamed: imageName+".png")
+    init(imageName: String, scale: CGFloat, parentScale: CGFloat) {
+        var _texture = SKTexture(imageNamed: imageName + Constants.IMAGE_EXT)
         var _size = _texture.size()
-        super.init(texture: _texture, color: UIColor.clearColor(), size: _size)
+        super.init(texture: _texture, color: UIColor.clearColor(), size: _size * parentScale)
         
         self.name = Constants.IDENTIFIER
         self.texture = _texture
-        self.size = _size
         self.xScale = scale
         self.yScale = scale
     }

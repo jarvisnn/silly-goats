@@ -53,3 +53,11 @@ func -(left: CGPoint, right: CGPoint) -> CGPoint {
 func *(left: CGPoint, right: CGFloat) -> CGPoint {
     return CGPoint(x: left.x * right, y: left.y * right)
 }
+
+func *(left: CGSize, right: CGFloat) -> CGSize {
+    return CGSize(width: left.width * right, height: left.height * right)
+}
+
+func /(left: CGSize, right: CGFloat) -> CGSize {
+    return CGSize(width: left.width / right, height: left.height / right)
+}

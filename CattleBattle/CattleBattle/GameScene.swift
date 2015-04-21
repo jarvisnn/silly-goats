@@ -180,7 +180,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     }
     
     private func addItem() {
-        var item = PowerUpNode(type: .UPGRADE)
+        var item = PowerUpNode(type: .FREEZE)
         item.randomPower()
         item.position = CGPoint(x: self.size.width/2, y: self.size.height/2)
         item.zPosition = Constants.Z_INDEX_ITEM
@@ -376,6 +376,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             } else if node.name == PowerUpNode.Constants.IDENTIFIER_STORED {
                 Animation.draggingPowerUp((node as! PowerUpNode).powerUpItem.powerType, scene: self, position: end)
             }
+            
         } else if recognizer.state == .Ended {
             if node.name == PowerUpNode.Constants.IDENTIFIER {
                 var speed = self.convertPointFromView(recognizer.velocityInView(recognizer.view))
@@ -400,6 +401,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         }
         return (itemNode.side == animalNode.animal.side) == PowerUp.PowerType.targetFriendly(itemNode.powerUpItem.powerType)
     }
+    
+    private func _isAnimalRemoved(node: AnimalNode) -> Bool {
+        if node.paused {
+            return true
+        }
+        if var body = node.physicsBody {
+            if !body.dynamic {
+                return true
+            }
+        } else {
+            return true
+        }
+        return false
+    }
         
     private func _findNearestAnimal(itemNode: PowerUpNode, effect: SKEmitterNode) -> AnimalNode? {
         var result: AnimalNode?
@@ -411,7 +426,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
                 var effectFrame = CGRect(origin: origin, size: CGSize(width: size.x, height: size.y))
                 
                 var isOver = CGRectIntersection(effectFrame, animalNode.frame).size != CGSize.zeroSize
-                var isValid = _isItemValid(itemNode, animalNode: animalNode)
+                var isValid = _isItemValid(itemNode, animalNode: animalNode) && !_isAnimalRemoved(animalNode)
+                
                 if isOver && isValid {
                     if result == nil {
                         result = animalNode
@@ -432,7 +448,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         if item.powerUpItem.powerType == .FREEZE {
             var unwrapped = self.children.filter() { (i) -> Bool in
                 if var node = i as? AnimalNode {
-                    return node.row == target.row
+                    return node.row == target.row && !self._isAnimalRemoved(node)
                 }
                 return false
             }
@@ -450,14 +466,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             
             if node.name == AnimalNode.Constants.IDENTIFIER {
                 var sideIndex = (node as! AnimalNode).animal.side.index
-                if node.position.x < GAME_VIEW_LEFT_BOUNDARY || node.position.x > GAME_VIEW_RIGHT_BOUNDARY {
-                    if (node.position.x > GAME_VIEW_RIGHT_BOUNDARY) || (node.position.x < GAME_VIEW_LEFT_BOUNDARY) {
-                        scoreNode[sideIndex].score += (node as! AnimalNode).animal.getPoint()
-                    }
+                var x = node.position.x
+                if x < GAME_VIEW_LEFT_BOUNDARY || x > GAME_VIEW_RIGHT_BOUNDARY {
+                    scoreNode[sideIndex].score += (node as! AnimalNode).animal.getPoint()
                     node.removeFromParent()
                 } else {
                     var factor: CGFloat = (sideIndex == 0) ? 1 : -1
-                    (node as! AnimalNode).physicsBody!.velocity.dx = AnimalNode.Constants.VELOCITY * factor
+                    if (node as! AnimalNode).physicsBody != nil {
+                        (node as! AnimalNode).physicsBody!.velocity.dx = AnimalNode.Constants.VELOCITY * factor
+                    }
                 }
             }
         }

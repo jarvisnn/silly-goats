@@ -28,6 +28,8 @@ class AnimalNode: SKSpriteNode {
         var scale = Animal.Constants.scale[find(Animal.Status.allStatuses, animal.status)!][find(Animal.Size.allSizes, animal.size)!]
         super.init(texture: animal.getTexture(), color: UIColor.clearColor(), size: CGSize(width: scale, height: scale))
         
+        println(self.size)
+        
         self.name = Constants.IDENTIFIER
         self.anchorPoint = CGPointMake(0.5, 0)
         
@@ -41,16 +43,9 @@ class AnimalNode: SKSpriteNode {
     internal func updateAnimalStatus(status: Animal.Status) {
         self.animal.status = status
         self.texture = self.animal.getTexture()
+        self.size = self.texture!.size() * animal.getImageScale()
         
-        self.xScale = 1
-        self.yScale = 1
-        
-        self.size = self.texture!.size()
-        
-        self.xScale = animal.getImageScale()
-        self.yScale = self.xScale
-        
-        let textures = status == .DEPLOYED ? animal.getDeployedTexture() : animal.getBumpingTexture()
+        var textures = status == .DEPLOYED ? animal.getDeployedTexture() : animal.getBumpingTexture()
         var repeatedAction = SKAction.animateWithTextures(textures, timePerFrame: Constants.FRAME_TIME_DEPLOYED)
         self.runAction(SKAction.repeatActionForever(repeatedAction))
         
