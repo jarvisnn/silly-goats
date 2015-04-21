@@ -39,7 +39,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         internal static let GAME_VIEW_RIGHT_BOUNDARY: CGFloat = 1100
         internal static let GAME_VIEW_LEFT_BOUNDARY: CGFloat = -100
         
-        private static let ROUND_TIME = 90
+        private static let ROUND_TIME = 10
     }
     
     private let GAME_VIEW_RIGHT_BOUNDARY: CGFloat = 1100
@@ -53,6 +53,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     private var loadingButton: [[LoadingNode]] = []
     private var pauseButton: MenuButtonNode!
     private var pauseScreen: PauseScene!
+    private var gameOverScreen: GameOverScene!
     private var categories = [CategoryNode](count: 2, repeatedValue: CategoryNode())
     private var zIndex: CGFloat = 0
     private var timerNode: SKLabelNode!
@@ -131,6 +132,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         pauseScreen.zPosition = Constants.Z_INDEX_SCREEN
         pauseScreen.position = CGPointMake(frame.width / 2, frame.height / 2)
         
+        gameOverScreen = GameOverScene(size: self.frame.size)
+        gameOverScreen.zPosition = Constants.Z_INDEX_SCREEN
+        gameOverScreen.position = CGPointMake(frame.width / 2, frame.height / 2)
     }
     
     private func _setupScore() {
@@ -413,7 +417,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     }
         
     private func _applyPowerUp(item: PowerUpNode, target: AnimalNode) {
-        var targets = [target]
+        var targets: [AnimalNode] = [target]
         var category = item.parent as! CategoryNode
         if item.powerUpItem.powerType == .FREEZE {
             var unwrapped = self.children.filter() { (i) -> Bool in
@@ -458,6 +462,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         
     private func _continueGame() {
         pauseScreen.removeFromParent()
+        gameOverScreen.removeFromParent()
         self.view!.paused = false
         self.paused = false
     }
@@ -468,6 +473,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     
     private func _pauseGame() {
         _moveToScreen(pauseScreen)
+    }
+    
+    private func _gameOver() {
+        gameOverScreen.update()
+        _moveToScreen(gameOverScreen)
     }
     
     private func _restartGame() {
@@ -486,13 +496,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         if gameModel.gameMode != .ITEM_MODE {
             _setupLoadingButton()
         }
-    }
-    
-    private func _gameOver() {
-        var gameOver = GameOverScene(size: self.frame.size)
-        gameOver.zPosition = Constants.Z_INDEX_SCREEN
-        gameOver.position = CGPointMake(frame.width / 2, frame.height / 2)
-        _moveToScreen(gameOver)
     }
     
     private func _moveToScreen(screen: SKSpriteNode) {
@@ -520,6 +523,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         if !gameModel.isCattleReady(side, index: selectedButton) {
             return
         }
+        
+        GameSound.Constants.instance.play(.GOAT_SOUND)
         
         gameModel.setCattleStatus(side, index: selectedButton, status: false)
         var currentSize = loadingButton[side.index][selectedButton].animal.size

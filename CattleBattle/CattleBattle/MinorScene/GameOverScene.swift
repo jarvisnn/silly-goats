@@ -18,6 +18,8 @@ class GameOverScene: SKSpriteNode {
         private static var TROPHY_OFFSET: CGFloat = 300
     }
     
+    private var _trophy = [SKSpriteNode]()
+    
     init(size: CGSize) {
         super.init(texture: nil, color: UIColor(white:0, alpha: 0.2), size: size)
         var restartButton = MenuButtonNode(buttonType: .RESTART, scale: 1)
@@ -27,19 +29,25 @@ class GameOverScene: SKSpriteNode {
         self.addChild(restartButton)
         self.addChild(homeButton)
         
-        var score = GameModel.Constants.gameModel.score
-        
         for side in Animal.Side.allSides {
-            var trophy = GameOverScene._getTrophy(score[side.index], opponent: score[1 - side.index])
+            _trophy.append(SKSpriteNode(imageNamed: Constants.WIN_FILENAME + Constants.IMAGE_EXT))
             var x = Constants.TROPHY_OFFSET
-            trophy.position = CGPointMake((side == .LEFT) ? -x : x, 0)
-            self.addChild(trophy)
+            _trophy[side.index].position = CGPointMake((side == .LEFT) ? -x : x, 0)
+            self.addChild(_trophy[side.index])
+        }
+        update()
+    }
+    
+    internal func update() {
+        var score = GameModel.Constants.gameModel.score
+        for side in Animal.Side.allSides {
+            _trophy[side.index].texture = GameOverScene._getTrophy(score[side.index], opponent: score[1 - side.index])
         }
     }
 
-    internal class func _getTrophy(you: Int, opponent: Int) -> SKSpriteNode {
+    internal class func _getTrophy(you: Int, opponent: Int) -> SKTexture {
         var fileName = (you >= opponent) ? Constants.WIN_FILENAME : Constants.LOSE_FILENAME
-        return SKSpriteNode(imageNamed: fileName + Constants.IMAGE_EXT)
+        return SKTexture(imageNamed: fileName + Constants.IMAGE_EXT)
     }
 
     required init?(coder aDecoder: NSCoder) {

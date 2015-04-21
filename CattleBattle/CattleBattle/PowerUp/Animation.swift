@@ -37,6 +37,7 @@ class Animation {
                 node.removeFromParent()
             })
         })
+        GameSound.Constants.instance.play(.BLACKHOLE)
     }
     
     private class func _applyFreezing(scene: SKScene, nodes: [AnimalNode]) {
@@ -78,6 +79,7 @@ class Animation {
             
             scene.runAction(SKAction.sequence([action1, action2, action3]))
         }
+        GameSound.Constants.instance.play(.FREEZE)
     }
     
     private class func _applyUpgrading(scene: SKScene, node: AnimalNode) {
@@ -92,6 +94,7 @@ class Animation {
         if nextSize < Animal.Size.allSizes.count {
             node.updateAnimalType(Animal.Size.allSizes[nextSize])
         }
+        GameSound.Constants.instance.play(.UPGRADE)
     }
     
     private class func _applyFiring(scene: SKScene, node: AnimalNode) {

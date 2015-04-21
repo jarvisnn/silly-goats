@@ -14,6 +14,8 @@ class MenuViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        GameSound.Constants.instance.setupAudio()
+        GameSound.Constants.instance.playForever(.SOUNDTRACK)
     }
 
     override func didReceiveMemoryWarning() {
