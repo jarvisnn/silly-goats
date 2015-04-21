@@ -39,7 +39,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         internal static let GAME_VIEW_RIGHT_BOUNDARY: CGFloat = 1100
         internal static let GAME_VIEW_LEFT_BOUNDARY: CGFloat = -100
         
-        private static let ROUND_TIME = 90
+        private static let ROUND_TIME = 10
     }
     
     private let GAME_VIEW_RIGHT_BOUNDARY: CGFloat = 1100
@@ -53,7 +53,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     private var loadingButton: [[LoadingNode]] = []
     private var pauseButton: MenuButtonNode!
     private var pauseScreen: PauseScene!
-    private var gameOverScreen: [SKSpriteNode] = []
     private var categories = [CategoryNode](count: 2, repeatedValue: CategoryNode())
     private var zIndex: CGFloat = 0
     private var timerNode: SKLabelNode!
@@ -123,7 +122,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     
     private func _setupPauseButton() {
         pauseButton = MenuButtonNode(buttonType: .PAUSE, scale: 1)
-        pauseButton.position = CGPointMake(frame.width/2, frame.height-pauseButton.size.height/2)
+        pauseButton.position = CGPointMake(frame.width / 2, frame.height - pauseButton.size.height / 2)
         self.addChild(pauseButton)
     }
     
@@ -132,11 +131,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         pauseScreen.zPosition = Constants.Z_INDEX_SCREEN
         pauseScreen.position = CGPointMake(frame.width / 2, frame.height / 2)
         
-        for i in 0...2 {
-            gameOverScreen.append(MinorScreen.gameOverView(self.frame.size, winner: i))
-            gameOverScreen[i].zPosition = Constants.Z_INDEX_SCREEN
-            gameOverScreen[i].position = CGPointMake(frame.width / 2, frame.height / 2)
-        }
     }
     
     private func _setupScore() {
@@ -498,19 +492,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     }
     
     private func _gameOver() {
-        var leftScore = playerScoreNode[0].text.toInt()!
-        var rightScore = playerScoreNode[1].text.toInt()!
-        var index: Int!
-        
-        if leftScore > rightScore {
-            index = 0
-        } else if leftScore < rightScore {
-            index = 1
-        } else {
-            index = 2
-        }
-        
-        _moveToScreen(gameOverScreen[index])
+        var gameOver = MinorScreen(size: self.frame.size)
+        gameOver.zPosition = Constants.Z_INDEX_SCREEN
+        gameOver.position = CGPointMake(frame.width / 2, frame.height / 2)
+        _moveToScreen(gameOver)
     }
     
     private func _moveToScreen(screen: SKSpriteNode) {
