@@ -134,7 +134,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
                 var node = BorderNode()
                 node.position = loadingButton[i][j].position
                 node.zPosition = -1
-                println(node)
                 self.addChild(node)
                 loadingBorder[i].append(node)
             }
@@ -631,7 +630,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         y *= Double(Constants.PAN_GESTURE_HEIGHT)
         x = min(floor(x), Double(Constants.PAN_GESTURE_WIDTH - 1))
         y = min(floor(y), Double(Constants.PAN_GESTURE_HEIGHT - 1))
-        println("\(x) \(y) \(gestureRecognizer == _panGesture[Int(x)][Int(y)])")
         return gestureRecognizer == _panGesture[Int(x)][Int(y)]
     }
 }

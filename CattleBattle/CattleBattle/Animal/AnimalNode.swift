@@ -28,8 +28,6 @@ class AnimalNode: SKSpriteNode {
         var scale = Animal.Constants.scale[find(Animal.Status.allStatuses, animal.status)!][find(Animal.Size.allSizes, animal.size)!]
         super.init(texture: animal.getTexture(), color: UIColor.clearColor(), size: CGSize(width: scale, height: scale))
         
-        println(self.size)
-        
         self.name = Constants.IDENTIFIER
         self.anchorPoint = CGPointMake(0.5, 0)
         
