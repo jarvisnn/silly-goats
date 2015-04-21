@@ -405,7 +405,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
                 
                 var isOver = CGRectIntersection(effectFrame, animalNode.frame).size != CGSize.zeroSize
                 var isValid = _isItemValid(itemNode, animalNode: animalNode)
-                println(animalNode.frame)
                 if isOver && isValid {
                     if result == nil {
                         result = animalNode
@@ -433,7 +432,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
                 }
             }
         }
-        Animation.applyPowerUp(item, targets: [target], scene: self, removeItemFunc: category.remove)
+        Animation.applyPowerUp(item, targets: targets, scene: self, removeItemFunc: category.remove)
     }
     
     override func update(currentTime: CFTimeInterval) {

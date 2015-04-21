@@ -30,6 +30,8 @@
 		3A9419F91AE61B84003100B6 /* sound-track.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3A9419F41AE61B84003100B6 /* sound-track.mp3 */; };
 		3A9419FA1AE61B84003100B6 /* upgrade.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3A9419F51AE61B84003100B6 /* upgrade.wav */; };
 		3A9419FD1AE63388003100B6 /* goat-sound.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3A9419FC1AE63388003100B6 /* goat-sound.wav */; };
+		3A941A011AE63AB3003100B6 /* button-clicked.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3A9419FF1AE63AB3003100B6 /* button-clicked.wav */; };
+		3A941A021AE63AB3003100B6 /* fire.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3A941A001AE63AB3003100B6 /* fire.wav */; };
 		3A96A8D01AE245E9007D6F90 /* mode-item.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A96A8CD1AE245E9007D6F90 /* mode-item.png */; };
 		3A96A8D11AE245E9007D6F90 /* mode-multiplayer.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A96A8CE1AE245E9007D6F90 /* mode-multiplayer.png */; };
 		3A96A8D21AE245E9007D6F90 /* mode-single-player.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A96A8CF1AE245E9007D6F90 /* mode-single-player.png */; };
@@ -166,6 +168,8 @@
 		3A9419F41AE61B84003100B6 /* sound-track.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "sound-track.mp3"; path = "GameSound/sound-track.mp3"; sourceTree = "<group>"; };
 		3A9419F51AE61B84003100B6 /* upgrade.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = upgrade.wav; path = GameSound/upgrade.wav; sourceTree = "<group>"; };
 		3A9419FC1AE63388003100B6 /* goat-sound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "goat-sound.wav"; path = "GameSound/goat-sound.wav"; sourceTree = "<group>"; };
+		3A9419FF1AE63AB3003100B6 /* button-clicked.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "button-clicked.wav"; path = "GameSound/button-clicked.wav"; sourceTree = "<group>"; };
+		3A941A001AE63AB3003100B6 /* fire.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = fire.wav; path = GameSound/fire.wav; sourceTree = "<group>"; };
 		3A96A8CD1AE245E9007D6F90 /* mode-item.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "mode-item.png"; path = "Buttons/mode-item.png"; sourceTree = "<group>"; };
 		3A96A8CE1AE245E9007D6F90 /* mode-multiplayer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "mode-multiplayer.png"; path = "Buttons/mode-multiplayer.png"; sourceTree = "<group>"; };
 		3A96A8CF1AE245E9007D6F90 /* mode-single-player.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "mode-single-player.png"; path = "Buttons/mode-single-player.png"; sourceTree = "<group>"; };
@@ -325,6 +329,8 @@
 		3A9419FB1AE61B8A003100B6 /* sound */ = {
 			isa = PBXGroup;
 			children = (
+				3A9419FF1AE63AB3003100B6 /* button-clicked.wav */,
+				3A941A001AE63AB3003100B6 /* fire.wav */,
 				3A9419FC1AE63388003100B6 /* goat-sound.wav */,
 				3A9419F11AE61B84003100B6 /* blackhole.wav */,
 				3A9419F21AE61B84003100B6 /* freeze.mp3 */,
@@ -411,8 +417,8 @@
 				C364D5CA1AE299D000E09DAB /* MenuButton */,
 				3AD4A4261ADA50E200E63495 /* Animal */,
 				3AD4A4251ADA50D700E63495 /* PowerUp */,
-				C34E580A1AC98E96000E282B /* Images */,
 				3A9419FB1AE61B8A003100B6 /* sound */,
+				C34E580A1AC98E96000E282B /* Images */,
 				C385F6A71AD14813003B4E74 /* Extension.swift */,
 				C35441531ACDB14700BA7369 /* TemporaryCode */,
 				96972B4D1AC2C77000FF2DC5 /* Main.storyboard */,
@@ -766,6 +772,8 @@
 				C3FB2ADD1AE56E9900244916 /* dragging-freeze.sks in Resources */,
 				C3AE5D551ACB081B00E8E8F2 /* bridge.png in Resources */,
 				3A49F8431ADFA35C0008B2CB /* button-restart.png in Resources */,
+				3A941A021AE63AB3003100B6 /* fire.wav in Resources */,
+				3A941A011AE63AB3003100B6 /* button-clicked.wav in Resources */,
 				3ADDD0BC1AE0EC0300090FA0 /* spark.sks in Resources */,
 				96972B541AC2C77000FF2DC5 /* LaunchScreen.xib in Resources */,
 				3AC1E0131AE3A1FC00E016A2 /* sign-board-standing.png in Resources */,

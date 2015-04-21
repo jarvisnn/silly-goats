@@ -16,11 +16,13 @@ class GameSound {
         case FREEZE = "freeze"
         case BLACKHOLE = "blackhole"
         case UPGRADE = "upgrade"
+        case FIRE = "fire"
+        case BUTTON_CLICK = "button-clicked"
         case GOAT_SOUND = "goat-sound"
         
-        private static let allSounds = [SOUNDTRACK, FREEZE, BLACKHOLE, UPGRADE, GOAT_SOUND]
-        private static let types = ["mp3", "mp3", "wav", "wav", "wav"]
-        private static let initialVolumn: [Float] = [1, 1, 1, 1, 1]
+        private static let allSounds = [SOUNDTRACK, FREEZE, BLACKHOLE, UPGRADE, FIRE, BUTTON_CLICK, GOAT_SOUND]
+        private static let types = ["mp3", "mp3", "wav", "wav", "wav", "wav", "wav"]
+        private static let initialVolumn: [Float] = [1, 1, 1, 1, 1, 1, 1]
     }
     
     struct Constants {
