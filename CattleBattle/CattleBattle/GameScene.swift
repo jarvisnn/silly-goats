@@ -482,7 +482,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
                 var sideIndex = (node as! AnimalNode).animal.side.index
                 var x = node.position.x
                 if x < GAME_VIEW_LEFT_BOUNDARY || x > GAME_VIEW_RIGHT_BOUNDARY {
-                    scoreNode[sideIndex].score += (node as! AnimalNode).animal.getPoint()
+                    var point = (node as! AnimalNode).animal.getPoint()
+                    var side = (node as! AnimalNode).animal.side
+                    if (x < GAME_VIEW_LEFT_BOUNDARY && side == .RIGHT) || (x > GAME_VIEW_RIGHT_BOUNDARY && side == .LEFT) {
+                        scoreNode[sideIndex].score += point
+                    }
                     node.removeFromParent()
                 } else {
                     var factor: CGFloat = (sideIndex == 0) ? 1 : -1
