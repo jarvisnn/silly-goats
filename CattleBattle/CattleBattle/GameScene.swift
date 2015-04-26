@@ -292,7 +292,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
                 }
             }
             for i in 0..<GameModel.Constants.NUMBER_OF_BRIDGES {
-                arrows[i][1].removeFromParent()
+                for j in 0..<2 {
+                    arrows[i][j].removeFromParent()
+                }
             }
         }
     }
