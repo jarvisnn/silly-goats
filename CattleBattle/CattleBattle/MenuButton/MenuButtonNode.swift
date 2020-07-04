@@ -19,7 +19,7 @@ class MenuButtonNode: SKSpriteNode {
     
     init(buttonType: MenuButton.ButtonType, scale: CGFloat) {
         var button = MenuButton(type: buttonType)
-        super.init(texture: button.getTexture(), color: UIColor.clearColor(), size: button.getTexture().size())
+        super.init(texture: button.getTexture(), color: UIColor.clear, size: button.getTexture().size())
         
         self.clicked = Constants.reactions[find(MenuButton.ButtonType.allTypes, buttonType)!]
         self.name = Constants.IDENTIFIER
@@ -28,7 +28,7 @@ class MenuButtonNode: SKSpriteNode {
 
     }
     
-    override init(texture:SKTexture, color:SKColor, size:CGSize) {
+    override init(texture:SKTexture?, color:SKColor, size:CGSize) {
         super.init(texture:texture, color:color, size:size)
     }
     

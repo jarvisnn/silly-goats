@@ -34,10 +34,10 @@ class Animal {
         internal static let point: [Int] = [80, 60, 50, 35, 20]
 
         internal static func generateRandomAnimal() -> Size {
-            var total = probability.reduce(0, combine: +)
+            let total = probability.reduce(0, +)
             var rand = Int(arc4random_uniform(UInt32(total)))
             for i in 0..<allSizes.count {
-                var prob = probability[i]
+                let prob = probability[i]
                 if rand < prob {
                     return allSizes[i]
                 } else {
@@ -84,7 +84,7 @@ class Animal {
         }
         
         //get the array of textures from a texture sheet for running animation
-        internal static func getTextureList(#side: Side, size: Size, status: Status) -> [SKTexture] {
+        internal static func getTextureList(#side: Side, _ size: Size, status: Status) -> [SKTexture] {
             var spriteSheet = SKTexture(imageNamed:  Animal(side: side, size: size, status: status)._getImageFileName())
             if status == .DEPLOYED || status == .BUMPING {
                 spriteSheet.filteringMode = SKTextureFilteringMode.Nearest
@@ -94,7 +94,7 @@ class Animal {
             var y = 1.0 / CGFloat(SPRITE_SHEET_ROWS)
             for i in 0..<SPRITE_SHEET_ROWS {
                  for j in 0..<SPRITE_SHEET_COLS {
-                    var rectFrame = CGRectMake(CGFloat(j) * x, CGFloat(i) * y, x, y)
+                    var rectFrame = CGRect(x: CGFloat(j) * x, y: CGFloat(i) * y, width: x, height: y)
                     result.append(SKTexture(rect: rectFrame, inTexture: spriteSheet))
                 }
             }
@@ -106,7 +106,7 @@ class Animal {
     internal var size: Size
     internal var status: Status
     
-    private func _getImageFileName() -> String {
+    fileprivate func _getImageFileName() -> String {
         var fileName = join("-", [Constants.GOAT_KEYWORD, status.rawValue, side.rawValue, size.rawValue])
         return fileName + Constants.IMAGE_EXT
     }

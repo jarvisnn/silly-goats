@@ -34,7 +34,7 @@ class MenuButton {
         self.buttonType = type
     }
 
-    private func _getImageFileName() -> String {
+    fileprivate func _getImageFileName() -> String {
         var fileName = join("-", [Constants.BUTTON_KEYWORD, buttonType.rawValue])
         return fileName + Constants.IMAGE_EXT
     }

@@ -10,18 +10,18 @@ import SpriteKit
 
 class AnimationNode: SKSpriteNode {
     struct Constants {
-        private static let IDENTIFIER = "animationNode"
-        private static let IMAGE_EXT = ".png"
-        private static let ROTATION_SPEED: Double = 1
+        fileprivate static let IDENTIFIER = "animationNode"
+        fileprivate static let IMAGE_EXT = ".png"
+        fileprivate static let ROTATION_SPEED: Double = 1
         internal static let BLACKHOLE_IMAGE = "animation-blackHole"
     }
     
     internal var side: Animal.Side = .LEFT
     
     init(imageName: String, scale: CGFloat, parentScale: CGFloat) {
-        var _texture = SKTexture(imageNamed: imageName + Constants.IMAGE_EXT)
-        var _size = _texture.size()
-        super.init(texture: _texture, color: UIColor.clearColor(), size: _size * parentScale)
+        let _texture = SKTexture(imageNamed: imageName + Constants.IMAGE_EXT)
+        let _size = _texture.size()
+        super.init(texture: _texture, color: UIColor.clear, size: _size * parentScale)
         
         self.name = Constants.IDENTIFIER
         self.texture = _texture
@@ -29,12 +29,12 @@ class AnimationNode: SKSpriteNode {
         self.yScale = scale
     }
     
-    internal func rotateForever(angle: CGFloat, speed: Double) {
-        var action = SKAction.rotateByAngle(angle, duration: speed)
-        self.runAction(SKAction.repeatActionForever(action))
+    internal func rotateForever(_ angle: CGFloat, speed: Double) {
+        let action = SKAction.rotate(byAngle: angle, duration: speed)
+        self.run(SKAction.repeatForever(action))
     }
     
-    override init(texture:SKTexture, color:SKColor, size:CGSize) {
+    override init(texture:SKTexture?, color:SKColor, size:CGSize) {
         super.init(texture:texture, color:color, size:size)
     }
     

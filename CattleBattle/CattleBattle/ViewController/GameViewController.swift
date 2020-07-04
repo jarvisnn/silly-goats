@@ -18,17 +18,17 @@ class GameViewController: UIViewController {
     var riverView: UIView!
     var gameMode: GameModel.GameMode!
     
-    internal func setupGame(mode: GameModel.GameMode) {
+    internal func setupGame(_ mode: GameModel.GameMode) {
         gameMode = mode
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "backToPreviousScene:", name: GameScene.Constants.BACK_HOME_MESS, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(GameViewController.backToPreviousScene(_:)), name: NSNotification.Name(rawValue: GameScene.Constants.BACK_HOME_MESS), object: nil)
 
-        self.sheepView = SKView(frame: CGRectMake(0, 0, self.view!.frame.width, self.view!.frame.height))
-        self.riverView = SKView(frame: CGRectMake(0, 0, self.view!.frame.width, self.view!.frame.height))
+        self.sheepView = SKView(frame: CGRect(x: 0, y: 0, width: self.view!.frame.width, height: self.view!.frame.height))
+        self.riverView = SKView(frame: CGRect(x: 0, y: 0, width: self.view!.frame.width, height: self.view!.frame.height))
         
         
         if var scene = RiverScene.unarchiveFromFile("RiverScene") as? RiverScene {
@@ -36,13 +36,13 @@ class GameViewController: UIViewController {
             self.riverScene = scene
             
             skView.ignoresSiblingOrder = true
-            scene.scaleMode = .AspectFill
+            scene.scaleMode = .aspectFill
             
             self.view!.addSubview(skView)
-            self.view!.sendSubviewToBack(skView)
+            self.view!.sendSubview(toBack: skView)
             
             skView.allowsTransparency = true
-            scene.backgroundColor = UIColor.clearColor()
+            scene.backgroundColor = UIColor.clear
             skView.presentScene(scene)
         }
         
@@ -54,22 +54,22 @@ class GameViewController: UIViewController {
             self.sheepScene = scene
             
             skView.ignoresSiblingOrder = true
-            scene.scaleMode = .AspectFill
+            scene.scaleMode = .aspectFill
 
             self.view!.addSubview(skView)
-            self.view!.bringSubviewToFront(skView)
+            self.view!.bringSubview(toFront: skView)
             
             skView.allowsTransparency = true
-            scene.backgroundColor = UIColor.clearColor()
+            scene.backgroundColor = UIColor.clear
             skView.presentScene(scene)
         }
     }
 
-    override func shouldAutorotate() -> Bool {
+    override var shouldAutorotate : Bool {
         return true
     }
 
-    func backToPreviousScene(sender: NSNotification) {
-        navigationController?.popViewControllerAnimated(true)
+    func backToPreviousScene(_ sender: Notification) {
+        navigationController?.popViewController(animated: true)
     }
 }

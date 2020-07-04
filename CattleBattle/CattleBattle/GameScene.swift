@@ -12,23 +12,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     
     struct Constants {
         internal static let BACK_HOME_MESS = "backToPreviousScene"
-        private static var GENERATE_ITEM_KEY = "generateItem"
+        fileprivate static var GENERATE_ITEM_KEY = "generateItem"
         
-        private static var LAUNCH_X: [CGFloat]!
-        private static let LAUNCH_Y_TOP: CGFloat = 560
-        private static let LAUNCH_Y_GAP: CGFloat = 100
-        private static let LABEL_FONT = "Chalkduster"
-        private static let INFINITE: CGFloat = 1000000000
+        fileprivate static var LAUNCH_X: [CGFloat]!
+        fileprivate static let LAUNCH_Y_TOP: CGFloat = 560
+        fileprivate static let LAUNCH_Y_GAP: CGFloat = 100
+        fileprivate static let LABEL_FONT = "Chalkduster"
+        fileprivate static let INFINITE: CGFloat = 1000000000
         
-        private static let ITEM_VELOCITY: CGFloat = 300
-        private static let ITEM_INIT_VELOCITY = CGVectorMake(20, 0)
+        fileprivate static let ITEM_VELOCITY: CGFloat = 300
+        fileprivate static let ITEM_INIT_VELOCITY = CGVector(dx: 20, dy: 0)
         
-        private static let ITEM_SHOW_TIME: Double = 5
+        fileprivate static let ITEM_SHOW_TIME: Double = 5
         
-        private static let Z_INDEX_ITEM: CGFloat = 1000000
-        private static let Z_INDEX_CATEGORY: CGFloat = Z_INDEX_ITEM - 1
-        private static let Z_INDEX_SCREEN: CGFloat = Z_INDEX_ITEM + 1
-        private static let Z_INDEX_FRONT: CGFloat = INFINITE
+        fileprivate static let Z_INDEX_ITEM: CGFloat = 1000000
+        fileprivate static let Z_INDEX_CATEGORY: CGFloat = Z_INDEX_ITEM - 1
+        fileprivate static let Z_INDEX_SCREEN: CGFloat = Z_INDEX_ITEM + 1
+        fileprivate static let Z_INDEX_FRONT: CGFloat = INFINITE
         
         internal static let None: UInt32 = 0
         internal static let All: UInt32 = UInt32.max
@@ -39,69 +39,69 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         internal static let GAME_VIEW_RIGHT_BOUNDARY: CGFloat = 1100
         internal static let GAME_VIEW_LEFT_BOUNDARY: CGFloat = -100
         
-        private static let ROUND_TIME = 90
+        fileprivate static let ROUND_TIME = 90
         
-        private static let PAN_GESTURE_WIDTH = 3
-        private static let PAN_GESTURE_HEIGHT = 2
+        fileprivate static let PAN_GESTURE_WIDTH = 3
+        fileprivate static let PAN_GESTURE_HEIGHT = 2
     }
     
-    private let GAME_VIEW_RIGHT_BOUNDARY: CGFloat = 1100
-    private let GAME_VIEW_LEFT_BOUNDARY: CGFloat = -100
+    fileprivate let GAME_VIEW_RIGHT_BOUNDARY: CGFloat = 1100
+    fileprivate let GAME_VIEW_LEFT_BOUNDARY: CGFloat = -100
     
-    private var scoreNode: [ScoreNode] = Animal.Side.allSides.map({ (side) -> ScoreNode in
+    fileprivate var scoreNode: [ScoreNode] = Animal.Side.allSides.map({ (side) -> ScoreNode in
         return ScoreNode(side: side)
     })
     
-    private var arrows = [[ArrowNode]](count: GameModel.Constants.NUMBER_OF_BRIDGES, repeatedValue: [ArrowNode](count: Animal.Size.allSizes.count, repeatedValue: ArrowNode()))
-    private var loadingButton: [[LoadingNode]] = []
-    private var loadingBorder: [[BorderNode]] = []
+    fileprivate var arrows = [[ArrowNode]](repeating: [ArrowNode](repeating: ArrowNode(), count: Animal.Size.allSizes.count), count: GameModel.Constants.NUMBER_OF_BRIDGES)
+    fileprivate var loadingButton: [[LoadingNode]] = []
+    fileprivate var loadingBorder: [[BorderNode]] = []
     
-    private var pauseScreen: PauseScene!
-    private var gameOverScreen: GameOverScene!
+    fileprivate var pauseScreen: PauseScene!
+    fileprivate var gameOverScreen: GameOverScene!
     
-    private var categories = [CategoryNode](count: 2, repeatedValue: CategoryNode())
-    private var zIndex: CGFloat = 0
-    private var timerNode: SKLabelNode!
+    fileprivate var categories = [CategoryNode](repeating: CategoryNode(), count: 2)
+    fileprivate var zIndex: CGFloat = 0
+    fileprivate var timerNode: SKLabelNode!
     
-    private var item_velocity: CGVector = Constants.ITEM_INIT_VELOCITY
+    fileprivate var item_velocity: CGVector = Constants.ITEM_INIT_VELOCITY
     
-    private var frameCount: Int = 0
+    fileprivate var frameCount: Int = 0
     
-    private var gameModel: GameModel!
+    fileprivate var gameModel: GameModel!
 
-    private var _tapGesture: UITapGestureRecognizer!
-    private var _panGesture = [[UIPanGestureRecognizer]]()
+    fileprivate var _tapGesture: UITapGestureRecognizer!
+    fileprivate var _panGesture = [[UIPanGestureRecognizer]]()
 
-    internal func setupGame(mode: GameModel.GameMode) {
+    internal func setupGame(_ mode: GameModel.GameMode) {
         gameModel = GameModel(gameMode: mode)
     }
     
-    private func _setupRecognizer() {
-        _tapGesture = UITapGestureRecognizer(target: self, action: "tapHandler:")
+    fileprivate func _setupRecognizer() {
+        _tapGesture = UITapGestureRecognizer(target: self, action: #selector(GameScene.tapHandler(_:)))
         self.view!.addGestureRecognizer(_tapGesture)
 
         for i in 0..<Constants.PAN_GESTURE_WIDTH {
             _panGesture.append([])
             for j in 0..<Constants.PAN_GESTURE_HEIGHT {
-                _panGesture[i].append(UIPanGestureRecognizer(target: self, action: "panHandler:"))
+                _panGesture[i].append(UIPanGestureRecognizer(target: self, action: #selector(GameScene.panHandler(_:))))
                 self.view!.addGestureRecognizer(_panGesture[i][j])
                 _panGesture[i][j].maximumNumberOfTouches = 1
             }
         }
         
         for recognizer in self.view!.gestureRecognizers! {
-            (recognizer as! UIGestureRecognizer).delegate = self
+            (recognizer ).delegate = self
         }
     }
     
-    private func _setupTiming() {
+    fileprivate func _setupTiming() {
         timerNode = SKLabelNode(fontNamed: Constants.LABEL_FONT)
         timerNode.fontSize = 25
         timerNode.position = CGPoint(x: frame.width/2, y: 650);
         
         var timesecond = Constants.ROUND_TIME + 1
-        var actionwait = SKAction.waitForDuration(1)
-        var actionrun = SKAction.runBlock({
+        let actionwait = SKAction.wait(forDuration: 1)
+        let actionrun = SKAction.run({
             if --timesecond == -1 {
                 self._gameOver()
             } else if timesecond >= 0 {
@@ -109,11 +109,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             }
         })
         
-        timerNode.runAction(SKAction.repeatActionForever(SKAction.sequence([actionrun, actionwait])))
+        timerNode.run(SKAction.repeatForever(SKAction.sequence([actionrun, actionwait])))
         self.addChild(timerNode)
     }
     
-    private func _setupLoadingButton() {
+    fileprivate func _setupLoadingButton() {
         loadingButton = Animal.Side.allSides.map { (side) -> [LoadingNode] in
             return map(0..<GameModel.Constants.NUMBER_OF_RESERVED, { (index) -> LoadingNode in
                 var location: CGPoint
@@ -143,49 +143,49 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         updateLoadingBorder(.RIGHT)
     }
     
-    private func _setupPauseButton() {
+    fileprivate func _setupPauseButton() {
         MenuButtonNode.Constants.reactions = [_pauseGame, _restartGame, _backToHome, _continueGame]
 
-        var pauseButton = MenuButtonNode(buttonType: .PAUSE, scale: 1)
-        pauseButton.position = CGPointMake(frame.width / 2, frame.height - pauseButton.size.height / 2)
+        let pauseButton = MenuButtonNode(buttonType: .PAUSE, scale: 1)
+        pauseButton.position = CGPoint(x: frame.width / 2, y: frame.height - pauseButton.size.height / 2)
         self.addChild(pauseButton)
     }
     
-    private func _setupMinorScreen() {
+    fileprivate func _setupMinorScreen() {
         pauseScreen = PauseScene(size: self.frame.size)
         pauseScreen.zPosition = Constants.Z_INDEX_SCREEN
-        pauseScreen.position = CGPointMake(frame.width / 2, frame.height / 2)
+        pauseScreen.position = CGPoint(x: frame.width / 2, y: frame.height / 2)
         
         gameOverScreen = GameOverScene(size: self.frame.size)
         gameOverScreen.zPosition = Constants.Z_INDEX_SCREEN
-        gameOverScreen.position = CGPointMake(frame.width / 2, frame.height / 2)
+        gameOverScreen.position = CGPoint(x: frame.width / 2, y: frame.height / 2)
     }
     
-    private func _setupScore() {
+    fileprivate func _setupScore() {
         for side in Animal.Side.allSides {
             scoreNode[side.index].score = 0
             self.addChild(scoreNode[side.index])
         }
     }
     
-    private func _setupArrow() {
+    fileprivate func _setupArrow() {
         for i in 0..<GameModel.Constants.NUMBER_OF_BRIDGES {
-            var y = CGFloat(Constants.LAUNCH_Y_TOP - Constants.LAUNCH_Y_GAP * CGFloat(i))
+            let y = CGFloat(Constants.LAUNCH_Y_TOP - Constants.LAUNCH_Y_GAP * CGFloat(i))
             for side in Animal.Side.allSides {
                 arrows[i][side.index] = ArrowNode(side: side, index: i)
-                arrows[i][side.index].position = CGPointMake(side == .LEFT ? 50 : frame.width-50, y)
+                arrows[i][side.index].position = CGPoint(x: side == .LEFT ? 50 : frame.width-50, y: y)
                 arrows[i][side.index].zPosition = -Constants.INFINITE
                 self.addChild(arrows[i][side.index])
             }
         }
     }
     
-    private func _setupItem() {
+    fileprivate func _setupItem() {
         if gameModel.gameMode == .MULTIPLAYER {
-            runAction(SKAction.repeatActionForever(
+            run(SKAction.repeatForever(
                 SKAction.sequence([
-                    SKAction.runBlock(addItem),
-                    SKAction.waitForDuration(Constants.ITEM_SHOW_TIME)
+                    SKAction.run(addItem),
+                    SKAction.wait(forDuration: Constants.ITEM_SHOW_TIME)
                 ])
             ), withKey: Constants.GENERATE_ITEM_KEY)
         } else if gameModel.gameMode == .ITEM_MODE {
@@ -193,15 +193,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         }
     }
     
-    private func addItem() {
-        var item = PowerUpNode(type: .FREEZE)
+    fileprivate func addItem() {
+        let item = PowerUpNode(type: .FREEZE)
         item.randomPower()
         item.position = CGPoint(x: self.size.width/2, y: self.size.height/2)
         item.zPosition = Constants.Z_INDEX_ITEM
         
-        var x = Double(item_velocity.dx)
-        var y = Double(item_velocity.dy)
-        var a = M_PI/6
+        let x = Double(item_velocity.dx)
+        let y = Double(item_velocity.dy)
+        let a = M_PI/6
         item_velocity.dx = CGFloat(x * cos(a) - y * sin(a))
         item_velocity.dy = CGFloat(x * sin(a) + y * cos(a))
         
@@ -210,13 +210,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         item.physicsBody!.velocity = item_velocity
     }
     
-    private func randomNumber(from: Int, to: Int) -> CGFloat {
+    fileprivate func randomNumber(_ from: Int, to: Int) -> CGFloat {
         return CGFloat(arc4random_uniform(UInt32(to-from+1))) + CGFloat(from)
     }
     
-    private func generateItem() {
-        var _actionPack1 = SKAction.runBlock({
-            var item = PowerUpNode(type: .UPGRADE)
+    fileprivate func generateItem() {
+        let _actionPack1 = SKAction.run({
+            let item = PowerUpNode(type: .UPGRADE)
             item.randomPower()
             item.position = CGPoint(x: self.size.width/2 + self.randomNumber(-400, to: 400),
                 y: self.size.height/2 + self.randomNumber(-300, to: 300))
@@ -227,21 +227,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             item.showUp()
             self.addChild(item)
         })
-        var action1_1 = SKAction.sequence([_actionPack1, SKAction.waitForDuration(1.5)])
-        var action1_2 = SKAction.sequence([_actionPack1, SKAction.waitForDuration(1.0)])
-        var action1_3 = SKAction.sequence([_actionPack1, SKAction.waitForDuration(0.75)])
-        var action1_4 = SKAction.sequence([_actionPack1, SKAction.waitForDuration(0.5)])
+        let action1_1 = SKAction.sequence([_actionPack1, SKAction.wait(forDuration: 1.5)])
+        let action1_2 = SKAction.sequence([_actionPack1, SKAction.wait(forDuration: 1.0)])
+        let action1_3 = SKAction.sequence([_actionPack1, SKAction.wait(forDuration: 0.75)])
+        let action1_4 = SKAction.sequence([_actionPack1, SKAction.wait(forDuration: 0.5)])
         
-        var item_velocity = CGVectorMake(300, 0)
-        var _actionPack2 = SKAction.runBlock({
-            var item = PowerUpNode(type: .UPGRADE)
+        var item_velocity = CGVector(dx: 300, dy: 0)
+        let _actionPack2 = SKAction.run({
+            let item = PowerUpNode(type: .UPGRADE)
             item.randomPower()
             item.position = CGPoint(x: self.size.width/2, y: self.size.height/2)
             item.zPosition = Constants.Z_INDEX_ITEM
             
-            var x = Double(item_velocity.dx)
-            var y = Double(item_velocity.dy)
-            var a = M_PI/6
+            let x = Double(item_velocity.dx)
+            let y = Double(item_velocity.dy)
+            let a = M_PI/6
             item_velocity.dx = CGFloat(x * cos(a) - y * sin(a))
             item_velocity.dy = CGFloat(x * sin(a) + y * cos(a))
             
@@ -249,35 +249,35 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             item.showUp()
             self.addChild(item)
         })
-        var action2_1 = SKAction.sequence([_actionPack2, SKAction.waitForDuration(0.5)])
-        var action2_2 = SKAction.sequence([_actionPack2, SKAction.waitForDuration(0.3)])
-        var action2_3 = SKAction.sequence([_actionPack2, SKAction.waitForDuration(0.1)])
+        let action2_1 = SKAction.sequence([_actionPack2, SKAction.wait(forDuration: 0.5)])
+        let action2_2 = SKAction.sequence([_actionPack2, SKAction.wait(forDuration: 0.3)])
+        let action2_3 = SKAction.sequence([_actionPack2, SKAction.wait(forDuration: 0.1)])
         
-        self.runAction(SKAction.sequence([
-            SKAction.repeatAction(action1_1, count: 10),
-            SKAction.repeatAction(action1_2, count: 10),
-            SKAction.repeatAction(action1_3, count: 10),
-            SKAction.repeatAction(action1_4, count: 10),
-            SKAction.repeatAction(action2_1, count: 40),
-            SKAction.repeatAction(action2_2, count: 50),
-            SKAction.repeatAction(action2_3, count: 200)
+        self.run(SKAction.sequence([
+            SKAction.repeat(action1_1, count: 10),
+            SKAction.repeat(action1_2, count: 10),
+            SKAction.repeat(action1_3, count: 10),
+            SKAction.repeat(action1_4, count: 10),
+            SKAction.repeat(action2_1, count: 40),
+            SKAction.repeat(action2_2, count: 50),
+            SKAction.repeat(action2_3, count: 200)
         ]), withKey: Constants.GENERATE_ITEM_KEY)
     }
     
     
-    private func _setupCategory() {
+    fileprivate func _setupCategory() {
         for side in Animal.Side.allSides {
             categories[side.index] = CategoryNode(side: side)
-            var y = categories[side.index].size.height / 2
+            let y = categories[side.index].size.height / 2
             var x = categories[side.index].size.width / 2
             x = (side == .LEFT) ? x : frame.width - x
-            categories[side.index].position = CGPointMake(x, y)
+            categories[side.index].position = CGPoint(x: x, y: y)
             categories[side.index].zPosition = Constants.Z_INDEX_CATEGORY
             self.addChild(categories[side.index])
         }
     }
     
-    private func _hideUncessaryNode() {
+    fileprivate func _hideUncessaryNode() {
         if gameModel.gameMode == .SINGLE_PLAYER {
             for i in 0..<GameModel.Constants.NUMBER_OF_BRIDGES {
                 arrows[i][1].removeFromParent()
@@ -299,12 +299,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         }
     }
     
-    override func didMoveToView(view: SKView) {
+    override func didMove(to view: SKView) {
         
         Constants.LAUNCH_X = [self.frame.minX, self.frame.maxX]
         
         physicsWorld.contactDelegate = self
-        self.physicsWorld.gravity = CGVectorMake(0, 0)
+        self.physicsWorld.gravity = CGVector(dx: 0, dy: 0)
         
         _setupRecognizer()
         _setupTiming()
@@ -318,7 +318,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         _hideUncessaryNode()
     }
     
-    private func goatDidCollideWithAnother(goats: [AnimalNode]) {
+    fileprivate func goatDidCollideWithAnother(_ goats: [AnimalNode]) {
         for goat in goats {
             if goat.animal.status == .DEPLOYED {
                 goat.updateAnimalStatus(.BUMPING)
@@ -327,7 +327,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     }
     
     
-    func didBeginContact(contact: SKPhysicsContact) {
+    func didBegin(_ contact: SKPhysicsContact) {
         var bodyA: SKPhysicsBody = contact.bodyA
         var bodyB: SKPhysicsBody = contact.bodyB
         
@@ -349,9 +349,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         }
     }
     
-    internal func tapHandler(recognizer: UITapGestureRecognizer) {
-        var location = self.convertPointFromView(recognizer.locationInView(recognizer.view))
-        var node = self.nodeAtPoint(location)
+    internal func tapHandler(_ recognizer: UITapGestureRecognizer) {
+        let location = self.convertPoint(fromView: recognizer.location(in: recognizer.view))
+        let node = self.atPoint(location)
         
         if node.name == LoadingNode.Constants.IDENTIFIER {
             _selectButton(node as! LoadingNode)
@@ -364,16 +364,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         }
     }
     
-    internal func panHandler(recognizer: UIPanGestureRecognizer) {
-        var end = recognizer.locationInView(recognizer.view)
-        var translation = recognizer.translationInView(recognizer.view!)
-        var start = CGPointMake(end.x - translation.x, end.y - translation.y)
+    internal func panHandler(_ recognizer: UIPanGestureRecognizer) {
+        var end = recognizer.location(in: recognizer.view)
+        var translation = recognizer.translation(in: recognizer.view!)
+        var start = CGPoint(x: end.x - translation.x, y: end.y - translation.y)
         
-        start = self.convertPointFromView(start)
-        end = self.convertPointFromView(end)
+        start = self.convertPoint(fromView: start)
+        end = self.convertPoint(fromView: end)
         
-        var node = self.nodeAtPoint(start)
-        if recognizer.state == .Began {
+        var node = self.atPoint(start)
+        if recognizer.state == .began {
             if node.name == PowerUpNode.Constants.IDENTIFIER_STORED {
                 var itemNode = node as! PowerUpNode
                 var side = itemNode.side
@@ -382,20 +382,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
                 itemNode.updateItemStatus(.SELECTED)
             }
             
-        } else if recognizer.state == .Changed {
+        } else if recognizer.state == .changed {
             if node.name == PowerUpNode.Constants.IDENTIFIER {
                 if start != end {
                     node.position = end
-                    recognizer.setTranslation(CGPoint.zeroPoint, inView: recognizer.view)
+                    recognizer.setTranslation(CGPoint.zeroPoint, in: recognizer.view)
                 }
                 
             } else if node.name == PowerUpNode.Constants.IDENTIFIER_STORED {
                 Animation.draggingPowerUp((node as! PowerUpNode).powerUpItem.powerType, scene: self, position: end)
             }
             
-        } else if recognizer.state == .Ended {
+        } else if recognizer.state == .ended {
             if node.name == PowerUpNode.Constants.IDENTIFIER {
-                var speed = self.convertPointFromView(recognizer.velocityInView(recognizer.view))
+                var speed = self.convertPoint(fromView: recognizer.velocity(in: recognizer.view))
                 _applyVelocity(node, x: speed.x, y: speed.y)
             } else if node.name == PowerUpNode.Constants.IDENTIFIER_STORED {
                 var itemNode = node as! PowerUpNode
@@ -411,19 +411,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         }
     }
     
-    private func _isItemValid(itemNode: PowerUpNode, animalNode: AnimalNode) -> Bool {
+    fileprivate func _isItemValid(_ itemNode: PowerUpNode, animalNode: AnimalNode) -> Bool {
         if itemNode.powerUpItem.powerType == .FREEZE {
             return true
         }
         return (itemNode.side == animalNode.animal.side) == PowerUp.PowerType.targetFriendly(itemNode.powerUpItem.powerType)
     }
     
-    private func _isAnimalRemoved(node: AnimalNode) -> Bool {
-        if node.paused {
+    fileprivate func _isAnimalRemoved(_ node: AnimalNode) -> Bool {
+        if node.isPaused {
             return true
         }
-        if var body = node.physicsBody {
-            if !body.dynamic {
+        if let body = node.physicsBody {
+            if !body.isDynamic {
                 return true
             }
         } else {
@@ -432,7 +432,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         return false
     }
         
-    private func _findNearestAnimal(itemNode: PowerUpNode, effect: SKEmitterNode) -> AnimalNode? {
+    fileprivate func _findNearestAnimal(_ itemNode: PowerUpNode, effect: SKEmitterNode) -> AnimalNode? {
         var result: AnimalNode?
         for node in self.children {
             if var animalNode = node as? AnimalNode {
@@ -441,7 +441,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
                 var origin = effect.position - range
                 var effectFrame = CGRect(origin: origin, size: CGSize(width: size.x, height: size.y))
                 
-                var isOver = CGRectIntersection(effectFrame, animalNode.frame).size != CGSize.zeroSize
+                var isOver = effectFrame.intersection(animalNode.frame).size != CGSize.zeroSize
                 var isValid = _isItemValid(itemNode, animalNode: animalNode) && !_isAnimalRemoved(animalNode)
                 
                 if isOver && isValid {
@@ -458,7 +458,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         return result
     }
         
-    private func _applyPowerUp(item: PowerUpNode, target: AnimalNode) {
+    fileprivate func _applyPowerUp(_ item: PowerUpNode, target: AnimalNode) {
         var targets: [AnimalNode] = [target]
         var category = item.parent as! CategoryNode
         if item.powerUpItem.powerType == .FREEZE {
@@ -475,23 +475,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         Animation.applyPowerUp(item, targets: targets, scene: self, removeItemFunc: category.remove)
     }
     
-    override func update(currentTime: CFTimeInterval) {
+    override func update(_ currentTime: TimeInterval) {
         frameCount = (frameCount + 1) % 45
         for i in self.children {
-            var node = i as! SKNode
+            let node = i 
             
             if node.name == AnimalNode.Constants.IDENTIFIER {
-                var sideIndex = (node as! AnimalNode).animal.side.index
-                var x = node.position.x
+                let sideIndex = (node as! AnimalNode).animal.side.index
+                let x = node.position.x
                 if x < GAME_VIEW_LEFT_BOUNDARY || x > GAME_VIEW_RIGHT_BOUNDARY {
-                    var point = (node as! AnimalNode).animal.getPoint()
-                    var side = (node as! AnimalNode).animal.side
+                    let point = (node as! AnimalNode).animal.getPoint()
+                    let side = (node as! AnimalNode).animal.side
                     if (x < GAME_VIEW_LEFT_BOUNDARY && side == .RIGHT) || (x > GAME_VIEW_RIGHT_BOUNDARY && side == .LEFT) {
                         scoreNode[sideIndex].score += point
                     }
                     node.removeFromParent()
                 } else {
-                    var factor: CGFloat = (sideIndex == 0) ? 1 : -1
+                    let factor: CGFloat = (sideIndex == 0) ? 1 : -1
                     if (node as! AnimalNode).physicsBody != nil {
                         (node as! AnimalNode).physicsBody!.velocity.dx = AnimalNode.Constants.VELOCITY * factor
                     }
@@ -499,35 +499,35 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             }
         }
         
-        if var AI = gameModel.AI {
-            var launchPair = AI.autoLaunch()
+        if let AI = gameModel.AI {
+            let launchPair = AI.autoLaunch()
             if launchPair.0 > -1 && frameCount == 1{
                 self.launchSheepForAI(launchPair.0, trackIndex: launchPair.1)
             }
         }
     }
         
-    private func _continueGame() {
+    fileprivate func _continueGame() {
         pauseScreen.removeFromParent()
         gameOverScreen.removeFromParent()
-        self.view!.paused = false
-        self.paused = false
+        self.view!.isPaused = false
+        self.isPaused = false
     }
     
-    private func _backToHome() {
-        NSNotificationCenter.defaultCenter().postNotificationName(Constants.BACK_HOME_MESS, object: nil)
+    fileprivate func _backToHome() {
+        NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.BACK_HOME_MESS), object: nil)
     }
     
-    private func _pauseGame() {
+    fileprivate func _pauseGame() {
         _moveToScreen(pauseScreen)
     }
     
-    private func _gameOver() {
+    fileprivate func _gameOver() {
         gameOverScreen.update()
         _moveToScreen(gameOverScreen)
     }
     
-    private func _restartGame() {
+    fileprivate func _restartGame() {
         _continueGame()
         
         for node in self.children {
@@ -542,7 +542,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             }
         }
         
-        self.removeActionForKey(Constants.GENERATE_ITEM_KEY)
+        self.removeAction(forKey: Constants.GENERATE_ITEM_KEY)
         
         setupGame(gameModel.gameMode)
         
@@ -554,25 +554,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         }
     }
     
-    private func _moveToScreen(screen: SKSpriteNode) {
-        self.runAction(SKAction.runBlock({
+    fileprivate func _moveToScreen(_ screen: SKSpriteNode) {
+        self.run(SKAction.run({
             self.addChild(screen)
         }), completion: {
-            self.view!.paused = true
-            self.paused = true
+            self.view!.isPaused = true
+            self.isPaused = true
         })
     }
     
-    private func _applyVelocity(node: SKNode, x: CGFloat, y: CGFloat) {
-        var le = CGPoint(x: x, y: y).getDistance()
+    fileprivate func _applyVelocity(_ node: SKNode, x: CGFloat, y: CGFloat) {
+        let le = CGPoint(x: x, y: y).getDistance()
         
-        node.physicsBody!.dynamic = true
+        node.physicsBody!.isDynamic = true
         if le != 0 {
             node.physicsBody!.velocity = CGVector(dx: x / le * Constants.ITEM_VELOCITY, dy: y / le * Constants.ITEM_VELOCITY)
         }
     }
     
-    private func _deploy(arrow: ArrowNode) {
+    fileprivate func _deploy(_ arrow: ArrowNode) {
         var side = arrow.side
         var selectedButton = gameModel.selectedGoat[side.index]
         var selectedRow = arrow.index
@@ -599,12 +599,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     }
     
     
-    private func _selectButton(node: LoadingNode) {
+    fileprivate func _selectButton(_ node: LoadingNode) {
         gameModel.selectForSide(node.animal.side, index: node.index)
         updateLoadingBorder(node.animal.side)
     }
     
-    private func updateLoadingBorder(side: Animal.Side) {
+    fileprivate func updateLoadingBorder(_ side: Animal.Side) {
         if side == .RIGHT && gameModel.gameMode == .SINGLE_PLAYER {
             return
         }
@@ -628,22 +628,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         }
     }
     
-    private func launchSheepForAI(readyIndex: Int, trackIndex: Int) {
+    fileprivate func launchSheepForAI(_ readyIndex: Int, trackIndex: Int) {
         gameModel.selectForSide(.RIGHT, index: readyIndex)
         _deploy(arrows[trackIndex][1])
     }
     
-    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
     
-    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         if gestureRecognizer == _tapGesture {
             return true
         }
         
-        var x = Double(touch.locationInView(self.view).x) / Double(self.view!.frame.width)
-        var y = Double(touch.locationInView(self.view).y) / Double(self.view!.frame.height)
+        var x = Double(touch.location(in: self.view).x) / Double(self.view!.frame.width)
+        var y = Double(touch.location(in: self.view).y) / Double(self.view!.frame.height)
         x *= Double(Constants.PAN_GESTURE_WIDTH)
         y *= Double(Constants.PAN_GESTURE_HEIGHT)
         x = min(floor(x), Double(Constants.PAN_GESTURE_WIDTH - 1))

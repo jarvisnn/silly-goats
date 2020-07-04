@@ -10,9 +10,9 @@ import SpriteKit
 
 
 extension SKNode {
-    class func unarchiveFromFile(file: String) -> SKNode? {
-        if var path = NSBundle.mainBundle().pathForResource(file, ofType: "sks") {
-            var sceneData = NSData(contentsOfFile: path, options: .DataReadingMappedIfSafe, error: nil)!
+    class func unarchiveFromFile(_ file: String) -> SKNode? {
+        if var path = Bundle.main.path(forResource: file, ofType: "sks") {
+            var sceneData = Data(bytesNoCopy: path, count: .DataReadingMappedIfSafe, deallocator: nil)!
             var archiver = NSKeyedUnarchiver(forReadingWithData: sceneData)
             
             archiver.setClass(self.classForKeyedUnarchiver(), forClassName: "SKScene")
@@ -26,14 +26,14 @@ extension SKNode {
 }
 
 extension SKEmitterNode {
-    class func getEmitterFromFile(filename: String) -> SKEmitterNode {
-        let resource = NSBundle.mainBundle().pathForResource(filename, ofType: "sks")
-        return NSKeyedUnarchiver.unarchiveObjectWithFile(resource!) as! SKEmitterNode
+    class func getEmitterFromFile(_ filename: String) -> SKEmitterNode {
+        let resource = Bundle.main.path(forResource: filename, ofType: "sks")
+        return NSKeyedUnarchiver.unarchiveObject(withFile: resource!) as! SKEmitterNode
     }
 }
 
 extension CGPoint {
-    func distanceTo(toPoint: CGPoint) -> CGFloat {
+    func distanceTo(_ toPoint: CGPoint) -> CGFloat {
         return (self - toPoint).getDistance()
     }
     

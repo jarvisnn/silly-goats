@@ -26,7 +26,7 @@ class PowerUpNode: SKSpriteNode {
     
     init(type: PowerUp.PowerType) {
         powerUpItem = PowerUp(type: type, status: .WAITING)
-        super.init(texture: powerUpItem.getTexture(), color: UIColor.clearColor(), size: powerUpItem.getTexture().size())
+        super.init(texture: powerUpItem.getTexture(), color: UIColor.clear, size: powerUpItem.getTexture().size())
         
         self.name = Constants.IDENTIFIER
 
@@ -35,14 +35,14 @@ class PowerUpNode: SKSpriteNode {
         
         
         self.physicsBody = SKPhysicsBody(circleOfRadius: self.size.height / 2)
-        if var physics = self.physicsBody {
+        if let physics = self.physicsBody {
             physics.categoryBitMask = GameScene.Constants.Item
             physics.contactTestBitMask = GameScene.Constants.Category
             physics.collisionBitMask = GameScene.Constants.Category | GameScene.Constants.Item
             
             physics.affectedByGravity = false
             physics.allowsRotation = false
-            physics.dynamic = true
+            physics.isDynamic = true
             
             physics.restitution = 0.3
             physics.friction = 0
@@ -54,15 +54,15 @@ class PowerUpNode: SKSpriteNode {
         updateItemStatus(powerUpItem.status)
     }
     
-    internal func updateItemStatus(status: PowerUp.Status) {
+    internal func updateItemStatus(_ status: PowerUp.Status) {
         self.powerUpItem.status = status
         self.texture = self.powerUpItem.getTexture()
     }
     
     internal func showUp() {
         self.alpha = 0
-        var action = SKAction.fadeInWithDuration(0.1)
-        self.runAction(action)
+        let action = SKAction.fadeIn(withDuration: 0.1)
+        self.run(action)
     }
     
     override init(texture: SKTexture!, color: UIColor!, size: CGSize) {
