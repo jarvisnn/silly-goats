@@ -30,7 +30,7 @@ class CategoryNode: SKSpriteNode {
     }
     
     internal class func getTexture(_ side: Animal.Side) -> SKTexture {
-        return Constants._textures[Animal.Side.allSides.index(of: side)!]
+        return Constants._textures[Animal.Side.allSides.firstIndex(of: side)!]
     }
     
     fileprivate class func _getImageFileName(_ side: Animal.Side) -> String {
@@ -95,7 +95,7 @@ class CategoryNode: SKSpriteNode {
         let index = removedItem.side.index
         
         GameModel.Constants.gameModel.categorySelectedItem[index] = nil
-        items.remove(at: items.index(of: removedItem)!)
+        items.remove(at: items.firstIndex(of: removedItem)!)
         removedItem.removeFromParent()
         
         for (index, item) in items.enumerated() {

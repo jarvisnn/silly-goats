@@ -40,6 +40,6 @@ class MenuButton {
     }
     
     internal func getTexture() -> SKTexture {
-        return Constants.textures[ButtonType.allTypes.index(of: buttonType)!]
+        return Constants.textures[ButtonType.allTypes.firstIndex(of: buttonType)!]
     }
 }

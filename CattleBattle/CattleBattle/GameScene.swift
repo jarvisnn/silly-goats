@@ -378,7 +378,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             if node.name == PowerUpNode.Constants.IDENTIFIER_STORED {
                 let itemNode = node as! PowerUpNode
                 let side = itemNode.side
-                let index = categories[side.index].items.index(of: itemNode)
+                let index = categories[side.index].items.firstIndex(of: itemNode)
                 gameModel.categorySelectedItem[side.index] = index
                 itemNode.updateItemStatus(.SELECTED)
             }
@@ -612,7 +612,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         if gameModel.gameMode == .ITEM_MODE {
             return
         }
-        let j = gameModel.selectedGoat[Animal.Side.allSides.index(of: side)!]
+        let j = gameModel.selectedGoat[Animal.Side.allSides.firstIndex(of: side)!]
         for z in 0..<3 {
             if gameModel.isCattleReady(side, index: (j+z) % 3) {
                 gameModel.selectForSide(side, index: (j+z) % 3)

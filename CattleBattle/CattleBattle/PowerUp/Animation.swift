@@ -91,7 +91,7 @@ class Animation {
         upgradeSmoke.position = CGPoint(x: 0, y: node.size.height)
         node.addChild(upgradeSmoke)
         
-        let nextSize = Animal.Size.allSizes.index(of: node.animal.size)! + 1
+        let nextSize = Animal.Size.allSizes.firstIndex(of: node.animal.size)! + 1
         if nextSize < Animal.Size.allSizes.count {
             node.updateAnimalType(Animal.Size.allSizes[nextSize])
         }

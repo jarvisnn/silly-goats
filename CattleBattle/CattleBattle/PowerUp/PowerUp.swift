@@ -56,7 +56,7 @@ class PowerUp {
     }
     
     internal func getTexture() -> SKTexture {
-        return Constants.textures[Status.allStatus.index(of: status)!][PowerType.allTypes.index(of: powerType)!]
+        return Constants.textures[Status.allStatus.firstIndex(of: status)!][PowerType.allTypes.firstIndex(of: powerType)!]
     }
     
     init(type: PowerType, status: Status) {
@@ -69,7 +69,7 @@ class PowerUp {
     }
     
     internal func getImplementationType() -> Bool {
-        return PowerType.targeted[PowerType.allTypes.index(of: powerType)!]
+        return PowerType.targeted[PowerType.allTypes.firstIndex(of: powerType)!]
     }
 }
  

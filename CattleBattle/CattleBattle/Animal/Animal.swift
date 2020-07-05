@@ -113,20 +113,20 @@ class Animal {
     
     internal func getTexture() -> SKTexture {
         if status == .BUTTON {
-            return Constants.buttonTextures[Side.allSides.index(of: side)!][Size.allSizes.index(of: size)!]
+            return Constants.buttonTextures[Side.allSides.firstIndex(of: side)!][Size.allSizes.firstIndex(of: size)!]
         } else if status == .DEPLOYED {
-            return Constants.deployedTextures[Side.allSides.index(of: side)!][Size.allSizes.index(of: size)!][0]
+            return Constants.deployedTextures[Side.allSides.firstIndex(of: side)!][Size.allSizes.firstIndex(of: size)!][0]
         } else {
-            return Constants.bumpingTextures[Side.allSides.index(of: side)!][Size.allSizes.index(of: size)!][0]
+            return Constants.bumpingTextures[Side.allSides.firstIndex(of: side)!][Size.allSizes.firstIndex(of: size)!][0]
         }
     }
     
     internal func getDeployedTexture() -> [SKTexture] {
-        return Constants.deployedTextures[Side.allSides.index(of: side)!][Size.allSizes.index(of: size)!]
+        return Constants.deployedTextures[Side.allSides.firstIndex(of: side)!][Size.allSizes.firstIndex(of: size)!]
     }
     
     internal func getBumpingTexture() -> [SKTexture] {
-        return Constants.bumpingTextures[Side.allSides.index(of: side)!][Size.allSizes.index(of: size)!]
+        return Constants.bumpingTextures[Side.allSides.firstIndex(of: side)!][Size.allSizes.firstIndex(of: size)!]
     }
     
     init(side: Side, size: Size, status: Status) {
@@ -136,15 +136,15 @@ class Animal {
     }
     
     internal func getImageScale() -> CGFloat {
-        return Constants.scale[Status.allStatuses.index(of: status)!][Size.allSizes.index(of: size)!]
+        return Constants.scale[Status.allStatuses.firstIndex(of: status)!][Size.allSizes.firstIndex(of: size)!]
     }
     
     internal func getMass () -> CGFloat {
-        return Size.mass[Size.allSizes.index(of: size)!]
+        return Size.mass[Size.allSizes.firstIndex(of: size)!]
     }
     
     internal func getPoint() -> Int {
-        return Size.point[Size.allSizes.index(of: size)!]
+        return Size.point[Size.allSizes.firstIndex(of: size)!]
     }
 }
  

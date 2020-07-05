@@ -25,7 +25,7 @@ class AnimalNode: SKSpriteNode {
     }
 
     init(size: Animal.Size, side: Animal.Side, row: Int) {
-        let scale = Animal.Constants.scale[Animal.Status.allStatuses.index(of: animal.status)!][Animal.Size.allSizes.index(of:  animal.size)!]
+        let scale = Animal.Constants.scale[Animal.Status.allStatuses.firstIndex(of: animal.status)!][Animal.Size.allSizes.firstIndex(of:  animal.size)!]
         super.init(texture: animal.getTexture(), color: UIColor.clear, size: CGSize(width: scale, height: scale))
         
         self.name = Constants.IDENTIFIER

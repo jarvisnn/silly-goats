@@ -41,7 +41,7 @@ class GameSound {
     }
     
     internal func play(_ sound: Sound) {
-        if let index = Sound.allSounds.index(of: sound) {
+        if let index = Sound.allSounds.firstIndex(of: sound) {
             Constants.audio[index].volume = Sound.initialVolumn[index] * self.volumn
             Constants.audio[index].currentTime = Sound.startPoints[index]
             Constants.audio[index].play()
@@ -49,7 +49,7 @@ class GameSound {
     }
     
     internal func playForever(_ sound: Sound) {
-        if let index = Sound.allSounds.index(of: sound) {
+        if let index = Sound.allSounds.firstIndex(of: sound) {
             Constants.audio[index].numberOfLoops = -1
             Constants.audio[index].volume = Sound.initialVolumn[index] * self.volumn
             Constants.audio[index].currentTime = Sound.startPoints[index]
@@ -64,7 +64,7 @@ class GameSound {
     
     fileprivate func unarchiveFromFile(_ sound: GameSound.Sound) -> AVAudioPlayer  {
         let file = sound.rawValue
-        let type = Sound.types[Sound.allSounds.index(of: sound)!]
+        let type = Sound.types[Sound.allSounds.firstIndex(of: sound)!]
         
         let path = Bundle.main.path(forResource: file, ofType: type)
         let url = URL(fileURLWithPath: path!)

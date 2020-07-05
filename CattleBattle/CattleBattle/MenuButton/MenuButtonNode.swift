@@ -21,7 +21,7 @@ class MenuButtonNode: SKSpriteNode {
         let button = MenuButton(type: buttonType)
         super.init(texture: button.getTexture(), color: UIColor.clear, size: button.getTexture().size())
         
-        self.clicked = Constants.reactions[MenuButton.ButtonType.allTypes.index(of: buttonType)!]
+        self.clicked = Constants.reactions[MenuButton.ButtonType.allTypes.firstIndex(of: buttonType)!]
         self.name = Constants.IDENTIFIER
         self.xScale = scale
         self.yScale = scale
