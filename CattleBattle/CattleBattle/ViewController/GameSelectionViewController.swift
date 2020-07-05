@@ -11,31 +11,31 @@ import SpriteKit
 
 class GameSelectionViewController: UIViewController {
     
-    private var gameMode: GameModel.GameMode!
+    fileprivate var gameMode: GameModel.GameMode!
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any!) {
         if (segue.identifier == "moveToGameArea") {
-            var gameplay = segue.destinationViewController as! GameViewController;
+            let gameplay = segue.destination as! GameViewController;
             gameplay.setupGame(gameMode)
         }
     }
     
-    @IBAction func singlePlayerModeSelected(sender: AnyObject) {
+    @IBAction func singlePlayerModeSelected(_ sender: AnyObject) {
         gameMode = .SINGLE_PLAYER
-        performSegueWithIdentifier("moveToGameArea", sender: nil)
+        performSegue(withIdentifier: "moveToGameArea", sender: nil)
     }
     
-    @IBAction func multiplayerModeSelected(sender: AnyObject) {
+    @IBAction func multiplayerModeSelected(_ sender: AnyObject) {
         gameMode = .MULTIPLAYER
-        performSegueWithIdentifier("moveToGameArea", sender: nil)
+        performSegue(withIdentifier: "moveToGameArea", sender: nil)
     }
     
-    @IBAction func itemModeSelected(sender: AnyObject) {
+    @IBAction func itemModeSelected(_ sender: AnyObject) {
         gameMode = .ITEM_MODE
-        performSegueWithIdentifier("moveToGameArea", sender: nil)
+        performSegue(withIdentifier: "moveToGameArea", sender: nil)
     }
     
-    @IBAction func backButtonClicked(sender: AnyObject) {
-        navigationController?.popViewControllerAnimated(true)
+    @IBAction func backButtonClicked(_ sender: AnyObject) {
+        navigationController?.popViewController(animated: true)
     }
 }

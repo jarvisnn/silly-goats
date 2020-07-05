@@ -31,7 +31,7 @@ class EasyAI {
     
     func calcutateTrackToLaunch() -> Int {
         // Easy AI use random way to select the track
-        var rand: CGFloat = (CGFloat)(Float(arc4random()) / Float(UINT32_MAX))
+        let rand: CGFloat = (CGFloat)(Float(arc4random()) / Float(UINT32_MAX))
         return (Int)(rand*5)
     }
     

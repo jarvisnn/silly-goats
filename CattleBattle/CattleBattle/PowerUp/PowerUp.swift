@@ -30,7 +30,7 @@ class PowerUp {
             return allTypes[Int(arc4random_uniform(UInt32(PowerType.allTypes.count)))]
         }
         
-        internal static func targetFriendly(powerType: PowerType) -> Bool {
+        internal static func targetFriendly(_ powerType: PowerType) -> Bool {
             return (powerType == .UPGRADE) ? true : false
         }
     }
@@ -50,13 +50,13 @@ class PowerUp {
     internal var status: Status
     internal var powerType: PowerType
 
-    private func _getImageFileName() -> String {
-        var fileName = join("-", [Constants.POWERUP_KEYWORD, status.rawValue, powerType.rawValue])
+    fileprivate func _getImageFileName() -> String {
+        let fileName = [Constants.POWERUP_KEYWORD, status.rawValue, powerType.rawValue].joined(separator: "-")
         return fileName + Constants.IMAGE_EXT
     }
     
     internal func getTexture() -> SKTexture {
-        return Constants.textures[find(Status.allStatus, status)!][find(PowerType.allTypes, powerType)!]
+        return Constants.textures[Status.allStatus.firstIndex(of: status)!][PowerType.allTypes.firstIndex(of: powerType)!]
     }
     
     init(type: PowerType, status: Status) {
@@ -69,7 +69,7 @@ class PowerUp {
     }
     
     internal func getImplementationType() -> Bool {
-        return PowerType.targeted[find(PowerType.allTypes, powerType)!]
+        return PowerType.targeted[PowerType.allTypes.firstIndex(of: powerType)!]
     }
 }
  

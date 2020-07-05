@@ -25,11 +25,11 @@ class AnimalNode: SKSpriteNode {
     }
 
     init(size: Animal.Size, side: Animal.Side, row: Int) {
-        var scale = Animal.Constants.scale[find(Animal.Status.allStatuses, animal.status)!][find(Animal.Size.allSizes, animal.size)!]
-        super.init(texture: animal.getTexture(), color: UIColor.clearColor(), size: CGSize(width: scale, height: scale))
+        let scale = Animal.Constants.scale[Animal.Status.allStatuses.firstIndex(of: animal.status)!][Animal.Size.allSizes.firstIndex(of:  animal.size)!]
+        super.init(texture: animal.getTexture(), color: UIColor.clear, size: CGSize(width: scale, height: scale))
         
         self.name = Constants.IDENTIFIER
-        self.anchorPoint = CGPointMake(0.5, 0)
+        self.anchorPoint = CGPoint(x: 0.5, y: 0)
         
         self.animal = Animal(side: side, size: size, status: .DEPLOYED)
         self.row = row
@@ -38,20 +38,20 @@ class AnimalNode: SKSpriteNode {
         setupPhysicsBody()
     }
     
-    internal func updateAnimalStatus(status: Animal.Status) {
+    internal func updateAnimalStatus(_ status: Animal.Status) {
         self.animal.status = status
         self.texture = self.animal.getTexture()
         self.size = self.texture!.size() * animal.getImageScale()
         
-        var textures = status == .DEPLOYED ? animal.getDeployedTexture() : animal.getBumpingTexture()
-        var repeatedAction = SKAction.animateWithTextures(textures, timePerFrame: Constants.FRAME_TIME_DEPLOYED)
-        self.runAction(SKAction.repeatActionForever(repeatedAction))
+        let textures = status == .DEPLOYED ? animal.getDeployedTexture() : animal.getBumpingTexture()
+        let repeatedAction = SKAction.animate(with: textures, timePerFrame: Constants.FRAME_TIME_DEPLOYED)
+        self.run(SKAction.repeatForever(repeatedAction))
         
 
     }
     
-    private func setupPhysicsBody() {
-        var bodySize = CGSizeMake(Constants.PHYSICS_BODY_WIDTH, Constants.PHYSICS_BODY_HEIGHT)
+    fileprivate func setupPhysicsBody() {
+        let bodySize = CGSize(width: Constants.PHYSICS_BODY_WIDTH, height: Constants.PHYSICS_BODY_HEIGHT)
         var centerPoint: CGPoint
         if (animal.side == .LEFT) {
             centerPoint = CGPoint(x: self.size.width/2-bodySize.width/2, y: -self.size.height/2+bodySize.height/2)
@@ -59,7 +59,7 @@ class AnimalNode: SKSpriteNode {
             centerPoint = CGPoint(x: -self.size.width/2+bodySize.width/2, y: -self.size.height/2+bodySize.height/2)
         }
 
-        var body = SKPhysicsBody(rectangleOfSize: bodySize, center: centerPoint)
+        let body = SKPhysicsBody(rectangleOf: bodySize, center: centerPoint)
         
         body.categoryBitMask = GameScene.Constants.Goat
         body.contactTestBitMask = GameScene.Constants.Goat
@@ -70,7 +70,7 @@ class AnimalNode: SKSpriteNode {
         
         body.affectedByGravity = false
         body.allowsRotation = false
-        body.dynamic = true
+        body.isDynamic = true
         
         body.restitution = 0
         body.friction = 0
@@ -80,13 +80,13 @@ class AnimalNode: SKSpriteNode {
         self.physicsBody = body
     }
     
-    internal func updateAnimalType(size: Animal.Size) {
+    internal func updateAnimalType(_ size: Animal.Size) {
         self.animal.size = size
         updateAnimalStatus(self.animal.status)
         setupPhysicsBody()
     }
     
-    override init(texture: SKTexture!, color: UIColor!, size: CGSize) {
+    override init(texture: SKTexture!, color: UIColor, size: CGSize) {
         super.init(texture: texture, color: color, size: size)
     }
 

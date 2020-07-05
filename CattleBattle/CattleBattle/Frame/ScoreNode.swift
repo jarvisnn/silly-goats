@@ -11,10 +11,10 @@ import SpriteKit
 class ScoreNode: SKLabelNode {
     
     struct Constants {
-        private static let LABEL_FONT = "Chalkduster"
-        private static let FONT_SIZE: CGFloat = 40
-        private static let POS_Y: CGFloat = 710
-        private static let POS_X: [CGFloat] = [420, 604]
+        fileprivate static let LABEL_FONT = "Chalkduster"
+        fileprivate static let FONT_SIZE: CGFloat = 40
+        fileprivate static let POS_Y: CGFloat = 710
+        fileprivate static let POS_X: [CGFloat] = [420, 604]
     }
     
     internal var side: Animal.Side!

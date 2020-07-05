@@ -10,8 +10,8 @@ import UIKit
 
 class InstructionViewController: UIViewController {
     
-    @IBAction func backButtonClicked(sender: AnyObject) {
-        self.navigationController!.popViewControllerAnimated(true)
+    @IBAction func backButtonClicked(_ sender: AnyObject) {
+        self.navigationController!.popViewController(animated: true)
     }
 }
 

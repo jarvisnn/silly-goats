@@ -26,7 +26,7 @@ class GameModel {
     }
     
     internal var readyList: [[Bool]] = Animal.Side.allSides.map { (_) -> [Bool] in
-        map(0..<Constants.NUMBER_OF_RESERVED, { (_) -> Bool in
+        (0..<Constants.NUMBER_OF_RESERVED).map({ (_) -> Bool in
             return true
         })
     }
@@ -43,11 +43,11 @@ class GameModel {
         Constants.gameModel = self
     }
 
-    internal func isCattleReady(side: Animal.Side, index: Int) -> Bool {
+    internal func isCattleReady(_ side: Animal.Side, index: Int) -> Bool {
         return readyList[side.index][index]
     }
     
-    internal func selectForSide(side: Animal.Side, index: Int) -> Bool {
+    internal func selectForSide(_ side: Animal.Side, index: Int) -> Bool {
         if isCattleReady(side, index: index) {
             selectedGoat[side.index] = index
             return true
@@ -55,7 +55,7 @@ class GameModel {
         return false
     }
     
-    internal func setCattleStatus(side: Animal.Side, index: Int, status: Bool) {
+    internal func setCattleStatus(_ side: Animal.Side, index: Int, status: Bool) {
         readyList[side.index][index] = status
     }
     

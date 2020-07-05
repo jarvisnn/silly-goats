@@ -10,13 +10,13 @@ import SpriteKit
 
 
 extension SKNode {
-    class func unarchiveFromFile(file: String) -> SKNode? {
-        if var path = NSBundle.mainBundle().pathForResource(file, ofType: "sks") {
-            var sceneData = NSData(contentsOfFile: path, options: .DataReadingMappedIfSafe, error: nil)!
-            var archiver = NSKeyedUnarchiver(forReadingWithData: sceneData)
+    class func unarchiveFromFile(_ file: String) -> SKNode? {
+        if let path = Bundle.main.url(forResource: file, withExtension: "sks") {
+            let sceneData = try! Data(contentsOf: path)
+            let archiver = NSKeyedUnarchiver(forReadingWith: sceneData)
             
             archiver.setClass(self.classForKeyedUnarchiver(), forClassName: "SKScene")
-            let scene = archiver.decodeObjectForKey(NSKeyedArchiveRootObjectKey) as! SKScene
+            let scene = archiver.decodeObject(forKey: NSKeyedArchiveRootObjectKey) as! SKScene
             archiver.finishDecoding()
             return scene
         } else {
@@ -26,14 +26,14 @@ extension SKNode {
 }
 
 extension SKEmitterNode {
-    class func getEmitterFromFile(filename: String) -> SKEmitterNode {
-        let resource = NSBundle.mainBundle().pathForResource(filename, ofType: "sks")
-        return NSKeyedUnarchiver.unarchiveObjectWithFile(resource!) as! SKEmitterNode
+    class func getEmitterFromFile(_ filename: String) -> SKEmitterNode {
+        let resource = Bundle.main.path(forResource: filename, ofType: "sks")
+        return NSKeyedUnarchiver.unarchiveObject(withFile: resource!) as! SKEmitterNode
     }
 }
 
 extension CGPoint {
-    func distanceTo(toPoint: CGPoint) -> CGFloat {
+    func distanceTo(_ toPoint: CGPoint) -> CGFloat {
         return (self - toPoint).getDistance()
     }
     
