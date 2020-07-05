@@ -39,7 +39,7 @@ class GameViewController: UIViewController {
             scene.scaleMode = .aspectFill
             
             self.view!.addSubview(skView)
-            self.view!.sendSubview(toBack: skView)
+            self.view!.sendSubviewToBack(skView)
             
             skView.allowsTransparency = true
             scene.backgroundColor = UIColor.clear
@@ -57,7 +57,7 @@ class GameViewController: UIViewController {
             scene.scaleMode = .aspectFill
 
             self.view!.addSubview(skView)
-            self.view!.bringSubview(toFront: skView)
+            self.view!.bringSubviewToFront(skView)
             
             skView.allowsTransparency = true
             scene.backgroundColor = UIColor.clear
@@ -69,7 +69,7 @@ class GameViewController: UIViewController {
         return true
     }
 
-    func backToPreviousScene(_ sender: Notification) {
+    @objc func backToPreviousScene(_ sender: Notification) {
         navigationController?.popViewController(animated: true)
     }
 }

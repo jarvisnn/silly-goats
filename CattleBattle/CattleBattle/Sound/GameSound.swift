@@ -58,7 +58,7 @@ class GameSound {
     }
     
     internal func setupAudio() {
-        try! AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+        try! AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category(rawValue: convertFromAVAudioSessionCategory(AVAudioSession.Category.playback)), mode: .default)
         try! AVAudioSession.sharedInstance().setActive(true)
     }
     
@@ -74,3 +74,8 @@ class GameSound {
 }
 
 private let _sharedInstance = GameSound()
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Category) -> String {
+	return input.rawValue
+}

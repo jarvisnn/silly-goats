@@ -350,7 +350,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         }
     }
     
-    internal func tapHandler(_ recognizer: UITapGestureRecognizer) {
+    @objc internal func tapHandler(_ recognizer: UITapGestureRecognizer) {
         let location = self.convertPoint(fromView: recognizer.location(in: recognizer.view))
         let node = self.atPoint(location)
         
@@ -365,7 +365,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         }
     }
     
-    internal func panHandler(_ recognizer: UIPanGestureRecognizer) {
+    @objc internal func panHandler(_ recognizer: UIPanGestureRecognizer) {
         var end = recognizer.location(in: recognizer.view)
         var translation = recognizer.translation(in: recognizer.view!)
         var start = CGPoint(x: end.x - translation.x, y: end.y - translation.y)
