@@ -35,11 +35,11 @@ class MenuButton {
     }
 
     fileprivate func _getImageFileName() -> String {
-        var fileName = join("-", [Constants.BUTTON_KEYWORD, buttonType.rawValue])
+        var fileName = [Constants.BUTTON_KEYWORD, buttonType.rawValue].joined(separator: "-")
         return fileName + Constants.IMAGE_EXT
     }
     
     internal func getTexture() -> SKTexture {
-        return Constants.textures[find(ButtonType.allTypes, buttonType)!]
+        return Constants.textures[ButtonType.allTypes.index(of: buttonType)!]
     }
 }

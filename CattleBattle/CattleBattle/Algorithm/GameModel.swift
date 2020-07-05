@@ -26,7 +26,7 @@ class GameModel {
     }
     
     internal var readyList: [[Bool]] = Animal.Side.allSides.map { (_) -> [Bool] in
-        map(0..<Constants.NUMBER_OF_RESERVED, { (_) -> Bool in
+        (0..<Constants.NUMBER_OF_RESERVED).map({ (_) -> Bool in
             return true
         })
     }

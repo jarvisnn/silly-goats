@@ -102,9 +102,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         var timesecond = Constants.ROUND_TIME + 1
         let actionwait = SKAction.wait(forDuration: 1)
         let actionrun = SKAction.run({
-            if --timesecond == -1 {
+            if timesecond - 1 == -1 {
                 self._gameOver()
             } else if timesecond >= 0 {
+                timesecond -= 1
                 self.timerNode.text = "\(timesecond/60):\(timesecond%60)"
             }
         })
@@ -115,7 +116,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     
     fileprivate func _setupLoadingButton() {
         loadingButton = Animal.Side.allSides.map { (side) -> [LoadingNode] in
-            return map(0..<GameModel.Constants.NUMBER_OF_RESERVED, { (index) -> LoadingNode in
+            return (0..<GameModel.Constants.NUMBER_OF_RESERVED).map( { (index) -> LoadingNode in
                 var location: CGPoint
                 var node = LoadingNode(side: side, index: index)
                 if side == .LEFT {
@@ -377,7 +378,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             if node.name == PowerUpNode.Constants.IDENTIFIER_STORED {
                 var itemNode = node as! PowerUpNode
                 var side = itemNode.side
-                var index = find(categories[side.index].items, itemNode)
+                var index = categories[side.index].items.index(of: itemNode)
                 gameModel.categorySelectedItem[side.index] = index
                 itemNode.updateItemStatus(.SELECTED)
             }
@@ -386,7 +387,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             if node.name == PowerUpNode.Constants.IDENTIFIER {
                 if start != end {
                     node.position = end
-                    recognizer.setTranslation(CGPoint.zeroPoint, in: recognizer.view)
+                    recognizer.setTranslation(CGPoint.zero, in: recognizer.view)
                 }
                 
             } else if node.name == PowerUpNode.Constants.IDENTIFIER_STORED {
@@ -441,7 +442,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
                 var origin = effect.position - range
                 var effectFrame = CGRect(origin: origin, size: CGSize(width: size.x, height: size.y))
                 
-                var isOver = effectFrame.intersection(animalNode.frame).size != CGSize.zeroSize
+                var isOver = effectFrame.intersection(animalNode.frame).size != CGSize.zero
                 var isValid = _isItemValid(itemNode, animalNode: animalNode) && !_isAnimalRemoved(animalNode)
                 
                 if isOver && isValid {
@@ -589,7 +590,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         var sprite = AnimalNode(size: currentSize, side: side, row: selectedRow)
         sprite.position.x = Constants.LAUNCH_X[side.index]
         sprite.position.y = y
-        sprite.zPosition = ++zIndex
+        sprite.zPosition = zIndex + 1
         self.addChild(sprite)
         
         var button = loadingButton[side.index][selectedButton]
@@ -611,7 +612,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         if gameModel.gameMode == .ITEM_MODE {
             return
         }
-        var j = gameModel.selectedGoat[find(Animal.Side.allSides, side)!]
+        var j = gameModel.selectedGoat[Animal.Side.allSides.index(of: side)!]
         for z in 0..<3 {
             if gameModel.isCattleReady(side, index: (j+z) % 3) {
                 gameModel.selectForSide(side, index: (j+z) % 3)

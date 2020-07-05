@@ -29,7 +29,7 @@ class Animation {
         node.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         node.position.y += node.size.height/2
         
-        blackHole.position = CGPoint.zeroPoint
+        blackHole.position = CGPoint.zero
         node.addChild(blackHole)
         
         blackHole.run(SKAction.scale(to: 1, duration: 0.6), completion: { () -> Void in
@@ -58,7 +58,7 @@ class Animation {
             var freezing = AnimationNode(imageName: "animation-freezing2.png", scale: 0.4, parentScale: node.animal.getImageScale())
             freezing.alpha = 0
             freezing.anchorPoint = CGPoint(x: 0.5, y: 0.2)
-            freezing.position = CGPoint.zeroPoint
+            freezing.position = CGPoint.zero
             freezing.zPosition = 1
             
             node.addChild(freezing)
@@ -91,7 +91,7 @@ class Animation {
         upgradeSmoke.position = CGPoint(x: 0, y: node.size.height)
         node.addChild(upgradeSmoke)
         
-        var nextSize = find(Animal.Size.allSizes, node.animal.size)! + 1
+        var nextSize = Animal.Size.allSizes.index(of: node.animal.size)! + 1
         if nextSize < Animal.Size.allSizes.count {
             node.updateAnimalType(Animal.Size.allSizes[nextSize])
         }

@@ -41,7 +41,7 @@ class GameSound {
     }
     
     internal func play(_ sound: Sound) {
-        if let index = find(Sound.allSounds, sound) {
+        if let index = Sound.allSounds.index(of: sound) {
             Constants.audio[index].volume = Sound.initialVolumn[index] * self.volumn
             Constants.audio[index].currentTime = Sound.startPoints[index]
             Constants.audio[index].play()
@@ -49,7 +49,7 @@ class GameSound {
     }
     
     internal func playForever(_ sound: Sound) {
-        if let index = find(Sound.allSounds, sound) {
+        if let index = Sound.allSounds.index(of: sound) {
             Constants.audio[index].numberOfLoops = -1
             Constants.audio[index].volume = Sound.initialVolumn[index] * self.volumn
             Constants.audio[index].currentTime = Sound.startPoints[index]
@@ -58,18 +58,18 @@ class GameSound {
     }
     
     internal func setupAudio() {
-        AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, error: nil)
-        AVAudioSession.sharedInstance().setActive(true, error: nil)
+        try! AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+        try! AVAudioSession.sharedInstance().setActive(true)
     }
     
     fileprivate func unarchiveFromFile(_ sound: GameSound.Sound) -> AVAudioPlayer  {
         var file = sound.rawValue
-        var type = Sound.types[find(Sound.allSounds, sound)!]
+        var type = Sound.types[Sound.allSounds.index(of: sound)!]
         
         var path = Bundle.main.path(forResource: file, ofType: type)
         var url = URL(fileURLWithPath: path!)
         var error: NSError?
-        return AVAudioPlayer(contentsOfURL: url, error: &error)!
+        return try! AVAudioPlayer(contentsOf: url)
     }
 }
 

@@ -51,12 +51,12 @@ class PowerUp {
     internal var powerType: PowerType
 
     fileprivate func _getImageFileName() -> String {
-        var fileName = join("-", [Constants.POWERUP_KEYWORD, status.rawValue, powerType.rawValue])
+        var fileName = [Constants.POWERUP_KEYWORD, status.rawValue, powerType.rawValue].joined(separator: "-")
         return fileName + Constants.IMAGE_EXT
     }
     
     internal func getTexture() -> SKTexture {
-        return Constants.textures[find(Status.allStatus, status)!][find(PowerType.allTypes, powerType)!]
+        return Constants.textures[Status.allStatus.index(of: status)!][PowerType.allTypes.index(of: powerType)!]
     }
     
     init(type: PowerType, status: Status) {
@@ -69,7 +69,7 @@ class PowerUp {
     }
     
     internal func getImplementationType() -> Bool {
-        return PowerType.targeted[find(PowerType.allTypes, powerType)!]
+        return PowerType.targeted[PowerType.allTypes.index(of: powerType)!]
     }
 }
  

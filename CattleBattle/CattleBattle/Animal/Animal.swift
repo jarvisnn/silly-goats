@@ -84,10 +84,10 @@ class Animal {
         }
         
         //get the array of textures from a texture sheet for running animation
-        internal static func getTextureList(#side: Side, _ size: Size, status: Status) -> [SKTexture] {
-            var spriteSheet = SKTexture(imageNamed:  Animal(side: side, size: size, status: status)._getImageFileName())
+        internal static func getTextureList(side: Side, size: Size, status: Status) -> [SKTexture] {
+            let spriteSheet = SKTexture(imageNamed:  Animal(side: side, size: size, status: status)._getImageFileName())
             if status == .DEPLOYED || status == .BUMPING {
-                spriteSheet.filteringMode = SKTextureFilteringMode.Nearest
+                spriteSheet.filteringMode = SKTextureFilteringMode.nearest
             }
             var result = [SKTexture]()
             var x = 1.0 / CGFloat(SPRITE_SHEET_COLS)
@@ -95,7 +95,7 @@ class Animal {
             for i in 0..<SPRITE_SHEET_ROWS {
                  for j in 0..<SPRITE_SHEET_COLS {
                     var rectFrame = CGRect(x: CGFloat(j) * x, y: CGFloat(i) * y, width: x, height: y)
-                    result.append(SKTexture(rect: rectFrame, inTexture: spriteSheet))
+                    result.append(SKTexture(rect: rectFrame, in: spriteSheet))
                 }
             }
             return result
@@ -107,26 +107,26 @@ class Animal {
     internal var status: Status
     
     fileprivate func _getImageFileName() -> String {
-        var fileName = join("-", [Constants.GOAT_KEYWORD, status.rawValue, side.rawValue, size.rawValue])
+        var fileName = [Constants.GOAT_KEYWORD, status.rawValue, side.rawValue, size.rawValue].joined(separator: "-")
         return fileName + Constants.IMAGE_EXT
     }
     
     internal func getTexture() -> SKTexture {
         if status == .BUTTON {
-            return Constants.buttonTextures[find(Side.allSides, side)!][find(Size.allSizes, size)!]
+            return Constants.buttonTextures[Side.allSides.index(of: side)!][Size.allSizes.index(of: size)!]
         } else if status == .DEPLOYED {
-            return Constants.deployedTextures[find(Side.allSides, side)!][find(Size.allSizes, size)!][0]
+            return Constants.deployedTextures[Side.allSides.index(of: side)!][Size.allSizes.index(of: size)!][0]
         } else {
-            return Constants.bumpingTextures[find(Side.allSides, side)!][find(Size.allSizes, size)!][0]
+            return Constants.bumpingTextures[Side.allSides.index(of: side)!][Size.allSizes.index(of: size)!][0]
         }
     }
     
     internal func getDeployedTexture() -> [SKTexture] {
-        return Constants.deployedTextures[find(Side.allSides, side)!][find(Size.allSizes, size)!]
+        return Constants.deployedTextures[Side.allSides.index(of: side)!][Size.allSizes.index(of: size)!]
     }
     
     internal func getBumpingTexture() -> [SKTexture] {
-        return Constants.bumpingTextures[find(Side.allSides, side)!][find(Size.allSizes, size)!]
+        return Constants.bumpingTextures[Side.allSides.index(of: side)!][Size.allSizes.index(of: size)!]
     }
     
     init(side: Side, size: Size, status: Status) {
@@ -136,15 +136,15 @@ class Animal {
     }
     
     internal func getImageScale() -> CGFloat {
-        return Constants.scale[find(Status.allStatuses, status)!][find(Size.allSizes, size)!]
+        return Constants.scale[Status.allStatuses.index(of: status)!][Size.allSizes.index(of: size)!]
     }
     
     internal func getMass () -> CGFloat {
-        return Size.mass[find(Size.allSizes, size)!]
+        return Size.mass[Size.allSizes.index(of: size)!]
     }
     
     internal func getPoint() -> Int {
-        return Size.point[find(Size.allSizes, size)!]
+        return Size.point[Size.allSizes.index(of: size)!]
     }
 }
  
