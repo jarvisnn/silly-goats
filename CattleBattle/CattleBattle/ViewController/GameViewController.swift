@@ -31,7 +31,7 @@ class GameViewController: UIViewController {
         self.riverView = SKView(frame: CGRect(x: 0, y: 0, width: self.view!.frame.width, height: self.view!.frame.height))
         
         
-        if var scene = RiverScene.unarchiveFromFile("RiverScene") as? RiverScene {
+        if let scene = RiverScene.unarchiveFromFile("RiverScene") as? RiverScene {
             let skView = self.riverView as! SKView
             self.riverScene = scene
             
@@ -48,7 +48,7 @@ class GameViewController: UIViewController {
         
         
         
-        if var scene = GameScene.unarchiveFromFile("GameScene") as? GameScene {
+        if let scene = GameScene.unarchiveFromFile("GameScene") as? GameScene {
             scene.setupGame(gameMode)
             let skView = self.sheepView as! SKView
             self.sheepScene = scene

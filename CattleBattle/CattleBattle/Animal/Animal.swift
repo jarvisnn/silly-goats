@@ -90,11 +90,11 @@ class Animal {
                 spriteSheet.filteringMode = SKTextureFilteringMode.nearest
             }
             var result = [SKTexture]()
-            var x = 1.0 / CGFloat(SPRITE_SHEET_COLS)
-            var y = 1.0 / CGFloat(SPRITE_SHEET_ROWS)
+            let x = 1.0 / CGFloat(SPRITE_SHEET_COLS)
+            let y = 1.0 / CGFloat(SPRITE_SHEET_ROWS)
             for i in 0..<SPRITE_SHEET_ROWS {
                  for j in 0..<SPRITE_SHEET_COLS {
-                    var rectFrame = CGRect(x: CGFloat(j) * x, y: CGFloat(i) * y, width: x, height: y)
+                    let rectFrame = CGRect(x: CGFloat(j) * x, y: CGFloat(i) * y, width: x, height: y)
                     result.append(SKTexture(rect: rectFrame, in: spriteSheet))
                 }
             }
@@ -107,7 +107,7 @@ class Animal {
     internal var status: Status
     
     fileprivate func _getImageFileName() -> String {
-        var fileName = [Constants.GOAT_KEYWORD, status.rawValue, side.rawValue, size.rawValue].joined(separator: "-")
+        let fileName = [Constants.GOAT_KEYWORD, status.rawValue, side.rawValue, size.rawValue].joined(separator: "-")
         return fileName + Constants.IMAGE_EXT
     }
     

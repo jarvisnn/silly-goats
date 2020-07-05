@@ -65,7 +65,7 @@ class PowerUpNode: SKSpriteNode {
         self.run(action)
     }
     
-    override init(texture: SKTexture!, color: UIColor!, size: CGSize) {
+    override init(texture: SKTexture!, color: UIColor, size: CGSize) {
         super.init(texture: texture, color: color, size: size)
     }
     

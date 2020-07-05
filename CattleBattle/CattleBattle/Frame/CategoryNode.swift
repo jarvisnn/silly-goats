@@ -34,7 +34,7 @@ class CategoryNode: SKSpriteNode {
     }
     
     fileprivate class func _getImageFileName(_ side: Animal.Side) -> String {
-        var fileName = [Constants.CATEGORY_KEYWORD, side.rawValue].joined(separator: "-")
+        let fileName = [Constants.CATEGORY_KEYWORD, side.rawValue].joined(separator: "-")
         return fileName + Constants.IMAGE_EXT
     }
 

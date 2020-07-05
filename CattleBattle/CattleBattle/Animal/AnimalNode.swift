@@ -25,7 +25,7 @@ class AnimalNode: SKSpriteNode {
     }
 
     init(size: Animal.Size, side: Animal.Side, row: Int) {
-        var scale = Animal.Constants.scale[Animal.Status.allStatuses.index(of: animal.status)!][Animal.Size.allSizes.index(of:  animal.size)!]
+        let scale = Animal.Constants.scale[Animal.Status.allStatuses.index(of: animal.status)!][Animal.Size.allSizes.index(of:  animal.size)!]
         super.init(texture: animal.getTexture(), color: UIColor.clear, size: CGSize(width: scale, height: scale))
         
         self.name = Constants.IDENTIFIER
@@ -86,7 +86,7 @@ class AnimalNode: SKSpriteNode {
         setupPhysicsBody()
     }
     
-    override init(texture: SKTexture!, color: UIColor!, size: CGSize) {
+    override init(texture: SKTexture!, color: UIColor, size: CGSize) {
         super.init(texture: texture, color: color, size: size)
     }
 

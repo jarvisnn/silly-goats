@@ -47,11 +47,11 @@ class LoadingNode: SKSpriteNode {
     
     internal func fadeAnimation(_ side: Animal.Side, index: Int) {
         self.alpha = 0
-        var action1 = SKAction.fadeAlpha(to: 0.5, duration: 3) //fadeInWithDuration(3)
-        var action2 = SKAction.scale(by: 1.2, duration: 0.3)
-        var action3 = action2.reversed()
-        var action4 = SKAction.fadeIn(withDuration: 0)
-        var actionList = SKAction.sequence([action1, action2 ,action3, action4])
+        let action1 = SKAction.fadeAlpha(to: 0.5, duration: 3) //fadeInWithDuration(3)
+        let action2 = SKAction.scale(by: 1.2, duration: 0.3)
+        let action3 = action2.reversed()
+        let action4 = SKAction.fadeIn(withDuration: 0)
+        let actionList = SKAction.sequence([action1, action2 ,action3, action4])
         self.run(actionList, completion: { () -> Void in
             GameModel.Constants.gameModel.setCattleStatus(side, index: index, status: true)
         })

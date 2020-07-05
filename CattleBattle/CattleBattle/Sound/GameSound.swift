@@ -63,11 +63,11 @@ class GameSound {
     }
     
     fileprivate func unarchiveFromFile(_ sound: GameSound.Sound) -> AVAudioPlayer  {
-        var file = sound.rawValue
-        var type = Sound.types[Sound.allSounds.index(of: sound)!]
+        let file = sound.rawValue
+        let type = Sound.types[Sound.allSounds.index(of: sound)!]
         
-        var path = Bundle.main.path(forResource: file, ofType: type)
-        var url = URL(fileURLWithPath: path!)
+        let path = Bundle.main.path(forResource: file, ofType: type)
+        let url = URL(fileURLWithPath: path!)
         var error: NSError?
         return try! AVAudioPlayer(contentsOf: url)
     }

@@ -39,7 +39,7 @@ class GameOverScene: SKSpriteNode {
     }
     
     internal func update() {
-        var score = GameModel.Constants.gameModel.score
+        let score = GameModel.Constants.gameModel.score
         for side in Animal.Side.allSides {
             _trophy[side.index].texture = GameOverScene._getTrophy(score[side.index], opponent: score[1 - side.index])
         }

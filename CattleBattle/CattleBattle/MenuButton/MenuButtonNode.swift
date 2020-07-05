@@ -18,7 +18,7 @@ class MenuButtonNode: SKSpriteNode {
     internal var clicked: (() -> ())!
     
     init(buttonType: MenuButton.ButtonType, scale: CGFloat) {
-        var button = MenuButton(type: buttonType)
+        let button = MenuButton(type: buttonType)
         super.init(texture: button.getTexture(), color: UIColor.clear, size: button.getTexture().size())
         
         self.clicked = Constants.reactions[MenuButton.ButtonType.allTypes.index(of: buttonType)!]

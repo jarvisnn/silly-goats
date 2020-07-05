@@ -22,7 +22,7 @@ class Animation {
     }
     
     fileprivate class func _applyBlackHole(_ scene: SKScene, node: AnimalNode) {
-        var blackHole = AnimationNode(imageName: "animation-blackHole", scale: 0.1, parentScale: node.animal.getImageScale())
+        let blackHole = AnimationNode(imageName: "animation-blackHole", scale: 0.1, parentScale: node.animal.getImageScale())
         blackHole.rotateForever(CGFloat(-M_PI), speed: 0.2)
         blackHole.zPosition = -1
         
@@ -55,7 +55,7 @@ class Animation {
         scene.addChild(fog)
         
         for node in nodes {
-            var freezing = AnimationNode(imageName: "animation-freezing2.png", scale: 0.4, parentScale: node.animal.getImageScale())
+            let freezing = AnimationNode(imageName: "animation-freezing2.png", scale: 0.4, parentScale: node.animal.getImageScale())
             freezing.alpha = 0
             freezing.anchorPoint = CGPoint(x: 0.5, y: 0.2)
             freezing.position = CGPoint.zero
@@ -63,14 +63,14 @@ class Animation {
             
             node.addChild(freezing)
             
-            var action1 = SKAction.run({
+            let action1 = SKAction.run({
                 node.physicsBody!.isDynamic = false
                 freezing.run(SKAction.fadeIn(withDuration: 0.5), completion: {
                     node.isPaused = true
                 })
             })
-            var action2 = SKAction.wait(forDuration: 5)
-            var action3 = SKAction.run({
+            let action2 = SKAction.wait(forDuration: 5)
+            let action3 = SKAction.run({
                 node.isPaused = false
                 freezing.run(SKAction.fadeOut(withDuration: 0.5), completion: {
                     node.physicsBody!.isDynamic = true
@@ -84,14 +84,14 @@ class Animation {
     }
     
     fileprivate class func _applyUpgrading(_ scene: SKScene, node: AnimalNode) {
-        var upgradeSmoke = SKEmitterNode.getEmitterFromFile("upgrade")
+        let upgradeSmoke = SKEmitterNode.getEmitterFromFile("upgrade")
         upgradeSmoke.zPosition = 1
         
         upgradeSmoke.particlePositionRange = CGVector(dx: node.size.width*2, dy: node.size.height*2)
         upgradeSmoke.position = CGPoint(x: 0, y: node.size.height)
         node.addChild(upgradeSmoke)
         
-        var nextSize = Animal.Size.allSizes.index(of: node.animal.size)! + 1
+        let nextSize = Animal.Size.allSizes.index(of: node.animal.size)! + 1
         if nextSize < Animal.Size.allSizes.count {
             node.updateAnimalType(Animal.Size.allSizes[nextSize])
         }
@@ -109,9 +109,9 @@ class Animation {
         node.zPosition = Constants.Z_INDEX_FRONT
         node.xScale = -1
         
-        var destination = node.animal.side == .LEFT ? GameScene.Constants.GAME_VIEW_LEFT_BOUNDARY : GameScene.Constants.GAME_VIEW_RIGHT_BOUNDARY
+        let destination = node.animal.side == .LEFT ? GameScene.Constants.GAME_VIEW_LEFT_BOUNDARY : GameScene.Constants.GAME_VIEW_RIGHT_BOUNDARY
         
-        var action = SKAction.moveTo(x: destination, duration: Double(abs(destination - node.position.x)) / Double(AnimalNode.Constants.VELOCITY*1.5))
+        let action = SKAction.moveTo(x: destination, duration: Double(abs(destination - node.position.x)) / Double(AnimalNode.Constants.VELOCITY*1.5))
         
         fire.targetNode = scene
         fire.run(action)
@@ -140,8 +140,8 @@ class Animation {
     }
     
     internal class func draggingPowerUp(_ powerType: PowerUp.PowerType, scene: SKScene, position: CGPoint) -> SKEmitterNode {
-        var fileName = Constants.DRAGGING_KEYWORD + powerType.rawValue
-        var effect = SKEmitterNode.getEmitterFromFile(fileName)
+        let fileName = Constants.DRAGGING_KEYWORD + powerType.rawValue
+        let effect = SKEmitterNode.getEmitterFromFile(fileName)
         effect.zPosition = -1
         effect.position = position
         effect.targetNode = scene

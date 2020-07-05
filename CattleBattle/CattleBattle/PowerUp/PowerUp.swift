@@ -51,7 +51,7 @@ class PowerUp {
     internal var powerType: PowerType
 
     fileprivate func _getImageFileName() -> String {
-        var fileName = [Constants.POWERUP_KEYWORD, status.rawValue, powerType.rawValue].joined(separator: "-")
+        let fileName = [Constants.POWERUP_KEYWORD, status.rawValue, powerType.rawValue].joined(separator: "-")
         return fileName + Constants.IMAGE_EXT
     }
     

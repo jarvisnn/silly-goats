@@ -15,7 +15,7 @@ class GameSelectionViewController: UIViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any!) {
         if (segue.identifier == "moveToGameArea") {
-            var gameplay = segue.destination as! GameViewController;
+            let gameplay = segue.destination as! GameViewController;
             gameplay.setupGame(gameMode)
         }
     }
